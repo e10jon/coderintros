@@ -1,0 +1,61 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom User Profile Photo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Thu Jan 22 2015 15:00:48 GMT+0100 (CET)\n"
+"PO-Revision-Date: Thu Jan 22 2015 15:14:05 GMT+0100 (CET)\n"
+"Last-Translator: prcadmin <im@olaflederer.com>\n"
+"Language-Team: \n"
+"Language: Dutch\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ../../plugins/custom-user-profile-photo\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
+"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
+"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
+"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Loco-Target-Locale: nl_NL\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#: ../3five_cupp.php:80 ../3five_cupp.php:114
+msgid "Upload New Image"
+msgstr "Upload een nieuwe foto"
+
+#: ../3five_cupp.php:83
+msgid "Change Current Image"
+msgstr "Wijzig huidig foto"
+
+#: ../3five_cupp.php:88
+msgid "Custom User Profile Photo"
+msgstr "Kies/upload je foto."
+
+#: ../3five_cupp.php:93
+msgid "Profile Photo"
+msgstr "Profiel foto"
+
+#: ../3five_cupp.php:100 ../3five_cupp.php:106
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: ../3five_cupp.php:101
+msgid "Edit"
+msgstr "Wijzigen"
+
+#: ../3five_cupp.php:116
+msgid "Use External URL"
+msgstr "Gebruik foto link/URL"
+
+#: ../3five_cupp.php:130
+msgid ""
+"Upload a custom photo for your user profile or use a URL to a pre-existing "
+"photo."
+msgstr "Upload een nieuw foto of kies er een foto uit de media bibliotheek."
+
+#: ../3five_cupp.php:131
+msgid "Update Profile to save your changes."
+msgstr "Klik \"Profiel bijwerken\" om de wijziging te bevestigen."

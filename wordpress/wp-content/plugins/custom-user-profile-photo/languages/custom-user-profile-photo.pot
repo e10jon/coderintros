@@ -1,0 +1,53 @@
+# Copyright (C) 2016 Custom User Profile Photo
+# This file is distributed under the same license as the Custom User Profile Photo package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom User Profile Photo 0.4\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-user-"
+"profile-photo\n"
+"POT-Creation-Date: 2016-08-17 21:05:46+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#. #-#-#-#-#  plugin.pot (Custom User Profile Photo 0.4)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: 3five_cupp.php:83
+msgid "Custom User Profile Photo"
+msgstr ""
+
+#: 3five_cupp.php:88
+msgid "Profile Photo"
+msgstr ""
+
+#: 3five_cupp.php:128
+msgid ""
+"Upload a custom photo for your user profile or use a URL to a pre-existing "
+"photo."
+msgstr ""
+
+#: 3five_cupp.php:129
+msgid "Update Profile to save your changes."
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (Custom User Profile Photo 0.4)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  plugin.pot (Custom User Profile Photo 0.4)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://3five.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A simple and effective custom WordPress user profile photo plugin. This "
+"plugin leverages the WordPress Media Uploader functionality. To use this "
+"plugin go to the users tab and select a user. The new field can be found "
+"below the password fields for that user."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "3five"
+msgstr ""

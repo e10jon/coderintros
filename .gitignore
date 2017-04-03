@@ -1,0 +1,10 @@
+.DS_Store
+npm-debug.log
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+.env.production
+Dockerrun.aws.json

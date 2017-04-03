@@ -1,0 +1,13 @@
+@import "~ace-css/css/ace.min.css";
+@import "~font-awesome/css/font-awesome.min.css";
+
+.ellipsis { text-overflow: ellipsis; }
+.fill-white { * { fill: #fff; } }
+.lh-1 { line-height: 1; }
+.min-height-100vh { min-height: 100vh; }
+.uppercase { text-transform: uppercase; }
+
+a {
+  color: #111;
+  text-decoration: none;
+}

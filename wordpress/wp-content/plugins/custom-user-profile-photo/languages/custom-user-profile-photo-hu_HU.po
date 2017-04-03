@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom User Profile Photo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-01 17:18:55\n"
+"PO-Revision-Date: 2015-09-25 10:34-0600\n"
+"Last-Translator: Vincent Listrani <vincent@3five.com>\n"
+"Language-Team: MediaMulti.Network <info@mediamulti.net>\n"
+"Language: hu_HU\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-SearchPath-0: ../../plugins/custom-user-profile-photo\n"
+
+#: ../3five_cupp.php:80 ../3five_cupp.php:114
+msgid "Upload New Image"
+msgstr "Új fotó feltöltése"
+
+#: ../3five_cupp.php:83
+msgid "Change Current Image"
+msgstr "Aktuális kép megváltoztatása"
+
+#: ../3five_cupp.php:88
+msgid "Custom User Profile Photo"
+msgstr "Egyedi profil fotó"
+
+#: ../3five_cupp.php:93
+msgid "Profile Photo"
+msgstr "Profil fotó"
+
+#: ../3five_cupp.php:100 ../3five_cupp.php:106
+msgid "Remove"
+msgstr "Eltávolítás"
+
+#: ../3five_cupp.php:101
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: ../3five_cupp.php:116
+msgid "Use External URL"
+msgstr "Külső link használata"
+
+#: ../3five_cupp.php:130
+msgid ""
+"Upload a custom photo for your user profile or use a URL to a pre-existing "
+"photo."
+msgstr ""
+"Töltsön fel egyedi profilfotót, vagy használjon egy interneten meglévőt URL "
+"megadásával."
+
+#: ../3five_cupp.php:131
+msgid "Update Profile to save your changes."
+msgstr "A változtatások elmentéséhez nyomjon a Mentés gombra."

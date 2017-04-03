@@ -1,0 +1,57 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "varnish-vcl",
+      "host": {
+        "sourcePath": "/var/app/current/varnish.vcl"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "wordpress",
+      "image": "<REPO_URI_BASE>/<WORDPRESS_REPO_NAME>:latest",
+      "environment": [
+        {
+          "name": "WP_ENV",
+          "value": "production"
+        }
+      ],
+      "memory": 384,
+      "mountPoints": [
+        {
+          "sourceVolume": "awseb-logs-wordpress",
+          "containerPath": "/var/log/apache2"
+        }
+      ]
+    },
+    {
+      "name": "react",
+      "image": "<REPO_URI_BASE>/<REACT_REPO_NAME>:latest",
+      "memory": 128
+    },
+    {
+      "name": "varnish",
+      "image": "million12/varnish",
+      "essential": true,
+      "memory": 256,
+      "links": [
+        "wordpress", "react"
+      ],
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "varnish-vcl",
+          "containerPath": "/etc/varnish/default.vcl",
+          "readOnly": true
+        }
+      ]
+    }
+  ]
+}

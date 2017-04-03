@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  mysql:
+    image: mariadb
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: wordact
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_PASSWORD: password
+      MYSQL_USER: user
+    volumes:
+      - ./wordpress/wordpress.sql:/docker-entrypoint-initdb.d/wordpress.sql
+
+  wordpress:
+    build:
+      context: ./wordpress
+    ports:
+      - "80:80"
+    links:
+      - mysql
+    volumes:
+      - ./wordpress:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      WP_ENV: development

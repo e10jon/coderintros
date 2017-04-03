@@ -1,0 +1,32 @@
+.wp-admin.post-type-attachment .compat-field-sizes input[type="text"], .compat-attachment-fields {
+	width: 100%;
+}
+
+.compat-attachment-fields .label {
+	width: 1%;
+	vertical-align: top;
+}
+
+#all-image-sizes-dropdown {
+	max-width: 100%;
+}
+
+#all-image-sizes-urls {
+	transition: all 1s ease-out;
+}
+
+.input-changed-bg {
+	background-color: #5EFB6E !important;
+}
+
+.display-sizes.if-no-js {
+	display: none;
+}
+
+.no-js .display-sizes.if-no-js {
+	display: initial;
+}
+
+.no-js .display-sizes.if-js {
+	display: none;
+}
