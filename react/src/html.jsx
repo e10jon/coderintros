@@ -57,13 +57,19 @@ const Html = props => {
 }
 
 Html.propTypes = {
-  cssUrls: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  cssUrls: PropTypes.arrayOf(PropTypes.shape()),
   finalState: PropTypes.shape().isRequired,
   helmet: PropTypes.shape().isRequired,
-  inlineCss: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  jsUrls: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  inlineCss: PropTypes.arrayOf(PropTypes.shape()),
+  jsUrls: PropTypes.arrayOf(PropTypes.shape()),
   resolvedData: PropTypes.shape().isRequired,
   rootString: PropTypes.string.isRequired
+}
+
+Html.defaultProps = {
+  cssUrls: [],
+  inlineCss: [],
+  jsUrls: []
 }
 
 export default Html

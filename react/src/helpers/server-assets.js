@@ -8,10 +8,15 @@ export const extractCssAndJsFromManifest = () => {
     return [cssUrls, jsUrls]
   } catch (err) {
     // the manifest is probably still compiling
+    return []
   }
 }
 
 export const convertCssUrlsToInlineStyles = cssUrls => {
+  if (!cssUrls) {
+    return
+  }
+
   const inlineCss = []
   if (process.env.NODE_ENV !== 'development') {
     cssUrls.forEach(({id, url}) => {
