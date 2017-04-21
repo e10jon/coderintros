@@ -5,7 +5,7 @@ import { SwitchComponent, routesProps } from 'routes'
 
 const findRoute = url => routesProps.find(routeProps => matchPath(url, routeProps))
 
-test('route matching', t => {
+test('all routes match properly', t => {
   t.is(findRoute('/category/x').path, '/(category|tag|author)/:slug')
   t.is(findRoute('/tag/x').path, '/(category|tag|author)/:slug')
   t.is(findRoute('/author/x').path, '/(category|tag|author)/:slug')

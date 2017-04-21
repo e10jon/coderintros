@@ -13,7 +13,7 @@ import { routesProps } from 'routes'
 import createStore from 'store/create-store'
 import { extractCssAndJsFromManifest, convertCssUrlsToInlineStyles } from 'helpers/server-assets'
 
-const koa = new Koa()
+export const koa = new Koa()
 const router = new Router()
 
 koa.use(async (ctx, next) => {
@@ -26,7 +26,9 @@ koa.use(async (ctx, next) => {
   }
 })
 
-koa.use(logger())
+if (['development', 'production'].includes(process.env.NODE_ENV)) {
+  koa.use(logger())
+}
 
 if (process.env.NODE_ENV === 'development') {
   const webpack = require('webpack')
