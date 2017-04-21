@@ -13,7 +13,7 @@ module.exports = {
   cache: commonConfig.cache,
   entry: [
     'babel-polyfill',
-    './src/server.jsx'
+    './src/start-server.js'
   ],
   externals: [
     nodeExternals({

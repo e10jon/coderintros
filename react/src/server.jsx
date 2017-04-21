@@ -13,7 +13,7 @@ import { routesProps } from 'routes'
 import createStore from 'store/create-store'
 import { extractCssAndJsFromManifest, convertCssUrlsToInlineStyles } from 'helpers/server-assets'
 
-export const koa = new Koa()
+const koa = new Koa()
 const router = new Router()
 
 koa.use(async (ctx, next) => {
@@ -98,4 +98,4 @@ routesProps.forEach(routeProps => {
 
 koa.use(router.routes()).use(router.allowedMethods())
 
-export default koa.listen(3000)
+export default koa

@@ -1,9 +1,9 @@
 import test from 'ava'
 import supertest from 'supertest'
 
-import { koa } from 'server'
+import koa from 'server'
 
-const server = koa.listen()
+const server = koa.listen(0)
 const request = supertest(server)
 
 test('server returns 200', async t => {
