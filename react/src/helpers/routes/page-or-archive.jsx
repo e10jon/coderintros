@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 import Archive from 'containers/archive'
 import SinglePost from 'containers/single-post'

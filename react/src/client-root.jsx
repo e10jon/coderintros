@@ -1,5 +1,6 @@
 import createBrowserHistory from 'history/createBrowserHistory'
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
