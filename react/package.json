@@ -56,6 +56,7 @@
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
     "babel-register": "^6.24.0",
+    "browser-env": "^2.0.30",
     "clean-webpack-plugin": "^0.1.16",
     "concurrently": "^3.4.0",
     "core-js": "^2.4.1",
@@ -93,6 +94,9 @@
   "ava": {
     "files": [
       "dist/test/tests.js"
+    ],
+    "require": [
+      "./test/setup-browser-env.js"
     ],
     "source": [
       "dist/test/tests.js"

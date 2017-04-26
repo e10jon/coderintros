@@ -9,7 +9,7 @@ delete window.__state
 
 const store = createStore({state})
 
-const renderRoot = () => (
+export const renderRoot = () => (
   Resolver.render(() => <Root store={store} />, document.getElementById('root'))
 )
 
