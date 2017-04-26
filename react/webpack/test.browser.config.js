@@ -5,17 +5,16 @@ const path = require('path')
 const createCommonConfig = require('./common.config')
 const commonConfig = createCommonConfig({
   babelTargets: {node: true},
-  cleanWebpackPath: 'dist/test',
   cssModuleUse: 'css-loader/locals'
 })
 
 module.exports = {
   devtool: 'source-map',
-  entry: ['babel-polyfill'].concat(glob.sync('./test/**/*.test.js*')),
+  entry: ['babel-polyfill'].concat(glob.sync('./test/browser/**/*.test.js*')),
   target: 'node',
   output: {
     path: path.resolve(__dirname, '../dist/test'),
-    filename: 'tests.js'
+    filename: 'browser-tests.js'
   },
   externals: [nodeExternals({
     whitelist: ['ace-css/css/ace.min.css']

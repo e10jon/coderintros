@@ -10,6 +10,11 @@ if (process.env.NODE_ENV === 'test') {
   resolve.modules.push('test')
 }
 
+let dotenvPath = `./.env.${process.env.NODE_ENV}`
+if (process.env.EXEC_ENV) {
+  dotenvPath = `${dotenvPath}.${process.env.EXEC_ENV}`
+}
+
 module.exports = ({babelTargets, cleanWebpackPath, cssModuleUse, fileLoaderEmitFile}) => ({
   cache: true,
   module: {
@@ -54,7 +59,7 @@ module.exports = ({babelTargets, cleanWebpackPath, cssModuleUse, fileLoaderEmitF
   },
   plugins: [
     new CleanWebpackPlugin(cleanWebpackPath, {root: path.resolve(__dirname, '..')}),
-    new Dotenv({path: `./.env.${process.env.NODE_ENV}`})
+    new Dotenv({path: dotenvPath})
   ],
   resolve
 })
