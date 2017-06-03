@@ -89,19 +89,22 @@
         }
       ],
       "image": "<REPO_URI_BASE>/<WORDPRESS_REPO_NAME>:latest",
-      "memory": 384,
+      "memoryReservation": 128,
       "name": "wordpress"
     },
     {
       "environment": [
         {
           "name": "NODE_ENV",
-          "value": ""
+          "value": "production"
         }
       ],
       "essential": true,
       "image": "<REPO_URI_BASE>/<REACT_REPO_NAME>:latest",
-      "memory": 128,
+      "links": [
+        "wordpress"
+      ],
+      "memoryReservation": 128,
       "name": "react"
     },
     {
@@ -111,7 +114,7 @@
         "react",
         "wordpress"
       ],
-      "memory": 256,
+      "memoryReservation": 128,
       "mountPoints": [
         {
           "sourceVolume": "varnish-vcl",
