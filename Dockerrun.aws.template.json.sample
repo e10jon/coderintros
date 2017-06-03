@@ -93,6 +93,12 @@
       "name": "wordpress"
     },
     {
+      "environment": [
+        {
+          "name": "NODE_ENV",
+          "value": ""
+        }
+      ],
       "essential": true,
       "image": "<REPO_URI_BASE>/<REACT_REPO_NAME>:latest",
       "memory": 128,
