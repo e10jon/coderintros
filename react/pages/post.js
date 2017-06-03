@@ -12,6 +12,7 @@ const Post = ({postsData}) => {
     <div>
       <Link href={postData.link}>
         <h1>{postData.title.rendered}</h1>
+        <div dangerouslySetInnerHTML={{__html: postData.content.rendered}} />
       </Link>
     </div>
   )

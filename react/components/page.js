@@ -38,9 +38,21 @@ export default function (Child: Object, {
         <div className='relative overflow-hidden'>
           <Head>
             <meta
-              content='width=device-width, initial-scale=1'
+              content='width=device-width,initial-scale=1'
               name='viewport'
             />
+
+            <link
+              href='/static/css/ace.min.css'
+              rel='stylesheet'
+              type='text/css'
+            />
+            <link
+              href='/static/css/app.css'
+              rel='stylesheet'
+              type='text/css'
+            />
+
             <script dangerouslySetInnerHTML={{__html: `window.HOST = "${global.HOST}";`}} />
           </Head>
 
