@@ -16,6 +16,10 @@ sub vcl_recv {
     return (synth(200, "OK"));
   }
 
+  if (req.url !~ "^\/wp-(admin|login)|preview=true") {
+    unset req.http.Cookie;
+  }
+
   if (req.url ~ "^/wp-") {
     set req.backend_hint = wordpress;
   } else {
@@ -25,4 +29,9 @@ sub vcl_recv {
 
 sub vcl_backend_response {
   set beresp.do_gzip = true;
+
+  if (bereq.url !~ "^\/wp-(admin|login)|preview=true") {
+    set beresp.ttl = 1d;
+    set beresp.http.Cache-Control = "public";
+  }
 }
