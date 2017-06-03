@@ -2,27 +2,68 @@ version: '3'
 
 services:
   mysql:
-    image: mariadb
-    ports:
-      - "3306:3306"
     environment:
-      MYSQL_DATABASE: wordact
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
       MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: user
+    image: mariadb:10.0
+    ports:
+      - 3306:3306
     volumes:
-      - ./wordpress/wordpress.sql:/docker-entrypoint-initdb.d/wordpress.sql
+      - ./data/wordpress.sql:/docker-entrypoint-initdb.d/wordpress.sql
 
   wordpress:
     build:
       context: ./wordpress
-    ports:
-      - "80:80"
-    links:
-      - mysql
-    volumes:
-      - ./wordpress:/var/www/html
     depends_on:
       - mysql
     environment:
-      WP_ENV: development
+      DB_NAME: wordpress
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_HOST: mysql
+      S3_UPLOADS_BUCKET:
+      S3_UPLOADS_KEY:
+      S3_UPLOADS_SECRET:
+      S3_UPLOADS_REGION:
+      S3_UPLOADS_USE_LOCAL: 'true'
+      S3_UPLOADS_BUCKET_URL:
+      AUTH_KEY: 123
+      AUTH_SALT: 123
+      LOGGED_IN_KEY: 123
+      LOGGED_IN_SALT: 123
+      NONCE_KEY: 123
+      NONCE_SALT: 123
+      SECURE_AUTH_KEY: 123
+      SECURE_AUTH_SALT: 123
+      WP_DEBUG: 'true'
+    links:
+      - mysql
+
+  react:
+    build:
+      context: ./react
+    command: npm run dev
+    depends_on:
+      - wordpress
+    environment:
+      NODE_ENV: development
+    links:
+      - wordpress
+    volumes:
+      - ./react:/usr/src/app
+      - /usr/src/app/node_modules
+
+  varnish:
+    depends_on:
+      - react
+      - wordpress
+    image: million12/varnish
+    links:
+      - react
+      - wordpress
+    ports:
+      - 80:80
+    volumes:
+      - ./varnish.vcl:/etc/varnish/default.vcl
