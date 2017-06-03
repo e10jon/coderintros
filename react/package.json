@@ -7,9 +7,9 @@
     "flow": "flow",
     "lint": "eslint .",
     "test": "NODE_PATH=. NODE_ENV=test ava --verbose --watch",
-    "dev": "NODE_PATH=. next",
-    "build": "NODE_PATH=. next build",
-    "start": "NODE_PATH=. next start"
+    "dev": "node index.js",
+    "build": "next build",
+    "start": "node index.js"
   },
   "author": "Ethan Jon",
   "license": "ISC",
@@ -43,25 +43,18 @@
   },
   "babel": {
     "env": {
-      "development": {
-        "presets": [
-          "next/babel",
-          "react"
-        ]
-      },
-      "production": {
-        "presets": [
-          "next/babel",
-          "react"
-        ]
-      },
       "test": {
         "presets": [
           "@ava/stage-4",
           "@ava/transform-test-files",
+          "next/babel",
           "react"
         ]
       }
-    }
+    },
+    "presets": [
+      "next/babel",
+      "react"
+    ]
   }
 }
