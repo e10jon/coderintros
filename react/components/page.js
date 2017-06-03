@@ -5,6 +5,7 @@ import Head from 'next/head'
 // import PropTypes from 'prop-types'
 
 import fetch from '../helpers/fetch'
+import Header from './header'
 
 export default function (Child: Object, {
   propPaths = () => ({}),
@@ -14,8 +15,8 @@ export default function (Child: Object, {
   class Page extends Component {
     static childContextTypes = Object.assign({}, {}, childContextTypes)
 
-    static async getInitialProps ({query}) {
-      const morePaths = propPaths({query})
+    static async getInitialProps ({asPath, query}) {
+      const morePaths = propPaths({asPath, query})
       const morePathsKeys = Object.keys(morePaths)
 
       const fetches = await Promise.all(morePathsKeys.map(k => (
@@ -44,6 +45,8 @@ export default function (Child: Object, {
           </Head>
 
           <div className='flex flex-column justify-between min-height-100vh'>
+            <Header />
+
             <main className='flex-auto bg-white'>
               <Child {...this.props} />
             </main>

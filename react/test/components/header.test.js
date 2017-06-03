@@ -1,8 +1,8 @@
 import test from 'ava'
 import React from 'react'
 
-import Page from '../../pages'
+import Header from '../../components/header'
 
 test('renders', t => {
-  t.truthy(<Page />)
+  t.truthy(<Header />)
 })

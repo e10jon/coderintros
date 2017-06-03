@@ -1,8 +1,8 @@
 import test from 'ava'
 import React from 'react'
 
-import Page from '../../pages'
+import Post from '../../pages/post'
 
 test('renders', t => {
-  t.truthy(<Page />)
+  t.truthy(<Post />)
 })

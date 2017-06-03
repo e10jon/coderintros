@@ -3,10 +3,19 @@
 import React from 'react'
 
 import createPage from '../components/page'
+import Link from '../helpers/link'
 
-const Home = (props: Object) => {
+const Home = ({postsData}) => {
   return (
-    <div>{'Welcome to next.js!'}</div>
+    <div>
+      {postsData.map(p => (
+        <div key={`Post${p.id}`}>
+          <Link href={p.link}>
+            {p.title.rendered}
+          </Link>
+        </div>
+      ))}
+    </div>
   )
 }
 
@@ -14,6 +23,6 @@ Home.displayName = 'Home'
 
 export default createPage(Home, {
   propPaths: () => ({
-    homeData: '/'
+    postsData: '/posts'
   })
 })
