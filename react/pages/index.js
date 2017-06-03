@@ -2,6 +2,10 @@
 
 import React from 'react'
 
-export default (props: Object) => (
+const Home = (props: Object) => (
   <div>{'Welcome to next.js!'}</div>
 )
+
+Home.displayName = 'Home'
+
+export default Home

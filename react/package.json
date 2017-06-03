@@ -5,21 +5,33 @@
   "main": "index.js",
   "scripts": {
     "flow": "flow",
-    "test": "NODE_ENV=test NODE_PATH=. ava --verbose --watch",
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "lint": "eslint .",
+    "test": "NODE_PATH=. NODE_ENV=test ava --verbose --watch",
+    "dev": "NODE_PATH=. next",
+    "build": "NODE_PATH=. next build",
+    "start": "NODE_PATH=. next start"
   },
   "author": "Ethan Jon",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.1",
+    "detect-node": "^2.0.3",
     "next": "^3.0.0-beta9",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
     "ava": "^0.19.1",
+    "babel-eslint": "^7.2.3",
     "babel-preset-react": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-flowtype": "^2.34.0",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.0.1",
+    "eslint-plugin-standard": "^3.0.1",
     "flow": "^0.2.3",
     "flow-bin": "^0.47.0"
   },
