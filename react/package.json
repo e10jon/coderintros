@@ -4,6 +4,7 @@
   "description": "Turning Wordpress API data into beautiful HTML markup since 2017.",
   "main": "index.js",
   "scripts": {
+    "test": "NODE_ENV=test NODE_PATH=. ava --verbose --watch",
     "dev": "next",
     "build": "next build",
     "start": "next start"
@@ -14,5 +15,26 @@
     "next": "^3.0.0-beta9",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "babel-preset-react": "^6.24.1"
+  },
+  "ava": {
+    "babel": "inherit",
+    "require": [
+      "babel-register"
+    ]
+  },
+  "babel": {
+    "env": {
+      "test": {
+        "presets": [
+          "@ava/stage-4",
+          "@ava/transform-test-files",
+          "react"
+        ]
+      }
+    }
   }
 }
