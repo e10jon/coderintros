@@ -35,7 +35,7 @@ export default function (Child: Object, {
 
     render () {
       return (
-        <div className='relative overflow-hidden'>
+        <div>
           <Head>
             <meta
               content='width=device-width,initial-scale=1'
@@ -56,7 +56,7 @@ export default function (Child: Object, {
             <script dangerouslySetInnerHTML={{__html: `window.HOST = "${global.HOST}";`}} />
           </Head>
 
-          <div className='flex flex-column justify-between min-height-100vh'>
+          <div className='flex flex-column max-width-2 mx-auto min-height-100vh'>
             <Header />
 
             <main className='flex-auto bg-white'>

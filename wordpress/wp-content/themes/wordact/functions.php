@@ -21,6 +21,6 @@ add_action( 'save_post', function () {
 
 // set an nonce cookie to give our react codebase the ability to access authorized routes
 // read about nonces here: https://codex.wordpress.org/WordPress_Nonces
-add_action( 'admin_init', function() {
-  setcookie( 'wp_rest_nonce',  wp_create_nonce( 'wp_rest' ), 0, '/');
+add_action( 'admin_init', function () {
+  setcookie( 'wp_rest_nonce',  wp_create_nonce( 'wp_rest' ), 0, '/' );
 } );

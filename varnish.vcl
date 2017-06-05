@@ -29,9 +29,4 @@ sub vcl_recv {
 
 sub vcl_backend_response {
   set beresp.do_gzip = true;
-
-  if (bereq.url !~ "^\/wp-(admin|login)|preview=true") {
-    set beresp.ttl = 1d;
-    set beresp.http.Cache-Control = "public";
-  }
 }

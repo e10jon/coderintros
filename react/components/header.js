@@ -5,7 +5,7 @@ import React from 'react'
 import Link from '../helpers/link'
 
 const Header = () => (
-  <header>
+  <header className='my1'>
     <Link href='/'>{'Home'}</Link>
   </header>
 )

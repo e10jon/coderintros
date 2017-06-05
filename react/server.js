@@ -8,6 +8,8 @@ module.exports = app.prepare().then(() => {
   return createServer((req, res) => {
     global.HOST = req.headers.host
 
+    res.setHeader('Cache-Control', 'public')
+
     const parsedUrl = parse(req.url, true)
     const {pathname, query} = parsedUrl
 
