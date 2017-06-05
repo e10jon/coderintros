@@ -48,6 +48,8 @@ define( 'MULTISITE',            true );
 define( 'SUBDOMAIN_INSTALL',    true );
 define( 'COOKIE_DOMAIN',        false );
 
+define( 'VARNISH_HOST', 'http://varnish' );
+
 /**#@-*/
 
 /**
