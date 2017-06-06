@@ -14,9 +14,7 @@ update_option( 'large_crop', 1 );
 
 // every time a post is saved, clear the varnish cache
 add_action( 'save_post', function () {
-  if ( defined( VARNISH_HOST ) ) {
-    wp_remote_request( VARNISH_HOST, ['method' => 'BAN'] );
-  }
+  wp_remote_request( get_home_url(), ['method' => 'BAN'] );
 } );
 
 // set an nonce cookie to give our react codebase the ability to access authorized routes

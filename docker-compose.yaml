@@ -1,8 +1,5 @@
 version: '3'
 
-networks:
-  main:
-
 services:
   mysql:
     environment:
@@ -11,8 +8,6 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: user
     image: mariadb:10.0
-    networks:
-      - main
     ports:
       - 3306:3306
     volumes:
@@ -43,8 +38,6 @@ services:
       SECURE_AUTH_KEY: 123
       SECURE_AUTH_SALT: 123
       WP_DEBUG: 'true'
-    networks:
-      - main
 
   react:
     build:
@@ -54,8 +47,6 @@ services:
       - wordpress
     environment:
       NODE_ENV: development
-    networks:
-      - main
     volumes:
       - ./react:/usr/src/app
       - /usr/src/app/node_modules
@@ -65,8 +56,6 @@ services:
       - react
       - wordpress
     image: million12/varnish
-    networks:
-      - main
     ports:
       - 80:80
     volumes:
