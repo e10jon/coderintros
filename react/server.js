@@ -17,6 +17,8 @@ module.exports = app.prepare().then(() => {
     // e.g., /year/month/slug
     if (/\/\d{4}\/\d{2}\/.+/.test(pathname)) {
       app.render(req, res, '/post', query)
+    } else if (pathname && pathname !== '/') {
+      app.render(req, res, '/page', query)
     } else {
       app.getRequestHandler()(req, res, parsedUrl)
     }

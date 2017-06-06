@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react'
 import Head from 'next/head'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 import fetch from '../helpers/fetch'
 import Header from './header'
@@ -13,23 +13,29 @@ export default function (Child: Object, {
   getChildContext = () => ({})
 }: Object = {}) {
   class Page extends Component {
-    static childContextTypes = Object.assign({}, {}, childContextTypes)
+    static childContextTypes = Object.assign({}, {
+      pagesData: PropTypes.array
+    }, childContextTypes)
 
     static async getInitialProps ({asPath, query}) {
-      const morePaths = propPaths({asPath, query})
-      const morePathsKeys = Object.keys(morePaths)
+      const paths = Object.assign({}, {
+        pagesData: '/pages'
+      }, propPaths({asPath, query}))
+      const pathsKeys = Object.keys(paths)
 
-      const fetches = await Promise.all(morePathsKeys.map(k => (
-        fetch(morePaths[k])
+      const fetches = await Promise.all(pathsKeys.map(k => (
+        fetch(paths[k])
       )))
 
-      return morePathsKeys.reduce((obj, key, i) => {
+      return pathsKeys.reduce((obj, key, i) => {
         obj[key] = fetches[i].data
         return obj
       }, {})
     }
 
-    getChildContext = () => Object.assign({}, {}, getChildContext.call(this))
+    getChildContext = () => Object.assign({}, {
+      pagesData: this.props.pagesData
+    }, getChildContext.call(this))
 
     shouldComponentUpdate = () => false
 
@@ -56,7 +62,7 @@ export default function (Child: Object, {
             <script dangerouslySetInnerHTML={{__html: `window.HOST = "${global.HOST}";`}} />
           </Head>
 
-          <div className='flex flex-column max-width-2 mx-auto min-height-100vh'>
+          <div className='max-width-3 mx-auto px2 min-height-100vh'>
             <Header />
 
             <main className='flex-auto bg-white'>
