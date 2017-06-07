@@ -17,10 +17,6 @@ sub vcl_pipe {
 }
 
 sub vcl_recv {
-  if (req.http.Upgrade ~ "(?i)websocket") {
-    return (pipe);
-  }
-
   if (req.method == "BAN") {
     ban("req.url ~ " + req.url);
     return (synth(200, "OK"));
@@ -34,6 +30,10 @@ sub vcl_recv {
     set req.backend_hint = wordpress;
   } else {
     set req.backend_hint = react;
+  }
+
+  if (req.http.Upgrade ~ "(?i)websocket") {
+    return (pipe);
   }
 }
 
