@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react'
 import Head from 'next/head'
+import isNode from 'detect-node'
 import PropTypes from 'prop-types'
 
 import fetch from '../helpers/fetch'
@@ -17,14 +18,17 @@ export default function (Child: Object, {
       pagesData: PropTypes.array
     }, childContextTypes)
 
-    static async getInitialProps ({asPath, query}) {
+    static async getInitialProps ({asPath, req, query}) {
       const paths = Object.assign({}, {
         pagesData: '/pages'
       }, propPaths({asPath, query}))
       const pathsKeys = Object.keys(paths)
 
       const fetches = await Promise.all(pathsKeys.map(k => (
-        fetch(paths[k])
+        fetch({
+          cookiejar: isNode ? req.headers.cookie : window.document.cookie,
+          path: paths[k]
+        })
       )))
 
       return pathsKeys.reduce((obj, key, i) => {

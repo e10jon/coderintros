@@ -6,7 +6,7 @@ import createPage from '../components/page'
 import Link from '../helpers/link'
 
 const Post = ({postsData}) => {
-  const postData = postsData[0]
+  const postData = Array.isArray(postsData) ? postsData[0] : postsData
 
   return (
     <div>
@@ -21,7 +21,17 @@ const Post = ({postsData}) => {
 Post.displayName = 'Post'
 
 export default createPage(Post, {
-  propPaths: ({asPath}) => ({
-    postsData: `/posts?slug=${asPath.match(/\/\d{4}\/\d{2}\/(.+?)(\/|$)/)[1]}`
-  })
+  propPaths: ({asPath, query: {preview, preview_id, preview_nonce}}) => {
+    let path
+
+    if (preview) {
+      path = `/posts/${preview_id}/revisions?preview_nonce=${preview_nonce}`
+    } else {
+      path = `/posts?slug=${asPath.match(/\/\d{4}\/\d{2}\/(.+?)(\/|$)/)[1]}`
+    }
+
+    return {
+      postsData: path
+    }
+  }
 })

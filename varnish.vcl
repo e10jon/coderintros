@@ -10,13 +10,23 @@ backend react {
   .port = "3000";
 }
 
+sub vcl_pipe {
+  if (req.http.upgrade) {
+    set bereq.http.upgrade = req.http.upgrade;
+  }
+}
+
 sub vcl_recv {
+  if (req.http.Upgrade ~ "(?i)websocket") {
+    return (pipe);
+  }
+
   if (req.method == "BAN") {
     ban("req.url ~ " + req.url);
     return (synth(200, "OK"));
   }
 
-  if (req.url !~ "^\/wp-(admin|login)|preview=true") {
+  if (req.url !~ "^\/wp-(admin|login)" && req.url !~ "preview=true") {
     unset req.http.Cookie;
   }
 
