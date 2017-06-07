@@ -8,12 +8,14 @@ const axios = Axios.create()
 export default (opts: Object = {}) => {
   const path = typeof opts === 'string' ? opts : opts.path
   const method = opts.method || 'get'
-  const url = isNode ? `http://wordpress/wp-json/wp/v2${path}` : path
+  const url = isNode ? `http://wordpress/wp-json/wp/v2${path}` : `/wp-json/wp/v2${path}`
   const data = opts.data
   const restNonce = opts.cookiejar ? opts.cookiejar.match(/wp_rest_nonce=(.+?)(?:\s|$|;)/)[1] : undefined
 
-  const headers: Object = {
-    host: global.HOST
+  const headers: Object = {}
+
+  if (isNode) {
+    headers.host = global.HOST
   }
 
   if (restNonce) {

@@ -14,9 +14,12 @@ module.exports = app.prepare().then(() => {
     const parsedUrl = parse(req.url, true)
     const {pathname, query} = parsedUrl
 
-    if (['/favicon.ico'].indexOf(parsedUrl.pathname) > -1) {
+    if (['/favicon.ico'].indexOf(pathname) > -1) {
       // serve static files
-      app.serveStatic(req, res, join(__dirname, 'static', parsedUrl.pathname))
+      app.serveStatic(req, res, join(__dirname, 'static', pathname))
+    } else if (['/signup'].includes(pathname)) {
+      // pass pages straight through to next.js
+      app.getRequestHandler()(req, res, parsedUrl)
     } else if (/\/\d{4}\/\d{2}\/.+/.test(pathname)) {
       // regular post urls
       // this should match wordpress's permalink setting
