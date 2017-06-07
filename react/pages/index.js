@@ -23,6 +23,6 @@ Home.displayName = 'Home'
 
 export default createPage(Home, {
   propPaths: () => ({
-    postsData: '/posts'
+    postsData: '/wp/v2/posts'
   })
 })

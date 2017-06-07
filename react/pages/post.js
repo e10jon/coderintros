@@ -32,9 +32,9 @@ export default createPage(Post, {
     let path
 
     if (preview) {
-      path = `/posts/${p || preview_id}/revisions?preview_nonce=${preview_nonce}`
+      path = `/wp/v2/posts/${p || preview_id}/revisions?preview_nonce=${preview_nonce}`
     } else {
-      path = `/posts?_embed&slug=${asPath.match(/\/\d{4}\/\d{2}\/(.+?)(\/|$)/)[1]}`
+      path = `/wp/v2/posts?_embed&slug=${asPath.match(/\/\d{4}\/\d{2}\/(.+?)(\/|$)/)[1]}`
     }
 
     return {

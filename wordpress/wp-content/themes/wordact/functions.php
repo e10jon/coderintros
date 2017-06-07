@@ -22,3 +22,12 @@ add_action( 'save_post', function () {
 add_action( 'admin_init', function () {
   setcookie( 'wp_rest_nonce',  wp_create_nonce( 'wp_rest' ), 0, '/' );
 } );
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'wordact', '/get_nonce', [
+    'methods' => 'GET',
+    'callback' => function () {
+      return wp_create_nonce( 'wp_rest' );
+    }
+  ] );
+} );

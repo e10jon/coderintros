@@ -22,6 +22,6 @@ Page.displayName = 'Page'
 
 export default createPage(Page, {
   propPaths: ({asPath}) => ({
-    pagesData: `/pages?slug=${asPath.match(/\/(.+)/)[1]}`
+    pagesData: `/wp/v2/pages?slug=${asPath.match(/\/(.+)/)[1]}`
   })
 })
