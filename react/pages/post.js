@@ -21,11 +21,11 @@ const Post = ({postsData}) => {
 Post.displayName = 'Post'
 
 export default createPage(Post, {
-  propPaths: ({asPath, query: {preview, preview_id, preview_nonce}}) => {
+  propPaths: ({asPath, query: {p, preview, preview_id, preview_nonce}}) => {
     let path
 
     if (preview) {
-      path = `/posts/${preview_id}/revisions?preview_nonce=${preview_nonce}`
+      path = `/posts/${p || preview_id}/revisions?preview_nonce=${preview_nonce}`
     } else {
       path = `/posts?slug=${asPath.match(/\/\d{4}\/\d{2}\/(.+?)(\/|$)/)[1]}`
     }

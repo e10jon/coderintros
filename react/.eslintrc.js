@@ -11,6 +11,7 @@ module.exports = {
     'flowtype'
   ],
   rules: {
+    'camelcase': 'off',
     // 'react/forbid-component-props': 'off',
     'react/no-danger': 'off',
     // 'react/no-multi-comp': 'off',

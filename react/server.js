@@ -13,11 +13,16 @@ module.exports = app.prepare().then(() => {
     const parsedUrl = parse(req.url, true)
     const {pathname, query} = parsedUrl
 
-    // this should match wordpress's permalink setting
-    // e.g., /year/month/slug
     if (/\/\d{4}\/\d{2}\/.+/.test(pathname)) {
+      // regular post urls
+      // this should match wordpress's permalink setting
+      // e.g., /year/month/slug
+      app.render(req, res, '/post', query)
+    } else if (pathname === '/' && query.p) {
+      // when previewing an unsaved draft post
       app.render(req, res, '/post', query)
     } else if (pathname && pathname !== '/') {
+      // regular page urls
       app.render(req, res, '/page', query)
     } else {
       app.getRequestHandler()(req, res, parsedUrl)

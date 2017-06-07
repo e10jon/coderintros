@@ -12,7 +12,7 @@ export default (opts: Object = {}) => {
   const data = opts.data
   const restNonce = opts.cookiejar ? opts.cookiejar.match(/wp_rest_nonce=(.+?)(?:\s|$|;)/)[1] : undefined
 
-  const headers = {
+  const headers: Object = {
     host: global.HOST
   }
 
