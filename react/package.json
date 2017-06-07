@@ -6,7 +6,7 @@
   "scripts": {
     "flow": "flow",
     "lint": "eslint .",
-    "test": "NODE_PATH=. NODE_ENV=test ava --verbose --watch",
+    "test": "NODE_PATH=. NODE_ENV=test ava --verbose",
     "dev": "node index.js",
     "build": "next build",
     "start": "node index.js"
