@@ -16,12 +16,14 @@ export default function (Child: Object, {
 }: Object = {}) {
   class Page extends Component {
     static childContextTypes = Object.assign({}, {
-      pagesData: PropTypes.array
+      pagesData: PropTypes.array,
+      siteData: PropTypes.object
     }, childContextTypes)
 
     static async getInitialProps ({asPath, req, query}) {
       const paths = Object.assign({}, {
-        pagesData: '/wp/v2/pages'
+        pagesData: '/wp/v2/pages',
+        siteData: '/'
       }, propPaths({asPath, query}))
       const pathsKeys = Object.keys(paths)
 
@@ -39,7 +41,8 @@ export default function (Child: Object, {
     }
 
     getChildContext = () => Object.assign({}, {
-      pagesData: this.props.pagesData
+      pagesData: this.props.pagesData,
+      siteData: this.props.siteData
     }, getChildContext.call(this))
 
     shouldComponentUpdate = () => false

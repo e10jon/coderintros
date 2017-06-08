@@ -5,14 +5,14 @@ import PropTypes from 'prop-types'
 
 import Link from '../helpers/link'
 
-const Header = (props: Object, {pagesData}: Object) => (
+const Header = (props: Object, {pagesData, siteData}: Object) => (
   <header>
     <div className='center mt4 mb2'>
       <h1
         className='ups'
         style={{fontSize: '3rem'}}
       >
-        <Link href='/'>{'Wordact'}</Link>
+        <Link href='/'>{siteData.name}</Link>
       </h1>
     </div>
 
@@ -30,7 +30,8 @@ const Header = (props: Object, {pagesData}: Object) => (
 )
 
 Header.contextTypes = {
-  pagesData: PropTypes.array
+  pagesData: PropTypes.array,
+  siteData: PropTypes.object
 }
 
 export default Header

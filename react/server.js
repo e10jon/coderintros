@@ -24,13 +24,19 @@ module.exports = app.prepare().then(() => {
       // regular post urls
       // this should match wordpress's permalink setting
       // e.g., /year/month/slug
-      app.render(req, res, '/post', query)
+      app.render(req, res, '/post', Object.assign({}, {
+        type: 'posts',
+        slug: pathname.match(/\/\d{4}\/\d{2}\/(.+?)(\/|$)/)[1]
+      }, query))
     } else if (pathname === '/' && query.p) {
       // when previewing an unsaved draft post
-      app.render(req, res, '/post', query)
+      app.render(req, res, '/post', Object.assign({}, {type: 'posts'}, query))
     } else if (pathname && pathname !== '/') {
       // regular page urls
-      app.render(req, res, '/page', query)
+      app.render(req, res, '/post', Object.assign({}, {
+        type: 'pages',
+        slug: pathname.match(/\/(.+)/)[1]
+      }, query))
     } else {
       app.getRequestHandler()(req, res, parsedUrl)
     }

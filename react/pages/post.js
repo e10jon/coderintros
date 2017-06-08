@@ -1,9 +1,11 @@
 // @flow
 
 import React from 'react'
+import Head from 'next/head'
 import moment from 'moment'
 
 import createPage from '../components/page'
+import {featuredImage} from '../helpers/post-data'
 import Link from '../helpers/link'
 
 const Post = ({postsData}) => {
@@ -11,11 +13,17 @@ const Post = ({postsData}) => {
 
   return (
     <div>
-      <img
-        alt={postData._embedded && postData._embedded['wp:featuredmedia'] ? postData._embedded['wp:featuredmedia'][0].alt_text : ''}
-        className='block fit my3 bg-gray'
-        src={postData._embedded && postData._embedded['wp:featuredmedia'] ? postData._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url : '/static/img/default.svg'}
-      />
+      <Head>
+        <title>{postData.title.rendered}</title>
+        <meta
+          content={postData.excerpt.rendered}
+          name='description'
+        />
+      </Head>
+
+      <div className='my3'>
+        {featuredImage(postData, {size: 'large'})}
+      </div>
 
       <Link href={postData.link}>
         <h1>{postData.title.rendered}</h1>
@@ -34,13 +42,13 @@ const Post = ({postsData}) => {
 Post.displayName = 'Post'
 
 export default createPage(Post, {
-  propPaths: ({asPath, query: {p, preview, preview_id, preview_nonce}}) => {
+  propPaths: ({asPath, query: {p, preview, preview_id, preview_nonce, type, slug}}) => {
     let path
 
     if (preview) {
-      path = `/wp/v2/posts/${p || preview_id}/revisions?preview_nonce=${preview_nonce}`
+      path = `/wp/v2/${type}/${p || preview_id}/revisions?preview_nonce=${preview_nonce}`
     } else {
-      path = `/wp/v2/posts?_embed&slug=${asPath.match(/\/\d{4}\/\d{2}\/(.+?)(\/|$)/)[1]}`
+      path = `/wp/v2/${type}?_embed&slug=${slug}`
     }
 
     return {
