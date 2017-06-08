@@ -6,6 +6,7 @@ import isNode from 'detect-node'
 import PropTypes from 'prop-types'
 
 import fetch from '../helpers/fetch'
+import Footer from './footer'
 import Header from './header'
 
 export default function (Child: Object, {
@@ -72,6 +73,8 @@ export default function (Child: Object, {
             <main className='flex-auto bg-white'>
               <Child {...this.props} />
             </main>
+
+            <Footer />
           </div>
         </div>
       )

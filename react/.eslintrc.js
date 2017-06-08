@@ -12,7 +12,7 @@ module.exports = {
   ],
   rules: {
     'camelcase': 'off',
-    // 'react/forbid-component-props': 'off',
+    'react/forbid-component-props': 'off',
     'react/no-danger': 'off',
     // 'react/no-multi-comp': 'off',
     'react/jsx-no-bind': ['warn', {ignoreRefs: true}],

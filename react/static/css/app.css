@@ -1,5 +1,6 @@
+a { color: #111; text-decoration: none; }
 html, body { height: 100%; }
 h1, h2, h3, h4, h5, h6 { margin: 0; }
 ul { margin: 0; padding: 0; }
 
-.min-height-100vh { min-height: 100vh; }
+.ups { text-transform: uppercase; }

@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import moment from 'moment'
 
 import createPage from '../components/page'
 import Link from '../helpers/link'
@@ -10,17 +11,22 @@ const Post = ({postsData}) => {
 
   return (
     <div>
+      <img
+        alt={postData._embedded && postData._embedded['wp:featuredmedia'] ? postData._embedded['wp:featuredmedia'][0].alt_text : ''}
+        className='block fit my3 bg-gray'
+        src={postData._embedded && postData._embedded['wp:featuredmedia'] ? postData._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url : '/static/img/default.svg'}
+      />
+
       <Link href={postData.link}>
         <h1>{postData.title.rendered}</h1>
-        {postData._embedded && postData._embedded['wp:featuredmedia'] ? (
-          <img
-            alt={postData._embedded['wp:featuredmedia'][0].alt_text}
-            className='fit'
-            src={postData._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url}
-          />
-        ) : null}
-        <div dangerouslySetInnerHTML={{__html: postData.content.rendered}} />
       </Link>
+
+      <div className='my2 h5 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
+
+      <div
+        className='my3'
+        dangerouslySetInnerHTML={{__html: postData.content.rendered}}
+      />
     </div>
   )
 }
