@@ -4,6 +4,7 @@ import React from 'react'
 import Head from 'next/head'
 import moment from 'moment'
 import PropTypes from 'prop-types'
+import stripTags from 'striptags'
 
 import createPage from '../components/page'
 import {featuredImage} from '../helpers/post-data'
@@ -34,12 +35,14 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
 
           <div className='col-12 sm-col-8'>
             <div className='my2 sm-ml3'>
-              <h1>{postData.title.rendered}</h1>
+              <h1 className='my2'>{postData.title.rendered}</h1>
+
               <div
-                className='my1 gray'
-                dangerouslySetInnerHTML={{__html: postData.excerpt.rendered}}
+                className='my2 gray'
+                dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
               />
-              <div className='my1 h5 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
+
+              <div className='my2 h5 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
             </div>
           </div>
         </Link>

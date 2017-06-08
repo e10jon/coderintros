@@ -3,10 +3,12 @@
 import React from 'react'
 import Head from 'next/head'
 import moment from 'moment'
+import stripTags from 'striptags'
 
 import createPage from '../components/page'
 import {featuredImage} from '../helpers/post-data'
 import Link from '../helpers/link'
+import Share from '../components/share'
 
 const Post = ({postsData}) => {
   const postData = Array.isArray(postsData) ? postsData[0] : postsData
@@ -16,7 +18,7 @@ const Post = ({postsData}) => {
       <Head>
         <title>{postData.title.rendered}</title>
         <meta
-          content={postData.excerpt.rendered}
+          content={stripTags(postData.excerpt.rendered)}
           name='description'
         />
       </Head>
@@ -25,9 +27,9 @@ const Post = ({postsData}) => {
         {featuredImage(postData, {size: 'large'})}
       </div>
 
-      <Link href={postData.link}>
-        <h1>{postData.title.rendered}</h1>
-      </Link>
+      <h1 className='my2'>
+        <Link href={postData.link}>{postData.title.rendered}</Link>
+      </h1>
 
       <div className='my2 h5 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
 
@@ -35,6 +37,8 @@ const Post = ({postsData}) => {
         className='my3'
         dangerouslySetInnerHTML={{__html: postData.content.rendered}}
       />
+
+      <Share url={postData.link} />
     </div>
   )
 }
