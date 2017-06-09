@@ -21,7 +21,7 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
         />
       </Head>
 
-      <hr className='mt3 mb4 xs-hide' />
+      <hr className='mt3 mb3 sm-mb4' />
 
       {postsData.map(postData => (
         <Link
@@ -29,12 +29,12 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
           href={postData.link}
           key={`Post${postData.id}`}
         >
-          <div className='col-12 sm-col-4'>
+          <div className='col-3 sm-col-4'>
             {featuredImage(postData, {size: 'medium_large'})}
           </div>
 
-          <div className='col-12 sm-col-8'>
-            <div className='my2 sm-ml3'>
+          <div className='col-9 sm-col-8'>
+            <div className='my2 ml3'>
               <h1 className='my2'>{postData.title.rendered}</h1>
 
               <div

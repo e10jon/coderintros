@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 const Footer = (props: Object, {siteData}: Object) => (
   <footer>
-    <hr className='mt4 mb3' />
+    <hr className='mt3 mb3 sm-mt4' />
 
     <div
       className='center gray my3 h5 ups'
