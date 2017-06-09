@@ -48,6 +48,10 @@ define( 'NONCE_SALT',       $_ENV['NONCE_SALT'] );
 // define( 'SUBDOMAIN_INSTALL',    true );
 define( 'COOKIE_DOMAIN',        false );
 
+if ( strpos( $_SERVER['HTTP_X_FORWARDED_PROTO'], 'https' ) !== false ) {
+  $_SERVER['HTTPS'] = 'on';
+}
+
 /**#@-*/
 
 /**
