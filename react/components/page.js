@@ -5,6 +5,7 @@ import Head from 'next/head'
 import isNode from 'detect-node'
 import PropTypes from 'prop-types'
 
+import {gaInit} from '../helpers/raw'
 import fetch from '../helpers/fetch'
 import Footer from './footer'
 import Header from './header'
@@ -67,10 +68,14 @@ export default function (Child: Object, {
               type='text/css'
             />
 
-            <script dangerouslySetInnerHTML={{__html: `window.HOST = "${global.HOST}";`}} />
+            <script dangerouslySetInnerHTML={{__html: gaInit}} />
+            <script
+              async
+              src='/static/js/autotrack.js'
+            />
           </Head>
 
-          <div className='max-width-3 mx-auto px2 min-height-100vh'>
+          <div className='max-width-3 mx-auto px2'>
             <Header />
 
             <main className='flex-auto bg-white'>
