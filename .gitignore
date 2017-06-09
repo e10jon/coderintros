@@ -1,10 +1,8 @@
 .DS_Store
-npm-debug.log
+Dockerrun.aws.json
+deploy.sh
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
-
-Dockerrun.aws.json
-Dockerrun.aws.template.json

@@ -43,9 +43,9 @@ define( 'SECURE_AUTH_SALT', $_ENV['SECURE_AUTH_SALT'] );
 define( 'LOGGED_IN_SALT',   $_ENV['LOGGED_IN_SALT'] );
 define( 'NONCE_SALT',       $_ENV['NONCE_SALT'] );
 
-define( 'WP_ALLOW_MULTISITE',   true );
-define( 'MULTISITE',            true );
-define( 'SUBDOMAIN_INSTALL',    true );
+// define( 'WP_ALLOW_MULTISITE',   true );
+// define( 'MULTISITE',            true );
+// define( 'SUBDOMAIN_INSTALL',    true );
 define( 'COOKIE_DOMAIN',        false );
 
 /**#@-*/

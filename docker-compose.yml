@@ -7,7 +7,7 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: user
-    image: mariadb:10.0
+    image: mariadb:10.1
     ports:
       - 3306:3306
     volumes:
@@ -52,11 +52,10 @@ services:
       - /usr/src/app/node_modules
 
   varnish:
+    build:
+      context: ./varnish
     depends_on:
       - react
       - wordpress
-    image: million12/varnish
     ports:
       - 80:80
-    volumes:
-      - ./varnish.vcl:/etc/varnish/default.vcl
