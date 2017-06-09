@@ -20,7 +20,7 @@
     "next": "^3.0.0-beta11",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "striptags": "^3.0.1"
+    "striptags": "^2.2.1"
   },
   "devDependencies": {
     "ava": "^0.19.1",
