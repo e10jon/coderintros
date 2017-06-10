@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import createPage from '../components/page'
+import createPage from '../helpers/create-page'
 import fetch from '../helpers/fetch'
 
 const Signup = () => {

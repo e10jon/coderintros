@@ -7,7 +7,7 @@ const Share = ({url}: Object) => {
   const className = 'bg-silver inline-block py1 px2 h6 mr1'
 
   return (
-    <div>
+    <div className='my3 sm-my4'>
       <a
         className={className}
         href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
