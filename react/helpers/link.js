@@ -5,7 +5,7 @@ import NextLink from 'next/link'
 
 // by creating our own Link function, we can easily switch from hard <a> links
 // to soft <Link> tags, because of uncertainty in our analytics abilities
-const useHardLinks = true
+const useHardLinks = false
 
 export default function Link ({children, className, dangerouslySetInnerHTML, href, nextPath}: Object = {}) {
   const aProps: Object = {className}
