@@ -2,22 +2,35 @@
 
 import React from 'react'
 
-const Share = ({url}: Object) => {
+const Share = ({title, url}: Object) => {
   const encodedUrl = encodeURI(url)
-  const className = 'bg-silver inline-block py1 px2 h6 mr1'
+  const encodedTitle = encodeURI(title)
+  const className = 'white inline-block py1 px2 h6 mb1 ups bold'
 
   return (
-    <div className='my3 sm-my4'>
+    <div className='my3'>
+      <div className='gray my2'>{'If you enjoyed the article, please help by spreading the word:'}</div>
+
       <a
         className={className}
         href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+        style={{backgroundColor: '#3b5998'}}
       >
-        {'Facebook'}
+        {'Post to FB'}
+      </a>
+
+      <a
+        className={className}
+        href={`https://news.ycombinator.com/submitlink?u=${encodedUrl}&t=${encodedTitle}`}
+        style={{backgroundColor: '#ff6600'}}
+      >
+        {'Post to HN'}
       </a>
 
       <a
         className={className}
         href={`https://twitter.com/home?status=${encodedUrl}`}
+        style={{backgroundColor: '#0084b4'}}
       >
         {'Tweet'}
       </a>
@@ -25,8 +38,17 @@ const Share = ({url}: Object) => {
       <a
         className={className}
         href={`mailto:?&subject=You would like this page&body=Check%20out%20${encodedUrl}`}
+        style={{backgroundColor: '#738a8d'}}
       >
-        {'Email'}
+        {'Send email'}
+      </a>
+
+      <a
+        className={className}
+        href={`https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`}
+        style={{backgroundColor: '#FF5700'}}
+      >
+        {'Post to Reddit'}
       </a>
     </div>
   )

@@ -26,7 +26,7 @@ export function featuredImage (postData: Object, {className = 'block fit bg-gray
 
   // sort from smallest to largest
   const sizes: Object = Object.keys(sizesData)
-    .sort((k1, k2) => sizesData[k2].width < sizesData[k1].width)
+    .sort((k1, k2) => sizesData[k2].width < sizesData[k1].width ? 0 : -1)
     .reduce((obj, size) => {
       obj[size] = sizesData[size]
       return obj

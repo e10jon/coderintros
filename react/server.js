@@ -8,6 +8,14 @@ module.exports = app.prepare().then(() => {
   return createServer((req, res) => {
     global.HOST = req.headers.host
 
+    if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] !== 'https') {
+      res.statusCode = 301
+      res.setHeader('Content-Type', 'text/plain')
+      res.setHeader('Location', `https://${req.headers.host}${req.url}`)
+      res.end()
+      return
+    }
+
     res.setHeader('Cache-Control', 'public')
 
     const parsedUrl = parse(req.url, true)

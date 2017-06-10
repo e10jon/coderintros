@@ -39,7 +39,10 @@ const Post = ({postsData}) => {
         style={{fontSize: '1.125rem', lineHeight: '1.8'}}
       />
 
-      <Share url={postData.link} />
+      <Share
+        title={postData.title.rendered}
+        url={postData.link}
+      />
     </div>
   )
 }
