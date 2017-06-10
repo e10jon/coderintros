@@ -21,6 +21,15 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
         />
       </Head>
 
+      {siteData.description ? (
+        <div
+          className='center my2 gray p1 border border-gray mx-auto'
+          style={{backgroundColor: '#f8f8f8'}}
+        >
+          {siteData.description}
+        </div>
+      ) : null}
+
       {postsData.map(postData => (
         <Link
           className='flex flex-wrap items-center my2 sm-my3'
@@ -37,7 +46,7 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
 
               <div
                 className='my2 gray'
-                dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+                dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered).slice(0, 100)}}
               />
 
               <div className='my2 h5 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
