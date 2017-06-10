@@ -9,6 +9,7 @@ import {gaInit} from './raw'
 import fetch from './fetch'
 import Footer from '../components/footer'
 import Header from '../components/header'
+import LikeModal from '../components/modals/like'
 
 export default function (Child: Object, {
   propPaths = () => ({}),
@@ -184,6 +185,8 @@ export default function (Child: Object, {
             </main>
 
             <Footer />
+
+            <LikeModal />
           </div>
         </div>
       )

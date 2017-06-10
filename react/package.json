@@ -16,6 +16,8 @@
   "dependencies": {
     "axios": "^0.16.1",
     "detect-node": "^2.0.3",
+    "mobx": "^3.1.14",
+    "mobx-react": "^4.2.1",
     "moment": "^2.18.1",
     "next": "^3.0.0-beta11",
     "react": "^15.5.4",
