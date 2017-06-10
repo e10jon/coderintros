@@ -5,7 +5,7 @@ import React from 'react'
 import createModal from '../../helpers/create-modal'
 
 const Like = () => (
-  <div>{'modal'}</div>
+  <div>{'like us on facebook'}</div>
 )
 
 export default createModal(Like)

@@ -21,10 +21,7 @@ module.exports = app.prepare().then(() => {
     const parsedUrl = parse(req.url, true)
     const {pathname, query} = parsedUrl
 
-    if (['/signup'].includes(pathname)) {
-      // pass pages straight through to next.js
-      app.getRequestHandler()(req, res, parsedUrl)
-    } else if (/\/\d{4}\/\d{2}\/.+/.test(pathname)) {
+    if (/\/\d{4}\/\d{2}\/.+/.test(pathname)) {
       // regular post urls
       // this should match wordpress's permalink setting
       // e.g., /year/month/slug

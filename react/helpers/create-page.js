@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 
 import {gaInit} from './raw'
 import fetch from './fetch'
+import EmailModal from '../components/modals/email'
 import Footer from '../components/footer'
 import Header from '../components/header'
 import LikeModal from '../components/modals/like'
@@ -186,6 +187,7 @@ export default function (Child: Object, {
 
             <Footer />
 
+            <EmailModal />
             <LikeModal />
           </div>
         </div>
