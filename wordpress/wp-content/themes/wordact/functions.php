@@ -23,11 +23,34 @@ add_action( 'admin_init', function () {
   setcookie( 'wp_rest_nonce',  wp_create_nonce( 'wp_rest' ), 0, '/' );
 } );
 
+// add a facebook page setting in the Settings->General section
+add_action( 'admin_init', function () {
+  register_setting(
+    'general',
+    'facebook_page_url'
+  );
+
+  add_settings_field(
+    'facebook_page_url',
+    '<label for="facebook_page_url">' . __( 'Facebook Page (URL)' , 'facebook_page_url' ) . '</label>',
+    function () {
+      $option = get_option('facebook_page_url');
+      echo "<input id='facebook_page_url' name='facebook_page_url' size='40' type='text' class='regular-text code' value='{$option}' />";
+    },
+    'general'
+  );
+} );
+
+// add a custom endpoint for site details
 add_action( 'rest_api_init', function () {
-  register_rest_route( 'wordact', '/get_nonce', [
+  register_rest_route( 'wordact', '/site_details', [
     'methods' => 'GET',
     'callback' => function () {
-      return wp_create_nonce( 'wp_rest' );
-    }
+      return [
+        'name' => get_bloginfo( 'name' ),
+        'description' => get_bloginfo( 'description' ),
+        'facebook_page_url' => get_option( 'facebook_page_url' )
+      ];
+    },
   ] );
 } );

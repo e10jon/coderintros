@@ -25,7 +25,7 @@ export default function (Child: Object, {
     static async getInitialProps ({asPath, req, query}) {
       const paths = Object.assign({}, {
         pagesData: '/wp/v2/pages',
-        siteData: '/'
+        siteData: '/wordact/site_details'
       }, propPaths({asPath, query}))
       const pathsKeys = Object.keys(paths)
 
