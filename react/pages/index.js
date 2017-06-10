@@ -21,14 +21,7 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
         />
       </Head>
 
-      {siteData.description ? (
-        <div
-          className='center my2 gray p1 border border-gray mx-auto'
-          style={{backgroundColor: '#f8f8f8'}}
-        >
-          {siteData.description}
-        </div>
-      ) : null}
+      <hr className='mt3 mb3 sm-mb4 xs-hide ' />
 
       {postsData.map(postData => (
         <Link
