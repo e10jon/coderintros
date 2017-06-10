@@ -10,7 +10,7 @@ import {featuredImage} from '../helpers/post-data'
 import Link from '../helpers/link'
 import Share from '../components/share'
 
-const Post = ({postsData}) => {
+const Post = ({postsData, url: {query: {type}}}) => {
   const postData = Array.isArray(postsData) ? postsData[0] : postsData
 
   return (
@@ -31,7 +31,9 @@ const Post = ({postsData}) => {
         <Link href={postData.link}>{postData.title.rendered}</Link>
       </h1>
 
-      <div className='my2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
+      {type !== 'pages' ? (
+        <div className='my2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
+      ) : null}
 
       <div
         className='my3 serif post-content'
@@ -39,10 +41,13 @@ const Post = ({postsData}) => {
         style={{fontSize: '1.125rem', lineHeight: '1.8'}}
       />
 
-      <Share
-        title={postData.title.rendered}
-        url={postData.link}
-      />
+      {type !== 'pages' ? (
+        <Share
+          title={postData.title.rendered}
+          url={postData.link}
+        />
+      ) : null}
+
     </div>
   )
 }
