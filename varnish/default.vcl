@@ -10,6 +10,10 @@ backend react {
   .port = "3000";
 }
 
+sub vcl_hash {
+  hash_data(req.http.X-Forwarded-Proto);
+}
+
 sub vcl_pipe {
   if (req.http.upgrade) {
     set bereq.http.upgrade = req.http.upgrade;

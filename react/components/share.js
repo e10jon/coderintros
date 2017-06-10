@@ -9,8 +9,6 @@ const Share = ({title, url}: Object) => {
 
   return (
     <div className='my3'>
-      <div className='gray my2'>{'If you enjoyed the article, please help by spreading the word:'}</div>
-
       <a
         className={className}
         href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
