@@ -24,7 +24,8 @@
     "react-dom": "^15.5.4",
     "react-modal": "^1.7.12",
     "store": "^2.0.4",
-    "striptags": "^2.2.1"
+    "striptags": "^2.2.1",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "ava": "^0.19.1",
