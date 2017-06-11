@@ -1,6 +1,9 @@
 const {createServer} = require('http')
+const mobxReact = require('mobx-react')
 const {parse} = require('url')
 const next = require('next')
+
+mobxReact.useStaticRendering(true)
 
 const app = next({dev: process.env.NODE_ENV !== 'production'})
 
@@ -8,6 +11,7 @@ module.exports = app.prepare().then(() => {
   return createServer((req, res) => {
     global.HOST = req.headers.host
 
+    // if x-forwarded-proto is set, make sure the request is https
     if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] !== 'https') {
       res.statusCode = 301
       res.setHeader('Content-Type', 'text/plain')
@@ -16,6 +20,7 @@ module.exports = app.prepare().then(() => {
       return
     }
 
+    // cache everything. this will be overrided in development by next.js
     res.setHeader('Cache-Control', 'public')
 
     const parsedUrl = parse(req.url, true)

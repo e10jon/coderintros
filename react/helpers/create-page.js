@@ -5,9 +5,9 @@ import Head from 'next/head'
 import isNode from 'detect-node'
 import PropTypes from 'prop-types'
 
-import {gaInit} from './raw'
+import {createModalStore} from '../helpers/create-modal'
+import {fbInit, gaInit} from './raw'
 import fetch from './fetch'
-import EmailModal from '../components/modals/email'
 import Footer from '../components/footer'
 import Header from '../components/header'
 import LikeModal from '../components/modals/like'
@@ -19,6 +19,7 @@ export default function (Child: Object, {
 }: Object = {}) {
   class Page extends Component {
     static childContextTypes = Object.assign({}, {
+      likeModalStore: PropTypes.object,
       pagesData: PropTypes.array,
       siteData: PropTypes.object
     }, childContextTypes)
@@ -44,11 +45,26 @@ export default function (Child: Object, {
     }
 
     getChildContext = () => Object.assign({}, {
+      likeModalStore: this.likeModalStore,
       pagesData: this.props.pagesData,
       siteData: this.props.siteData
     }, getChildContext.call(this))
 
+    componentWillMount () {
+      this.likeModalStore = createModalStore()
+    }
+
+    componentDidMount () {
+      if (this.props.siteData.facebook_modal_delay) {
+        setTimeout(() => (
+          this.likeModalStore.open()
+        ), this.props.siteData.facebook_modal_delay)
+      }
+    }
+
     shouldComponentUpdate = () => false
+
+    likeModalStore: Object
 
     render () {
       return (
@@ -171,12 +187,15 @@ export default function (Child: Object, {
               name='theme-color'
             />
 
-            <script dangerouslySetInnerHTML={{__html: gaInit}} />
+            <script dangerouslySetInnerHTML={{__html: gaInit(this.props.siteData.ga_tracking_id)}} />
             <script
               async
               src='/static/js/autotrack.js'
             />
           </Head>
+
+          <div id='fb-root' />
+          <script dangerouslySetInnerHTML={{__html: fbInit(this.props.siteData.facebook_app_id)}} />
 
           <div className='max-width-3 mx-auto px2 sans-serif black'>
             <Header />
@@ -186,10 +205,9 @@ export default function (Child: Object, {
             </main>
 
             <Footer />
-
-            <EmailModal />
-            <LikeModal />
           </div>
+
+          <LikeModal store={this.likeModalStore} />
         </div>
       )
     }
