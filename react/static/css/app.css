@@ -7,6 +7,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; margin: 0; }
 ul { margin: 0; padding: 0; }
 
 /* generic classes */
+.height-auto { height: auto; }
 .sans-serif { font-family: 'Overpass', sans-serif; }
 .serif { font-family: 'Lora', serif; }
 .ups { text-transform: uppercase; }

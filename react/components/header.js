@@ -2,6 +2,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import {FaEnvelopeO, FaFacebookOfficial} from 'react-icons/lib/fa'
 
 import Link from '../helpers/link'
 
@@ -16,6 +17,8 @@ const Header = (props: Object, {emailModalStore, likeModalStore, siteData}: Obje
     likeModalStore.open()
   }
 
+  const iconClassName = 'col-5 sm-col-2 height-auto inline-block'
+
   return (
     <header>
       <div className='flex items-center my2 sm-my4'>
@@ -24,7 +27,7 @@ const Header = (props: Object, {emailModalStore, likeModalStore, siteData}: Obje
             href='javascript:void(0)'
             onClick={handleEmailClick}
           >
-            {'EM'}
+            <FaEnvelopeO className={iconClassName} />
           </a>
         </div>
 
@@ -45,7 +48,7 @@ const Header = (props: Object, {emailModalStore, likeModalStore, siteData}: Obje
               href='javascript:void(0)'
               onClick={handleFacebookClick}
             >
-              {'FB'}
+              <FaFacebookOfficial className={iconClassName} />
             </a>
           ) : null}
         </div>
