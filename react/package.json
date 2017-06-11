@@ -1,5 +1,5 @@
 {
-  "name": "wordact-react",
+  "name": "coderintros-react",
   "version": "1.0.0",
   "description": "Turning Wordpress API data into beautiful HTML markup since 2017.",
   "main": "index.js",
@@ -23,6 +23,7 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-modal": "^1.7.12",
+    "store": "^2.0.4",
     "striptags": "^2.2.1"
   },
   "devDependencies": {

@@ -105,7 +105,7 @@ add_action( 'admin_init', function () {
 
 // add a custom endpoint for site details
 add_action( 'rest_api_init', function () {
-  register_rest_route( 'wordact', '/site_details', [
+  register_rest_route( 'ci', '/site_details', [
     'methods' => 'GET',
     'callback' => function () {
       return [

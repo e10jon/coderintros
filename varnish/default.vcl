@@ -1,13 +1,13 @@
 vcl 4.0;
 
-backend wordpress {
-  .host = "wordpress";
-  .port = "80";
-}
-
 backend react {
   .host = "react";
   .port = "3000";
+}
+
+backend wordpress {
+  .host = "wordpress";
+  .port = "80";
 }
 
 sub vcl_hash {

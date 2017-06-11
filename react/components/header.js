@@ -5,7 +5,12 @@ import PropTypes from 'prop-types'
 
 import Link from '../helpers/link'
 
-const Header = (props: Object, {likeModalStore, siteData}: Object) => {
+const Header = (props: Object, {emailModalStore, likeModalStore, siteData}: Object) => {
+  const handleEmailClick = e => {
+    e.preventDefault()
+    emailModalStore.open()
+  }
+
   const handleFacebookClick = e => {
     e.preventDefault()
     likeModalStore.open()
@@ -14,7 +19,14 @@ const Header = (props: Object, {likeModalStore, siteData}: Object) => {
   return (
     <header>
       <div className='flex items-center my2 sm-my4'>
-        <div className='col-2 sm-col-3'>{'E'}</div>
+        <div className='col-2 sm-col-3'>
+          <a
+            href='javascript:void(0)'
+            onClick={handleEmailClick}
+          >
+            {'EM'}
+          </a>
+        </div>
 
         <Link
           className='col-8 sm-col-6 center'
@@ -43,6 +55,7 @@ const Header = (props: Object, {likeModalStore, siteData}: Object) => {
 }
 
 Header.contextTypes = {
+  emailModalStore: PropTypes.object,
   likeModalStore: PropTypes.object,
   pagesData: PropTypes.array,
   siteData: PropTypes.object

@@ -2,8 +2,11 @@
 
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import store from 'store'
 
 import createModal from '../../helpers/create-modal'
+
+export const didLikeFBPageStoreKey = 'didLikeFBPage'
 
 class Like extends Component {
   static contextTypes = {
@@ -27,6 +30,7 @@ class Like extends Component {
 
   handleFBEdgeCreation = url => {
     if (url === this.context.siteData.facebook_page_url) {
+      store.set(didLikeFBPageStoreKey, true)
       this.context.likeModalStore.close()
     }
   }

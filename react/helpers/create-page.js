@@ -4,13 +4,15 @@ import React, {Component} from 'react'
 import Head from 'next/head'
 import isNode from 'detect-node'
 import PropTypes from 'prop-types'
+import store from 'store'
 
 import {createModalStore} from '../helpers/create-modal'
 import {fbInit, gaInit} from './raw'
+import EmailModal from '../components/modals/email'
 import fetch from './fetch'
 import Footer from '../components/footer'
 import Header from '../components/header'
-import LikeModal from '../components/modals/like'
+import LikeModal, {didLikeFBPageStoreKey} from '../components/modals/like'
 
 export default function (Child: Object, {
   propPaths = () => ({}),
@@ -19,6 +21,7 @@ export default function (Child: Object, {
 }: Object = {}) {
   class Page extends Component {
     static childContextTypes = Object.assign({}, {
+      emailModalStore: PropTypes.object,
       likeModalStore: PropTypes.object,
       pagesData: PropTypes.array,
       siteData: PropTypes.object
@@ -27,7 +30,7 @@ export default function (Child: Object, {
     static async getInitialProps ({asPath, req, query}) {
       const paths = Object.assign({}, {
         pagesData: '/wp/v2/pages',
-        siteData: '/wordact/site_details'
+        siteData: '/ci/site_details'
       }, propPaths({asPath, query}))
       const pathsKeys = Object.keys(paths)
 
@@ -45,25 +48,32 @@ export default function (Child: Object, {
     }
 
     getChildContext = () => Object.assign({}, {
+      emailModalStore: this.emailModalStore,
       likeModalStore: this.likeModalStore,
       pagesData: this.props.pagesData,
       siteData: this.props.siteData
     }, getChildContext.call(this))
 
     componentWillMount () {
+      this.emailModalStore = createModalStore()
       this.likeModalStore = createModalStore()
     }
 
     componentDidMount () {
       if (this.props.siteData.facebook_modal_delay) {
-        setTimeout(() => (
-          this.likeModalStore.open()
-        ), this.props.siteData.facebook_modal_delay)
+        setTimeout(() => {
+          if (!store.get(didLikeFBPageStoreKey) &&
+          !this.emailModalStore.isOpen
+          ) {
+            this.likeModalStore.open()
+          }
+        }, this.props.siteData.facebook_modal_delay)
       }
     }
 
     shouldComponentUpdate = () => false
 
+    emailModalStore: Object
     likeModalStore: Object
 
     render () {
@@ -207,6 +217,7 @@ export default function (Child: Object, {
             <Footer />
           </div>
 
+          <EmailModal store={this.emailModalStore} />
           <LikeModal store={this.likeModalStore} />
         </div>
       )

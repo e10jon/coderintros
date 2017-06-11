@@ -5,7 +5,7 @@ import ReactModal from 'react-modal'
 import {action, observable} from 'mobx'
 import {observer} from 'mobx-react'
 
-export const createModalStore = ({isOpen}: {isOpen: boolean} = {}) => (
+export const createModalStore = ({isOpen, storeKey}: {isOpen: boolean, storeKey?: string} = {}) => (
   observable({
     isOpen,
     close: action(function close () {

@@ -54,10 +54,11 @@ services:
       - /usr/src/app/node_modules
 
   varnish:
-    build:
-      context: ./varnish
     depends_on:
       - react
       - wordpress
+    image: million12/varnish
     ports:
       - 80:80
+    volumes:
+      - ./varnish/default.vcl:/etc/varnish/default.vcl

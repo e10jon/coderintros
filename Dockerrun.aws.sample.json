@@ -4,10 +4,6 @@
     {
       "environment": [
         {
-          "name": "GA_TRACKING_ID",
-          "value": ""
-        },
-        {
           "name": "NODE_ENV",
           "value": "production"
         }
@@ -107,6 +103,13 @@
       "image": "REPLACE_ME/varnish:latest",
       "essential": true,
       "memory": 256,
+      "mountPoints": [
+        {
+          "sourceVolume": "varnish-default-vcl",
+          "containerPath": "/etc/varnish/default.vcl",
+          "readOnly": true
+        }
+      ],
       "links": [
         "react",
         "wordpress"
@@ -117,6 +120,14 @@
           "containerPort": 80
         }
       ]
+    }
+  ],
+  "volumes": [
+    {
+      "name": "varnish-default-vcl",
+      "host": {
+        "sourcePath": "/var/app/current/varnish/default.vcl"
+      }
     }
   ]
 }
