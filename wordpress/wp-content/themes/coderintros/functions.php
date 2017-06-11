@@ -51,6 +51,11 @@ add_action( 'admin_init', function () {
     'ga_tracking_id'
   );
 
+  register_setting(
+    'general',
+    'mailchimp_form_html'
+  );
+
   add_settings_field(
     'facebook_page_url',
     '<label for="facebook_page_url">' . __( 'Facebook Page (URL)' , 'facebook_page_url' ) . '</label>',
@@ -101,6 +106,16 @@ add_action( 'admin_init', function () {
     },
     'general'
   );
+
+  add_settings_field(
+    'mailchimp_form_html',
+    '<label for="mailchimp_form_html">' . __( 'Mailchimp Form HTML' , 'mailchimp_form_html' ) . '</label>',
+    function () {
+      $option = get_option('mailchimp_form_html');
+      echo "<textarea id='mailchimp_form_html' name='mailchimp_form_html' class='regular-text'>{$option}</textarea>";
+    },
+    'general'
+  );
 } );
 
 // add a custom endpoint for site details
@@ -115,7 +130,8 @@ add_action( 'rest_api_init', function () {
         'facebook_page_url' => get_option( 'facebook_page_url' ),
         'facebook_modal_cta' => get_option( 'facebook_modal_cta' ),
         'facebook_modal_delay' => intval( get_option( 'facebook_modal_delay' ) ),
-        'ga_tracking_id' => get_option( 'ga_tracking_id' )
+        'ga_tracking_id' => get_option( 'ga_tracking_id' ),
+        'mailchimp_form_html' => get_option( 'mailchimp_form_html' )
       ];
     },
   ] );
