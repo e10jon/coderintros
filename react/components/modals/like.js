@@ -30,8 +30,8 @@ class Like extends Component {
 
   handleFBEdgeCreation = url => {
     if (url === this.context.siteData.facebook_page_url) {
-      store.set(didLikeFBPageStoreKey, true)
       this.context.likeModalStore.close()
+      store.set(didLikeFBPageStoreKey, true)
     }
   }
 

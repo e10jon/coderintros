@@ -62,9 +62,7 @@ export default function (Child: Object, {
     componentDidMount () {
       if (this.props.siteData.facebook_modal_delay) {
         setTimeout(() => {
-          if (!store.get(didLikeFBPageStoreKey) &&
-          !this.emailModalStore.isOpen
-          ) {
+          if (!store.get(didLikeFBPageStoreKey) && !this.emailModalStore.isOpen) {
             this.likeModalStore.open()
           }
         }, this.props.siteData.facebook_modal_delay)
@@ -198,10 +196,6 @@ export default function (Child: Object, {
             />
 
             <script dangerouslySetInnerHTML={{__html: gaInit(this.props.siteData.ga_tracking_id)}} />
-            <script
-              async
-              src='/static/js/autotrack.js'
-            />
           </Head>
 
           <div id='fb-root' />
