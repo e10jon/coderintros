@@ -1,4 +1,5 @@
 const {createServer} = require('http')
+const {join} = require('path')
 const mobxReact = require('mobx-react')
 const {parse} = require('url')
 const next = require('next')
@@ -26,7 +27,9 @@ module.exports = app.prepare().then(() => {
     const parsedUrl = parse(req.url, true)
     const {pathname, query} = parsedUrl
 
-    if (/\/\d{4}\/\d{2}\/.+/.test(pathname)) {
+    if (parsedUrl.pathname === '/favicon.ico') {
+      app.serveStatic(req, res, join(__dirname, 'static/img/favicon/favicon.ico'))
+    } else if (/\/\d{4}\/\d{2}\/.+/.test(pathname)) {
       // regular post urls
       // this should match wordpress's permalink setting
       // e.g., /year/month/slug
