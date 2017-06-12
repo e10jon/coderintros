@@ -35,14 +35,12 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
 
           <div className='col-12 sm-col-8'>
             <div className='my2 sm-ml3'>
-              <h1 className='my2 lora'>{postData.title.rendered}</h1>
+              <h2 className='my2 lora h1 line-height-3'>{postData.title.rendered}</h2>
 
               <div
                 className='my2 gray'
-                dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered).slice(0, 100)}}
+                dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
               />
-
-              <div className='my2 h5 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
             </div>
           </div>
         </Link>

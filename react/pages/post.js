@@ -33,6 +33,11 @@ const Post = ({postsData, url: {query: {type}}}) => {
         </h1>
       ) : null}
 
+      <div
+        className='my2 gray'
+        dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+      />
+
       {type !== 'pages' ? (
         <div className='my2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
       ) : null}
