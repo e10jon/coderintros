@@ -136,3 +136,24 @@ add_action( 'rest_api_init', function () {
     },
   ] );
 } );
+
+// add formatting options to object responses
+add_action( 'rest_api_init', function () {
+  function formatting_callback ( $object ) {
+    return [
+      'hide_title' => get_post_meta( $object['id'], 'hide_title', true ) == '1'
+    ];
+  }
+
+  register_rest_field(
+    'page',
+    '_formatting',
+    ['get_callback' => 'formatting_callback']
+  );
+
+  register_rest_field(
+    'post',
+    '_formatting',
+    ['get_callback' => 'formatting_callback']
+  );
+} );

@@ -38,7 +38,7 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
               <h2 className='my2 lora h1 line-height-3'>{postData.title.rendered}</h2>
 
               <div
-                className='my2 gray'
+                className='my2 gray italic'
                 dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
               />
             </div>

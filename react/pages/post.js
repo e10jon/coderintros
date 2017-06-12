@@ -27,14 +27,14 @@ const Post = ({postsData, url: {query: {type}}}) => {
         {featuredImage(postData, {size: 'large'})}
       </div>
 
-      {!postData._custom_fields || !postData._custom_fields.hide_title ? (
+      {!postData._formatting || !postData._formatting.hide_title ? (
         <h1 className='my2'>
           <Link href={postData.link}>{postData.title.rendered}</Link>
         </h1>
       ) : null}
 
       <div
-        className='my2 gray'
+        className='my2 gray italic'
         dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
       />
 
