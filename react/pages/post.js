@@ -33,13 +33,22 @@ const Post = ({postsData, url: {query: {type}}}) => {
         </h1>
       ) : null}
 
-      <div
-        className='my2 gray italic'
-        dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
-      />
+      {type !== 'pages' ? (
+        <div
+          className='my2 gray italic'
+          dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+        />
+      ) : null}
 
       {type !== 'pages' ? (
         <div className='my2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
+      ) : null}
+
+      {type !== 'pages' ? (
+        <Share
+          title={postData.title.rendered}
+          url={postData.link}
+        />
       ) : null}
 
       <div

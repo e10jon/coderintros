@@ -13,6 +13,21 @@ ul { margin: 0; padding: 0; }
 .ups { text-transform: uppercase; }
 
 /* specific classes */
+.header-logo { max-width: 350px; width: 70%; }
+.header-icon { height: 30px; width: 30px; }
+.modal-close-icon { height: 20px; width: 20px; }
 .post-content { color: #0b0b0b; }
 .post-content p { margin-top: 1.5rem; margin-bottom: 1.5rem; }
 .post-content strong { color: #111; }
+.share-icon { height: 24px; width: 24px; }
+
+/* modal animation */
+.ReactModalPortal > div { opacity: 0; }
+.ReactModalPortal .ReactModal__Overlay { transition: opacity 200ms ease-out; }
+.ReactModalPortal .ReactModal__Overlay--after-open { opacity: 1; }
+.ReactModalPortal .ReactModal__Overlay--before-close { opacity: 0; }
+
+/* media queries */
+@media (min-width: 40em) {
+  .header-icon { height: 50px; width: 50px; }
+}

@@ -2,7 +2,6 @@
 
 import React from 'react'
 import Head from 'next/head'
-import moment from 'moment'
 import PropTypes from 'prop-types'
 import stripTags from 'striptags'
 

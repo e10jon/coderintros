@@ -30,9 +30,17 @@ class Like extends Component {
 
   handleFBEdgeCreation = url => {
     if (url === this.context.siteData.facebook_page_url) {
-      this.context.likeModalStore.close()
-      store.set(didLikeFBPageStoreKey, true)
+      this.closeAndCookie()
     }
+  }
+
+  closeAndCookie = () => {
+    this.context.likeModalStore.close()
+    store.set(didLikeFBPageStoreKey, true)
+  }
+
+  handleAlreadyLikeClick = () => {
+    this.closeAndCookie()
   }
 
   render () {
@@ -60,6 +68,16 @@ class Like extends Component {
               &nbsp;
             </a>
           </blockquote>
+        </div>
+
+        <div>
+          <a
+            className='inline-block py1 px2 h5 mt2'
+            href='javascript:void(0)'
+            onClick={this.handleAlreadyLikeClick}
+          >
+            {'I already like your page.'}
+          </a>
         </div>
 
         {/*
