@@ -29,5 +29,5 @@ ul { margin: 0; padding: 0; }
 
 /* media queries */
 @media (min-width: 40em) {
-  .header-icon { height: 50px; width: 50px; }
+  .header-icon { height: 40px; width: 40px; }
 }
