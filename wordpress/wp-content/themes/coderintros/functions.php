@@ -136,14 +136,3 @@ add_action( 'rest_api_init', function () {
     },
   ] );
 } );
-
-// add custom fields to objects
-add_action( 'rest_api_init', function () {
-  register_rest_field( 'page', '_custom_fields', [
-    'get_callback' => function ( $object ) {
-      return [
-        'hide_title' => get_post_meta( $object['id'], 'hide_title', true ) == '1'
-      ];
-    }
-  ]);
-} );

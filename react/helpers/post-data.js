@@ -16,7 +16,7 @@ export function featuredImage (postData: Object, {className = 'block fit bg-gray
       alt_text: 'default',
       media_details: {
         sizes: {
-          default: {
+          thumbnail: {
             height: 1200,
             source_url: '/static/img/default.svg',
             width: 1200
@@ -41,16 +41,15 @@ export function featuredImage (postData: Object, {className = 'block fit bg-gray
   const sizesKeys = Object.keys(sizes)
 
   const srcSet = sizesKeys
+    .filter(k => !['thumbnail', 'full'].includes(k))
     .map(s => `${sizes[s].source_url} ${sizes[s].width}w`)
     .join(', ')
-
-  const largestSize = sizes[sizesKeys[sizesKeys.length - 1]]
 
   return (
     <img
       alt={imageData.alt_text}
       className={className}
-      src={largestSize.url}
+      src={sizesData.thumbnail.source_url}
       srcSet={srcSet}
       style={style}
     />
