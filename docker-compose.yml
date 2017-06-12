@@ -40,7 +40,6 @@ services:
       WP_DEBUG: 'true'
     volumes:
       - ./wordpress/wp-content:/var/www/html/wp-content
-      - ./wordpress/wp-config.php:/var/www/html/wp-content/wp-config.php
 
   react:
     build:

@@ -8,6 +8,10 @@ mobxReact.useStaticRendering(true)
 
 const app = next({dev: process.env.NODE_ENV !== 'production'})
 
+// make sure this matches wordpress's permalink setting,
+// and set a capture group for the post slug
+const postRegex = /\/profiles\/(.+?)(\/|$)/
+
 module.exports = app.prepare().then(() => {
   return createServer((req, res) => {
     global.HOST = req.headers.host
@@ -29,13 +33,11 @@ module.exports = app.prepare().then(() => {
 
     if (parsedUrl.pathname === '/favicon.ico') {
       app.serveStatic(req, res, join(__dirname, 'static/img/favicon/favicon.ico'))
-    } else if (/\/\d{4}\/\d{2}\/.+/.test(pathname)) {
+    } else if (postRegex.test(pathname)) {
       // regular post urls
-      // this should match wordpress's permalink setting
-      // e.g., /year/month/slug
       app.render(req, res, '/post', Object.assign({}, {
         type: 'posts',
-        slug: pathname.match(/\/\d{4}\/\d{2}\/(.+?)(\/|$)/)[1]
+        slug: pathname.match(postRegex)[1]
       }, query))
     } else if (pathname === '/' && query.p) {
       // when previewing an unsaved draft post
