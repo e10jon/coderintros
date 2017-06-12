@@ -2,12 +2,16 @@
 
 import React from 'react'
 
+// enable to show a placeholder image
+// useful for development purposes
+const showDefaultImage = process.env.NODE_ENV !== 'production'
+
 export function featuredImage (postData: Object, {className = 'block fit bg-gray', style}: Object) {
   let imageData = postData._embedded &&
     postData._embedded['wp:featuredmedia'] &&
     postData._embedded['wp:featuredmedia'][0]
 
-  if (!imageData) {
+  if (!imageData && showDefaultImage) {
     imageData = {
       alt_text: 'default',
       media_details: {
@@ -20,6 +24,8 @@ export function featuredImage (postData: Object, {className = 'block fit bg-gray
         }
       }
     }
+  } else if (!imageData) {
+    return null
   }
 
   const sizesData = imageData.media_details.sizes

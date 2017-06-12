@@ -27,9 +27,11 @@ const Post = ({postsData, url: {query: {type}}}) => {
         {featuredImage(postData, {size: 'large'})}
       </div>
 
-      <h1 className='my2'>
-        <Link href={postData.link}>{postData.title.rendered}</Link>
-      </h1>
+      {!postData._custom_fields || !postData._custom_fields.hide_title ? (
+        <h1 className='my2'>
+          <Link href={postData.link}>{postData.title.rendered}</Link>
+        </h1>
+      ) : null}
 
       {type !== 'pages' ? (
         <div className='my2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
