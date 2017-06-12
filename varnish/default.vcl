@@ -26,11 +26,11 @@ sub vcl_recv {
     return (synth(200, "OK"));
   }
 
-  if (req.url !~ "^\/wp-(admin|login)" && req.url !~ "preview=true") {
+  if (req.url !~ "^/feed" && req.url !~ "^/sitemap" && req.url !~ "^\/wp-(admin|login)" && req.url !~ "preview=true") {
     unset req.http.Cookie;
   }
 
-  if (req.url ~ "^/wp-") {
+  if (req.url ~ "^/wp-" || req.url ~ "^/feed" || req.url ~ "^/sitemap") {
     set req.backend_hint = wordpress;
   } else {
     set req.backend_hint = react;
