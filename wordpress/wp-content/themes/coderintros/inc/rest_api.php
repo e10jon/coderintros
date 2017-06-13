@@ -21,6 +21,18 @@ add_action( 'rest_api_init', function () {
   );
 } );
 
+// add social links to posts
+add_action( 'rest_api_init', function () {
+  register_rest_field( 'post', '_social_links', [
+    'get_callback' => function ( $object ) {
+      return [
+        'hacker_news' => get_post_meta( $object['id'], 'hacker_news_url', true ),
+        'reddit' => get_post_meta( $object['id'], 'reddit_url', true )
+      ];
+    }
+  ] );
+} );
+
 // add a custom endpoint for site details
 add_action( 'rest_api_init', function () {
   register_rest_route( 'ci', '/site_details', [

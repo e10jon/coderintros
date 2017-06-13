@@ -21,7 +21,9 @@ ul { margin: 0; padding: 0; }
 .post-content { color: #0b0b0b; }
 .post-content p { margin-top: 1.5rem; margin-bottom: 1.5rem; }
 .post-content strong { color: #111; }
-.share-icon { height: 24px; width: 24px; }
+.share-icon { padding: 0.25rem 0.5rem; margin-right: 0.125rem; }
+.share-icon span { padding-left: 0.5rem; }
+.share-icon svg { height: 24px; width: 24px; }
 
 /* modal animation */
 .ReactModalPortal > div { opacity: 0; }

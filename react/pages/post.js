@@ -46,6 +46,9 @@ const Post = ({postsData, url: {query: {type}}}) => {
 
       {type !== 'pages' ? (
         <Share
+          hackerNewsUrl={postData._social_links.hacker_news}
+          position='Above Content'
+          redditUrl={postData._social_links.reddit}
           title={postData.title.rendered}
           url={postData.link}
         />
@@ -59,6 +62,9 @@ const Post = ({postsData, url: {query: {type}}}) => {
 
       {type !== 'pages' ? (
         <Share
+          hackerNewsUrl={postData._social_links.hacker_news}
+          position='Below Content'
+          redditUrl={postData._social_links.reddit}
           title={postData.title.rendered}
           url={postData.link}
         />
