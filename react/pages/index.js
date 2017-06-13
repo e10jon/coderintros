@@ -14,9 +14,31 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
     <div>
       <Head>
         <title>{siteData.name}</title>
+
         <meta
           content={siteData.description}
           name='description'
+        />
+
+        <meta
+          content='website'
+          property='og:type'
+        />
+        <meta
+          content={siteData.home}
+          property='og:url'
+        />
+        <meta
+          content={siteData.name}
+          property='og:title'
+        />
+        <meta
+          content={siteData.description}
+          property='og:description'
+        />
+        <meta
+          content='/static/img/og.png'
+          property='og:image'
         />
       </Head>
 

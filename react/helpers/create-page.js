@@ -200,6 +200,11 @@ export default function (Child: Object, {
               name='theme-color'
             />
 
+            <meta
+              content={this.props.siteData.facebook_app_id}
+              property='fb:app_id'
+            />
+
             <script dangerouslySetInnerHTML={{__html: gaInit(this.props.siteData.ga_tracking_id)}} />
             <script
               async

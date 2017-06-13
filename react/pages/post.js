@@ -6,7 +6,7 @@ import moment from 'moment'
 import stripTags from 'striptags'
 
 import createPage from '../helpers/create-page'
-import {featuredImage} from '../helpers/post-data'
+import {featuredImage, ogImage} from '../helpers/post-data'
 import Link from '../helpers/link'
 import Share from '../components/share'
 
@@ -17,9 +17,31 @@ const Post = ({postsData, url: {query: {type}}}) => {
     <div>
       <Head>
         <title>{postData.title.rendered}</title>
+
         <meta
           content={stripTags(postData.excerpt.rendered)}
           name='description'
+        />
+
+        <meta
+          content='article'
+          property='og:type'
+        />
+        <meta
+          content={postData.link}
+          property='og:url'
+        />
+        <meta
+          content={postData.title.rendered}
+          property='og:title'
+        />
+        <meta
+          content={stripTags(postData.excerpt.rendered)}
+          property='og:description'
+        />
+        <meta
+          content={ogImage(postData)}
+          property='og:image'
         />
       </Head>
 

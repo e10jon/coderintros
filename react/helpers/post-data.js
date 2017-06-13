@@ -6,7 +6,11 @@ import React from 'react'
 // useful for development purposes
 const showDefaultImage = process.env.NODE_ENV !== 'production'
 
-export function featuredImage (postData: Object, {className = 'block fit bg-gray', style}: Object) {
+export function featuredImage (postData: Object, {
+  className = 'block fit bg-gray',
+  returnLargestSizeUrl,
+  style
+}: Object = {}) {
   let imageData = postData._embedded &&
     postData._embedded['wp:featuredmedia'] &&
     postData._embedded['wp:featuredmedia'][0]
@@ -45,13 +49,21 @@ export function featuredImage (postData: Object, {className = 'block fit bg-gray
     .map(s => `${sizes[s].source_url} ${sizes[s].width}w`)
     .join(', ')
 
-  return (
-    <img
-      alt={imageData.alt_text}
-      className={className}
-      src={sizesData.thumbnail.source_url}
-      srcSet={srcSet}
-      style={style}
-    />
-  )
+  if (returnLargestSizeUrl) {
+    return sizesData[sizesKeys.filter(k => k !== 'full').reverse()[0]].source_url
+  } else {
+    return (
+      <img
+        alt={imageData.alt_text}
+        className={className}
+        src={sizesData.thumbnail.source_url}
+        srcSet={srcSet}
+        style={style}
+      />
+    )
+  }
+}
+
+export function ogImage (postData: Object) {
+  return featuredImage(postData, {returnLargestSizeUrl: true})
 }

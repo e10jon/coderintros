@@ -41,6 +41,7 @@ add_action( 'rest_api_init', function () {
       return [
         'name' => get_bloginfo( 'name' ),
         'description' => get_bloginfo( 'description' ),
+        'home' => get_home_url(),
         'facebook_app_id' => get_option( 'facebook_app_id' ),
         'facebook_page_url' => get_option( 'facebook_page_url' ),
         'facebook_modal_title' => get_option( 'facebook_modal_title' ),
