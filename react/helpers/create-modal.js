@@ -6,6 +6,8 @@ import {action, observable} from 'mobx'
 import {IoClose} from 'react-icons/lib/io'
 import {observer} from 'mobx-react'
 
+import trackEvent from '../helpers/track-event'
+
 export const createModalStore = ({isOpen, storeKey}: {isOpen: boolean, storeKey?: string} = {}) => (
   observable({
     isOpen,
@@ -22,9 +24,12 @@ export default function (Child: Object) {
   class Modal extends Component {
     shouldComponentUpdate = () => false
 
-    handleCloseClick = (e) => {
-      e.preventDefault()
+    handleCloseClick = () => {
       this.props.store.close()
+      trackEvent({
+        eventCategory: 'Modals',
+        eventAction: `Dismissed ${Child.displayName}`
+      })
     }
 
     render () {

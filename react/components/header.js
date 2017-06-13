@@ -5,16 +5,23 @@ import PropTypes from 'prop-types'
 import {IoIosEmailOutline, IoSocialFacebookOutline} from 'react-icons/lib/io'
 
 import Link from '../helpers/link'
+import trackEvent from '../helpers/track-event'
 
 const Header = (props: Object, {emailModalStore, likeModalStore, siteData}: Object) => {
-  const handleEmailClick = e => {
-    e.preventDefault()
+  const handleEmailClick = () => {
     emailModalStore.open()
+    trackEvent({
+      eventCategory: 'Modals',
+      eventAction: 'Opened Email From Header'
+    })
   }
 
-  const handleFacebookClick = e => {
-    e.preventDefault()
+  const handleFacebookClick = () => {
     likeModalStore.open()
+    trackEvent({
+      eventCategory: 'Modals',
+      eventAction: 'Opened Like From Header'
+    })
   }
 
   const aClassName = 'inline-block'

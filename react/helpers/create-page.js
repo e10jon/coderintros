@@ -13,6 +13,7 @@ import fetch from './fetch'
 import Footer from '../components/footer'
 import Header from '../components/header'
 import LikeModal, {didLikeFBPageStoreKey} from '../components/modals/like'
+import trackEvent from '../helpers/track-event'
 
 export default function (Child: Object, {
   propPaths = () => ({}),
@@ -64,6 +65,10 @@ export default function (Child: Object, {
         setTimeout(() => {
           if (!store.get(didLikeFBPageStoreKey) && !this.emailModalStore.isOpen) {
             this.likeModalStore.open()
+            trackEvent({
+              eventCategory: 'Modals',
+              eventAction: 'Auto-Opened Like'
+            })
           }
         }, this.props.siteData.facebook_modal_delay)
       }
@@ -196,6 +201,10 @@ export default function (Child: Object, {
             />
 
             <script dangerouslySetInnerHTML={{__html: gaInit(this.props.siteData.ga_tracking_id)}} />
+            <script
+              async
+              src='/static/js/autotrack.custom.js'
+            />
           </Head>
 
           <div id='fb-root' />

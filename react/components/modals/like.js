@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import store from 'store'
 
 import createModal from '../../helpers/create-modal'
+import trackEvent from '../../helpers/track-event'
 
 export const didLikeFBPageStoreKey = 'didLikeFBPage'
 
@@ -13,6 +14,8 @@ class Like extends Component {
     likeModalStore: PropTypes.object,
     siteData: PropTypes.object
   }
+
+  static displayName = 'Like'
 
   componentDidMount () {
     // have to reinit the FB SDK for the button to show up
@@ -31,6 +34,10 @@ class Like extends Component {
   handleFBEdgeCreation = url => {
     if (url === this.context.siteData.facebook_page_url) {
       this.closeAndCookie()
+      trackEvent({
+        eventCategory: 'Modals',
+        eventAction: 'Liked FB Page'
+      })
     }
   }
 
@@ -41,6 +48,10 @@ class Like extends Component {
 
   handleAlreadyLikeClick = () => {
     this.closeAndCookie()
+    trackEvent({
+      eventCategory: 'Modals',
+      eventAction: 'Clicked Already Liked Button'
+    })
   }
 
   render () {

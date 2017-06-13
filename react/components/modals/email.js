@@ -1,20 +1,47 @@
 // @flow
 
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
 import createModal from '../../helpers/create-modal'
+import trackEvent from '../../helpers/track-event'
 
-const Email = (props, {siteData}: Object) => {
-  return (
-    <div className='center p2'>
-      <div dangerouslySetInnerHTML={{__html: siteData.mailchimp_form_html}} />
-    </div>
-  )
-}
+class Email extends Component {
+  static contextTypes = {
+    emailModalStore: PropTypes.object,
+    siteData: PropTypes.object
+  }
 
-Email.contextTypes = {
-  siteData: PropTypes.object
+  static displayName = 'Email'
+
+  componentDidMount () {
+    this.mailchimpNode.querySelector('form').addEventListener('submit', this.handleFormSubmission)
+  }
+
+  componentWillUnmount () {
+    this.mailchimpNode.querySelector('form').removeEventListener('submit', this.handleFormSubmission)
+  }
+
+  handleFormSubmission = () => {
+    this.context.emailModalStore.close()
+    trackEvent({
+      eventCategory: 'Modals',
+      eventAction: 'Submitted Mailchimp Form'
+    })
+  }
+
+  mailchimpNode: Object
+
+  render () {
+    return (
+      <div className='center p2'>
+        <div
+          dangerouslySetInnerHTML={{__html: this.context.siteData.mailchimp_form_html}}
+          ref={r => { this.mailchimpNode = r }}
+        />
+      </div>
+    )
+  }
 }
 
 export default createModal(Email)
