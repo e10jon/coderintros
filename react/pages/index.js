@@ -37,7 +37,7 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
           property='og:description'
         />
         <meta
-          content='/static/img/og.png'
+          content={`${siteData.home}/static/img/og.png`}
           property='og:image'
         />
       </Head>
