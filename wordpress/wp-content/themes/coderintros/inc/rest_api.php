@@ -45,7 +45,9 @@ add_action( 'rest_api_init', function () {
         'facebook_app_id' => get_option( 'facebook_app_id' ),
         'facebook_page_url' => get_option( 'facebook_page_url' ),
         'facebook_modal_title' => get_option( 'facebook_modal_title' ),
+        'facebook_modal_title_auto_open' => get_option( 'facebook_modal_title_auto_open' ),
         'facebook_modal_body' => get_option( 'facebook_modal_body' ),
+        'facebook_modal_body_auto_open' => get_option( 'facebook_modal_body_auto_open' ),
         'facebook_modal_delay' => intval( get_option( 'facebook_modal_delay' ) ),
         'ga_tracking_id' => get_option( 'ga_tracking_id' ),
         'mailchimp_form_html' => get_option( 'mailchimp_form_html' )

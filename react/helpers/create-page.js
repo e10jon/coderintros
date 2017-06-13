@@ -64,7 +64,7 @@ export default function (Child: Object, {
       if (this.props.siteData.facebook_modal_delay) {
         setTimeout(() => {
           if (!store.get(didLikeFBPageStoreKey) && !this.emailModalStore.isOpen) {
-            this.likeModalStore.open()
+            this.likeModalStore.open({autoOpened: true})
             trackEvent({
               eventCategory: 'Modals',
               eventAction: 'Auto-Opened Like'

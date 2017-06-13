@@ -13,9 +13,11 @@ export const createModalStore = ({isOpen, storeKey}: {isOpen: boolean, storeKey?
     isOpen,
     close: action(function close () {
       this.isOpen = false
+      this.opts = null
     }),
-    open: action(function open () {
+    open: action(function open (opts: Object = {}) {
       this.isOpen = true
+      this.opts = opts
     })
   })
 )

@@ -55,13 +55,20 @@ class Like extends Component {
   }
 
   render () {
+    const [titleKey, bodyKey] = this.context.likeModalStore.opts.autoOpened
+      ? ['facebook_modal_title_auto_open', 'facebook_modal_body_auto_open']
+      : ['facebook_modal_title', 'facebook_modal_body']
+
     return (
       <div className='center p2'>
-        <div className='h2 bold line-height-2 my2'>{this.context.siteData.facebook_modal_title}</div>
+        <div
+          className='h2 bold line-height-2 my2'
+          dangerouslySetInnerHTML={{__html: this.context.siteData[titleKey]}}
+        />
 
         <p
           className='gray px2 sm-px4 mx-auto'
-          dangerouslySetInnerHTML={{__html: this.context.siteData.facebook_modal_body}}
+          dangerouslySetInnerHTML={{__html: this.context.siteData[bodyKey]}}
         />
 
         <div

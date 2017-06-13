@@ -4,7 +4,9 @@
 add_action( 'admin_init', function () {
   register_setting( 'ci', 'facebook_page_url' );
   register_setting( 'ci', 'facebook_modal_title' );
+  register_setting( 'ci', 'facebook_modal_title_auto_open' );
   register_setting( 'ci', 'facebook_modal_body' );
+  register_setting( 'ci', 'facebook_modal_body_auto_open' );
   register_setting( 'ci', 'facebook_modal_delay' );
   register_setting( 'ci', 'facebook_app_id' );
   register_setting( 'ci', 'ga_tracking_id' );
@@ -35,11 +37,33 @@ add_action( 'admin_init', function () {
   );
 
   add_settings_field(
+    'facebook_modal_title_auto_open',
+    '<label for="facebook_modal_title_auto_open">' . __( 'Facebook Modal Title (Auto-Open)' , 'facebook_modal_title_auto_open' ) . '</label>',
+    function () {
+      $option = get_option('facebook_modal_title_auto_open');
+      echo "<input id='facebook_modal_title_auto_open' name='facebook_modal_title_auto_open' type='text' class='regular-text' value='{$option}' />";
+    },
+    'ci',
+    'ci_general'
+  );
+
+  add_settings_field(
     'facebook_modal_body',
     '<label for="facebook_modal_body">' . __( 'Facebook Modal Body' , 'facebook_modal_body' ) . '</label>',
     function () {
       $option = get_option('facebook_modal_body');
       echo "<input id='facebook_modal_body' name='facebook_modal_body' type='text' class='regular-text' value='{$option}' />";
+    },
+    'ci',
+    'ci_general'
+  );
+
+  add_settings_field(
+    'facebook_modal_body_auto_open',
+    '<label for="facebook_modal_body_auto_open">' . __( 'Facebook Modal Body (Auto-Open)' , 'facebook_modal_body_auto_open' ) . '</label>',
+    function () {
+      $option = get_option('facebook_modal_body_auto_open');
+      echo "<input id='facebook_modal_body_auto_open' name='facebook_modal_body_auto_open' type='text' class='regular-text' value='{$option}' />";
     },
     'ci',
     'ci_general'
