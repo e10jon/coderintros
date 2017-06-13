@@ -34,11 +34,10 @@ const Share = ({position, title, url, hackerNewsUrl, redditUrl}: Object) => {
     <div className='my3'>
       <div className='inline-block'>
         <a
-          className={className}
+          className={`${className} bg-fb-blue`}
           href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
           onClick={handleFacebookClick}
           rel='noopener noreferrer'
-          style={{backgroundColor: '#3b5998'}}
           target='_blank'
         >
           <FaFacebookOfficial className={iconClassName} />
