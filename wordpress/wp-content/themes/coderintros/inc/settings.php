@@ -3,7 +3,8 @@
 // add a settings page
 add_action( 'admin_init', function () {
   register_setting( 'ci', 'facebook_page_url' );
-  register_setting( 'ci', 'facebook_modal_cta' );
+  register_setting( 'ci', 'facebook_modal_title' );
+  register_setting( 'ci', 'facebook_modal_body' );
   register_setting( 'ci', 'facebook_modal_delay' );
   register_setting( 'ci', 'facebook_app_id' );
   register_setting( 'ci', 'ga_tracking_id' );
@@ -23,11 +24,22 @@ add_action( 'admin_init', function () {
   );
 
   add_settings_field(
-    'facebook_modal_cta',
-    '<label for="facebook_modal_cta">' . __( 'Facebook Modal CTA' , 'facebook_modal_cta' ) . '</label>',
+    'facebook_modal_title',
+    '<label for="facebook_modal_title">' . __( 'Facebook Modal Title' , 'facebook_modal_title' ) . '</label>',
     function () {
-      $option = get_option('facebook_modal_cta');
-      echo "<input id='facebook_modal_cta' name='facebook_modal_cta' type='text' class='regular-text' value='{$option}' />";
+      $option = get_option('facebook_modal_title');
+      echo "<input id='facebook_modal_title' name='facebook_modal_title' type='text' class='regular-text' value='{$option}' />";
+    },
+    'ci',
+    'ci_general'
+  );
+
+  add_settings_field(
+    'facebook_modal_body',
+    '<label for="facebook_modal_body">' . __( 'Facebook Modal Body' , 'facebook_modal_body' ) . '</label>',
+    function () {
+      $option = get_option('facebook_modal_body');
+      echo "<input id='facebook_modal_body' name='facebook_modal_body' type='text' class='regular-text' value='{$option}' />";
     },
     'ci',
     'ci_general'
@@ -72,7 +84,7 @@ add_action( 'admin_init', function () {
     '<label for="mailchimp_form_html">' . __( 'Mailchimp Form HTML' , 'mailchimp_form_html' ) . '</label>',
     function () {
       $option = get_option('mailchimp_form_html');
-      echo "<textarea id='mailchimp_form_html' name='mailchimp_form_html' class='regular-text'>{$option}</textarea>";
+      echo "<textarea id='mailchimp_form_html' name='mailchimp_form_html' class='regular-text' rows=20>{$option}</textarea>";
     },
     'ci',
     'ci_general'

@@ -7,7 +7,7 @@ import createModal from '../../helpers/create-modal'
 
 const Email = (props, {siteData}: Object) => {
   return (
-    <div className='m3'>
+    <div className='center p2'>
       <div dangerouslySetInnerHTML={{__html: siteData.mailchimp_form_html}} />
     </div>
   )

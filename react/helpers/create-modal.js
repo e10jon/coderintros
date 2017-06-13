@@ -30,21 +30,24 @@ export default function (Child: Object) {
     render () {
       return (
         <ReactModal
-          className='absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center'
+          className='absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center sans-serif'
           closeTimeoutMS={200}
           contentLabel='modal'
           isOpen={this.props.store.isOpen}
-          overlayClassName='fixed top-0 right-0 bottom-0 left-0 bg-darken-4 flex justify-center items-center'
+          overlayClassName='fixed top-0 right-0 bottom-0 left-0 bg-darken-5 flex justify-center items-center'
         >
-          <div className='bg-white m2 relative'>
+          <div
+            className='bg-white m2 relative col-12'
+            style={{maxWidth: '32rem'}}
+          >
             <Child />
 
             <a
-              className='absolute block top-0 right-0 p1'
+              className='absolute block gray modal-close-btn p1'
               href='javascript:void(0)'
               onClick={this.handleCloseClick}
             >
-              <IoClose className='modal-close-icon' />
+              <IoClose />
             </a>
           </div>
         </ReactModal>

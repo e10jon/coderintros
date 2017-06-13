@@ -21,6 +21,7 @@ const Share = ({title, url}: Object) => {
         <a
           className={className}
           href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+          rel='noopener noreferrer'
           style={{backgroundColor: '#3b5998'}}
           target='_blank'
         >
@@ -33,6 +34,7 @@ const Share = ({title, url}: Object) => {
         <a
           className={className}
           href={`https://twitter.com/home?status=${encodedUrl}`}
+          rel='noopener noreferrer'
           style={{backgroundColor: '#0084b4'}}
           target='_blank'
         >
@@ -45,6 +47,7 @@ const Share = ({title, url}: Object) => {
         <a
           className={className}
           href={`https://news.ycombinator.com/submitlink?u=${encodedUrl}&t=${encodedTitle}`}
+          rel='noopener noreferrer'
           style={{backgroundColor: '#ff6600'}}
           target='_blank'
         >
@@ -56,6 +59,7 @@ const Share = ({title, url}: Object) => {
         <a
           className={className}
           href={`mailto:?&subject=You would like this page&body=Check%20out%20${encodedUrl}`}
+          rel='noopener noreferrer'
           style={{backgroundColor: '#738a8d'}}
           target='_blank'
         >
@@ -67,6 +71,7 @@ const Share = ({title, url}: Object) => {
         <a
           className={className}
           href={`https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`}
+          rel='noopener noreferrer'
           style={{backgroundColor: '#FF5700'}}
           target='_blank'
         >

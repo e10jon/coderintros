@@ -46,7 +46,12 @@ class Like extends Component {
   render () {
     return (
       <div className='center p2'>
-        <div className='h2 bold line-height-2 my3'>{this.context.siteData.facebook_modal_cta}</div>
+        <div className='h2 bold line-height-2 my2'>{this.context.siteData.facebook_modal_title}</div>
+
+        <p
+          className='gray px2 sm-px4 mx-auto'
+          dangerouslySetInnerHTML={{__html: this.context.siteData.facebook_modal_body}}
+        />
 
         <div
           className='fb-page'
@@ -70,16 +75,6 @@ class Like extends Component {
           </blockquote>
         </div>
 
-        <div>
-          <a
-            className='inline-block py1 px2 h5 mt2'
-            href='javascript:void(0)'
-            onClick={this.handleAlreadyLikeClick}
-          >
-            {'I already like your page.'}
-          </a>
-        </div>
-
         {/*
         <div
           className='fb-like'
@@ -89,8 +84,19 @@ class Like extends Component {
           data-show-faces='false'
           data-share='false'
           data-size='large'
+          data-width={200}
         />
         */}
+
+        <div>
+          <a
+            className='inline-block py1 px2 h5 mt1 gray'
+            href='javascript:void(0)'
+            onClick={this.handleAlreadyLikeClick}
+          >
+            {'I already like your page.'}
+          </a>
+        </div>
       </div>
     )
   }

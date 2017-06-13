@@ -7,6 +7,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; margin: 0; }
 ul { margin: 0; padding: 0; }
 
 /* generic classes */
+.bg-darken-5 { background-color: rgba(0, 0, 0, 0.75); }
 .height-auto { height: auto; }
 .sans-serif { font-family: 'Overpass', sans-serif; }
 .serif { font-family: 'Lora', serif; }
@@ -15,7 +16,8 @@ ul { margin: 0; padding: 0; }
 /* specific classes */
 .header-logo { max-width: 350px; width: 70%; }
 .header-icon { height: 30px; width: 30px; }
-.modal-close-icon { height: 20px; width: 20px; }
+.modal-close-btn { top: -40px; right: -8px; }
+.modal-close-btn svg { height: 16px; width: 16px; }
 .post-content { color: #0b0b0b; }
 .post-content p { margin-top: 1.5rem; margin-bottom: 1.5rem; }
 .post-content strong { color: #111; }
@@ -23,7 +25,7 @@ ul { margin: 0; padding: 0; }
 
 /* modal animation */
 .ReactModalPortal > div { opacity: 0; }
-.ReactModalPortal .ReactModal__Overlay { transition: opacity 200ms ease-out; }
+.ReactModalPortal .ReactModal__Overlay { transition: opacity 300ms ease-out; }
 .ReactModalPortal .ReactModal__Overlay--after-open { opacity: 1; }
 .ReactModalPortal .ReactModal__Overlay--before-close { opacity: 0; }
 
