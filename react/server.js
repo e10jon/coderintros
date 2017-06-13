@@ -31,7 +31,9 @@ module.exports = app.prepare().then(() => {
     const parsedUrl = parse(req.url, true)
     const {pathname, query} = parsedUrl
 
-    if (parsedUrl.pathname === '/favicon.ico') {
+    if (parsedUrl.pathname === '/robots.txt') {
+      app.serveStatic(req, res, join(__dirname, 'static/robots.txt'))
+    } else if (parsedUrl.pathname === '/favicon.ico') {
       app.serveStatic(req, res, join(__dirname, 'static/img/favicon/favicon.ico'))
     } else if (postRegex.test(pathname)) {
       // regular post urls
