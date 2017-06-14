@@ -30,7 +30,7 @@ sub vcl_recv {
     unset req.http.Cookie;
   }
 
-  if (req.url ~ "^/wp-" || req.url ~ "^/feed" || req.url ~ "^/sitemap") {
+  if (req.url ~ "^/wp-" || req.url ~ "^/feed" || req.url ~ "^/sitemap" || req.url ~ "^\/xmlrpc.php") {
     set req.backend_hint = wordpress;
   } else {
     set req.backend_hint = react;
