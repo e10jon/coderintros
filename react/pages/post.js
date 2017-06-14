@@ -6,13 +6,16 @@ import moment from 'moment'
 import stripTags from 'striptags'
 
 import createPage from '../helpers/create-page'
-import {featuredImage, getLargestSizeData} from '../helpers/post-data'
+import {getFeaturedImageProps} from '../helpers/post-data'
 import Link from '../helpers/link'
 import Share from '../components/share'
 
 const Post = ({postsData, url: {query: {type}}}) => {
   const postData = Array.isArray(postsData) ? postsData[0] : postsData
-  const largestSizeData: ?Object = getLargestSizeData(postData)
+  const ogImageData: ?Object = getFeaturedImageProps(postData, {
+    sizes: ['large', 'medium_large'],
+    returnLargestSizeData: true
+  })
 
   return (
     <div>
@@ -40,28 +43,31 @@ const Post = ({postsData, url: {query: {type}}}) => {
           content={stripTags(postData.excerpt.rendered)}
           property='og:description'
         />
-        {largestSizeData ? (
+        {ogImageData ? (
           <meta
-            content={largestSizeData.source_url}
+            content={ogImageData.source_url}
             property='og:image'
           />
         ) : null}
-        {largestSizeData ? (
+        {ogImageData ? (
           <meta
-            content={largestSizeData.height}
+            content={ogImageData.height}
             property='og:image:height'
           />
         ) : null}
-        {largestSizeData ? (
+        {ogImageData ? (
           <meta
-            content={largestSizeData.width}
+            content={ogImageData.width}
             property='og:image:width'
           />
         ) : null}
       </Head>
 
       <div className='my2 sm-my3'>
-        {featuredImage(postData, {size: 'large'})}
+        <img
+          className='block fit bg-gray'
+          {...getFeaturedImageProps(postData, {sizes: ['large', 'medium_large']})}
+        />
       </div>
 
       {!postData._formatting || !postData._formatting.hide_title ? (

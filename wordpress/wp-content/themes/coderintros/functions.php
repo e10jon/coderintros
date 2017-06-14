@@ -5,14 +5,14 @@ require_once( 'inc/rest_api.php' );
 
 // images
 add_theme_support( 'post-thumbnails' );
-update_option( 'medium_size_w', 300 );
-update_option( 'medium_size_h', 300 );
+update_option( 'medium_size_w', 600 );
+update_option( 'medium_size_h', 600 );
 update_option( 'medium_crop', 1 );
-update_option( 'medium_large_size_w', 600 );
-update_option( 'medium_large_size_h', 600 );
+update_option( 'medium_large_size_w', 1200 );
+update_option( 'medium_large_size_h', 630 );
 update_option( 'medium_large_crop', 1 );
-update_option( 'large_size_w', 1200 );
-update_option( 'large_size_h', 1200 );
+update_option( 'large_size_w', 2400 );
+update_option( 'large_size_h', 1260 );
 update_option( 'large_crop', 1 );
 
 // expire the cache when the site is updated

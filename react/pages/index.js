@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import stripTags from 'striptags'
 
 import createPage from '../helpers/create-page'
-import {featuredImage} from '../helpers/post-data'
+import {getFeaturedImageProps} from '../helpers/post-data'
 import Link from '../helpers/link'
 
 const Home = ({postsData}: Object, {siteData}: Object) => {
@@ -51,7 +51,10 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
           key={`Post${postData.id}`}
         >
           <div className='col-12 sm-col-4'>
-            {featuredImage(postData, {size: 'medium_large'})}
+            <img
+              className='block fit bg-gray'
+              {...getFeaturedImageProps(postData, {sizes: ['medium', 'thumbnail']})}
+            />
           </div>
 
           <div className='col-12 sm-col-8'>
