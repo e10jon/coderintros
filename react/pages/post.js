@@ -10,8 +10,13 @@ import {getFeaturedImageProps} from '../helpers/post-data'
 import Link from '../helpers/link'
 import Share from '../components/share'
 
-const Post = ({postsData, url: {query: {type}}}) => {
-  const postData = Array.isArray(postsData) ? postsData[0] : postsData
+const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
+  let postData = Array.isArray(postsData) ? postsData[0] : postsData
+
+  if (revisionsData) {
+    postData = Object.assign(postData, revisionsData[0])
+  }
+
   const ogImageData: ?Object = getFeaturedImageProps(postData, {
     sizes: ['large', 'medium_large'],
     returnLargestSizeData: true
@@ -120,17 +125,15 @@ const Post = ({postsData, url: {query: {type}}}) => {
 Post.displayName = 'Post'
 
 export default createPage(Post, {
-  propPaths: ({asPath, query: {p, preview, preview_id, preview_nonce, type, slug}}) => {
-    let path
+  propPaths: ({asPath, query: {p, preview, preview_id, type, slug}}) => {
+    const paths: Object = {
+      postsData: p ? `/wp/v2/${type}/${p}/?_embed` : `/wp/v2/${type}?_embed&slug=${slug}`
+    }
 
     if (preview) {
-      path = `/wp/v2/${type}/${p || preview_id}/revisions?preview_nonce=${preview_nonce}`
-    } else {
-      path = `/wp/v2/${type}?_embed&slug=${slug}`
+      paths.revisionsData = `/wp/v2/${type}/${p || preview_id}/revisions`
     }
 
-    return {
-      postsData: path
-    }
+    return paths
   }
 })
