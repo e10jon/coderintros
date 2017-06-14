@@ -6,12 +6,13 @@ import moment from 'moment'
 import stripTags from 'striptags'
 
 import createPage from '../helpers/create-page'
-import {featuredImage, ogImage} from '../helpers/post-data'
+import {featuredImage, getLargestSizeData} from '../helpers/post-data'
 import Link from '../helpers/link'
 import Share from '../components/share'
 
 const Post = ({postsData, url: {query: {type}}}) => {
   const postData = Array.isArray(postsData) ? postsData[0] : postsData
+  const largestSizeData: ?Object = getLargestSizeData(postData)
 
   return (
     <div>
@@ -39,10 +40,24 @@ const Post = ({postsData, url: {query: {type}}}) => {
           content={stripTags(postData.excerpt.rendered)}
           property='og:description'
         />
-        <meta
-          content={ogImage(postData)}
-          property='og:image'
-        />
+        {largestSizeData ? (
+          <meta
+            content={largestSizeData.source_url}
+            property='og:image'
+          />
+        ) : null}
+        {largestSizeData ? (
+          <meta
+            content={largestSizeData.height}
+            property='og:image:height'
+          />
+        ) : null}
+        {largestSizeData ? (
+          <meta
+            content={largestSizeData.width}
+            property='og:image:width'
+          />
+        ) : null}
       </Head>
 
       <div className='my2 sm-my3'>

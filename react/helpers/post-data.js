@@ -8,9 +8,9 @@ const showDefaultImage = process.env.NODE_ENV !== 'production'
 
 export function featuredImage (postData: Object, {
   className = 'block fit bg-gray',
-  returnLargestSizeUrl,
+  returnLargestSizeData,
   style
-}: Object = {}) {
+}: Object = {}): ?Object {
   let imageData = postData._embedded &&
     postData._embedded['wp:featuredmedia'] &&
     postData._embedded['wp:featuredmedia'][0]
@@ -49,8 +49,8 @@ export function featuredImage (postData: Object, {
     .map(s => `${sizes[s].source_url} ${sizes[s].width}w`)
     .join(', ')
 
-  if (returnLargestSizeUrl) {
-    return sizesData[sizesKeys.filter(k => k !== 'full').reverse()[0]].source_url
+  if (returnLargestSizeData) {
+    return sizesData[sizesKeys.filter(k => k !== 'full').reverse()[0]]
   } else {
     return (
       <img
@@ -64,6 +64,6 @@ export function featuredImage (postData: Object, {
   }
 }
 
-export function ogImage (postData: Object) {
-  return featuredImage(postData, {returnLargestSizeUrl: true})
+export function getLargestSizeData (postData: Object): ?Object {
+  return featuredImage(postData, {returnLargestSizeData: true})
 }
