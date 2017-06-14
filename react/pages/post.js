@@ -17,7 +17,7 @@ const Post = ({postsData, url: {query: {type}}}) => {
   return (
     <div>
       <Head>
-        <title>{postData.title.rendered}</title>
+        <title>{postData.og_title}</title>
 
         <meta
           content={stripTags(postData.excerpt.rendered)}
@@ -33,7 +33,7 @@ const Post = ({postsData, url: {query: {type}}}) => {
           property='og:url'
         />
         <meta
-          content={postData.title.rendered}
+          content={postData.og_title}
           property='og:title'
         />
         <meta

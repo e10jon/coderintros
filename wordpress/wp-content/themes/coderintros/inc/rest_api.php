@@ -8,17 +8,8 @@ add_action( 'rest_api_init', function () {
     ];
   }
 
-  register_rest_field(
-    'page',
-    '_formatting',
-    ['get_callback' => 'formatting_callback']
-  );
-
-  register_rest_field(
-    'post',
-    '_formatting',
-    ['get_callback' => 'formatting_callback']
-  );
+  register_rest_field( 'page', '_formatting', ['get_callback' => 'formatting_callback'] );
+  register_rest_field( 'post', '_formatting', ['get_callback' => 'formatting_callback'] );
 } );
 
 // add social links to posts
@@ -29,6 +20,28 @@ add_action( 'rest_api_init', function () {
         'hacker_news' => get_post_meta( $object['id'], 'hacker_news_url', true ),
         'reddit' => get_post_meta( $object['id'], 'reddit_url', true )
       ];
+    }
+  ] );
+} );
+
+// add profile to posts
+add_action( 'rest_api_init', function () {
+  register_rest_field( 'post', '_profile', [
+    'get_callback' => function ( $object ) {
+      return [
+        'blurb' => get_post_meta( $object['id'], 'blurb', true )
+      ];
+    }
+  ] );
+} );
+
+// add custom social titles to posts
+add_action( 'rest_api_init', function () {
+  register_rest_field( 'post', 'og_title', [
+    'get_callback' => function ( $object ) {
+      $blurb = get_post_meta( $object['id'], 'blurb', true );
+      $title = 'Meet ' . get_the_title( $object['id' ]);
+      return empty( $blurb ) ? $title : $title . ', ' . $blurb;
     }
   ] );
 } );
