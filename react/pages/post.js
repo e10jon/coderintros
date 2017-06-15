@@ -5,7 +5,7 @@ import Head from 'next/head'
 import moment from 'moment'
 import stripTags from 'striptags'
 
-import createPage from '../helpers/create-page'
+import createPage, {pageXSpacing} from '../helpers/create-page'
 import {getFeaturedImageProps} from '../helpers/post-data'
 import Link from '../helpers/link'
 import Share from '../components/share'
@@ -21,6 +21,8 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
     sizes: ['large', 'medium_large'],
     returnLargestSizeData: true
   })
+
+  const xSpacingClassName = !postData._formatting || !postData._formatting.full_width ? pageXSpacing : undefined
 
   return (
     <div>
@@ -75,49 +77,50 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
         />
       </div>
 
-      {!postData._formatting || !postData._formatting.hide_title ? (
-        <h1 className='my2'>
-          <Link href={postData.link}>{postData.title.rendered}</Link>
-        </h1>
-      ) : null}
+      <div className={xSpacingClassName}>
+        {!postData._formatting || !postData._formatting.hide_title ? (
+          <h1 className='my2'>
+            <Link href={postData.link}>{postData.title.rendered}</Link>
+          </h1>
+        ) : null}
 
-      {type !== 'pages' ? (
+        {type !== 'pages' ? (
+          <div
+            className='my2 gray italic'
+            dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+          />
+        ) : null}
+
+        {type !== 'pages' ? (
+          <div className='my2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
+        ) : null}
+
+        {type !== 'pages' ? (
+          <Share
+            hackerNewsUrl={postData._social_links.hacker_news}
+            position='Above Content'
+            redditUrl={postData._social_links.reddit}
+            title={postData.title.rendered}
+            url={postData.link}
+          />
+        ) : null}
+
         <div
-          className='my2 gray italic'
-          dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+          className='my3 serif post-content'
+          dangerouslySetInnerHTML={{__html: postData.content.rendered}}
+          style={{fontSize: '1.125rem', lineHeight: '1.8'}}
         />
-      ) : null}
 
-      {type !== 'pages' ? (
-        <div className='my2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
-      ) : null}
-
-      {type !== 'pages' ? (
-        <Share
-          hackerNewsUrl={postData._social_links.hacker_news}
-          position='Above Content'
-          redditUrl={postData._social_links.reddit}
-          title={postData.title.rendered}
-          url={postData.link}
-        />
-      ) : null}
-
-      <div
-        className='my3 serif post-content'
-        dangerouslySetInnerHTML={{__html: postData.content.rendered}}
-        style={{fontSize: '1.125rem', lineHeight: '1.8'}}
-      />
-
-      {type !== 'pages' ? (
-        <Share
-          hackerNewsUrl={postData._social_links.hacker_news}
-          position='Below Content'
-          redditUrl={postData._social_links.reddit}
-          title={postData.title.rendered}
-          url={postData.link}
-        />
-      ) : null}
-
+        {type !== 'pages' ? (
+          <Share
+            hackerNewsUrl={postData._social_links.hacker_news}
+            position='Below Content'
+            redditUrl={postData._social_links.reddit}
+            title={postData.title.rendered}
+            url={postData.link}
+          />
+        ) : null}
+      </div>
     </div>
   )
 }

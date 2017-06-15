@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {IoIosEmailOutline, IoSocialFacebookOutline} from 'react-icons/lib/io'
 
 import Link from '../helpers/link'
+import {pageXSpacing} from '../helpers/create-page'
 import trackEvent from '../helpers/track-event'
 
 const Header = (props: Object, {emailModalStore, likeModalStore, siteData}: Object) => {
@@ -29,7 +30,7 @@ const Header = (props: Object, {emailModalStore, likeModalStore, siteData}: Obje
 
   return (
     <header>
-      <div className='flex items-center justify-between my2 sm-my4'>
+      <div className={`flex items-center justify-between my2 sm-my4 ${pageXSpacing}`}>
         <div>
           <a
             className={aClassName}

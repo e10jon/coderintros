@@ -5,13 +5,13 @@ import Head from 'next/head'
 import PropTypes from 'prop-types'
 import stripTags from 'striptags'
 
-import createPage from '../helpers/create-page'
+import createPage, {pageXSpacing} from '../helpers/create-page'
 import {getFeaturedImageProps} from '../helpers/post-data'
 import Link from '../helpers/link'
 
 const Home = ({postsData}: Object, {siteData}: Object) => {
   return (
-    <div>
+    <div className={pageXSpacing}>
       <Head>
         <title>{siteData.name}</title>
 

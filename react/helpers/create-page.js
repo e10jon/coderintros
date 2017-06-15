@@ -15,6 +15,8 @@ import Header from '../components/header'
 import LikeModal, {didLikeFBPageStoreKey} from '../components/modals/like'
 import trackEvent from '../helpers/track-event'
 
+export const pageXSpacing = 'mx2 md-mx0'
+
 export default function (Child: Object, {
   propPaths = () => ({}),
   childContextTypes = {},
@@ -215,7 +217,7 @@ export default function (Child: Object, {
           <div id='fb-root' />
           <script dangerouslySetInnerHTML={{__html: fbInit(this.props.siteData.facebook_app_id)}} />
 
-          <div className='max-width-3 mx-auto px2 sans-serif black'>
+          <div className='max-width-3 mx-auto sans-serif black'>
             <Header />
 
             <main className='flex-auto bg-white'>

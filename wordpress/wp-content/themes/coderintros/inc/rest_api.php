@@ -4,6 +4,7 @@
 add_action( 'rest_api_init', function () {
   function formatting_callback ( $object ) {
     return [
+      'full_width' => get_post_meta( $object['id'], 'full_width', true ) == '1',
       'hide_title' => get_post_meta( $object['id'], 'hide_title', true ) == '1'
     ];
   }
