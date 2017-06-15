@@ -64,8 +64,25 @@ add_action( 'rest_api_init', function () {
         'facebook_modal_body_auto_open' => get_option( 'facebook_modal_body_auto_open' ),
         'facebook_modal_delay' => intval( get_option( 'facebook_modal_delay' ) ),
         'ga_tracking_id' => get_option( 'ga_tracking_id' ),
-        'mailchimp_form_html' => get_option( 'mailchimp_form_html' )
+        'mailchimp_form_html' => get_option( 'mailchimp_form_html' ),
+        'site_password_enabled' => !empty( get_option( 'site_password' ) )
       ];
+    },
+  ] );
+} );
+
+// add a custom endpoint to validate site password
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'ci', '/site_password', [
+    'methods' => 'POST',
+    'callback' => function () {
+      if ( getallheaders()['X-Site-Password'] != get_option( 'site_password' ) ) {
+        return new WP_Error(
+          'invalid_site_password',
+          'Invalid site password',
+          ['status' => 401]
+        );
+      }
     },
   ] );
 } );

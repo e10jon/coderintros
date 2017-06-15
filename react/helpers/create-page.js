@@ -13,6 +13,7 @@ import fetch from './fetch'
 import Footer from '../components/footer'
 import Header from '../components/header'
 import LikeModal, {didLikeFBPageStoreKey} from '../components/modals/like'
+import SitePassword from '../components/site-password'
 import trackEvent from '../helpers/track-event'
 
 export const pageXSpacing = 'mx2 md-mx0'
@@ -44,10 +45,24 @@ export default function (Child: Object, {
         })
       )))
 
-      return pathsKeys.reduce((obj, key, i) => {
+      const finalProps = pathsKeys.reduce((obj, key, i) => {
         obj[key] = fetches[i].data
         return obj
       }, {})
+
+      if (finalProps.siteData.site_password_enabled) {
+        try {
+          await fetch({
+            method: 'post',
+            path: '/ci/site_password',
+            headers: {'X-Site-Password': query.password}
+          })
+        } catch (err) {
+          finalProps.passwordRequired = true
+        }
+      }
+
+      return finalProps
     }
 
     getChildContext = () => Object.assign({}, {
@@ -221,7 +236,11 @@ export default function (Child: Object, {
             <Header />
 
             <main className='flex-auto bg-white'>
-              <Child {...this.props} />
+              {this.props.passwordRequired ? (
+                <SitePassword />
+              ) : (
+                <Child {...this.props} />
+              )}
             </main>
 
             <Footer />

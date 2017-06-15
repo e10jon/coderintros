@@ -11,8 +11,7 @@ export default (opts: Object = {}) => {
   const url = isNode ? `http://wordpress/wp-json${path}` : `/wp-json${path}`
   const data = opts.data
   const restNonce = opts.cookiejar ? opts.cookiejar.match(/wp_rest_nonce=(.+?)(?:\s|$|;)/)[1] : undefined
-
-  const headers: Object = {}
+  const headers = opts.headers || {}
 
   if (isNode) {
     headers.host = global.HOST
