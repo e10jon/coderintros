@@ -23,8 +23,6 @@ export default (opts: Object = {}) => {
     headers.withCredentials = true
   }
 
-  console.log(`Fetching url: ${url}`)
-
   return axios.request({
     data,
     headers,

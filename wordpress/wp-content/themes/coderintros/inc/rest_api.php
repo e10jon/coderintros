@@ -52,17 +52,24 @@ add_action( 'rest_api_init', function () {
   register_rest_route( 'ci', '/site_details', [
     'methods' => 'GET',
     'callback' => function () {
+      $image_names = ['logo', 'apple-icon-57x57', 'apple-icon-60x60',
+        'apple-icon-72x72', 'apple-icon-76x76', 'apple-icon-114x114',
+        'apple-icon-120x120', 'apple-icon-144x144', 'apple-icon-152x152',
+        'apple-icon-180x180', 'android-icon-192x192', 'favicon-32x32',
+        'favicon-96x96', 'favicon-16x16', 'ms-icon-144x144'];
+
       $logo_query = new WP_Query([
-        'posts_per_page' => 1,
+        'posts_per_page' => sizeof( $image_names ),
+        'post_status' => 'inherit',
         'post_type' => 'attachment',
-        'name' => 'logo'
+        'post_name__in' => $image_names
       ]);
 
-      return [
+      $finalArray = [
         'name' => get_bloginfo( 'name' ),
         'description' => get_bloginfo( 'description' ),
         'home' => get_home_url(),
-        'logo' => wp_get_attachment_url( $logo_query->post->ID ),
+        'images' => [],
         'facebook_app_id' => get_option( 'facebook_app_id' ),
         'facebook_page_url' => get_option( 'facebook_page_url' ),
         'facebook_modal_title' => get_option( 'facebook_modal_title' ),
@@ -72,8 +79,17 @@ add_action( 'rest_api_init', function () {
         'facebook_modal_delay' => intval( get_option( 'facebook_modal_delay' ) ),
         'ga_tracking_id' => get_option( 'ga_tracking_id' ),
         'mailchimp_form_html' => get_option( 'mailchimp_form_html' ),
-        'site_password_enabled' => !empty( get_option( 'site_password' ) )
+        'site_password_enabled' => ! empty( get_option( 'site_password' ) )
       ];
+
+      foreach ($image_names as $image_name) {
+        $post = array_search_for_key( 'post_name', $image_name, $logo_query->posts );
+        if ( $post ) {
+          $finalArray['images'][$image_name] = wp_get_attachment_url( $post->ID );
+        }
+      }
+
+      return $finalArray;
     },
   ] );
 } );
