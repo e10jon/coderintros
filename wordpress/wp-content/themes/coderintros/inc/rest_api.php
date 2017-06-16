@@ -52,11 +52,17 @@ add_action( 'rest_api_init', function () {
   register_rest_route( 'ci', '/site_details', [
     'methods' => 'GET',
     'callback' => function () {
+      $logo_query = new WP_Query([
+        'posts_per_page' => 1,
+        'post_type' => 'attachment',
+        'name' => 'logo'
+      ]);
+
       return [
         'name' => get_bloginfo( 'name' ),
         'description' => get_bloginfo( 'description' ),
         'home' => get_home_url(),
-        'logo' => wp_get_attachment_image_src( get_option( 'logo_post_id' ) )[0],
+        'logo' => wp_get_attachment_url( $logo_query->post->ID ),
         'facebook_app_id' => get_option( 'facebook_app_id' ),
         'facebook_page_url' => get_option( 'facebook_page_url' ),
         'facebook_modal_title' => get_option( 'facebook_modal_title' ),

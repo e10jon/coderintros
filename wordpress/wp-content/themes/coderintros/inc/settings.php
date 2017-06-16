@@ -2,7 +2,6 @@
 
 // add a settings page
 add_action( 'admin_init', function () {
-  register_setting( 'ci', 'logo_post_id' );
   register_setting( 'ci', 'facebook_page_url' );
   register_setting( 'ci', 'facebook_modal_title' );
   register_setting( 'ci', 'facebook_modal_title_auto_open' );
@@ -15,18 +14,6 @@ add_action( 'admin_init', function () {
   register_setting( 'ci', 'site_password' );
 
   add_settings_section( 'ci_general', null, null, 'ci' );
-
-  add_settings_field(
-    'logo_post_id',
-    '<label for="logo_post_id">' . __( 'Logo Post ID' , 'logo_post_id' ) . '</label>',
-    function () {
-      $option = get_option('logo_post_id');
-      echo "<input id='logo_post_id' name='logo_post_id' type='text' class='regular-text code' value='{$option}' />";
-      echo "<p class='description'>Upload the logo to the Media Library, then insert the ID above.</p>";
-    },
-    'ci',
-    'ci_general'
-  );
 
   add_settings_field(
     'facebook_page_url',
