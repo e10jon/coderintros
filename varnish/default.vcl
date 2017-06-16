@@ -23,7 +23,11 @@ sub vcl_pipe {
 sub vcl_recv {
   if (req.method == "BAN") {
     ban("req.url ~ " + req.url);
-    return (synth(200, "OK"));
+    return (synth(200, "Banned"));
+  }
+
+  if (req.url == "/health") {
+    return (synth(200, "Healthy"));
   }
 
   if (req.url !~ "^/feed" && req.url !~ "^/sitemap" && req.url !~ "^\/wp-(admin|login)" && req.url !~ "preview=true") {

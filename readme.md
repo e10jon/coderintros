@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://coderintros.com/">
-    <img src="https://coderintros.com/static/img/logo.svg" alt="Coder Intros logo" title="Coder Intros" align="center" height="50" />
+    <img src="https://cf.coderintros.com/uploads/2017/06/logo.svg" alt="Coder Intros logo" title="Coder Intros" align="center" height="50" />
     </a>
 </div>
 <br />
@@ -15,17 +15,20 @@ No problem! Head on over to [https://coderintros.com/suggest/](https://coderintr
 
 ## How to run locally
 
-Clone this repository, run  `./local.sh`, then visit [http://localhost/](http://localhost/).
+Clone this repository, run  `./local.sh`, then visit [http://localhost/](http://localhost/). To log in to the Wordpress backend, go to [http://localhost/wp-admin](http://localhost/wp-admin) and use username: `admin` password: `password`.
 
 ## How to deploy
 
-You'll need an [AWS account](https://aws.amazon.com/) and the [Elastic Beanstalk CLI](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html) installed locally. (Detailed instructions coming soon. Maybe.)
+You'll need an [AWS account](https://aws.amazon.com/), and you'll also need more instructions than I feel like typing right now. But briefly, you'll need to do the following:
 
 ```
-cp deploy.sample.sh deploy.sh  # open file, enter variables
-cp Dockerrun.aws.sample.json Dockerrun.aws.json # open file, enter variables
+cd deploy
 
-eb init
+cp deploy.sample.sh deploy.sh
+cp docker-compose.sample.yml docker-compose.yml
+
+# open each file you cp'd and replace all the REPLACE_MEs
+# with values that you'll have to create on your own
 
 ./deploy.sh
 ```
@@ -37,7 +40,7 @@ To let you know about some awesome businesses, and so that I don't forget about 
 - AWS
   - [Certificate Manager](https://us-west-2.console.aws.amazon.com/acm/home?region=us-west-2)
   - [CloudFront](https://console.aws.amazon.com/cloudfront/home?region=us-west-2)
-  - [Elastic Beanstalk](https://us-west-2.console.aws.amazon.com/elasticbeanstalk/home?region=us-west-2)
+  - [Container Service](https://us-west-2.console.aws.amazon.com/ecs/home?region=us-west-2)
   - [Route 53](https://console.aws.amazon.com/route53/home?region=us-west-2)
   - [S3](https://aws.amazon.com/s3/)
 - Google
