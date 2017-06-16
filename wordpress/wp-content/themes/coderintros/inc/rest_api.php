@@ -56,7 +56,7 @@ add_action( 'rest_api_init', function () {
         'apple-icon-72x72', 'apple-icon-76x76', 'apple-icon-114x114',
         'apple-icon-120x120', 'apple-icon-144x144', 'apple-icon-152x152',
         'apple-icon-180x180', 'android-icon-192x192', 'favicon-32x32',
-        'favicon-96x96', 'favicon-16x16', 'ms-icon-144x144'];
+        'favicon-96x96', 'favicon-16x16', 'ms-icon-144x144', 'og'];
 
       $logo_query = new WP_Query([
         'posts_per_page' => sizeof( $image_names ),

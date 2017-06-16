@@ -49,7 +49,7 @@ const Header = (props: Object, {emailModalStore, likeModalStore, siteData}: Obje
             <img
               alt={`${siteData.name} logo`}
               className='block fit'
-              src={siteData.logo}
+              src={siteData.images.logo}
             />
           </Link>
         </div>
