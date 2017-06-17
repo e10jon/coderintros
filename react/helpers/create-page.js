@@ -2,16 +2,16 @@
 
 import React, {Component} from 'react'
 import Head from 'next/head'
-import isNode from 'detect-node'
 import PropTypes from 'prop-types'
 import store from 'store'
+import 'isomorphic-fetch'
 
 import aceCss from '../styles/ace.css'
 import appStyles from '../styles/app.scss'
 import {createModalStore} from '../helpers/create-modal'
 import EmailModal from '../components/modals/email'
-import fetch from './fetch'
 import Footer from '../components/footer'
+import {getFetchHeaders, getWordpressUrl} from './fetch'
 import Header from '../components/header'
 import LikeModal, {didLikeFBPageStoreKey} from '../components/modals/like'
 import SitePassword from '../components/site-password'
@@ -39,27 +39,49 @@ export default function (Child: Object, {
       }, propPaths({asPath, query}))
       const pathsKeys = Object.keys(paths)
 
-      const fetches = await Promise.all(pathsKeys.map(k => (
-        fetch({
-          cookiejar: isNode ? req.headers.cookie : window.document.cookie,
-          path: paths[k]
+      const fetchCache = global.__FETCH__DATA__ || {}
+
+      let fetches = await Promise.all(pathsKeys.map(async k => {
+        const input = paths[k]
+        const [path, authorize] = typeof input === 'string' ? [input, false] : [input.path, input.authorize]
+
+        if (fetchCache[path]) {
+          return fetchCache[path]
+        }
+
+        const res = await global.fetch(getWordpressUrl(path), {
+          credentials: authorize ? 'include' : 'omit',
+          headers: getFetchHeaders(path, {
+            authorize,
+            cookiejar: req ? req.headers.cookie : window.document.cookie
+          })
         })
-      )))
+
+        fetchCache[path] = await res.json()
+
+        return fetchCache[path]
+      }))
 
       const finalProps = pathsKeys.reduce((obj, key, i) => {
-        obj[key] = fetches[i].data
+        obj[key] = fetches[i]
         return obj
       }, {})
 
+      finalProps.fetchCache = fetchCache
+
       if (finalProps.siteData.site_password_enabled) {
-        try {
-          await fetch({
-            method: 'post',
-            path: '/ci/site_password',
-            headers: {'X-Site-Password': query.password}
+        finalProps.passwordRequired = true
+
+        if (query.password) {
+          const res = await global.fetch(getWordpressUrl('/ci/site_password'), {
+            method: 'POST',
+            headers: getFetchHeaders(),
+            body: query.password
           })
-        } catch (err) {
-          finalProps.passwordRequired = true
+
+          if (res.status >= 200 && res.status < 400) {
+            finalProps.passwordRequired = false
+          }
         }
       }
 
@@ -121,6 +143,8 @@ export default function (Child: Object, {
 
           <EmailModal store={this.emailModalStore} />
           <LikeModal store={this.likeModalStore} />
+
+          <script dangerouslySetInnerHTML={{__html: `window.__FETCH__DATA__ = ${JSON.stringify(this.props.fetchCache)}`}} />
         </div>
       )
     }

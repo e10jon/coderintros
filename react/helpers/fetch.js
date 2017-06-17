@@ -1,34 +1,28 @@
 // @flow
 
-import Axios from 'axios'
 import isNode from 'detect-node'
 
-const axios = Axios.create()
+export const getWordpressUrl = (path: string) => (
+  isNode ? `http://wordpress/wp-json${path}` : `${window.location.origin}/wp-json${path}`
+)
 
-export default (opts: Object = {}) => {
-  const path = typeof opts === 'string' ? opts : opts.path
-  const method = opts.method || 'get'
-  const url = isNode ? `http://wordpress/wp-json${path}` : `/wp-json${path}`
-  const data = opts.data
-  const headers = opts.headers || {}
+export const getFetchHeaders = (path: string, {authorize, cookiejar}: Object = {}) => {
+  const headers: Object = {
+    'Content-Type': 'application/json'
+  }
 
   if (isNode) {
-    headers.host = global.HOST
+    headers['Host'] = global.HOST
   }
 
-  if (/preview=true/.test(path)) {
-    headers.cookie = opts.cookiejar
-    headers.withCredentials = true
+  if (authorize) {
+    headers['Cookie'] = cookiejar
 
-    try {
-      headers['X-WP-Nonce'] = opts.cookiejar.match(/wp_rest_nonce=(.+?)(?:\s|$|;)/)[1]
-    } catch (err) {}
+    const nonceMatch = cookiejar.match(/wp_rest_nonce=(.+?)(?:\s|$|;)/)
+    if (nonceMatch) {
+      headers['X-WP-Nonce'] = nonceMatch[1]
+    }
   }
 
-  return axios.request({
-    data,
-    headers,
-    method,
-    url
-  })
+  return headers
 }

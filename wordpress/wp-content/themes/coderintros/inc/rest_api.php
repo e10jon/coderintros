@@ -103,8 +103,8 @@ add_action( 'rest_api_init', function () {
 add_action( 'rest_api_init', function () {
   register_rest_route( 'ci', '/site_password', [
     'methods' => 'POST',
-    'callback' => function () {
-      if ( getallheaders()['X-Site-Password'] != get_option( 'site_password' ) ) {
+    'callback' => function ( $request ) {
+      if ( $request->get_body() != get_option( 'site_password' ) ) {
         return new WP_Error(
           'invalid_site_password',
           'Invalid site password',
@@ -113,4 +113,10 @@ add_action( 'rest_api_init', function () {
       }
     },
   ] );
+} );
+
+// add cache control headers
+add_action( 'rest_post_dispatch', function ( $result ) {
+  $result->headers['Cache-Control'] = 'public';
+  return $result;
 } );

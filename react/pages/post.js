@@ -139,7 +139,10 @@ export default createPage(Post, {
     }
 
     if (preview) {
-      paths.revisionsData = `/wp/v2/${type}/${p || preview_id}/revisions`
+      paths.revisionsData = {
+        authorize: true,
+        path: `/wp/v2/${type}/${p || preview_id}/revisions`
+      }
     }
 
     return paths

@@ -44,13 +44,13 @@ services:
   react:
     build:
       args:
-        GA_DEBUG: 'false'
         SKIP_BUILD: 'true'
       context: ./react
     command: npm run dev
     depends_on:
       - wordpress
     environment:
+      GA_DEBUG: 'false'
       NODE_ENV: development
     volumes:
       - ./react:/usr/src/app
