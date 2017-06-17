@@ -2,6 +2,7 @@
 
 require_once( 'inc/expire.php' );
 require_once( 'inc/helpers.php' );
+require_once( 'inc/mu-settings.php' );
 require_once( 'inc/settings.php' );
 require_once( 'inc/rest_api.php' );
 

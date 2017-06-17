@@ -2,6 +2,7 @@
 
 // add a settings page
 add_action( 'admin_init', function () {
+  register_setting( 'ci', 'cloudflare_zone_id' );
   register_setting( 'ci', 'facebook_page_url' );
   register_setting( 'ci', 'facebook_modal_title' );
   register_setting( 'ci', 'facebook_modal_title_auto_open' );
@@ -14,6 +15,17 @@ add_action( 'admin_init', function () {
   register_setting( 'ci', 'site_password' );
 
   add_settings_section( 'ci_general', null, null, 'ci' );
+
+  add_settings_field(
+    'cloudflare_zone_id',
+    '<label for="cloudflare_zone_id">' . __( 'Cloudflare Zone ID' , 'cloudflare_zone_id' ) . '</label>',
+    function () {
+      $option = get_option('cloudflare_zone_id');
+      echo "<input id='cloudflare_zone_id' name='cloudflare_zone_id' type='text' class='regular-text code' value='{$option}' />";
+    },
+    'ci',
+    'ci_general'
+  );
 
   add_settings_field(
     'facebook_page_url',
