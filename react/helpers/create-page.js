@@ -1,15 +1,12 @@
 // @flow
 
 import React, {Component} from 'react'
-import Head from 'next/head'
 import isNode from 'detect-node'
 import PropTypes from 'prop-types'
 import store from 'store'
 
 import {createModalStore} from '../helpers/create-modal'
-import {fbInit, gaInit} from './raw'
 import EmailModal from '../components/modals/email'
-import favicons from './favicons'
 import fetch from './fetch'
 import Footer from '../components/footer'
 import Header from '../components/header'
@@ -98,54 +95,8 @@ export default function (Child: Object, {
     likeModalStore: Object
 
     render () {
-      const {siteData} = this.props
-
       return (
         <div>
-          <Head>
-            <meta
-              content='width=device-width,initial-scale=1'
-              name='viewport'
-            />
-
-            <link
-              href='/static/css/ace.min.css'
-              rel='stylesheet'
-              type='text/css'
-            />
-            <link
-              href='/static/css/app.css'
-              rel='stylesheet'
-              type='text/css'
-            />
-            <link
-              href='https://fonts.googleapis.com/css?family=Lora:400,700|Overpass:400,800'
-              rel='stylesheet'
-            />
-
-            {favicons(siteData.images)}
-
-            <meta
-              content={siteData.facebook_app_id}
-              property='fb:app_id'
-            />
-
-            <script
-              dangerouslySetInnerHTML={{__html: gaInit(siteData.ga_tracking_id, {
-                autoLink: siteData.sites
-              })}}
-            />
-            <script
-              async
-              src='/static/js/autotrack.custom.js'
-            />
-          </Head>
-
-          <div id='fb-root' />
-          <script
-            dangerouslySetInnerHTML={{__html: fbInit(siteData.facebook_app_id)}}
-          />
-
           <div className='max-width-3 mx-auto sans-serif black'>
             <Header />
 
