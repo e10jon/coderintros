@@ -24,16 +24,6 @@ class Doc extends Document {
           />
 
           <link
-            href='/static/css/ace.min.css'
-            rel='stylesheet'
-            type='text/css'
-          />
-          <link
-            href='/static/css/app.css'
-            rel='stylesheet'
-            type='text/css'
-          />
-          <link
             href='https://fonts.googleapis.com/css?family=Lora:400,700|Overpass:400,800'
             rel='stylesheet'
           />
@@ -51,17 +41,17 @@ class Doc extends Document {
           />
         </Head>
 
-       <body>
-         <div id='fb-root' />
-         <script
-           dangerouslySetInnerHTML={{__html: fbInit(siteData.facebook_app_id)}}
-         />
+        <body>
+          <div id='fb-root' />
+          <script
+            dangerouslySetInnerHTML={{__html: fbInit(siteData.facebook_app_id)}}
+          />
 
-         <Main />
+          <Main />
 
-         <NextScript />
-       </body>
-     </html>
+          <NextScript />
+        </body>
+      </html>
     )
   }
 }

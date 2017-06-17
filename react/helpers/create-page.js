@@ -1,10 +1,13 @@
 // @flow
 
 import React, {Component} from 'react'
+import Head from 'next/head'
 import isNode from 'detect-node'
 import PropTypes from 'prop-types'
 import store from 'store'
 
+import aceCss from '../styles/ace.css'
+import appStyles from '../styles/app.scss'
 import {createModalStore} from '../helpers/create-modal'
 import EmailModal from '../components/modals/email'
 import fetch from './fetch'
@@ -97,6 +100,11 @@ export default function (Child: Object, {
     render () {
       return (
         <div>
+          <Head>
+            <style dangerouslySetInnerHTML={{__html: aceCss}} />
+            <style dangerouslySetInnerHTML={{__html: appStyles}} />
+          </Head>
+
           <div className='max-width-3 mx-auto sans-serif black'>
             <Header />
 
