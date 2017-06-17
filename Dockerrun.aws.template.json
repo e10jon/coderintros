@@ -1,0 +1,33 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "image": "AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/react:VERSION",
+      "links": [
+        "wordpress"
+      ],
+      "memoryReservation": 128,
+      "name": "react"
+    },
+    {
+      "name": "wordpress",
+      "image": "AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/wordpress:VERSION",
+      "memoryReservation": 384
+    },
+    {
+      "image": "AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/varnish:VERSION",
+      "memoryReservation": 256,
+      "links": [
+        "react",
+        "wordpress"
+      ],
+      "name": "varnish",
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ]
+    }
+  ]
+}

@@ -21,17 +21,11 @@ Clone this repository, run  `./local.sh`, then visit [http://localhost/](http://
 
 You'll need an [AWS account](https://aws.amazon.com/), and you'll also need more instructions than I feel like typing right now. But briefly, you'll need to do the following:
 
-```
-cd deploy
-
-cp deploy.sample.sh deploy.sh
-cp docker-compose.sample.yml docker-compose.yml
-
-# open each file you cp'd and replace all the REPLACE_MEs
-# with values that you'll have to create on your own
-
-./deploy.sh
-```
+- Create an RDS instance.
+- Create an Elastic Beanstalk application and environment, specifying all the environment variables from `docker-compose.yml`.
+- Create a Code Pipeline project, pulling from Github, running CodeBuild, deploying to Elastic Beanstalk
+  - Be sure to add to the `AmazonEC2ContainerRegistryFullAccess` policy to IAM role `code-build-coderintros-service-role`
+- Push to Github and watch the magic happen!
 
 ## In production
 
@@ -40,7 +34,10 @@ To let you know about some awesome businesses, and so that I don't forget about 
 - AWS
   - [Certificate Manager](https://us-west-2.console.aws.amazon.com/acm/home?region=us-west-2)
   - [CloudFront](https://console.aws.amazon.com/cloudfront/home?region=us-west-2)
+  - [CodeBuild](https://us-west-2.console.aws.amazon.com/codebuild/home?region=us-west-2#/projects)
+  - [CodePipeline](https://us-west-2.console.aws.amazon.com/codepipeline/home?region=us-west-2#/dashboard)
   - [Container Service](https://us-west-2.console.aws.amazon.com/ecs/home?region=us-west-2)
+  - [Elastic Beanstalk](https://us-west-2.console.aws.amazon.com/elasticbeanstalk/home?region=us-west-2#/applications)
   - [Route 53](https://console.aws.amazon.com/route53/home?region=us-west-2)
   - [S3](https://aws.amazon.com/s3/)
 - Google

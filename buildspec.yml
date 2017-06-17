@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - $(aws ecr get-login --region $AWS_REGION)
+      - VERSION=$(date +%s)
+
+  build:
+    commands:
+      - docker build -t react:$VERSION ./react
+      - docker build -t varnish:$VERSION ./varnish
+      - docker build -t wordpress:$VERSION ./wordpress
+
+      - docker tag react:$VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/react:$VERSION
+      - docker tag varnish:$VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/varnish:$VERSION
+      - docker tag wordpress:$VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/wordpress:$VERSION
+
+  post_build:
+    commands:
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/react:$VERSION
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/wordpress:$VERSION
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/varnish:$VERSION
+
+      - sed "s/AWS_ACCOUNT_ID/$AWS_ACCOUNT_ID/g;s/VERSION/$VERSION/" Dockerrun.aws.template.json > Dockerrun.aws.json
+
+artifacts:
+  files:
+    - Dockerrun.aws.json
