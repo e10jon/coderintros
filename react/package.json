@@ -17,6 +17,7 @@
     "autoprefixer": "^7.1.1",
     "axios": "^0.16.1",
     "babel-loader": "^7.0.0",
+    "cssnano": "^3.10.0",
     "detect-node": "^2.0.3",
     "glob": "^7.1.2",
     "mobx": "^3.1.14",
@@ -63,7 +64,15 @@
     "env": {
       "test": {
         "plugins": [
-          ["css-modules-transform", {"extensions": [".css", ".scss"]}]
+          [
+            "css-modules-transform",
+            {
+              "extensions": [
+                ".css",
+                ".scss"
+              ]
+            }
+          ]
         ],
         "presets": [
           "@ava/stage-4",
