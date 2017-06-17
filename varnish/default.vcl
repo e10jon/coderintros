@@ -30,7 +30,8 @@ sub vcl_recv {
     return (synth(200, "Healthy"));
   }
 
-  if (req.url !~ "^/feed" && req.url !~ "^/sitemap" && req.url !~ "^\/wp-(admin|login)" && req.url !~ "preview=true") {
+  # unset the cookie so that varnish caches the response
+  if (req.url !~ "^\/wp-(admin|login)" && req.url !~ "preview=true") {
     unset req.http.Cookie;
   }
 
@@ -45,6 +46,7 @@ sub vcl_recv {
   }
 }
 
-sub vcl_backend_response {
-  set beresp.do_gzip = true;
-}
+# let cloudflare do gzipping, and save our spare server resources
+# sub vcl_backend_response {
+#   set beresp.do_gzip = true;
+# }
