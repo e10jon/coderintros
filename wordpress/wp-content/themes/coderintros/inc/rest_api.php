@@ -79,14 +79,19 @@ add_action( 'rest_api_init', function () {
         'facebook_modal_delay' => intval( get_option( 'facebook_modal_delay' ) ),
         'ga_tracking_id' => get_option( 'ga_tracking_id' ),
         'mailchimp_form_html' => get_option( 'mailchimp_form_html' ),
-        'site_password_enabled' => ! empty( get_option( 'site_password' ) )
+        'site_password_enabled' => ! empty( get_option( 'site_password' ) ),
+        'sites' => []
       ];
 
-      foreach ($image_names as $image_name) {
+      foreach ( $image_names as $image_name ) {
         $post = array_search_for_key( 'post_name', $image_name, $logo_query->posts );
         if ( $post ) {
           $finalArray['images'][$image_name] = wp_get_attachment_url( $post->ID );
         }
+      }
+
+      foreach ( get_sites( ['public' => 1] ) as $site ) {
+        array_push( $finalArray['sites'], $site->domain );
       }
 
       return $finalArray;

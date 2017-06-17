@@ -98,6 +98,8 @@ export default function (Child: Object, {
     likeModalStore: Object
 
     render () {
+      const {siteData} = this.props
+
       return (
         <div>
           <Head>
@@ -121,14 +123,18 @@ export default function (Child: Object, {
               rel='stylesheet'
             />
 
-            {favicons(this.props.siteData.images)}
+            {favicons(siteData.images)}
 
             <meta
-              content={this.props.siteData.facebook_app_id}
+              content={siteData.facebook_app_id}
               property='fb:app_id'
             />
 
-            <script dangerouslySetInnerHTML={{__html: gaInit(this.props.siteData.ga_tracking_id)}} />
+            <script
+              dangerouslySetInnerHTML={{__html: gaInit(siteData.ga_tracking_id, {
+                autoLink: siteData.sites
+              })}}
+            />
             <script
               async
               src='/static/js/autotrack.custom.js'
@@ -136,7 +142,9 @@ export default function (Child: Object, {
           </Head>
 
           <div id='fb-root' />
-          <script dangerouslySetInnerHTML={{__html: fbInit(this.props.siteData.facebook_app_id)}} />
+          <script
+            dangerouslySetInnerHTML={{__html: fbInit(siteData.facebook_app_id)}}
+          />
 
           <div className='max-width-3 mx-auto sans-serif black'>
             <Header />

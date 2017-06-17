@@ -4,7 +4,7 @@
 // useful for development purposes
 const showDefaultImage = process.env.NODE_ENV !== 'production'
 
-export function getFeaturedImageProps (postData: Object, {
+export function getFeaturedImageProps (postData: ?Object, {
   returnLargestSizeData,
   sizes = ['large', 'medium_large']
 }: Object = {}): ?{
@@ -12,6 +12,10 @@ export function getFeaturedImageProps (postData: Object, {
   src: string,
   srcSet?: string
 } {
+  if (!postData) {
+    return null
+  }
+
   let imageData = postData._embedded &&
     postData._embedded['wp:featuredmedia'] &&
     postData._embedded['wp:featuredmedia'][0]
