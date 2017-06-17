@@ -2,12 +2,12 @@
 
 import React from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 import PropTypes from 'prop-types'
 import stripTags from 'striptags'
 
 import createPage, {pageXSpacing} from '../helpers/create-page'
-import {getFeaturedImageProps} from '../helpers/post-data'
-import Link from '../helpers/link'
+import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
 
 const Home = ({postsData}: Object, {siteData}: Object) => {
   return (
@@ -46,27 +46,29 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
 
       {postsData.map(postData => (
         <Link
-          className='flex flex-wrap items-center my2 sm-my3'
-          href={postData.link}
+          as={postData.link}
+          href={getUrlObj(postData)}
           key={`Post${postData.id}`}
         >
-          <div className='col-12 sm-col-4'>
-            <img
-              className='block fit bg-gray'
-              {...getFeaturedImageProps(postData, {sizes: ['medium', 'thumbnail']})}
-            />
-          </div>
-
-          <div className='col-12 sm-col-8'>
-            <div className='my2 sm-ml3'>
-              <h2 className='my2 lora h1 line-height-3'>{postData.title.rendered}</h2>
-
-              <div
-                className='my2 gray italic'
-                dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+          <a className='flex flex-wrap items-center my2 sm-my3'>
+            <div className='col-12 sm-col-4'>
+              <img
+                className='block fit bg-gray'
+                {...getFeaturedImageProps(postData, {sizes: ['medium', 'thumbnail']})}
               />
             </div>
-          </div>
+
+            <div className='col-12 sm-col-8'>
+              <div className='my2 sm-ml3'>
+                <h2 className='my2 lora h1 line-height-3'>{postData.title.rendered}</h2>
+
+                <div
+                  className='my2 gray italic'
+                  dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+                />
+              </div>
+            </div>
+          </a>
         </Link>
       ))}
     </div>

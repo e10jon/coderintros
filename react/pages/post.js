@@ -2,12 +2,12 @@
 
 import React from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 import moment from 'moment'
 import stripTags from 'striptags'
 
 import createPage, {pageXSpacing} from '../helpers/create-page'
-import {getFeaturedImageProps} from '../helpers/post-data'
-import Link from '../helpers/link'
+import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
 import Share from '../components/share'
 
 const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
@@ -27,7 +27,7 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
   return (
     <div>
       <Head>
-        <title>{postData.og_title}</title>
+        <title>{postData.og_title || postData.title.rendered}</title>
 
         <meta
           content={stripTags(postData.excerpt.rendered)}
@@ -80,7 +80,12 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
       <div className={xSpacingClassName}>
         {!postData._formatting || !postData._formatting.hide_title ? (
           <h1 className='my2'>
-            <Link href={postData.link}>{postData.title.rendered}</Link>
+            <Link
+              as={postData.link}
+              href={getUrlObj(postData)}
+            >
+              <a>{postData.title.rendered}</a>
+            </Link>
           </h1>
         ) : null}
 

@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react'
+import Link from 'next/link'
 import PropTypes from 'prop-types'
 import {IoIosEmailOutline, IoSocialFacebookOutline} from 'react-icons/lib/io'
 
-import Link from '../helpers/link'
 import {pageXSpacing} from '../helpers/create-page'
 import trackEvent from '../helpers/track-event'
 
@@ -42,15 +42,14 @@ const Header = (props: Object, {emailModalStore, likeModalStore, siteData}: Obje
         </div>
 
         <div className='flex-auto center'>
-          <Link
-            className='block header-logo mx-auto'
-            href='/'
-          >
-            <img
-              alt={`${siteData.name} logo`}
-              className='block fit'
-              src={siteData.images.logo}
-            />
+          <Link href='/'>
+            <a className='block header-logo mx-auto'>
+              <img
+                alt={`${siteData.name} logo`}
+                className='block fit'
+                src={siteData.images.logo}
+              />
+            </a>
           </Link>
         </div>
 

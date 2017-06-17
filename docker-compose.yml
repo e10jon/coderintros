@@ -44,7 +44,8 @@ services:
   react:
     build:
       args:
-        SKIP_BUILD: 1
+        GA_DEBUG: 'false'
+        SKIP_BUILD: 'true'
       context: ./react
     command: npm run dev
     depends_on:

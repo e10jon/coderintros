@@ -4,6 +4,14 @@
 // useful for development purposes
 const showDefaultImage = process.env.NODE_ENV !== 'production'
 
+export const getUrlObj = (postData: object) => ({
+  pathname: 'post',
+  query: {
+    slug: postData.slug,
+    type: `${postData.type}s`
+  }
+})
+
 export function getFeaturedImageProps (postData: ?Object, {
   returnLargestSizeData,
   sizes = ['large', 'medium_large']

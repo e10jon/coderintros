@@ -10,17 +10,19 @@ export default (opts: Object = {}) => {
   const method = opts.method || 'get'
   const url = isNode ? `http://wordpress/wp-json${path}` : `/wp-json${path}`
   const data = opts.data
-  const restNonce = opts.cookiejar ? opts.cookiejar.match(/wp_rest_nonce=(.+?)(?:\s|$|;)/)[1] : undefined
   const headers = opts.headers || {}
 
   if (isNode) {
     headers.host = global.HOST
   }
 
-  if (restNonce) {
+  if (/preview=true/.test(path)) {
     headers.cookie = opts.cookiejar
-    headers['X-WP-Nonce'] = restNonce
     headers.withCredentials = true
+
+    try {
+      headers['X-WP-Nonce'] = opts.cookiejar.match(/wp_rest_nonce=(.+?)(?:\s|$|;)/)[1]
+    } catch (err) {}
   }
 
   return axios.request({
