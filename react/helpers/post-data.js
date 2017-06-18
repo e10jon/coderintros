@@ -5,7 +5,7 @@
 const showDefaultImage = process.env.NODE_ENV !== 'production'
 
 export const getUrlObj = (postData: object) => ({
-  pathname: 'post',
+  pathname: '/post',
   query: {
     slug: postData.slug,
     type: `${postData.type}s`
