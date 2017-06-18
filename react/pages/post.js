@@ -10,6 +10,7 @@ import Ad from '../components/ad'
 import createPage, {pageXSpacing} from '../helpers/create-page'
 import insertUnits from '../helpers/in-content-units'
 import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
+import Related from '../components/sidebar/related'
 import Share from '../components/share'
 import Suggest from '../components/sidebar/suggest'
 
@@ -84,7 +85,7 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
         <div className='flex my2'>
           <div className='col-12 md-flex-auto'>
             {!postData._formatting || !postData._formatting.hide_title ? (
-              <h1 className='mb2'>
+              <h1 className='mb2 lg-h0'>
                 <Link
                   as={postData.link}
                   href={getUrlObj(postData)}
@@ -149,6 +150,8 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
               height={250}
               width={300}
             />
+
+            <Related />
           </div>
         </div>
       </div>

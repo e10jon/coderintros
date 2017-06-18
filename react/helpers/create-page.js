@@ -16,7 +16,7 @@ import LikeModal, {didLikeFBPageStoreKey} from '../components/modals/like'
 import SitePassword from '../components/site-password'
 import trackEvent from '../helpers/track-event'
 
-export const pageXSpacing = 'mx2 md-mx0'
+export const pageXSpacing = 'mx2 lg-mx0'
 
 export default function (Child: Object, {
   propPaths = () => ({}),
