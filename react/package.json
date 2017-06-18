@@ -23,7 +23,7 @@
     "mobx": "^3.1.14",
     "mobx-react": "^4.2.1",
     "moment": "^2.18.1",
-    "next": "^3.0.0-beta11",
+    "next": "beta",
     "node-sass": "^4.5.3",
     "postcss-easy-import": "^2.1.0",
     "postcss-loader": "^2.0.6",

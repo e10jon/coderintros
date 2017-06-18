@@ -1,3 +1,5 @@
+@import 'ace.css';
+
 /* tag overrides */
 a {
   color: #111; text-decoration: none;
@@ -5,7 +7,7 @@ a {
 }
 blockquote { margin: 0; padding: 0; }
 html, body { height: 100%; }
-h1, h2, h3, h4, h5, h6 { font-weight: 800; margin: 0; }
+h1, h2, h3, h4, h5, h6 { font-weight: 800; margin-top: 0; margin-bottom: 0; }
 ul { margin: 0; padding: 0; }
 
 /* generic classes */

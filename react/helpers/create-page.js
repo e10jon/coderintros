@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import store from 'store'
 import 'isomorphic-fetch'
 
-import aceCss from '../styles/ace.css'
 import appStyles from '../styles/app.scss'
 import {createModalStore} from '../helpers/create-modal'
 import EmailModal from '../components/modals/email'
@@ -123,11 +122,10 @@ export default function (Child: Object, {
       return (
         <div>
           <Head>
-            <style dangerouslySetInnerHTML={{__html: aceCss}} />
             <style dangerouslySetInnerHTML={{__html: appStyles}} />
           </Head>
 
-          <div className='max-width-3 mx-auto sans-serif black'>
+          <div className='max-width-4 mx-auto sans-serif black'>
             <Header />
 
             <main className='flex-auto bg-white'>

@@ -53,8 +53,8 @@ services:
       GA_DEBUG: 'false'
       NODE_ENV: development
     volumes:
-      - ./react:/usr/src/app
       - /usr/src/app/node_modules
+      - ./react:/usr/src/app
 
   varnish:
     build:
