@@ -6,9 +6,12 @@ import Link from 'next/link'
 import moment from 'moment'
 import stripTags from 'striptags'
 
+import Ad from '../components/ad'
 import createPage, {pageXSpacing} from '../helpers/create-page'
+import insertUnits from '../helpers/in-content-units'
 import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
 import Share from '../components/share'
+import Suggest from '../components/sidebar/suggest'
 
 const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
   let postData = Array.isArray(postsData) ? postsData[0] : postsData
@@ -78,53 +81,76 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
       </div>
 
       <div className={xSpacingClassName}>
-        {!postData._formatting || !postData._formatting.hide_title ? (
-          <h1 className='my2'>
-            <Link
-              as={postData.link}
-              href={getUrlObj(postData)}
-            >
-              <a>{postData.title.rendered}</a>
-            </Link>
-          </h1>
-        ) : null}
+        <div className='flex my2'>
+          <div className='col-12 md-flex-auto'>
+            {!postData._formatting || !postData._formatting.hide_title ? (
+              <h1 className='mb2'>
+                <Link
+                  as={postData.link}
+                  href={getUrlObj(postData)}
+                >
+                  <a>{postData.title.rendered}</a>
+                </Link>
+              </h1>
+            ) : null}
 
-        {type !== 'pages' ? (
+            {type !== 'pages' ? (
+              <div
+                className='my2 gray italic'
+                dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+              />
+            ) : null}
+
+            {type !== 'pages' ? (
+              <div className='my2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
+            ) : null}
+
+            {type !== 'pages' ? (
+              <Share
+                hackerNewsUrl={postData._social_links.hacker_news}
+                position='Above Content'
+                redditUrl={postData._social_links.reddit}
+                title={postData.title.rendered}
+                url={postData.link}
+              />
+            ) : null}
+
+            <div
+              className='my3 serif post-content'
+              dangerouslySetInnerHTML={{__html: insertUnits(postData.content.rendered)}}
+              style={{fontSize: '1.125rem', lineHeight: '1.8'}}
+            />
+
+            {type !== 'pages' ? (
+              <Share
+                hackerNewsUrl={postData._social_links.hacker_news}
+                position='Below Content'
+                redditUrl={postData._social_links.reddit}
+                title={postData.title.rendered}
+                url={postData.link}
+              />
+            ) : null}
+          </div>
+
           <div
-            className='my2 gray italic'
-            dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
-          />
-        ) : null}
+            className='xs-hide sm-hide ml3'
+            style={{flex: '0 0 300px'}}
+          >
+            <Ad
+              className='mb3'
+              height={600}
+              width={300}
+            />
 
-        {type !== 'pages' ? (
-          <div className='my2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
-        ) : null}
+            <Suggest className='my3' />
 
-        {type !== 'pages' ? (
-          <Share
-            hackerNewsUrl={postData._social_links.hacker_news}
-            position='Above Content'
-            redditUrl={postData._social_links.reddit}
-            title={postData.title.rendered}
-            url={postData.link}
-          />
-        ) : null}
-
-        <div
-          className='my3 serif post-content'
-          dangerouslySetInnerHTML={{__html: postData.content.rendered}}
-          style={{fontSize: '1.125rem', lineHeight: '1.8'}}
-        />
-
-        {type !== 'pages' ? (
-          <Share
-            hackerNewsUrl={postData._social_links.hacker_news}
-            position='Below Content'
-            redditUrl={postData._social_links.reddit}
-            title={postData.title.rendered}
-            url={postData.link}
-          />
-        ) : null}
+            <Ad
+              className='my3'
+              height={250}
+              width={300}
+            />
+          </div>
+        </div>
       </div>
     </div>
   )
