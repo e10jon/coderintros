@@ -25,6 +25,15 @@ module.exports = {
       }]
     })
 
+    // the following is required because `npm run build` failed
+    // because it couldn't find react-dom/server
+    // hopefully it can be removed when next.js fixes the issue
+    // https://github.com/zeit/next.js/issues/1877
+    if (config.resolve.alias) {
+      delete config.resolve.alias['react']
+      delete config.resolve.alias['react-dom']
+    }
+
     return config
   }
 }
