@@ -27,10 +27,10 @@ function purge_varnish_cache () {
 add_action( 'save_post', 'purge_varnish_cache' );
 add_action( 'save_post', 'purge_cloudflare_cache' );
 
-// add a custom endpoint to expire all site caches
+// add a custom endpoint to purge all site caches
 // useful when called from a post-deploy hook
 add_action( 'rest_api_init', function () {
-  register_rest_route( 'ci', '/expire_all_caches', [
+  register_rest_route( 'ci', '/purge_all_caches', [
     'methods' => 'DELETE',
     'callback' => function () {
       foreach( get_sites() as $site ) {
@@ -41,8 +41,3 @@ add_action( 'rest_api_init', function () {
     }
   ] );
 } );
-
-// TODO: figure out why the following hooks
-// cause a mysql too many connections error:
-// add_action( 'update_site_option', 'expire_varnish_cache' );
-// add_action( 'update_option', 'expire_varnish_cache' );
