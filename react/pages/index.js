@@ -44,7 +44,7 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
 
       <div className='max-width-4 mx-auto'>
         <div className='page-x-spacing'>
-          <hr className='mt3 mb3 sm-mb4 xs-hide ' />
+          <hr className='mt3 mb3 sm-mb4 xs-hide' />
 
           {postsData.map(postData => (
             <Link

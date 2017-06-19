@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react'
 import Head from 'next/head'
+import {observer} from 'mobx-react'
 import PropTypes from 'prop-types'
 import store from 'store'
 import 'isomorphic-fetch'
@@ -12,7 +13,7 @@ import Footer from '../components/footer'
 import {getFetchHeaders, getWordpressUrl} from './fetch'
 import Header from '../components/header'
 import LikeModal, {didLikeFBPageStoreKey} from '../components/modals/like'
-import SitePassword from '../components/site-password'
+import SitePassword, {createSitePasswordStore} from '../components/site-password'
 import styles from '../styles/app.scss'
 import trackEvent from '../helpers/track-event'
 
@@ -26,7 +27,8 @@ export default function (Child: Object, {
       emailModalStore: PropTypes.object,
       likeModalStore: PropTypes.object,
       pagesData: PropTypes.array,
-      siteData: PropTypes.object
+      siteData: PropTypes.object,
+      sitePasswordStore: PropTypes.object
     }, childContextTypes)
 
     static async getInitialProps ({asPath, req, query}) {
@@ -66,22 +68,6 @@ export default function (Child: Object, {
 
       finalProps.fetchCache = fetchCache
 
-      if (finalProps.siteData.site_password_enabled) {
-        finalProps.passwordRequired = true
-
-        if (query.password) {
-          const res = await global.fetch(getWordpressUrl('/ci/site_password'), {
-            method: 'POST',
-            headers: getFetchHeaders(),
-            body: query.password
-          })
-
-          if (res.status >= 200 && res.status < 400) {
-            finalProps.passwordRequired = false
-          }
-        }
-      }
-
       return finalProps
     }
 
@@ -89,12 +75,16 @@ export default function (Child: Object, {
       emailModalStore: this.emailModalStore,
       likeModalStore: this.likeModalStore,
       pagesData: this.props.pagesData,
-      siteData: this.props.siteData
+      siteData: this.props.siteData,
+      sitePasswordStore: this.sitePasswordStore
     }, getChildContext.call(this))
 
     componentWillMount () {
       this.emailModalStore = createModalStore()
       this.likeModalStore = createModalStore()
+      if (this.props.siteData.site_password_enabled) {
+        this.sitePasswordStore = createSitePasswordStore()
+      }
     }
 
     componentDidMount () {
@@ -115,6 +105,7 @@ export default function (Child: Object, {
 
     emailModalStore: Object
     likeModalStore: Object
+    sitePasswordStore: Object
 
     render () {
       return (
@@ -127,7 +118,7 @@ export default function (Child: Object, {
             <Header />
 
             <main className='flex-auto bg-white'>
-              {this.props.passwordRequired ? (
+              {this.sitePasswordStore && !this.sitePasswordStore.isAuthorized ? (
                 <SitePassword />
               ) : (
                 <Child {...this.props} />
@@ -146,5 +137,5 @@ export default function (Child: Object, {
     }
   }
 
-  return Page
+  return observer(Page)
 }

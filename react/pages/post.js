@@ -28,7 +28,7 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
   })
 
   const xSpacingClassName = !postData._formatting || !postData._formatting.full_width ? 'page-x-spacing' : ''
-  
+
   const maxWidth = postData._formatting && postData._formatting.no_sidebar ? '3' : '4'
 
   return (
