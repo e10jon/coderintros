@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react'
-import Head from 'next/head'
 import Link from 'next/link'
 import moment from 'moment'
 import PropTypes from 'prop-types'
+import {IoSocialGithub} from 'react-icons/lib/io'
 
 import {getUrlObj} from '../helpers/post-data'
 
@@ -12,7 +12,7 @@ const Footer = (props: Object, {pagesData, siteData}: Object) => (
   <footer>
     <div className='max-width-3 mx-auto'>
       <div className='page-x-spacing center'>
-        <div className='my3'>
+        <div className='my2'>
           {pagesData && pagesData.map(p => (
             <Link
               as={p.link}
@@ -28,29 +28,19 @@ const Footer = (props: Object, {pagesData, siteData}: Object) => (
         </div>
 
         {siteData.github_repo_url ? (
-          <div>
-            <Head>
-              <script
-                async
-                defer
-                src='https://buttons.github.io/buttons.js'
-              />
-            </Head>
-
+          <div className='my2'>
             <a
-              aria-label={`Star ${siteData.github_repo_url} on Github`}
-              className='github-button'
-              data-show-count='true'
-              data-size='large'
+              className='gray p1'
               href={siteData.github_repo_url}
             >
-              {'Star'}
+              <IoSocialGithub />
+              <span>{'View on Github'}</span>
             </a>
           </div>
         ) : null}
 
         <div
-          className='gray my3 h5 ups'
+          className='gray my2 h5 ups'
           dangerouslySetInnerHTML={{__html: `&copy;${moment().format('YYYY')} ${siteData.name}`}}
         />
       </div>

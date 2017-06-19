@@ -27,8 +27,9 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
     returnLargestSizeData: true
   })
 
-  const xSpacingClassName = !postData._formatting || !postData._formatting.full_width ? 'page-x-spacing' : ''
+  const featuredImageProps = getFeaturedImageProps(postData, {sizes: ['large', 'medium_large']})
 
+  const xSpacingClassName = !postData._formatting || !postData._formatting.full_width ? 'page-x-spacing' : ''
   const maxWidth = postData._formatting && postData._formatting.no_sidebar ? '3' : '4'
 
   return (
@@ -79,12 +80,14 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
         ) : null}
       </Head>
 
-      <div className='my2 sm-my3'>
-        <img
-          className='block fit bg-gray'
-          {...getFeaturedImageProps(postData, {sizes: ['large', 'medium_large']})}
-        />
-      </div>
+      {featuredImageProps ? (
+        <div className='my2 sm-my3'>
+          <img
+            className='block fit bg-gray'
+            {...featuredImageProps}
+          />
+        </div>
+      ) : null}
 
       <div className={`max-width-${maxWidth} mx-auto`}>
         <div className={`flex my2 ${xSpacingClassName}`}>
