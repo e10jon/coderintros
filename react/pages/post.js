@@ -105,13 +105,13 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
 
             {type !== 'pages' ? (
               <div
-                className='my2 gray italic'
+                className='mb2 gray italic'
                 dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
               />
             ) : null}
 
             {type !== 'pages' ? (
-              <div className='my2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
+              <div className='mb2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
             ) : null}
 
             {type !== 'pages' ? (
@@ -125,7 +125,7 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
             ) : null}
 
             <div
-              className='my3 serif post-content'
+              className='mb3 serif post-content'
               dangerouslySetInnerHTML={{__html: insertUnits(postData.content.rendered, {
                 skip: postData._formatting && postData._formatting.no_incontent_units
               })}}
@@ -154,10 +154,10 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
                 width={300}
               />
 
-              <Suggest className='my3' />
+              <Suggest className='mb3' />
 
               <Ad
-                className='my3'
+                className='mb3'
                 height={250}
                 width={300}
               />

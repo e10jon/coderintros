@@ -9,30 +9,34 @@ import Suggest from '../components/in-content/suggest'
 const units = [
   [
     <Ad
+      className='my3 mx-auto'
       height={250}
-      hideAt={['md', 'lg']}
       key='Ad1'
+      showAt={['xs', 'sm']}
       width={300}
     />,
     <Ad
+      className='my3'
       height={200}
-      hideAt={['xs', 'sm']}
       key='Ad2'
+      showAt={['md', 'lg']}
       width='100%'
     />
   ],
   <Suggest key='Suggest' />,
   [
     <Ad
+      className='my3 mx-auto'
       height={250}
-      hideAt={['md', 'lg']}
       key='Ad3'
+      showAt={['xs', 'sm']}
       width={300}
     />,
     <Ad
+      className='my3'
       height={200}
-      hideAt={['xs', 'sm']}
       key='Ad4'
+      showAt={['md', 'lg']}
       width='100%'
     />
   ]

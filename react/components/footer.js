@@ -9,10 +9,10 @@ import {IoSocialGithub} from 'react-icons/lib/io'
 import {getUrlObj} from '../helpers/post-data'
 
 const Footer = (props: Object, {pagesData, siteData}: Object) => (
-  <footer>
+  <footer className='pb3'>
     <div className='max-width-3 mx-auto'>
       <div className='page-x-spacing center'>
-        <div className='my2'>
+        <div className='mb2'>
           {pagesData && pagesData.map(p => (
             <Link
               as={p.link}
@@ -28,12 +28,12 @@ const Footer = (props: Object, {pagesData, siteData}: Object) => (
         </div>
 
         <div
-          className='gray my2 h5 ups'
+          className='gray mb2 h5 ups'
           dangerouslySetInnerHTML={{__html: `&copy;${moment().format('YYYY')} ${siteData.name}`}}
         />
 
         {siteData.github_repo_url ? (
-          <div className='my2'>
+          <div className='mt2'>
             <a
               className='gray p1 h5 ups inline-block'
               href={siteData.github_repo_url}
