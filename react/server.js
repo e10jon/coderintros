@@ -10,7 +10,8 @@ const app = next({dev: process.env.NODE_ENV !== 'production'})
 
 // make sure this matches wordpress's permalink setting,
 // and set a capture group for the post slug
-const postRegex = /\/profiles\/(.+?)(\/|$)/
+const postPathPrefix = '/profiles'
+const postRegex = new RegExp(`${postPathPrefix}/(.+?)(/|$)`)
 
 module.exports = app.prepare().then(() => {
   return createServer((req, res) => {
@@ -44,6 +45,8 @@ module.exports = app.prepare().then(() => {
     } else if (pathname === '/' && query.p) {
       // when previewing an unsaved draft post
       app.render(req, res, '/post', Object.assign({}, {type: 'posts'}, query))
+    } else if (pathname === postPathPrefix) {
+      app.render(req, res, '/archive', query)
     } else if (pathname && pathname !== '/') {
       // regular page urls
       app.render(req, res, '/post', Object.assign({}, {

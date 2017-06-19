@@ -38,6 +38,10 @@ export function getFeaturedImageProps (postData: ?Object, {
       return obj
     }, {})
 
+  if (!Object.keys(sortedSizes).length) {
+    return null
+  }
+
   const sizesKeys = Object.keys(sortedSizes)
   const smallestSizeKey = sizesKeys[0]
   const largerSizesKeys = sizesKeys.slice(1)

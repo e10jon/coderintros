@@ -29,9 +29,6 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
 
   const featuredImageProps = getFeaturedImageProps(postData, {sizes: ['large', 'medium_large']})
 
-  const xSpacingClassName = !postData._formatting || !postData._formatting.full_width ? 'page-x-spacing' : ''
-  const maxWidth = postData._formatting && postData._formatting.no_sidebar ? '3' : '4'
-
   return (
     <main>
       <Head>
@@ -89,87 +86,88 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
         </div>
       ) : null}
 
-      <div className={`max-width-${maxWidth} mx-auto`}>
-        <div className={`flex mb2 ${xSpacingClassName}`}>
-          <div className='col-12 md-flex-auto'>
-            {!postData._formatting || !postData._formatting.hide_title ? (
-              <h1 className='mb2 md-h0'>
-                <Link
-                  as={postData.link}
-                  href={getUrlObj(postData)}
-                >
-                  <a>{postData.title.rendered}</a>
-                </Link>
-              </h1>
-            ) : null}
+      <div className={`max-width-${postData._formatting && postData._formatting.no_sidebar ? '3' : '4'} mx-auto`}>
+        <div className={!postData._formatting || !postData._formatting.full_width ? 'page-x-spacing' : ''}>
+          <div className='flex mb2'>
+            <div className='col-12 md-flex-auto'>
+              {!postData._formatting || !postData._formatting.hide_title ? (
+                <h1 className='mb2 md-h0'>
+                  <Link
+                    as={postData.link}
+                    href={getUrlObj(postData)}
+                  >
+                    <a>{postData.title.rendered}</a>
+                  </Link>
+                </h1>
+              ) : null}
 
-            {type !== 'pages' ? (
+              {type !== 'pages' ? (
+                <div
+                  className='mb2 gray italic'
+                  dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+                />
+              ) : null}
+
+              {type !== 'pages' ? (
+                <div className='mb2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
+              ) : null}
+
+              {type !== 'pages' ? (
+                <Share
+                  hackerNewsUrl={postData._social_links.hacker_news}
+                  position='Above Content'
+                  redditUrl={postData._social_links.reddit}
+                  title={postData.title.rendered}
+                  url={postData.link}
+                />
+              ) : null}
+
               <div
-                className='mb2 gray italic'
-                dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+                className='mb3 serif post-content'
+                dangerouslySetInnerHTML={{__html: insertUnits(postData.content.rendered, {
+                  skip: postData._formatting && postData._formatting.no_incontent_units
+                })}}
+                style={{fontSize: '1.125rem', lineHeight: '1.8'}}
               />
-            ) : null}
 
-            {type !== 'pages' ? (
-              <div className='mb2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
-            ) : null}
+              {type !== 'pages' ? (
+                <Share
+                  hackerNewsUrl={postData._social_links.hacker_news}
+                  position='Below Content'
+                  redditUrl={postData._social_links.reddit}
+                  title={postData.title.rendered}
+                  url={postData.link}
+                />
+              ) : null}
+            </div>
 
-            {type !== 'pages' ? (
-              <Share
-                hackerNewsUrl={postData._social_links.hacker_news}
-                position='Above Content'
-                redditUrl={postData._social_links.reddit}
-                title={postData.title.rendered}
-                url={postData.link}
-              />
-            ) : null}
+            {!postData._formatting || !postData._formatting.no_sidebar ? (
+              <div
+                className='xs-hide sm-hide ml3'
+                style={{flex: '0 0 300px'}}
+              >
+                <Ad
+                  className='mb3'
+                  height={600}
+                  width={300}
+                />
 
-            <div
-              className='mb3 serif post-content'
-              dangerouslySetInnerHTML={{__html: insertUnits(postData.content.rendered, {
-                skip: postData._formatting && postData._formatting.no_incontent_units
-              })}}
-              style={{fontSize: '1.125rem', lineHeight: '1.8'}}
-            />
+                <Suggest className='mb3' />
 
-            {type !== 'pages' ? (
-              <Share
-                hackerNewsUrl={postData._social_links.hacker_news}
-                position='Below Content'
-                redditUrl={postData._social_links.reddit}
-                title={postData.title.rendered}
-                url={postData.link}
-              />
+                <Ad
+                  className='mb3'
+                  height={250}
+                  width={300}
+                />
+
+                <Related />
+              </div>
+
             ) : null}
           </div>
 
-          {!postData._formatting || !postData._formatting.no_sidebar ? (
-            <div
-              className='xs-hide sm-hide ml3'
-              style={{flex: '0 0 300px'}}
-            >
-              <Ad
-                className='mb3'
-                height={600}
-                width={300}
-              />
-
-              <Suggest className='mb3' />
-
-              <Ad
-                className='mb3'
-                height={250}
-                width={300}
-              />
-
-              <Related />
-            </div>
-
-          ) : null}
+          <hr className='my3' />
         </div>
-
-        <hr className='mt3 mb3 sm-mt4' />
-
       </div>
     </main>
   )
