@@ -25,8 +25,6 @@ class Like extends Component {
     window.FB.Event.subscribe('edge.create', this.handleFBEdgeCreation)
   }
 
-  shouldComponentUpdate = () => false
-
   componentWillUnmount () {
     window.FB.Event.unsubscribe('edge.create', this.handleFBEdgeCreation)
   }

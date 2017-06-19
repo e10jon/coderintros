@@ -26,8 +26,6 @@ export const createModalStore = ({isOpen, storeKey}: {isOpen: boolean, storeKey?
 
 export default function (Child: Object) {
   class Modal extends Component {
-    shouldComponentUpdate = () => false
-
     handleCloseClick = () => {
       this.props.store.close()
       trackEvent({

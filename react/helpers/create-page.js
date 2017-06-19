@@ -101,8 +101,6 @@ export default function (Child: Object, {
       }
     }
 
-    shouldComponentUpdate = () => false
-
     emailModalStore: Object
     likeModalStore: Object
     sitePasswordStore: Object
