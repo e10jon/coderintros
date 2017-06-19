@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import store from 'store'
 import 'isomorphic-fetch'
 
-import appStyles from '../styles/app.scss'
 import {createModalStore} from '../helpers/create-modal'
 import EmailModal from '../components/modals/email'
 import Footer from '../components/footer'
@@ -14,9 +13,10 @@ import {getFetchHeaders, getWordpressUrl} from './fetch'
 import Header from '../components/header'
 import LikeModal, {didLikeFBPageStoreKey} from '../components/modals/like'
 import SitePassword from '../components/site-password'
+import styles from '../styles/app.scss'
 import trackEvent from '../helpers/track-event'
 
-export const pageXSpacing = 'mx2 lg-mx0'
+export const pageXSpacing = 'page-x-spacing'
 
 export default function (Child: Object, {
   propPaths = () => ({}),
@@ -122,7 +122,7 @@ export default function (Child: Object, {
       return (
         <div>
           <Head>
-            <style dangerouslySetInnerHTML={{__html: appStyles}} />
+            <style dangerouslySetInnerHTML={{__html: styles}} />
           </Head>
 
           <div className='max-width-4 mx-auto sans-serif black'>

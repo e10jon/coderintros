@@ -21,32 +21,9 @@ ul { margin: 0; padding: 0; }
 .ups { text-transform: uppercase; }
 
 /* specific classes */
-.header-logo { max-width: 350px; width: 70%; }
-.header-icon {
-  height: 30px; width: 30px;
-  @media (min-width: 40em) { height: 40px; width: 40px; }
-}
-.modal-close-btn {
-  top: -40px; right: -8px;
-  svg { height: 16px; width: 16px; }
-}
-.post-content {
-  color: #0b0b0b;
-  p { margin-top: 1.5rem; margin-bottom: 1.5rem; }
-  strong { color: #111; }
-}
-.share-icon {
-  padding: 0.25rem 0.5rem; margin-right: 0.125rem;
-  span { padding-left: 0.5rem; }
-  svg { height: 24px; width: 24px; }
-}
-
-/* modal animation */
-.ReactModalPortal {
-  > div { opacity: 0; }
-  .ReactModal__Overlay {
-    transition: opacity 300ms ease-out;
-    &--after-open { opacity: 1; }
-    &--before-close { opacity: 0; }
+.page-x-spacing {
+  margin-left: 1.25rem; margin-right: 1.25rem;
+  @media (min-width: 66em) {
+    margin-left: 0; margin-right: 0;
   }
 }

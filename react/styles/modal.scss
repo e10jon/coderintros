@@ -1,0 +1,13 @@
+.modal-close-btn {
+  top: -40px; right: -8px;
+  svg { height: 16px; width: 16px; }
+}
+
+.ReactModalPortal {
+  > div { opacity: 0; }
+  .ReactModal__Overlay {
+    transition: opacity 300ms ease-out;
+    &--after-open { opacity: 1; }
+    &--before-close { opacity: 0; }
+  }
+}

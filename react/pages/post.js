@@ -13,6 +13,7 @@ import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
 import Related from '../components/sidebar/related'
 import Share from '../components/share'
 import Suggest from '../components/sidebar/suggest'
+import styles from '../styles/pages/post.scss'
 
 const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
   let postData = Array.isArray(postsData) ? postsData[0] : postsData
@@ -32,6 +33,8 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
     <div>
       <Head>
         <title>{postData.og_title || postData.title.rendered}</title>
+
+        <style dangerouslySetInnerHTML={{__html: styles}} />
 
         <meta
           content={stripTags(postData.excerpt.rendered)}
