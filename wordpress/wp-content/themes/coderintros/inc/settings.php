@@ -11,6 +11,7 @@ add_action( 'admin_init', function () {
   register_setting( 'ci', 'facebook_modal_delay' );
   register_setting( 'ci', 'facebook_app_id' );
   register_setting( 'ci', 'ga_tracking_id' );
+  register_setting( 'ci', 'github_repo_url' );
   register_setting( 'ci', 'mailchimp_form_html' );
   register_setting( 'ci', 'site_password' );
 
@@ -29,7 +30,7 @@ add_action( 'admin_init', function () {
 
   add_settings_field(
     'facebook_page_url',
-    '<label for="facebook_page_url">' . __( 'Facebook Page (URL)' , 'facebook_page_url' ) . '</label>',
+    '<label for="facebook_page_url">' . __( 'Facebook Page Url' , 'facebook_page_url' ) . '</label>',
     function () {
       $option = get_option('facebook_page_url');
       echo "<input id='facebook_page_url' name='facebook_page_url' type='text' class='regular-text code' value='{$option}' />";
@@ -111,6 +112,17 @@ add_action( 'admin_init', function () {
     function () {
       $option = get_option('ga_tracking_id');
       echo "<input id='ga_tracking_id' name='ga_tracking_id' type='text' class='regular-text code' value='{$option}' />";
+    },
+    'ci',
+    'ci_general'
+  );
+
+  add_settings_field(
+    'github_repo_url',
+    '<label for="github_repo_url">' . __( 'Github Repo Url' , 'github_repo_url' ) . '</label>',
+    function () {
+      $option = get_option('github_repo_url');
+      echo "<input id='github_repo_url' name='github_repo_url' type='text' class='regular-text code' value='{$option}' />";
     },
     'ci',
     'ci_general'

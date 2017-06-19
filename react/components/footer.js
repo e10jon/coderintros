@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import Head from 'next/head'
 import Link from 'next/link'
 import moment from 'moment'
 import PropTypes from 'prop-types'
@@ -10,8 +11,8 @@ import {getUrlObj} from '../helpers/post-data'
 const Footer = (props: Object, {pagesData, siteData}: Object) => (
   <footer>
     <div className='max-width-3 mx-auto'>
-      <div className='page-x-spacing'>
-        <div className='center my3'>
+      <div className='page-x-spacing center'>
+        <div className='my3'>
           {pagesData && pagesData.map(p => (
             <Link
               as={p.link}
@@ -26,8 +27,30 @@ const Footer = (props: Object, {pagesData, siteData}: Object) => (
           ))}
         </div>
 
+        {siteData.github_repo_url ? (
+          <div>
+            <Head>
+              <script
+                async
+                defer
+                src='https://buttons.github.io/buttons.js'
+              />
+            </Head>
+
+            <a
+              aria-label={`Star ${siteData.github_repo_url} on Github`}
+              className='github-button'
+              data-show-count='true'
+              data-size='large'
+              href={siteData.github_repo_url}
+            >
+              {'Star'}
+            </a>
+          </div>
+        ) : null}
+
         <div
-          className='center gray my3 h5 ups'
+          className='gray my3 h5 ups'
           dangerouslySetInnerHTML={{__html: `&copy;${moment().format('YYYY')} ${siteData.name}`}}
         />
       </div>

@@ -2,23 +2,44 @@
 
 import React, {Component} from 'react'
 import {action, observable} from 'mobx'
+import {observer} from 'mobx-react'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
+import store from 'store'
 
 import {getFetchHeaders, getWordpressUrl} from '../helpers/fetch'
+
+const storeKey = 'sitePassword'
 
 export const createSitePasswordStore = () => (
   observable({
     isAuthorized: false,
+    didFailAuthorization: false,
     authorize: action(function authorize () {
       this.isAuthorized = true
+    }),
+    failedAuthorization: action(function failedAuthorization () {
+      this.didFailAuthorization = true
     })
   })
 )
 
 class SitePassword extends Component {
-  handleSubmit = async (e: Object) => {
-    e.preventDefault()
+  componentDidMount () {
+    const storedPassword = store.get(storeKey)
+
+    if (storedPassword) {
+      this.passwordNode.value = storedPassword
+      this.handleSubmit()
+    }
+  }
+
+  passwordNode: Object
+
+  handleSubmit = async (e: ?Object) => {
+    if (e) {
+      e.preventDefault()
+    }
 
     const res = await global.fetch(getWordpressUrl('/ci/site_password'), {
       method: 'POST',
@@ -27,11 +48,12 @@ class SitePassword extends Component {
     })
 
     if (res.status >= 200 && res.status < 400) {
+      store.set(storeKey, this.passwordNode.value)
       this.context.sitePasswordStore.authorize()
+    } else {
+      this.context.sitePasswordStore.failedAuthorization()
     }
   }
-
-  passwordNode: Object
 
   render () {
     return (
@@ -65,7 +87,7 @@ class SitePassword extends Component {
                 />
 
                 <button
-                  className='input regular block col-2 not-rounded btn-primary border-none'
+                  className={`input regular block col-2 not-rounded btn-primary border-none ${this.context.sitePasswordStore.didFailAuthorization ? 'bg-red' : ''}`}
                   type='submit'
                 >
                   {'Enter'}
@@ -86,4 +108,4 @@ SitePassword.contextTypes = {
   sitePasswordStore: PropTypes.object
 }
 
-export default SitePassword
+export default observer(SitePassword)
