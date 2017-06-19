@@ -81,7 +81,7 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
       </Head>
 
       {featuredImageProps ? (
-        <div className='my2 sm-my3'>
+        <div className='mb2 sm-mb3'>
           <img
             className='col-12 block'
             {...featuredImageProps}
@@ -90,7 +90,7 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
       ) : null}
 
       <div className={`max-width-${maxWidth} mx-auto`}>
-        <div className={`flex my2 ${xSpacingClassName}`}>
+        <div className={`flex mb2 ${xSpacingClassName}`}>
           <div className='col-12 md-flex-auto'>
             {!postData._formatting || !postData._formatting.hide_title ? (
               <h1 className='mb2 md-h0'>

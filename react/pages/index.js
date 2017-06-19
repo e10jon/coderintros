@@ -54,7 +54,7 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
                 href={getUrlObj(postData)}
                 key={`Post${postData.id}`}
               >
-                <a className='flex flex-wrap items-center my2 sm-my3'>
+                <a className='flex flex-wrap items-center mb2 sm-mb3'>
                   <div className='col-12 sm-col-4'>
                     <img
                       className='block fit bg-gray'
