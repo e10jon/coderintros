@@ -1,9 +1,5 @@
 // @flow
 
-// enable to show a placeholder image
-// useful for development purposes
-const showDefaultImage = process.env.NODE_ENV !== 'production'
-
 export const getUrlObj = (postData: object) => ({
   pathname: '/post',
   query: {
@@ -28,12 +24,7 @@ export function getFeaturedImageProps (postData: ?Object, {
     postData._embedded['wp:featuredmedia'] &&
     postData._embedded['wp:featuredmedia'][0]
 
-  if (!imageData && showDefaultImage) {
-    return {
-      alt: 'default',
-      src: '/static/img/default.svg'
-    }
-  } else if (!imageData) {
+  if (!imageData) {
     return null
   }
 

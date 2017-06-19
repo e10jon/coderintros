@@ -16,8 +16,6 @@ import SitePassword from '../components/site-password'
 import styles from '../styles/app.scss'
 import trackEvent from '../helpers/track-event'
 
-export const pageXSpacing = 'page-x-spacing'
-
 export default function (Child: Object, {
   propPaths = () => ({}),
   childContextTypes = {},
@@ -125,7 +123,7 @@ export default function (Child: Object, {
             <style dangerouslySetInnerHTML={{__html: styles}} />
           </Head>
 
-          <div className='max-width-4 mx-auto sans-serif black'>
+          <div className='sans-serif black'>
             <Header />
 
             <main className='flex-auto bg-white'>

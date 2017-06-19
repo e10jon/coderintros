@@ -5,8 +5,6 @@ import Head from 'next/head'
 import PropTypes from 'prop-types'
 import URL from 'url'
 
-import {pageXSpacing} from '../helpers/create-page'
-
 export const sitePasswordKey = 'sitePassword'
 
 class SitePassword extends Component {
@@ -22,7 +20,7 @@ class SitePassword extends Component {
 
   render () {
     return (
-      <div className={pageXSpacing}>
+      <div className='page-x-spacing'>
         <Head>
           <title>{'Password Required'}</title>
         </Head>

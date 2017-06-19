@@ -40,7 +40,11 @@ const units = [
 
 const interval = 3
 
-export default function (content: string) {
+export default function (content: string, {skip = false}: Object) {
+  if (skip) {
+    return content
+  }
+
   const contentEls = content.match(/(<p.*?>.+?<\/p>)/gi)
   const finalEls = []
   let unitI = 0

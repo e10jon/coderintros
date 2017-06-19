@@ -7,7 +7,7 @@ import moment from 'moment'
 import stripTags from 'striptags'
 
 import Ad from '../components/ad'
-import createPage, {pageXSpacing} from '../helpers/create-page'
+import createPage from '../helpers/create-page'
 import insertUnits from '../helpers/in-content-units'
 import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
 import Related from '../components/sidebar/related'
@@ -27,10 +27,12 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
     returnLargestSizeData: true
   })
 
-  const xSpacingClassName = !postData._formatting || !postData._formatting.full_width ? pageXSpacing : undefined
+  const xSpacingClassName = !postData._formatting || !postData._formatting.full_width ? 'page-x-spacing' : ''
+  
+  const maxWidth = postData._formatting && postData._formatting.no_sidebar ? '3' : '4'
 
   return (
-    <div>
+    <main>
       <Head>
         <title>{postData.og_title || postData.title.rendered}</title>
 
@@ -84,11 +86,11 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
         />
       </div>
 
-      <div className={xSpacingClassName}>
-        <div className='flex my2'>
+      <div className={`max-width-${maxWidth} mx-auto`}>
+        <div className={`flex my2 ${xSpacingClassName}`}>
           <div className='col-12 md-flex-auto'>
             {!postData._formatting || !postData._formatting.hide_title ? (
-              <h1 className='mb2 lg-h0'>
+              <h1 className='mb2 md-h0'>
                 <Link
                   as={postData.link}
                   href={getUrlObj(postData)}
@@ -121,7 +123,9 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
 
             <div
               className='my3 serif post-content'
-              dangerouslySetInnerHTML={{__html: insertUnits(postData.content.rendered)}}
+              dangerouslySetInnerHTML={{__html: insertUnits(postData.content.rendered, {
+                skip: postData._formatting && postData._formatting.no_incontent_units
+              })}}
               style={{fontSize: '1.125rem', lineHeight: '1.8'}}
             />
 
@@ -136,29 +140,35 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
             ) : null}
           </div>
 
-          <div
-            className='xs-hide sm-hide ml3'
-            style={{flex: '0 0 300px'}}
-          >
-            <Ad
-              className='mb3'
-              height={600}
-              width={300}
-            />
+          {!postData._formatting || !postData._formatting.no_sidebar ? (
+            <div
+              className='xs-hide sm-hide ml3'
+              style={{flex: '0 0 300px'}}
+            >
+              <Ad
+                className='mb3'
+                height={600}
+                width={300}
+              />
 
-            <Suggest className='my3' />
+              <Suggest className='my3' />
 
-            <Ad
-              className='my3'
-              height={250}
-              width={300}
-            />
+              <Ad
+                className='my3'
+                height={250}
+                width={300}
+              />
 
-            <Related />
-          </div>
+              <Related />
+            </div>
+
+          ) : null}
         </div>
+
+        <hr className='mt3 mb3 sm-mt4' />
+
       </div>
-    </div>
+    </main>
   )
 }
 

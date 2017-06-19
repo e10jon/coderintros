@@ -2,24 +2,27 @@
 
 // add formatting options to object responses
 add_action( 'rest_api_init', function () {
-  function formatting_callback ( $object ) {
+  function formatting_callback () {
     return [
-      'full_width' => get_post_meta( $object['id'], 'full_width', true ) == '1',
-      'hide_title' => get_post_meta( $object['id'], 'hide_title', true ) == '1'
+      'full_width' => get_field( 'full_width' ),
+      'hide_title' => get_field( 'hide_title' ),
+      'no_incontent_units' => get_field( 'no_incontent_units' ),
+      'no_sidebar' => get_field( 'no_sidebar' )
     ];
   }
 
-  register_rest_field( 'page', '_formatting', ['get_callback' => 'formatting_callback'] );
-  register_rest_field( 'post', '_formatting', ['get_callback' => 'formatting_callback'] );
+  foreach ( ['page', 'post'] as $type ) {
+    register_rest_field( $type, '_formatting', ['get_callback' => 'formatting_callback'] );
+  }
 } );
 
 // add social links to posts
 add_action( 'rest_api_init', function () {
   register_rest_field( 'post', '_social_links', [
-    'get_callback' => function ( $object ) {
+    'get_callback' => function () {
       return [
-        'hacker_news' => get_post_meta( $object['id'], 'hacker_news_url', true ),
-        'reddit' => get_post_meta( $object['id'], 'reddit_url', true )
+        'hacker_news' => get_field( 'hacker_news_url' ),
+        'reddit' => get_field( 'reddit_url' )
       ];
     }
   ] );
@@ -28,9 +31,9 @@ add_action( 'rest_api_init', function () {
 // add profile to posts
 add_action( 'rest_api_init', function () {
   register_rest_field( 'post', '_profile', [
-    'get_callback' => function ( $object ) {
+    'get_callback' => function () {
       return [
-        'blurb' => get_post_meta( $object['id'], 'blurb', true )
+        'blurb' => get_field( 'blurb' )
       ];
     }
   ] );
@@ -39,9 +42,9 @@ add_action( 'rest_api_init', function () {
 // add custom social titles to posts
 add_action( 'rest_api_init', function () {
   register_rest_field( 'post', 'og_title', [
-    'get_callback' => function ( $object ) {
-      $blurb = get_post_meta( $object['id'], 'blurb', true );
-      $title = 'Meet ' . get_the_title( $object['id' ]);
+    'get_callback' => function () {
+      $blurb = get_field( 'blurb' );
+      $title = 'Meet ' . get_the_title();
       return empty( $blurb ) ? $title : $title . ', ' . $blurb;
     }
   ] );

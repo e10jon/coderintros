@@ -16,8 +16,10 @@ ul { margin: 0; padding: 0; }
 .fb-blue { color: #3b5998; }
 .lg-h0 { @media (min-width: 64em) { font-size: 3rem; }}
 .height-auto { height: auto; }
+.md-h0 { @media (min-width: 52em) { font-size: 3rem; }}
 .sans-serif { font-family: 'Overpass', sans-serif; }
 .serif { font-family: 'Lora', serif; }
+.lg-h0 { @media (min-width: 40em) { font-size: 3rem; }}
 .ups { text-transform: uppercase; }
 
 /* specific classes */

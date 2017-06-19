@@ -6,12 +6,12 @@ import Link from 'next/link'
 import PropTypes from 'prop-types'
 import stripTags from 'striptags'
 
-import createPage, {pageXSpacing} from '../helpers/create-page'
+import createPage from '../helpers/create-page'
 import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
 
 const Home = ({postsData}: Object, {siteData}: Object) => {
   return (
-    <div className={pageXSpacing}>
+    <main>
       <Head>
         <title>{siteData.name}</title>
 
@@ -42,36 +42,42 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
         />
       </Head>
 
-      <hr className='mt3 mb3 sm-mb4 xs-hide ' />
+      <div className='max-width-4 mx-auto'>
+        <div className='page-x-spacing'>
+          <hr className='mt3 mb3 sm-mb4 xs-hide ' />
 
-      {postsData.map(postData => (
-        <Link
-          as={postData.link}
-          href={getUrlObj(postData)}
-          key={`Post${postData.id}`}
-        >
-          <a className='flex flex-wrap items-center my2 sm-my3'>
-            <div className='col-12 sm-col-4'>
-              <img
-                className='block fit bg-gray'
-                {...getFeaturedImageProps(postData, {sizes: ['medium', 'thumbnail']})}
-              />
-            </div>
+          {postsData.map(postData => (
+            <Link
+              as={postData.link}
+              href={getUrlObj(postData)}
+              key={`Post${postData.id}`}
+            >
+              <a className='flex flex-wrap items-center my2 sm-my3'>
+                <div className='col-12 sm-col-4'>
+                  <img
+                    className='block fit bg-gray'
+                    {...getFeaturedImageProps(postData, {sizes: ['medium', 'thumbnail']})}
+                  />
+                </div>
 
-            <div className='col-12 sm-col-8'>
-              <div className='my2 sm-ml3'>
-                <h2 className='my2 lora h1 line-height-3'>{postData.title.rendered}</h2>
+                <div className='col-12 sm-col-8'>
+                  <div className='my2 sm-ml3'>
+                    <h2 className='my2 lora h1 line-height-3'>{postData.title.rendered}</h2>
 
-                <div
-                  className='my2 gray italic'
-                  dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
-                />
-              </div>
-            </div>
-          </a>
-        </Link>
-      ))}
-    </div>
+                    <div
+                      className='my2 gray italic'
+                      dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+                    />
+                  </div>
+                </div>
+              </a>
+            </Link>
+          ))}
+
+          <hr className='mt3 mb3 sm-mt4' />
+        </div>
+      </div>
+    </main>
   )
 }
 
