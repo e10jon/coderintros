@@ -27,22 +27,22 @@ const Footer = (props: Object, {pagesData, siteData}: Object) => (
           ))}
         </div>
 
-        {siteData.github_repo_url ? (
-          <div className='my2'>
-            <a
-              className='gray p1'
-              href={siteData.github_repo_url}
-            >
-              <IoSocialGithub />
-              <span>{'View on Github'}</span>
-            </a>
-          </div>
-        ) : null}
-
         <div
           className='gray my2 h5 ups'
           dangerouslySetInnerHTML={{__html: `&copy;${moment().format('YYYY')} ${siteData.name}`}}
         />
+
+        {siteData.github_repo_url ? (
+          <div className='my2'>
+            <a
+              className='gray p1 h5 ups inline-block'
+              href={siteData.github_repo_url}
+            >
+              <IoSocialGithub />
+              <span className='pl1 align-middle'>{'Github'}</span>
+            </a>
+          </div>
+        ) : null}
       </div>
     </div>
   </footer>

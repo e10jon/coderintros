@@ -4,11 +4,14 @@ ARG SKIP_BUILD
 
 WORKDIR /usr/src/app
 
-COPY package.json .
-RUN npm install
+RUN apk add --no-cache git bash
+
+RUN npm i -g yarn
+COPY package.json yarn.lock ./
+RUN yarn install --pure-lockfile
 COPY . .
 
-RUN if [ -z "$SKIP_BUILD" ]; then npm run build && npm prune --production; fi
+RUN if [ -z "$SKIP_BUILD" ]; then yarn run build && yarn install --production --pure-lockfile; fi
 
 EXPOSE 3000
-CMD npm start
+CMD yarn start

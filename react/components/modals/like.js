@@ -1,8 +1,8 @@
 // @flow
 
 import React, {Component} from 'react'
+import Cookies from 'js-cookie'
 import PropTypes from 'prop-types'
-import store from 'store'
 
 import createModal from '../../helpers/create-modal'
 import trackEvent from '../../helpers/track-event'
@@ -43,7 +43,7 @@ class Like extends Component {
 
   closeAndCookie = () => {
     this.context.likeModalStore.close()
-    store.set(didLikeFBPageStoreKey, true)
+    Cookies.set(didLikeFBPageStoreKey, true)
   }
 
   handleAlreadyLikeClick = () => {

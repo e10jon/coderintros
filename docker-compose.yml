@@ -46,7 +46,7 @@ services:
       args:
         SKIP_BUILD: 'true'
       context: ./react
-    command: npm run dev
+    command: yarn run dev
     depends_on:
       - wordpress
     environment:

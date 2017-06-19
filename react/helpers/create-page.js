@@ -1,10 +1,10 @@
 // @flow
 
 import React, {Component} from 'react'
+import Cookies from 'js-cookie'
 import Head from 'next/head'
 import {observer} from 'mobx-react'
 import PropTypes from 'prop-types'
-import store from 'store'
 import 'isomorphic-fetch'
 
 import {createModalStore} from '../helpers/create-modal'
@@ -90,7 +90,7 @@ export default function (Child: Object, {
     componentDidMount () {
       if (this.props.siteData.facebook_modal_delay) {
         setTimeout(() => {
-          if (!store.get(didLikeFBPageStoreKey) && !this.emailModalStore.isOpen) {
+          if (!Cookies.get(didLikeFBPageStoreKey) && !this.emailModalStore.isOpen) {
             this.likeModalStore.open({autoOpened: true})
             trackEvent({
               eventCategory: 'Modals',

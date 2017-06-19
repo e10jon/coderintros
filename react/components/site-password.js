@@ -1,11 +1,11 @@
 // @flow
 
 import React, {Component} from 'react'
+import Cookies from 'js-cookie'
 import {action, observable} from 'mobx'
 import {observer} from 'mobx-react'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
-import store from 'store'
 
 import {getFetchHeaders, getWordpressUrl} from '../helpers/fetch'
 
@@ -26,7 +26,7 @@ export const createSitePasswordStore = () => (
 
 class SitePassword extends Component {
   componentDidMount () {
-    const storedPassword = store.get(storeKey)
+    const storedPassword = Cookies.get(storeKey)
 
     if (storedPassword) {
       this.passwordNode.value = storedPassword
@@ -48,7 +48,7 @@ class SitePassword extends Component {
     })
 
     if (res.status >= 200 && res.status < 400) {
-      store.set(storeKey, this.passwordNode.value)
+      Cookies.set(storeKey, this.passwordNode.value)
       this.context.sitePasswordStore.authorize()
     } else {
       this.context.sitePasswordStore.failedAuthorization()
