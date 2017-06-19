@@ -94,6 +94,6 @@ Home.contextTypes = {
 
 export default createPage(Home, {
   propPaths: () => ({
-    postsData: '/wp/v2/posts?_embed'
+    postsData: '/wp/v2/posts?_embed&per_page=50'
   })
 })

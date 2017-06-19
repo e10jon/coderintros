@@ -53,7 +53,7 @@ class Like extends Component {
   }
 
   render () {
-    const [titleKey, bodyKey] = this.context.likeModalStore.opts.autoOpened
+    const [titleKey, bodyKey] = this.context.likeModalStore.wasAutoOpened
       ? ['facebook_modal_title_auto_open', 'facebook_modal_body_auto_open']
       : ['facebook_modal_title', 'facebook_modal_body']
 
@@ -90,19 +90,6 @@ class Like extends Component {
             </a>
           </blockquote>
         </div>
-
-        {/*
-        <div
-          className='fb-like'
-          data-action='like'
-          data-href={this.context.siteData.facebook_page_url}
-          data-layout='button'
-          data-show-faces='false'
-          data-share='false'
-          data-size='large'
-          data-width={200}
-        />
-        */}
 
         <div>
           <a
