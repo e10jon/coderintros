@@ -3,6 +3,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import moment from 'moment'
 import PropTypes from 'prop-types'
 import stripTags from 'striptags'
 
@@ -68,6 +69,8 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
                       className='my2 gray italic'
                       dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
                     />
+
+                    <div className='my2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
                   </div>
                 </div>
               </a>

@@ -83,7 +83,7 @@ const Post = ({postsData, revisionsData, url: {query: {type}}}) => {
       {featuredImageProps ? (
         <div className='my2 sm-my3'>
           <img
-            className='block fit bg-gray'
+            className='col-12 block'
             {...featuredImageProps}
           />
         </div>
