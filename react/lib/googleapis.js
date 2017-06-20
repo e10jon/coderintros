@@ -1,10 +1,18 @@
 // @flow
 
 import google from 'googleapis'
-import creds from '../google-api-creds.json'
 
 const authorize = ({scopes}: Object) => {
   return new Promise((resolve, reject) => {
+    let creds = {
+      client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
+      private_key: process.env.GOOGLE_API_PRIVATE_KEY
+    }
+
+    if (!creds.client_email || !creds.private_key) {
+      creds = require('../google-api-creds.json')
+    }
+
     const auth = new google.auth.JWT(
       creds.client_email, null, creds.private_key, scopes
     )

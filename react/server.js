@@ -36,6 +36,8 @@ module.exports = app.prepare().then(() => {
       app.serveStatic(req, res, join(__dirname, 'static/robots.txt'))
     } else if (parsedUrl.pathname === '/favicon.ico') {
       app.serveStatic(req, res, join(__dirname, 'static/img/favicon.ico'))
+    } else if (pathname === '/interview') {
+      app.getRequestHandler()(req, res, parsedUrl)
     } else if (postRegex.test(pathname)) {
       // regular post urls
       app.render(req, res, '/post', Object.assign({}, {
