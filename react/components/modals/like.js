@@ -18,15 +18,17 @@ class Like extends Component {
   static displayName = 'Like'
 
   componentDidMount () {
-    // have to reinit the FB SDK for the button to show up
-    window.FB.XFBML.parse()
-
-    // after the user likes the page, auto-close the modal
-    window.FB.Event.subscribe('edge.create', this.handleFBEdgeCreation)
+    if (window.FB) {
+      // have to reinit the FB SDK for the button to show up
+      window.FB.XFBML.parse()
+      window.FB.Event.subscribe('edge.create', this.handleFBEdgeCreation)
+    }
   }
 
   componentWillUnmount () {
-    window.FB.Event.unsubscribe('edge.create', this.handleFBEdgeCreation)
+    if (window.FB) {
+      window.FB.Event.unsubscribe('edge.create', this.handleFBEdgeCreation)
+    }
   }
 
   handleFBEdgeCreation = url => {

@@ -37,14 +37,15 @@ class Header extends Component {
   }
 
   handleScroll = () => {
-    // const containerRect = this.node.getBoundingClientRect()
-    //
-    // if (!this.isHeaderFixed && window.pageYOffset > containerRect.height) {
-    //   this.node.className += ' fixed top-0 right-0 bottom-0 left-0'
-    //   this.spacerNode.style.height = `${containerRect.height}px`
-    //   this.spacerNode.style.display = 'block'
-    //   this.isHeaderFixed = true
-    // }
+    const containerRect = this.node.getBoundingClientRect()
+
+    if (!this.isHeaderFixed && window.pageYOffset > containerRect.height) {
+      this.scrollNode.style.display = 'block'
+      this.isHeaderFixed = true
+    } else if (this.isHeaderFixed && window.pageYOffset <= containerRect.height) {
+      this.scrollNode.style.display = 'none'
+      this.isHeaderFixed = false
+    }
   }
 
   render () {
@@ -56,6 +57,18 @@ class Header extends Component {
         <Head>
           <style dangerouslySetInnerHTML={{__html: styles}} />
         </Head>
+
+        <div
+          className='fixed top-0 right-0 left-0'
+          ref={r => { this.scrollNode = r }}
+          style={{display: 'none'}}
+        >
+          <img
+            alt={`${this.context.siteData.name} logo`}
+            className='block fit'
+            src={this.context.siteData.images.logo}
+          />
+        </div>
 
         <div
           className='max-width-4 mx-auto'
