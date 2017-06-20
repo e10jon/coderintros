@@ -153,9 +153,10 @@ add_action( 'admin_init', function () {
 } );
 
 add_action( 'admin_menu', function () {
-  add_menu_page(
+  add_submenu_page(
+    'options-general.php',
     'Coder Intros Settings',
-    'Coder Intros Settings',
+    'Coder Intros',
     'manage_options',
     'ci',
     function () {
@@ -176,8 +177,6 @@ add_action( 'admin_menu', function () {
           submit_button( 'Save Settings' );?>
         </form>
       </div><?php
-    },
-    'dashicons-text',
-    80
+    }
  );
 } );
