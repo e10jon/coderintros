@@ -11,7 +11,7 @@ import {createModalStore} from '../helpers/create-modal'
 import EmailModal from '../components/modals/email'
 import Footer from '../components/footer'
 import {getFetchHeaders, getWordpressUrl} from './fetch'
-import Header from '../components/header'
+import Header, {createHeaderStore} from '../components/header'
 import LikeModal, {didLikeFBPageStoreKey} from '../components/modals/like'
 import SitePassword, {createSitePasswordStore} from '../components/site-password'
 import styles from '../styles/app.scss'
@@ -25,6 +25,7 @@ export default function (Child: Object, {
   class Page extends Component {
     static childContextTypes = Object.assign({}, {
       emailModalStore: PropTypes.object,
+      headerStore: PropTypes.object,
       likeModalStore: PropTypes.object,
       pagesData: PropTypes.array,
       siteData: PropTypes.object,
@@ -73,6 +74,7 @@ export default function (Child: Object, {
 
     getChildContext = () => Object.assign({}, {
       emailModalStore: this.emailModalStore,
+      headerStore: this.headerStore,
       likeModalStore: this.likeModalStore,
       pagesData: this.props.pagesData,
       siteData: this.props.siteData,
@@ -81,6 +83,7 @@ export default function (Child: Object, {
 
     componentWillMount () {
       this.emailModalStore = createModalStore()
+      this.headerStore = createHeaderStore()
       this.likeModalStore = createModalStore()
       if (this.props.siteData.site_password_enabled) {
         this.sitePasswordStore = createSitePasswordStore()

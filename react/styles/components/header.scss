@@ -4,3 +4,14 @@
   height: 30px; width: 30px;
   @media (min-width: 40em) { height: 40px; width: 40px; }
 }
+
+.header-scroll {
+  $height: 44px;
+
+  height: $height;
+
+  &.header-scroll-show { transform: translateY(-0); transition: transform 500ms ease-out; }
+  &.header-scroll-hide { transform: translateY(-$height); transition: transform 250ms ease-out; }
+
+  .header-scroll-logo { max-height: 70%; }
+}

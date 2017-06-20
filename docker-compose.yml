@@ -50,7 +50,7 @@ services:
     depends_on:
       - wordpress
     environment:
-      GA_DEBUG: 'true'
+      GA_DEBUG: 'false'
       NODE_ENV: development
     volumes:
       - /usr/src/app/node_modules

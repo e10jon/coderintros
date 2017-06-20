@@ -14,6 +14,7 @@ ul { margin: 0; padding: 0; }
 .bg-darken-5 { background-color: rgba(0, 0, 0, 0.75); }
 .bg-fb-blue { background-color: #3b5998; }
 .fb-blue { color: #3b5998; }
+.fit-y { max-height: 100%; }
 .lg-h0 { @media (min-width: 64em) { font-size: 3rem; }}
 .height-auto { height: auto; }
 .md-h0 { @media (min-width: 52em) { font-size: 3rem; }}

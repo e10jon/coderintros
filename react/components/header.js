@@ -4,10 +4,29 @@ import React, {Component} from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
+import {action, observable} from 'mobx'
 import {IoIosEmailOutline, IoSocialFacebookOutline} from 'react-icons/lib/io'
+import {observer} from 'mobx-react'
 
 import styles from '../styles/components/header.scss'
 import trackEvent from '../helpers/track-event'
+
+export const createHeaderStore = () => (
+  observable({
+    scrollHeaderIsEnabled: false,
+    scrollHeaderIsVisible: false,
+    scrollTitle: null,
+    disableScrollHeader: action(function disableScrollHeader () {
+      this.scrollTitle = null
+      this.scrollHeaderIsVisible = false
+      this.scrollHeaderIsEnabled = false
+    }),
+    enableScrollHeader: action(function enableScrollHeader ({scrollTitle}: Object) {
+      this.scrollTitle = scrollTitle
+      this.scrollHeaderIsEnabled = true
+    })
+  })
+)
 
 class Header extends Component {
   componentDidMount () {
@@ -37,14 +56,14 @@ class Header extends Component {
   }
 
   handleScroll = () => {
-    const containerRect = this.node.getBoundingClientRect()
+    if (this.context.headerStore.scrollHeaderIsEnabled) {
+      const containerRect = this.node.getBoundingClientRect()
 
-    if (!this.isHeaderFixed && window.pageYOffset > containerRect.height) {
-      this.scrollNode.style.display = 'block'
-      this.isHeaderFixed = true
-    } else if (this.isHeaderFixed && window.pageYOffset <= containerRect.height) {
-      this.scrollNode.style.display = 'none'
-      this.isHeaderFixed = false
+      if (!this.context.headerStore.scrollHeaderIsVisible && window.pageYOffset > containerRect.height) {
+        this.context.headerStore.scrollHeaderIsVisible = true
+      } else if (this.context.headerStore.scrollHeaderIsVisible && window.pageYOffset <= containerRect.height) {
+        this.context.headerStore.scrollHeaderIsVisible = false
+      }
     }
   }
 
@@ -59,15 +78,19 @@ class Header extends Component {
         </Head>
 
         <div
-          className='fixed top-0 right-0 left-0'
+          className={`fixed top-0 right-0 left-0 flex items-center bg-black header-scroll header-scroll-${this.context.headerStore.scrollHeaderIsVisible ? 'show' : 'hide'}`}
           ref={r => { this.scrollNode = r }}
-          style={{display: 'none'}}
         >
           <img
             alt={`${this.context.siteData.name} logo`}
-            className='block fit'
-            src={this.context.siteData.images.logo}
+            className='fit block mx1 sm-mx2 lg-mx3 header-scroll-logo'
+            src={this.context.siteData.images['apple-icon-180x180']}
           />
+
+          {this.context.headerStore.scrollTitle ? (
+            <div className='white h3'>{this.context.headerStore.scrollTitle}</div>
+          ) : null}
+
         </div>
 
         <div
@@ -117,9 +140,10 @@ class Header extends Component {
 
 Header.contextTypes = {
   emailModalStore: PropTypes.object,
+  headerStore: PropTypes.object,
   likeModalStore: PropTypes.object,
   pagesData: PropTypes.array,
   siteData: PropTypes.object
 }
 
-export default Header
+export default observer(Header)
