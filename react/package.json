@@ -52,14 +52,12 @@
     "eslint-plugin-react": "^7.0.1",
     "eslint-plugin-standard": "^3.0.1",
     "flow": "^0.2.3",
-    "flow-bin": "^0.47.0",
-    "zombie": "^5.0.5"
+    "flow-bin": "^0.47.0"
   },
   "ava": {
     "babel": "inherit",
     "require": [
-      "babel-register",
-      "test/helpers/setup-zombie"
+      "babel-register"
     ]
   },
   "babel": {
