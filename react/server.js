@@ -1,62 +1,90 @@
-const {createServer} = require('http')
+const Koa = require('koa')
 const {join} = require('path')
 const mobxReact = require('mobx-react')
-const {parse} = require('url')
+const Router = require('koa-router')
 const next = require('next')
 
 mobxReact.useStaticRendering(true)
 
 const app = next({dev: process.env.NODE_ENV !== 'production'})
-
-// make sure this matches wordpress's permalink setting,
-// and set a capture group for the post slug
-const postPathPrefix = '/profiles'
-const postRegex = new RegExp(`${postPathPrefix}/(.+?)(/|$)`)
+const handle = app.getRequestHandler()
 
 module.exports = app.prepare().then(() => {
-  return createServer((req, res) => {
-    global.HOST = req.headers.host
+  const server = new Koa()
+  const router = new Router()
 
-    // if x-forwarded-proto is set, make sure the request is https
-    if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] !== 'https') {
-      res.statusCode = 301
-      res.setHeader('Content-Type', 'text/plain')
-      res.setHeader('Location', `https://${req.headers.host}${req.url}`)
-      res.end()
-      return
-    }
+  router.get('/robots.txt', async ctx => {
+    await app.serveStatic(ctx.req, ctx.res, join(__dirname, 'static/robots.txt'))
+    ctx.respond = false
+  })
 
-    // cache everything. this will be overrided in development by next.js
-    res.setHeader('Cache-Control', 'public, smax-age=31536000')
+  router.get('/favicon.ico', async ctx => {
+    await app.serveStatic(ctx.req, ctx.res, join(__dirname, 'static/img/favicon.ico'))
+    ctx.respond = false
+  })
 
-    const parsedUrl = parse(req.url, true)
-    const {pathname, query} = parsedUrl
+  router.get('/profiles', async ctx => {
+    await app.render(ctx.req, ctx.res, '/archive', ctx.query)
+    ctx.respond = false
+  })
 
-    if (parsedUrl.pathname === '/robots.txt') {
-      app.serveStatic(req, res, join(__dirname, 'static/robots.txt'))
-    } else if (parsedUrl.pathname === '/favicon.ico') {
-      app.serveStatic(req, res, join(__dirname, 'static/img/favicon.ico'))
-    } else if (pathname === '/interview') {
-      app.getRequestHandler()(req, res, parsedUrl)
-    } else if (postRegex.test(pathname)) {
-      // regular post urls
-      app.render(req, res, '/post', Object.assign({}, {
-        type: 'posts',
-        slug: pathname.match(postRegex)[1]
-      }, query))
-    } else if (pathname === '/' && query.p) {
-      // when previewing an unsaved draft post
-      app.render(req, res, '/post', Object.assign({}, {type: 'posts'}, query))
-    } else if (pathname === postPathPrefix) {
-      app.render(req, res, '/archive', query)
-    } else if (pathname && pathname !== '/') {
-      // regular page urls
-      app.render(req, res, '/post', Object.assign({}, {
-        type: 'pages',
-        slug: pathname.match(/\/(.+)/)[1]
-      }, query))
+  router.get('/interview', async ctx => {
+    ctx.set('Cache-Control', 'public, smax-age=30')
+    await app.render(ctx.req, ctx.res, '/interview', ctx.query)
+    ctx.respond = false
+  })
+
+  // regular post urls
+  router.get('/profiles/:slug', async ctx => {
+    ctx.query.type = 'posts'
+    ctx.query.slug = ctx.params.slug
+    await app.render(ctx.req, ctx.res, '/post', ctx.query)
+    ctx.respond = false
+  })
+
+  // pages
+  router.get('/pages/:slug', async ctx => {
+    ctx.query.type = 'pages'
+    ctx.query.slug = ctx.params.slug
+    await app.render(ctx.req, ctx.res, '/post', ctx.query)
+    ctx.respond = false
+  })
+
+  // post or page preview (without saving first)
+  router.get('/', async (ctx, next) => {
+    if (ctx.query.p || ctx.query.page_id) {
+      ctx.query.type = ctx.query.page_id ? 'pages' : 'posts'
+      await app.render(ctx.req, ctx.res, '/post', ctx.query)
+      ctx.respond = false
     } else {
-      app.getRequestHandler()(req, res, parsedUrl)
+      await next()
     }
   })
+
+  // everything else
+  router.get('*', async ctx => {
+    await handle(ctx.req, ctx.res)
+    ctx.respond = false
+  })
+
+  // if x-forwarded-proto is set, redirect unless request is https
+  server.use(async (ctx, next) => {
+    if (ctx.get('x-forwarded-proto') && ctx.get('x-forwarded-proto') !== 'https') {
+      ctx.status = 301
+      ctx.redirect(`https://${ctx.get('host')}${ctx.url}`)
+    } else {
+      await next()
+    }
+  })
+
+  server.use(async (ctx, next) => {
+    ctx.status = 200
+    ctx.set('Cache-Control', 'public, smax-age=31536000')
+    global.HOST = ctx.req.headers.host
+    await next()
+  })
+
+  server.use(router.routes())
+
+  return server
 })

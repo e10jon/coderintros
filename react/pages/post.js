@@ -207,15 +207,18 @@ class Post extends Component {
 }
 
 export default createPage(Post, {
-  propPaths: ({asPath, query: {p, preview, preview_id, type, slug}}) => {
+  propPaths: ({asPath, query: {p, page_id, preview, preview_id, type, slug}}) => {
     const paths: Object = {
-      postsData: p ? `/wp/v2/${type}/${p}/?_embed` : `/wp/v2/${type}?_embed&slug=${slug}`
+      postsData: {
+        authorize: !!preview,
+        path: (p || page_id) ? `/wp/v2/${type}/${p || page_id}/?_embed` : `/wp/v2/${type}?_embed&slug=${slug}`
+      }
     }
 
     if (preview) {
       paths.revisionsData = {
         authorize: true,
-        path: `/wp/v2/${type}/${p || preview_id}/revisions`
+        path: `/wp/v2/${type}/${p || page_id || preview_id}/revisions`
       }
     }
 
