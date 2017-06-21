@@ -27,5 +27,4 @@ phases:
 
 artifacts:
   files:
-    - .extensions
     - Dockerrun.aws.json

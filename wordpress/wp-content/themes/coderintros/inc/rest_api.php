@@ -149,13 +149,18 @@ add_action( 'rest_api_init', function () {
         }
       }
 
-      return $questions;
+      $response = rest_ensure_response( $questions );
+      $response->headers['Cache-Control'] = 'public, smax-age=30';
+
+      return $response;
     }
   ] );
 } );
 
 // add cache control headers
-add_action( 'rest_post_dispatch', function ( $result ) {
-  $result->headers['Cache-Control'] = 'public, smax-age=31536000';
-  return $result;
+add_action( 'rest_post_dispatch', function ( $response ) {
+  if ( !array_key_exists( 'Cache-Control', $response->headers ) ) {
+    $response->headers['Cache-Control'] = 'public, smax-age=31536000';
+  }
+  return $response;
 } );
