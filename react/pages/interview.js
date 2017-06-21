@@ -1,30 +1,75 @@
 // @flow
 
 import React, {Component} from 'react'
-import {observable, action} from 'mobx'
+import {observable, action, autorun} from 'mobx'
 import {observer} from 'mobx-react'
+import PropTypes from 'prop-types'
 import {renderToStaticMarkup} from 'react-dom/server'
 import 'isomorphic-fetch'
 
 import createPage from '../helpers/create-page'
+import NavButton from '../components/interview/nav-button'
 import {getWordpressUrl} from '../helpers/fetch'
 
-const createStore = () => observable({
-  isSubmitting: false,
-  didSubmit: false,
-  beginSubmission: action(function beginSubmission () {
-    this.isSubmitting = true
-    this.didSubmit = false
-  }),
-  endSubmission: action(function endSubmission () {
-    this.isSubmitting = false
-    this.didSubmit = true
+const createStore = ({steps}: Object) => {
+  const store = observable({
+    activeStep: steps[0],
+    prevStep: null,
+    nextStep: 1,
+    isSubmitting: false,
+    didSubmit: false,
+    steps,
+    beginSubmission: action(function beginSubmission () {
+      this.isSubmitting = true
+      this.didSubmit = false
+    }),
+    endSubmission: action(function endSubmission () {
+      this.isSubmitting = false
+      this.didSubmit = true
+    }),
+    changeStep: action(function changeStep (step: number) {
+      this.activeStep = step
+    })
   })
-})
+
+  autorun(() => {
+    const activeIndex = store.steps.indexOf(store.activeStep)
+    store.prevStep = activeIndex - 1 < 0 ? null : store.steps[activeIndex - 1]
+    store.nextStep = activeIndex + 1 < store.steps.length ? store.steps[activeIndex + 1] : null
+  })
+
+  store.handlePrevStepClick = action(() => {
+    store.changeStep(store.prevStep)
+  })
+  store.handleNextStepClick = action(() => {
+    store.changeStep(store.nextStep)
+  })
+
+  return store
+}
 
 class Interview extends Component {
+  static childContextTypes = {
+    interviewStore: PropTypes.object
+  }
+
+  getChildContext = () => ({
+    interviewStore: this.store
+  })
+
   componentWillMount () {
-    this.store = createStore()
+    this.store = createStore({
+      steps: [
+        'Welcome',
+        ...this.props.questionsData.map(d => d.section),
+        'Photo',
+        'Confirm'
+      ]
+    })
+  }
+
+  handleSectionNavClick = (section: string) => {
+    console.log(section)
   }
 
   handleSubmit = async (e: Object) => {
@@ -90,56 +135,106 @@ class Interview extends Component {
             {this.store.didSubmit ? <span>{'done!'}</span> : null}
           </div>
 
+          <nav className='my2'>
+            {this.store.steps.map(section => (
+              <NavButton
+                key={`NavButton${section}`}
+                section={section}
+              />
+            ))}
+          </nav>
+
           <form onSubmit={this.handleSubmit}>
-            <div className='h3 bold'>{'Setup'}</div>
-            <div>
-              <label>{'Name'}</label>
-              <input
-                className='input'
-                name='name'
-                required
-                type='text'
-              />
-            </div>
-            <div>
-              <label>{'Email'}</label>
-              <input
-                className='input'
-                name='email'
-                required
-                type='email'
-              />
-            </div>
-            <div>
-              <label className='label'>{'Photo'}</label>
-              <input
-                name='photo'
-                required
-                type='file'
-              />
-            </div>
+            {this.store.activeStep === 'Welcome' ? (
+              <fieldset>
+                <div className='h3 bold'>{'Setup'}</div>
+                <div>
+                  <label>{'Name'}</label>
+                  <input
+                    className='input'
+                    name='name'
+                    readOnly
+                    required
+                    type='text'
+                    value={this.props.url.query.name}
+                  />
+                </div>
+                <div>
+                  <label>{'Email'}</label>
+                  <input
+                    className='input'
+                    name='email'
+                    readOnly
+                    required
+                    type='email'
+                    value={this.props.url.query.email}
+                  />
+                </div>
+              </fieldset>
+            ) : null}
 
             {this.props.questionsData.map(questionData => (
-              <div key={`Section${questionData.section}`}>
-                <div className='h3 bold'>{questionData.section}</div>
-                {questionData.questions.map(question => (
-                  <div key={question}>
-                    <label>{question}</label>
-                    <textarea
-                      className='input'
-                      name={question}
-                    />
-                  </div>
-                ))}
-              </div>
+              this.store.activeStep === questionData.section ? (
+                <fieldset key={`Section${questionData.section}`}>
+                  <div className='h3 bold'>{questionData.section}</div>
+                  {questionData.questions.map(question => (
+                    <div key={question}>
+                      <label>{question}</label>
+                      <textarea
+                        className='input'
+                        name={question}
+                      />
+                    </div>
+                  ))}
+                </fieldset>
+              ) : null
             ))}
-            <button
-              className='btn btn-primary'
-              type='submit'
-            >
-              {'Submit'}
-            </button>
+
+            {this.store.activeStep === 'Photo' ? (
+              <fieldset>
+                <div className='h3 bold'>{'Photo'}</div>
+                <div>
+                  <label className='label'>{'Photo'}</label>
+                  <input
+                    name='photo'
+                    required
+                    type='file'
+                  />
+                </div>
+              </fieldset>
+            ) : null}
+
+            {this.store.activeStep === 'Confirm' ? (
+              <fieldset>
+                <button
+                  className='btn btn-primary'
+                  type='submit'
+                >
+                  {'Submit'}
+                </button>
+              </fieldset>
+            ) : null}
           </form>
+
+          <nav className='my2'>
+            {this.store.prevStep !== null ? (
+              <a
+                className='inline-block px1 mx1 underline'
+                dangerouslySetInnerHTML={{__html: '&laquo; Prev'}}
+                href='javascript:void(0)'
+                onClick={this.store.handlePrevStepClick}
+              />
+            ) : null}
+
+            {this.store.nextStep !== null ? (
+              <a
+                className='inline-block px1 mx1 underline'
+                dangerouslySetInnerHTML={{__html: 'Next &raquo;'}}
+                href='javascript:void(0)'
+                onClick={this.store.handleNextStepClick}
+              />
+          ) : null}
+          </nav>
         </div>
       </main>
     )
