@@ -1,13 +1,16 @@
+<br />
 <div align="center">
   <a href="https://coderintros.com/">
-    <img src="https://cf.coderintros.com/uploads/2017/06/logo.svg" alt="Coder Intros logo" title="Coder Intros" align="center" height="50" />
+    <img src="https://cf.coderintros.com/uploads/2017/06/logo.svg" alt="Coder Intros logo" title="Coder Intros" align="center" height="40" />
     </a>
 </div>
 <br />
+<br />
+<hr />
 
 ## What is this?
 
-It's the code that powers [coderintros.com](https://coderintros.com/). It's open-sourced because I love open-source code and want to give back to the open-source community, even though I never have (and probably never will) create an awesome OSS library or framework. My hope is that you can read through this repo to get inspired to create something new, or maybe integrate a piece of my infrastructure/workflow into an existing project of yours.
+It's the code that powers [coderintros.com](https://coderintros.com/). It's open-sourced because why not. My hope is that you can read through this repo to get inspired to create something new, or maybe integrate a piece of my infrastructure/workflow into an existing project of yours.
 
 ## Look, I just want a profile on coderintros.com
 
@@ -21,17 +24,20 @@ No problem! Head on over to [https://coderintros.com/suggest/](https://coderintr
 - Visit the site @ [http://coderintros.dev/](http://coderintros.dev/)
 - Visit the backend @ [http://coderintros.dev/wp-admin](http://coderintros.dev/wp-admin)
   - Login with `admin` `password`
+- Also:
+  - Download `gcloud-service-account.json` to the `wordpress` folder
 
 ## How to deploy
 
-You'll need an [AWS account](https://aws.amazon.com/), and you'll also need more instructions than I feel like typing right now. But briefly, do the following:
+Sign up for an [AWS account](https://aws.amazon.com/), then do the following:
 
 - Create an RDS instance.
 - Create an Elastic Beanstalk application and environment, specifying all the environment variables from `docker-compose.yml`.
   - Use the AWS console, or `eb create prod --elb-type application --sample -i t2.micro -k coderintros --platform "multi-container-docker-1.12.6-(generic)" -pr --vpc.id REPLACE_ME --vpc.ec2subnets REPLACE_ME,REPLACE_ME --vpc.elbpublic --vpc.publicip --vpc.elbsubnets REPLACE_ME,REPLACE_ME`
 - Create a Code Pipeline project, pulling from Github, running CodeBuild, deploying to Elastic Beanstalk.
-  - Define `AWS_REGION` and `AWS_ACCOUNT_ID` environment variables in CodeBuild.
-  - Add the `AmazonEC2ContainerRegistryFullAccess` policy to IAM role `code-build-coderintros-service-role`.
+  - Define `AWS_REGION`, `AWS_ACCOUNT_ID`, and `BUILD_BUCKET` environment variables in CodeBuild.
+  - Upload `gcloud-service-account.json` to the `BUILD_BUCKET` S3 folder
+  - Add the `AmazonEC2ContainerRegistryFullAccess` and `AmazonS3ReadOnlyAccess` policies to IAM role `code-build-coderintros-service-role`.
 - Push to Github and watch the magic happen!
 
 ## In production
