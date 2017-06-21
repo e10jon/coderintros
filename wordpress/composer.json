@@ -1,5 +1,6 @@
 {
   "require": {
-    "google/apiclient": "^2.0"
+    "google/apiclient": "^2.0",
+    "humanmade/s3-uploads": "^1.1"
   }
 }

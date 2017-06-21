@@ -1,7 +1,7 @@
 FROM wordpress:4.8-php7.1-apache
 
 RUN apt-get update && \
-  apt-get install git -y
+  apt-get install git zip unzip -y
 
 WORKDIR /usr/src/composer
 

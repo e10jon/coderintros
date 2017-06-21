@@ -4,7 +4,7 @@
 Plugin Name: S3 Uploads
 Description: Store uploads in S3
 Author: Human Made Limited
-Version: 2.0.0-beta2
+Version: 1.1.0
 Author URI: http://hmn.md
 */
 
@@ -31,10 +31,6 @@ function s3_uploads_init() {
 		return;
 	}
 
-	if ( ! defined( 'S3_UPLOADS_REGION' ) ) {
-		wp_die( 'S3_UPLOADS_REGION constant is required. Please define it in your wp-config.php' );
-	}
-
 	$instance = S3_Uploads::get_instance();
 	$instance->setup();
 }
@@ -45,7 +41,7 @@ function s3_uploads_init() {
  * @return bool True if the requirements are met, else false.
  */
 function s3_uploads_check_requirements() {
-	if ( version_compare( '5.5.0', PHP_VERSION, '>' ) ) {
+	if ( version_compare( '5.3.3', PHP_VERSION, '>' ) ) {
 		if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
 			add_action( 'admin_notices', 's3_uploads_outdated_php_version_notice' );
 		}
@@ -62,10 +58,11 @@ function s3_uploads_check_requirements() {
  * This has to be a named function for compatibility with PHP 5.2.
  */
 function s3_uploads_outdated_php_version_notice() {
-	printf( '<div class="error"><p>The S3 Uploads plugin requires PHP version 5.5.0 or higher. Your server is running PHP version %s.</p></div>',
+	printf( '<div class="error"><p>The S3 Uploads plugin requires PHP version 5.3.3 or higher. Your server is running PHP version %s.</p></div>',
 		PHP_VERSION
 	);
 }
+
 /**
  * Check if URL rewriting is enabled.
  *

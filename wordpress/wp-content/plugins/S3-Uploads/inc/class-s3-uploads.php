@@ -3,10 +3,10 @@
 class S3_Uploads {
 
 	private static $instance;
-	private        $bucket;
-	private        $bucket_url;
-	private        $key;
-	private        $secret;
+	private $bucket;
+	private $bucket_url;
+	private $key;
+	private $secret;
 
 	public $original_upload_dir;
 
@@ -17,13 +17,13 @@ class S3_Uploads {
 	public static function get_instance() {
 
 		if ( ! self::$instance ) {
-			self::$instance = new S3_Uploads(
-				S3_UPLOADS_BUCKET,
-				defined( 'S3_UPLOADS_KEY' ) ? S3_UPLOADS_KEY : null,
-				defined( 'S3_UPLOADS_SECRET' ) ? S3_UPLOADS_SECRET : null,
-				defined( 'S3_UPLOADS_BUCKET_URL' ) ? S3_UPLOADS_BUCKET_URL : null,
-				S3_UPLOADS_REGION
-			);
+
+			$key    = defined( 'S3_UPLOADS_KEY' ) ? S3_UPLOADS_KEY : null;
+			$secret = defined( 'S3_UPLOADS_SECRET' ) ? S3_UPLOADS_SECRET : null;
+			$url    = defined( 'S3_UPLOADS_BUCKET_URL' ) ? S3_UPLOADS_BUCKET_URL : null;
+			$region = defined( 'S3_UPLOADS_REGION' ) ? S3_UPLOADS_REGION : null;
+
+			self::$instance = new S3_Uploads( S3_UPLOADS_BUCKET, $key, $secret, $url, $region );
 		}
 
 		return self::$instance;
@@ -31,11 +31,11 @@ class S3_Uploads {
 
 	public function __construct( $bucket, $key, $secret, $bucket_url = null, $region = null ) {
 
-		$this->bucket     = $bucket;
-		$this->key        = $key;
-		$this->secret     = $secret;
+		$this->bucket = $bucket;
+		$this->key = $key;
+		$this->secret = $secret;
 		$this->bucket_url = $bucket_url;
-		$this->region     = $region;
+		$this->region = $region;
 	}
 
 	/**
@@ -47,7 +47,6 @@ class S3_Uploads {
 		add_filter( 'upload_dir', array( $this, 'filter_upload_dir' ) );
 		add_filter( 'wp_image_editors', array( $this, 'filter_editors' ), 9 );
 		add_filter( 'wp_delete_file', array( $this, 'wp_filter_delete_file' ) );
-		add_filter( 'wp_read_image_metadata', array( $this, 'wp_filter_read_image_metadata' ), 10, 2 );
 		remove_filter( 'admin_notices', 'wpthumb_errors' );
 
 		add_action( 'wp_handle_sideload_prefilter', array( $this, 'filter_sideload_move_temp_file_to_s3' ) );
@@ -72,7 +71,7 @@ class S3_Uploads {
 		if ( defined( 'S3_UPLOADS_USE_LOCAL' ) && S3_UPLOADS_USE_LOCAL ) {
 			stream_wrapper_register( 's3', 'S3_Uploads_Local_Stream_Wrapper', STREAM_IS_URL );
 		} else {
-			S3_Uploads_Stream_Wrapper::register( $this->s3() );
+			S3_Uploads_Stream_Wrapper::register_streamwrapper( $this );
 			stream_context_set_option( stream_context_get_default(), 's3', 'ACL', 'public-read' );
 		}
 
@@ -128,19 +127,6 @@ class S3_Uploads {
 		return apply_filters( 's3_uploads_bucket_url', 'https://' . $bucket . '.s3.amazonaws.com' . $path );
 	}
 
-	/**
-	 * Get the S3 bucket name
-	 *
-	 * @return string
-	 */
-	public function get_s3_bucket() {
-		return $bucket = strtok( $this->bucket, '/' );
-	}
-
-	public function get_s3_bucket_region() {
-		return $this->region;
-	}
-
 	public function get_original_upload_dir() {
 
 		if ( empty( $this->original_upload_dir ) ) {
@@ -159,20 +145,20 @@ class S3_Uploads {
 			return $this->s3;
 		}
 
-		$params = array( 'version' => 'latest' );
+		$params = array();
 
 		if ( $this->key && $this->secret ) {
-			$params['credentials']['key']    = $this->key;
-			$params['credentials']['secret'] = $this->secret;
+			$params['key'] = $this->key;
+			$params['secret'] = $this->secret;
 		}
 
 		if ( $this->region ) {
 			$params['signature'] = 'v4';
-			$params['region']    = $this->region;
+			$params['region'] = $this->region;
 		}
 
 		if ( defined( 'WP_PROXY_HOST' ) && defined( 'WP_PROXY_PORT' ) ) {
-			$proxy_auth    = '';
+			$proxy_auth = '';
 			$proxy_address = WP_PROXY_HOST . ':' . WP_PROXY_PORT;
 
 			if ( defined( 'WP_PROXY_USERNAME' ) && defined( 'WP_PROXY_PASSWORD' ) ) {
@@ -182,8 +168,9 @@ class S3_Uploads {
 			$params['request.options']['proxy'] = $proxy_auth . $proxy_address;
 		}
 
-		$params   = apply_filters( 's3_uploads_s3_client_params', $params );
-		$this->s3 = Aws\S3\S3Client::factory( $params );
+		$params = apply_filters( 's3_uploads_s3_client_params', $params );
+
+		$this->s3 = Aws\Common\Aws::factory( $params )->get( 's3' );
 
 		return $this->s3;
 	}
@@ -209,42 +196,12 @@ class S3_Uploads {
 	 */
 	public function filter_sideload_move_temp_file_to_s3( array $file ) {
 		$upload_dir = wp_upload_dir();
-		$new_path   = $upload_dir['basedir'] . '/tmp/' . basename( $file['tmp_name'] );
+		$new_path = $upload_dir['basedir'] . '/tmp/' . basename( $file['tmp_name'] );
 
 		copy( $file['tmp_name'], $new_path );
 		unlink( $file['tmp_name'] );
 		$file['tmp_name'] = $new_path;
 
 		return $file;
-	}
-
-	/**
-	 * Filters wp_read_image_metadata. exif_read_data() doesn't work on
-	 * file streams so we need to make a temporary local copy to extract
-	 * exif data from.
-	 *
-	 * @param array  $meta
-	 * @param string $file
-	 * @return array|bool
-	 */
-	public function wp_filter_read_image_metadata( $meta, $file ) {
-		remove_filter( 'wp_read_image_metadata', array( $this, 'wp_filter_read_image_metadata' ), 10 );
-		$temp_file = $this->copy_image_from_s3( $file );
-		$meta      = wp_read_image_metadata( $temp_file );
-		add_filter( 'wp_read_image_metadata', array( $this, 'wp_filter_read_image_metadata' ), 10, 2 );
-		unlink( $temp_file );
-		return $meta;
-	}
-
-	/**
-	 * Get a local copy of the file.
-	 *
-	 * @param  string $file
-	 * @return string
-	 */
-	public function copy_image_from_s3( $file ) {
-		$temp_filename = wp_tempnam( $file );
-		copy( $file, $temp_filename );
-		return $temp_filename;
 	}
 }
