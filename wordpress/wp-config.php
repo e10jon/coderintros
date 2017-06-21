@@ -18,6 +18,10 @@
  * @package WordPress
  */
 
+require_once 'vendor/autoload.php';
+
+putenv( 'GOOGLE_APPLICATION_CREDENTIALS=/usr/src/gcloud-service-account.json' );
+
 define( 'DB_NAME',       $_ENV['DB_NAME'] );
 define( 'DB_USER',       $_ENV['DB_USER'] );
 define( 'DB_PASSWORD',   $_ENV['DB_PASSWORD'] );

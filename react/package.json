@@ -19,7 +19,6 @@
     "cssnano": "^3.10.0",
     "detect-node": "^2.0.3",
     "glob": "^7.1.2",
-    "googleapis": "^19.0.0",
     "isomorphic-fetch": "^2.2.1",
     "js-cookie": "^2.1.4",
     "mobx": "^3.1.14",

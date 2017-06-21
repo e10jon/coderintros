@@ -99,7 +99,7 @@ add_action( 'rest_api_init', function () {
       }
 
       return $finalArray;
-    },
+    }
   ] );
 } );
 
@@ -115,12 +115,47 @@ add_action( 'rest_api_init', function () {
           ['status' => 401]
         );
       }
-    },
+    }
+  ] );
+} );
+
+// add endpoint to return questions from google sheets
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'ci', '/questions', [
+    'methods' => 'GET',
+    'callback' => function ( $request ) {
+      $client = new Google_Client();
+      $client->useApplicationDefaultCredentials();
+      $client->addScope(Google_Service_Sheets::SPREADSHEETS_READONLY);
+      $service = new Google_Service_Sheets($client);
+
+      $spreadsheet_id = '1aXs0S9ZTnzuVf66FqytsluB0IESnQ5sCbvQUETYbaU0';
+      $range = 'A1:Z100';
+      $response = $service->spreadsheets_values->get($spreadsheet_id, $range);
+      $value_range = $response->getValues();
+
+      $questions = [];
+
+      for ($i = 0; $i < count( $value_range ); $i += 1) {
+        for ($j = 0; $j < count( $value_range[$i] ); $j += 1) {
+          if ($i == 0) {
+            array_push( $questions, [
+              'section' => $value_range[$i][$j],
+              'questions' => []
+            ] );
+          } else {
+            array_push( $questions[$j]['questions'], $value_range[$i][$j] );
+          }
+        }
+      }
+
+      return $questions;
+    }
   ] );
 } );
 
 // add cache control headers
 add_action( 'rest_post_dispatch', function ( $result ) {
-  $result->headers['Cache-Control'] = 'public';
+  $result->headers['Cache-Control'] = 'public, smax-age=31536000';
   return $result;
 } );

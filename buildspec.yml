@@ -5,6 +5,7 @@ phases:
     commands:
       - $(aws ecr get-login --region $AWS_REGION)
       - VERSION=$(date +%s)
+      - aws s3 cp s3://coderintros/gcloud-service-account.json wordpress/
 
   build:
     commands:

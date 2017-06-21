@@ -243,9 +243,9 @@ async-foreach@^0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/async-foreach/-/async-foreach-0.1.3.tgz#36121f845c0578172de419a97dbeb1d16ec34542"
 
-async@^2.1.2, async@^2.1.5, async@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/async/-/async-2.3.0.tgz#1013d1051047dd320fe24e494d5c66ecaf6147d9"
+async@^2.1.2, async@^2.1.5:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/async/-/async-2.4.1.tgz#62a56b279c98a11d0987096a01cc3eeb8eb7bbd7"
   dependencies:
     lodash "^4.14.0"
 
@@ -1103,10 +1103,6 @@ base64-js@^1.0.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.2.0.tgz#a39992d723584811982be5e290bb6a53d86700f1"
 
-base64url@2.0.0, base64url@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/base64url/-/base64url-2.0.0.tgz#eac16e03ea1438eff9423d69baa36262ed1f70bb"
-
 bcrypt-pbkdf@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.1.tgz#63bc5dcb61331b92bc05fd528953c33462a06f8d"
@@ -1132,8 +1128,8 @@ bluebird@^3.0.0:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
 
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
-  version "4.11.6"
-  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.6.tgz#53344adb14617a13f6e8dd2ce28905d1c0ba3215"
+  version "4.11.7"
+  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.7.tgz#ddb048e50d9482790094c13eb3fcfc833ce7ab46"
 
 boom@2.x.x:
   version "2.10.1"
@@ -1246,10 +1242,6 @@ browserslist@^2.1.2, browserslist@^2.1.3:
 buf-compare@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/buf-compare/-/buf-compare-1.0.1.tgz#fef28da8b8113a0a0db4430b0b6467b69730b34a"
-
-buffer-equal-constant-time@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz#f8e71132f7ffe6e01a5c9697a4c6f3e48d5cc819"
 
 buffer-xor@^1.0.2:
   version "1.0.3"
@@ -2022,13 +2014,6 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
-ecdsa-sig-formatter@1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.9.tgz#4bc926274ec3b5abb5016e7e1d60921ac262b2a1"
-  dependencies:
-    base64url "^2.0.0"
-    safe-buffer "^5.0.1"
-
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -2790,15 +2775,6 @@ globule@^1.0.0:
     lodash "~4.17.4"
     minimatch "~3.0.2"
 
-google-auth-library@~0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/google-auth-library/-/google-auth-library-0.10.0.tgz#6e15babee85fd1dd14d8d128a295b6838d52136e"
-  dependencies:
-    gtoken "^1.2.1"
-    jws "^3.1.4"
-    lodash.noop "^3.0.1"
-    request "^2.74.0"
-
 google-closure-compiler-js@^20170423.0.0:
   version "20170423.0.0"
   resolved "https://registry.yarnpkg.com/google-closure-compiler-js/-/google-closure-compiler-js-20170423.0.0.tgz#e9e8b40dadfdf0e64044c9479b5d26d228778fbc"
@@ -2806,20 +2782,6 @@ google-closure-compiler-js@^20170423.0.0:
     minimist "^1.2.0"
     vinyl "^2.0.1"
     webpack-core "^0.6.8"
-
-google-p12-pem@^0.1.0:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/google-p12-pem/-/google-p12-pem-0.1.2.tgz#33c46ab021aa734fa0332b3960a9a3ffcb2f3177"
-  dependencies:
-    node-forge "^0.7.1"
-
-googleapis@^19.0.0:
-  version "19.0.0"
-  resolved "https://registry.yarnpkg.com/googleapis/-/googleapis-19.0.0.tgz#8700eb14294777e0c196152051fd6367061dde85"
-  dependencies:
-    async "~2.3.0"
-    google-auth-library "~0.10.0"
-    string-template "~1.0.0"
 
 got@^6.7.1:
   version "6.7.1"
@@ -2840,15 +2802,6 @@ got@^6.7.1:
 graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.4, graceful-fs@^4.1.6:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
-
-gtoken@^1.2.1:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/gtoken/-/gtoken-1.2.2.tgz#172776a1a9d96ac09fc22a00f5be83cee6de8820"
-  dependencies:
-    google-p12-pem "^0.1.0"
-    jws "^3.0.0"
-    mime "^1.2.11"
-    request "^2.72.0"
 
 gzip-size@^3.0.0:
   version "3.0.0"
@@ -3522,23 +3475,6 @@ junk@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/junk/-/junk-1.0.3.tgz#87be63488649cbdca6f53ab39bec9ccd2347f592"
 
-jwa@^1.1.4:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/jwa/-/jwa-1.1.5.tgz#a0552ce0220742cd52e153774a32905c30e756e5"
-  dependencies:
-    base64url "2.0.0"
-    buffer-equal-constant-time "1.0.1"
-    ecdsa-sig-formatter "1.0.9"
-    safe-buffer "^5.0.1"
-
-jws@^3.0.0, jws@^3.1.4:
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/jws/-/jws-3.1.4.tgz#f9e8b9338e8a847277d6444b1464f61880e050a2"
-  dependencies:
-    base64url "^2.0.0"
-    jwa "^1.1.4"
-    safe-buffer "^5.0.1"
-
 kind-of@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-2.0.1.tgz#018ec7a4ce7e3a86cb9141be519d24c8faa981b5"
@@ -3732,10 +3668,6 @@ lodash.mergewith@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.0.tgz#150cf0a16791f5903b8891eab154609274bdea55"
 
-lodash.noop@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/lodash.noop/-/lodash.noop-3.0.1.tgz#38188f4d650a3a474258439b96ec45b32617133c"
-
 lodash.tail@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.tail/-/lodash.tail-4.1.1.tgz#d2333a36d9e7717c8ad2f7cacafec7c32b444664"
@@ -3886,7 +3818,7 @@ mime-types@^2.1.12, mime-types@~2.1.7:
   dependencies:
     mime-db "~1.27.0"
 
-mime@1.3.4, mime@^1.2.11, mime@^1.3.4:
+mime@1.3.4, mime@^1.3.4:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.3.4.tgz#115f9e3b6b3daf2959983cb38f149a2d40eb5d53"
 
@@ -4079,10 +4011,6 @@ node-fetch@^1.0.1:
   dependencies:
     encoding "^0.1.11"
     is-stream "^1.0.1"
-
-node-forge@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.7.1.tgz#9da611ea08982f4b94206b3beb4cc9665f20c300"
 
 node-gyp@^3.3.1:
   version "3.6.2"
@@ -5289,7 +5217,7 @@ replace-ext@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
 
-request@2, request@^2.72.0, request@^2.74.0, request@^2.79.0, request@^2.81.0:
+request@2, request@^2.79.0, request@^2.81.0:
   version "2.81.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.81.0.tgz#c6928946a0e06c5f8d6f8a9333469ffda46298a0"
   dependencies:
@@ -5702,10 +5630,6 @@ string-length@^1.0.1:
   resolved "https://registry.yarnpkg.com/string-length/-/string-length-1.0.1.tgz#56970fb1c38558e9e70b728bf3de269ac45adfac"
   dependencies:
     strip-ansi "^3.0.0"
-
-string-template@~1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/string-template/-/string-template-1.0.0.tgz#9e9f2233dc00f218718ec379a28a5673ecca8b96"
 
 string-width@^1.0.1, string-width@^1.0.2:
   version "1.0.2"

@@ -27,7 +27,7 @@ module.exports = app.prepare().then(() => {
     }
 
     // cache everything. this will be overrided in development by next.js
-    res.setHeader('Cache-Control', 'public')
+    res.setHeader('Cache-Control', 'public, smax-age=31536000')
 
     const parsedUrl = parse(req.url, true)
     const {pathname, query} = parsedUrl
