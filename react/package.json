@@ -42,6 +42,8 @@
     "babel-eslint": "^7.2.3",
     "babel-plugin-css-modules-transform": "^1.2.7",
     "babel-preset-react": "^6.24.1",
+    "browser-env": "^2.0.31",
+    "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-flowtype": "^2.34.0",
@@ -51,7 +53,8 @@
     "eslint-plugin-react": "^7.0.1",
     "eslint-plugin-standard": "^3.0.1",
     "flow": "^0.2.3",
-    "flow-bin": "^0.47.0"
+    "flow-bin": "^0.47.0",
+    "react-addons-test-utils": "^15.6.0"
   },
   "ava": {
     "babel": "inherit",
