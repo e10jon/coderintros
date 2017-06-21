@@ -18,6 +18,7 @@ COPY themes                         /usr/src/wordpress/wp-content/themes
 COPY uploads                        /usr/src/wordpress/wp-content/uploads
 COPY php.ini                        /usr/local/etc/php/conf.d/
 COPY composer.json                  /usr/src/wordpress
+COPY composer.lock                  /usr/src/wordpress
 COPY gcloud-service-account.json    /usr/src
 
 RUN cd /usr/src/wordpress && \

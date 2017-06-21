@@ -1,6 +1,6 @@
 <?php
 
-require_once( 'inc/expire.php' );
+require_once( 'inc/purge.php' );
 require_once( 'inc/helpers.php' );
 require_once( 'inc/mu-settings.php' );
 require_once( 'inc/settings.php' );
