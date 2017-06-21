@@ -14,13 +14,14 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 WORKDIR /var/www/html
 
 COPY wp-config.php                  /usr/src/wordpress
-COPY wp-content                     /usr/src/wordpress/wp-content
+COPY themes                         /usr/src/wordpress/wp-content/themes
+COPY uploads                        /usr/src/wordpress/wp-content/uploads
 COPY php.ini                        /usr/local/etc/php/conf.d/
 COPY composer.json                  /usr/src/wordpress
 COPY gcloud-service-account.json    /usr/src
 
 RUN cd /usr/src/wordpress && \
-  composer install
+  composer install --prefer-dist
 
 RUN chown -R www-data:www-data /usr/src/wordpress
 
