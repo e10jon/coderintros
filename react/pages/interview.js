@@ -11,11 +11,15 @@ import createPage from '../helpers/create-page'
 import NavButton from '../components/interview/nav-button'
 import {getWordpressUrl} from '../helpers/fetch'
 
+// obtain using btoa(user:password)
+const Authorization = 'Basic YXV0b21hdGVkOnBhc3N3b3Jk'
+
 const createStore = ({steps}: Object) => {
   const store = observable({
     activeStep: steps[0],
     prevStep: null,
     nextStep: 1,
+    isDone: false,
     isSubmitting: false,
     didSubmit: false,
     steps,
@@ -29,6 +33,9 @@ const createStore = ({steps}: Object) => {
     }),
     changeStep: action(function changeStep (step: number) {
       this.activeStep = step
+    }),
+    finish: action(function finish () {
+      this.isDone = true
     })
   })
 
@@ -82,43 +89,48 @@ class Interview extends Component {
     this.store.beginSubmission()
 
     const photoFormData = new global.FormData()
-    const formObj = {}
+    let name
     let htmlEls = []
 
     for (let node of e.target.querySelectorAll('input, textarea')) {
       if (node.name === 'email') {
-        formObj.email = node.value
+        htmlEls.push(<p key='Email'>{node.value}</p>)
       } else if (node.name === 'name') {
-        formObj.name = node.value
+        name = node.value
       } else if (node.name === 'photo') {
         photoFormData.append('file', node.files[0])
       } else {
-        htmlEls.push(<p key={`Question${node.name}`}><strong>{node.name}</strong></p>)
-        htmlEls.push(<p key={`Answer${node.name}`}>{node.value}</p>)
+        if (node.value) {
+          htmlEls.push(<p key={`Question${node.name}`}><strong>{node.name}</strong></p>)
+          htmlEls.push(<p key={`Answer${node.name}`}>{node.value}</p>)
+        }
       }
     }
 
-    if (process.env.NODE_ENV === 'production') {
-      const photoUploadRes = await global.fetch(`${getWordpressUrl}/wp-json/wp/v2/media`, {
-        body: photoFormData,
-        headers: {
-          Authorization: `Basic ${global.btoa('uploader:password')}`
-        },
-        method: 'POST'
-      })
+    const photoUploadRes = await global.fetch(getWordpressUrl('/wp/v2/media'), {
+      body: photoFormData,
+      headers: {Authorization},
+      method: 'POST'
+    })
 
-      const photoUploadResJson = await photoUploadRes.json()
+    const photoUploadResJson = await photoUploadRes.json()
 
-      formObj.featuredMediaId = photoUploadResJson.id
-      formObj.html = renderToStaticMarkup(<div>{htmlEls}</div>)
-
-      await global.fetch('https://hooks.zapier.com/hooks/catch/2307479/9lv27g/', {
-        body: JSON.stringify(formObj),
-        method: 'POST'
-      })
-    }
+    await global.fetch(getWordpressUrl('/wp/v2/posts'), {
+      body: JSON.stringify({
+        content: renderToStaticMarkup(<div>{htmlEls}</div>),
+        featured_media: photoUploadResJson.id,
+        status: 'pending',
+        title: name
+      }),
+      headers: {
+        Authorization,
+        'Content-Type': 'application/json'
+      },
+      method: 'POST'
+    })
 
     this.store.endSubmission()
+    this.store.finish()
   }
 
   store: Object
@@ -129,112 +141,113 @@ class Interview extends Component {
         <div className='page-x-spacing'>
           <h1>{'The Interview'}</h1>
 
-          <div>
-            <span>{`Submission status: `}</span>
-            {this.store.isSubmitting ? <span>{'submitting...'}</span> : null}
-            {this.store.didSubmit ? <span>{'done!'}</span> : null}
-          </div>
+          {this.store.isDone ? (
+            <div>{'Thank you!'}</div>
+          ) : (
+            <div>
+              <div>
+                <span>{`Submission status: `}</span>
+                {this.store.isSubmitting ? <span>{'submitting...'}</span> : null}
+                {this.store.didSubmit ? <span>{'done!'}</span> : null}
+              </div>
 
-          <nav className='my2'>
-            {this.store.steps.map(section => (
-              <NavButton
-                key={`NavButton${section}`}
-                section={section}
-              />
-            ))}
-          </nav>
-
-          <form onSubmit={this.handleSubmit}>
-            {this.store.activeStep === 'Welcome' ? (
-              <fieldset>
-                <div className='h3 bold'>{'Setup'}</div>
-                <div>
-                  <label>{'Name'}</label>
-                  <input
-                    className='input'
-                    name='name'
-                    readOnly
-                    required
-                    type='text'
-                    value={this.props.url.query.name}
+              <nav className='my2'>
+                {this.store.steps.map(section => (
+                  <NavButton
+                    key={`NavButton${section}`}
+                    section={section}
                   />
-                </div>
-                <div>
-                  <label>{'Email'}</label>
-                  <input
-                    className='input'
-                    name='email'
-                    readOnly
-                    required
-                    type='email'
-                    value={this.props.url.query.email}
-                  />
-                </div>
-              </fieldset>
-            ) : null}
+                ))}
+              </nav>
 
-            {this.props.questionsData.map(questionData => (
-              this.store.activeStep === questionData.section ? (
-                <fieldset key={`Section${questionData.section}`}>
-                  <div className='h3 bold'>{questionData.section}</div>
-                  {questionData.questions.map(question => (
-                    <div key={question}>
-                      <label>{question}</label>
-                      <textarea
-                        className='input'
-                        name={question}
-                      />
-                    </div>
-                  ))}
+              <form onSubmit={this.handleSubmit}>
+                <fieldset className={this.store.activeStep === 'Welcome' ? '' : 'hide'}>
+                  <div className='h3 bold'>{'Setup'}</div>
+                  <div>
+                    <label>{'Name'}</label>
+                    <input
+                      className='input'
+                      name='name'
+                      readOnly
+                      required
+                      type='text'
+                      value={this.props.url.query.name}
+                    />
+                  </div>
+                  <div>
+                    <label>{'Email'}</label>
+                    <input
+                      className='input'
+                      name='email'
+                      readOnly
+                      required
+                      type='email'
+                      value={this.props.url.query.email}
+                    />
+                  </div>
                 </fieldset>
-              ) : null
-            ))}
 
-            {this.store.activeStep === 'Photo' ? (
-              <fieldset>
-                <div className='h3 bold'>{'Photo'}</div>
-                <div>
-                  <label className='label'>{'Photo'}</label>
-                  <input
-                    name='photo'
-                    required
-                    type='file'
+                {this.props.questionsData.map(questionData => (
+                  <fieldset
+                    className={this.store.activeStep === questionData.section ? '' : 'hide'}
+                    key={`Section${questionData.section}`}
+                  >
+                    <div className='h3 bold'>{questionData.section}</div>
+                    {questionData.questions.map(question => (
+                      <div key={question}>
+                        <label>{question}</label>
+                        <textarea
+                          className='input'
+                          name={question}
+                        />
+                      </div>
+                    ))}
+                  </fieldset>
+                ))}
+
+                <fieldset className={this.store.activeStep === 'Photo' ? '' : 'hide'}>
+                  <div className='h3 bold'>{'Photo'}</div>
+                  <div>
+                    <label className='label'>{'Photo'}</label>
+                    <input
+                      name='photo'
+                      required
+                      type='file'
+                    />
+                  </div>
+                </fieldset>
+
+                <fieldset className={this.store.activeStep === 'Confirm' ? '' : 'hide'}>
+                  <button
+                    className='btn btn-primary'
+                    type='submit'
+                  >
+                    {'Submit'}
+                  </button>
+                </fieldset>
+              </form>
+
+              <nav className='my2'>
+                {this.store.prevStep !== null ? (
+                  <a
+                    className='inline-block px1 mx1 underline'
+                    dangerouslySetInnerHTML={{__html: '&laquo; Prev'}}
+                    href='javascript:void(0)'
+                    onClick={this.store.handlePrevStepClick}
                   />
-                </div>
-              </fieldset>
-            ) : null}
+                ) : null}
 
-            {this.store.activeStep === 'Confirm' ? (
-              <fieldset>
-                <button
-                  className='btn btn-primary'
-                  type='submit'
-                >
-                  {'Submit'}
-                </button>
-              </fieldset>
-            ) : null}
-          </form>
-
-          <nav className='my2'>
-            {this.store.prevStep !== null ? (
-              <a
-                className='inline-block px1 mx1 underline'
-                dangerouslySetInnerHTML={{__html: '&laquo; Prev'}}
-                href='javascript:void(0)'
-                onClick={this.store.handlePrevStepClick}
-              />
-            ) : null}
-
-            {this.store.nextStep !== null ? (
-              <a
-                className='inline-block px1 mx1 underline'
-                dangerouslySetInnerHTML={{__html: 'Next &raquo;'}}
-                href='javascript:void(0)'
-                onClick={this.store.handleNextStepClick}
-              />
-          ) : null}
-          </nav>
+                {this.store.nextStep !== null ? (
+                  <a
+                    className='inline-block px1 mx1 underline'
+                    dangerouslySetInnerHTML={{__html: 'Next &raquo;'}}
+                    href='javascript:void(0)'
+                    onClick={this.store.handleNextStepClick}
+                  />
+              ) : null}
+              </nav>
+            </div>
+          )}
         </div>
       </main>
     )
