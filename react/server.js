@@ -38,7 +38,7 @@ module.exports = app.prepare().then(() => {
   router.get('/profiles/:slug', async ctx => {
     ctx.query.type = 'posts'
     ctx.query.slug = ctx.params.slug
-    await app.render(ctx.req, ctx.res, '/post', ctx.query)
+    await app.render(ctx.req, ctx.res, '/singular', ctx.query)
     ctx.respond = false
   })
 
@@ -46,7 +46,7 @@ module.exports = app.prepare().then(() => {
   router.get('/pages/:slug', async ctx => {
     ctx.query.type = 'pages'
     ctx.query.slug = ctx.params.slug
-    await app.render(ctx.req, ctx.res, '/post', ctx.query)
+    await app.render(ctx.req, ctx.res, '/singular', ctx.query)
     ctx.respond = false
   })
 
@@ -54,7 +54,7 @@ module.exports = app.prepare().then(() => {
   router.get('/', async (ctx, next) => {
     if (ctx.query.p || ctx.query.page_id) {
       ctx.query.type = ctx.query.page_id ? 'pages' : 'posts'
-      await app.render(ctx.req, ctx.res, '/post', ctx.query)
+      await app.render(ctx.req, ctx.res, '/singular', ctx.query)
       ctx.respond = false
     } else {
       await next()

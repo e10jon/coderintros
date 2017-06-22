@@ -4,7 +4,7 @@ import {mount} from 'enzyme'
 
 import enableBrowserTesting from '../helpers/enable-browser-testing'
 import {createPostsData, createSiteData, createUrl} from '../helpers/initial-props'
-import Post from '../../pages/post'
+import Singular from '../../pages/singular'
 
 test.before(() => {
   enableBrowserTesting()
@@ -12,7 +12,7 @@ test.before(() => {
 
 test('renders', t => {
   const wrapper = mount(
-    <Post
+    <Singular
       postsData={createPostsData()}
       siteData={createSiteData()}
       url={createUrl()}

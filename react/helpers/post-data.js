@@ -1,7 +1,7 @@
 // @flow
 
 export const getUrlObj = (postData: Object) => ({
-  pathname: '/post',
+  pathname: '/singular',
   query: {
     slug: postData.slug,
     type: `${postData.type}s`

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import stripTags from 'striptags'
 
 import Ad from '../components/ad'
-import createPage from '../helpers/create-page'
+
 import insertUnits from '../helpers/in-content-units'
 import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
 import Related from '../components/sidebar/related'
@@ -23,28 +23,16 @@ class Post extends Component {
 
   static displayName = 'Post'
 
-  static getPostData = ({postsData, revisionsData}) => {
-    let postData = Array.isArray(postsData) ? postsData[0] : postsData
-
-    if (revisionsData) {
-      postData = Object.assign(postData, revisionsData[0])
-    }
-
-    return postData
-  }
-
   componentDidMount () {
     this.updateHeaderStore()
   }
 
-  componentDidUpdate () {
-    this.updateHeaderStore()
-  }
+  shouldComponentUpdate = () => false
 
   updateHeaderStore () {
-    if (this.props.url.query.type === 'posts') {
+    if (this.props.type === 'posts') {
       this.context.headerStore.enableScrollHeader({
-        scrollTitle: Post.getPostData(this.props).title.rendered
+        scrollTitle: this.props.postData.title.rendered
       })
     } else {
       this.context.headerStore.disableScrollHeader()
@@ -52,24 +40,22 @@ class Post extends Component {
   }
 
   render () {
-    const postData = Post.getPostData(this.props)
-
-    const ogImageData: ?Object = getFeaturedImageProps(postData, {
+    const ogImageData: ?Object = getFeaturedImageProps(this.props.postData, {
       sizes: ['large', 'medium_large'],
       returnLargestSizeData: true
     })
 
-    const featuredImageProps = getFeaturedImageProps(postData, {sizes: ['large', 'medium_large']})
+    const featuredImageProps = getFeaturedImageProps(this.props.postData, {sizes: ['large', 'medium_large']})
 
     return (
       <div>
         <Head>
-          <title>{postData.og_title || postData.title.rendered}</title>
+          <title>{this.props.postData.og_title || this.props.postData.title.rendered}</title>
 
           <style dangerouslySetInnerHTML={{__html: styles}} />
 
           <meta
-            content={stripTags(postData.excerpt.rendered)}
+            content={stripTags(this.props.postData.excerpt.rendered)}
             name='description'
           />
 
@@ -78,15 +64,15 @@ class Post extends Component {
             property='og:type'
           />
           <meta
-            content={postData.link}
+            content={this.props.postData.link}
             property='og:url'
           />
           <meta
-            content={postData.og_title}
+            content={this.props.postData.og_title}
             property='og:title'
           />
           <meta
-            content={stripTags(postData.excerpt.rendered)}
+            content={stripTags(this.props.postData.excerpt.rendered)}
             property='og:description'
           />
           {ogImageData ? (
@@ -120,58 +106,58 @@ class Post extends Component {
 
         <div className='flex mb2'>
           <div className='col-12 md-flex-auto'>
-            {!postData._formatting || !postData._formatting.hide_title ? (
+            {!this.props.postData._formatting || !this.props.postData._formatting.hide_title ? (
               <h1 className='mb2 md-h0'>
                 <Link
-                  as={postData.link}
-                  href={getUrlObj(postData)}
+                  as={this.props.postData.link}
+                  href={getUrlObj(this.props.postData)}
                 >
-                  <a>{postData.title.rendered}</a>
+                  <a>{this.props.postData.title.rendered}</a>
                 </Link>
               </h1>
             ) : null}
 
-            {this.props.url.query.type !== 'pages' ? (
+            {this.props.type !== 'pages' ? (
               <div
                 className='mb2 gray italic'
-                dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+                dangerouslySetInnerHTML={{__html: stripTags(this.props.postData.excerpt.rendered)}}
               />
             ) : null}
 
-            {this.props.url.query.type !== 'pages' ? (
-              <div className='mb2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
+            {this.props.type !== 'pages' ? (
+              <div className='mb2 gray'>{moment(this.props.postData.date).format('MMMM D, YYYY')}</div>
             ) : null}
 
-            {this.props.url.query.type !== 'pages' ? (
+            {this.props.type !== 'pages' ? (
               <Share
-                hackerNewsUrl={postData._social_links.hacker_news}
+                hackerNewsUrl={this.props.postData._social_links.hacker_news}
                 position='Above Content'
-                redditUrl={postData._social_links.reddit}
-                title={postData.title.rendered}
-                url={postData.link}
+                redditUrl={this.props.postData._social_links.reddit}
+                title={this.props.postData.title.rendered}
+                url={this.props.postData.link}
               />
             ) : null}
 
             <div
               className='mb3 serif post-content'
-              dangerouslySetInnerHTML={{__html: insertUnits(postData.content.rendered, {
-                skip: postData._formatting && postData._formatting.no_incontent_units
+              dangerouslySetInnerHTML={{__html: insertUnits(this.props.postData.content.rendered, {
+                skip: this.props.postData._formatting && this.props.postData._formatting.no_incontent_units
               })}}
               style={{fontSize: '1.125rem', lineHeight: '1.8'}}
             />
 
-            {this.props.url.query.type !== 'pages' ? (
+            {this.props.type !== 'pages' ? (
               <Share
-                hackerNewsUrl={postData._social_links.hacker_news}
+                hackerNewsUrl={this.props.postData._social_links.hacker_news}
                 position='Below Content'
-                redditUrl={postData._social_links.reddit}
-                title={postData.title.rendered}
-                url={postData.link}
+                redditUrl={this.props.postData._social_links.reddit}
+                title={this.props.postData.title.rendered}
+                url={this.props.postData.link}
               />
             ) : null}
           </div>
 
-          {!postData._formatting || !postData._formatting.no_sidebar ? (
+          {!this.props.postData._formatting || !this.props.postData._formatting.no_sidebar ? (
             <div
               className='xs-hide sm-hide ml3'
               style={{flex: '0 0 300px'}}
@@ -200,31 +186,4 @@ class Post extends Component {
   }
 }
 
-export default createPage(Post, {
-  fullWidth: (props: Object) => {
-    const postData = Post.getPostData(props)
-    return postData._formatting && postData._formatting.full_width
-  },
-  hrTop: false,
-  maxWidth: (props: Object) => {
-    const postData = Post.getPostData(props)
-    return postData._formatting && postData._formatting.no_sidebar ? '3' : '4'
-  },
-  propPaths: ({asPath, query: {p, page_id, preview, preview_id, type, slug}}) => {
-    const paths: Object = {
-      postsData: {
-        authorize: !!preview,
-        path: (p || page_id) ? `/wp/v2/${type}/${p || page_id}/?_embed` : `/wp/v2/${type}?_embed&slug=${slug}`
-      }
-    }
-
-    if (preview) {
-      paths.revisionsData = {
-        authorize: true,
-        path: `/wp/v2/${type}/${p || page_id || preview_id}/revisions`
-      }
-    }
-
-    return paths
-  }
-})
+export default Post

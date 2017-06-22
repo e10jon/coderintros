@@ -44,7 +44,7 @@ export default function (Child: Object, {
         pagesData: '/wp/v2/pages?orderby=menu_order&order=asc',
         siteData: '/ci/site_details'
       }, propPaths({asPath, query}))
-      const pathsKeys = Object.keys(paths)
+      const pathsKeys = Object.keys(paths).filter(k => paths[k])
 
       const fetchCache = global.__FETCH__DATA__ || {}
 
