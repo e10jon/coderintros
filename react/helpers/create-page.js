@@ -58,7 +58,7 @@ export default function (Child: Object, {
 
         const res = await global.fetch(getWordpressUrl(path), {
           credentials: authorize ? 'include' : 'omit',
-          headers: getFetchHeaders(path, {
+          headers: getFetchHeaders({
             authorize,
             cookiejar: req ? req.headers.cookie : window.document.cookie
           })
@@ -123,6 +123,7 @@ export default function (Child: Object, {
     })()
 
     emailModalStore: Object
+    headerStore: Object
     likeModalStore: Object
     sitePasswordStore: Object
 

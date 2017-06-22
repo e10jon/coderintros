@@ -67,6 +67,9 @@ class Header extends Component {
     }
   }
 
+  node: Object
+  scrollNode: Object
+
   render () {
     const aClassName = 'inline-block'
     const iconClassName = 'header-icon'

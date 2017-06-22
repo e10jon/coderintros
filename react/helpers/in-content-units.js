@@ -50,6 +50,11 @@ export default function (content: string, {skip = false}: Object) {
   }
 
   const contentEls = content.match(/(<p.*?>.+?<\/p>)/gi)
+
+  if (!contentEls) {
+    return content
+  }
+
   const finalEls = []
   let unitI = 0
 

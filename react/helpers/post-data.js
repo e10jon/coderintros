@@ -1,6 +1,6 @@
 // @flow
 
-export const getUrlObj = (postData: object) => ({
+export const getUrlObj = (postData: Object) => ({
   pathname: '/post',
   query: {
     slug: postData.slug,
