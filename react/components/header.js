@@ -110,7 +110,7 @@ class Header extends Component {
 
             <div className='flex-auto center'>
               <Link href='/'>
-                <a className='block header-logo mx-auto'>
+                <a className='block col-12 header-logo mx-auto'>
                   <img
                     alt={`${this.context.siteData.name} logo`}
                     className='block fit'

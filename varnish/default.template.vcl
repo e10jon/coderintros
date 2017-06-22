@@ -1,5 +1,7 @@
 vcl 4.0;
 
+import std;
+
 backend react {
   .host = "react";
   .port = "3000";
@@ -25,8 +27,12 @@ sub vcl_pipe {
 }
 
 sub vcl_recv {
+  # in production, client.ip will never match our acl,
+  # because of forwarding through ELB, cloudflare, etc.
+  set req.http.X-Real-IP = regsub(req.http.X-Forwarded-For, "^(^[^,]+),?.*$", "\1");
+
   if (req.method == "BAN") {
-    if (client.ip ~ purgers) {
+    if (client.ip ~ purgers || std.ip(req.http.X-Real-IP, "0.0.0.0") ~ purgers) {
       ban("req.url ~ " + req.url);
       return (synth(200, "Banned"));
     } else {

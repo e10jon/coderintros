@@ -119,7 +119,7 @@ export default function (Child: Object, {
     hrTopClassName = getHrClassName('mb3', hrTop)
     maxWidthClassName = (() => {
       const width = typeof maxWidth === 'function' ? maxWidth(this.props) : maxWidth
-      return width !== 4 ? `max-width-${width} mx-auto` : ''
+      return width !== 4 ? `max-width-${width}` : ''
     })()
 
     emailModalStore: Object
@@ -134,32 +134,24 @@ export default function (Child: Object, {
             <style dangerouslySetInnerHTML={{__html: styles}} />
           </Head>
 
-          <div className='max-width-3 mx-auto'>
-            <div className='page-x-spacing'>
-              <Header />
-            </div>
+          <div className='max-width-3 mx-auto page-x-spacing'>
+            <Header />
           </div>
 
           {this.sitePasswordStore && !this.sitePasswordStore.isAuthorized ? (
             <SitePassword />
           ) : (
-            <div className='max-width-4 mx-auto'>
-              <div className={this.fullWidthClassName}>
-                <main className={this.maxWidthClassName}>
-                  {hrTop ? <hr className={this.hrTopClassName} /> : null}
+            <main className={`${this.maxWidthClassName} mx-auto ${this.fullWidthClassName}`}>
+              {hrTop ? <hr className={this.hrTopClassName} /> : null}
 
-                  <Child {...this.props} />
+              <Child {...this.props} />
 
-                  {hrBottom ? <hr className={this.hrBottomClassName} /> : null}
-                </main>
-              </div>
-            </div>
+              {hrBottom ? <hr className={this.hrBottomClassName} /> : null}
+            </main>
           )}
 
-          <div className='max-width-3 mx-auto'>
-            <div className='page-x-spacing'>
-              <Footer />
-            </div>
+          <div className='max-width-3 mx-auto page-x-spacing'>
+            <Footer />
           </div>
 
           <EmailModal store={this.emailModalStore} />

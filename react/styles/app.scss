@@ -25,7 +25,4 @@ ul { margin: 0; padding: 0; }
 .ups { text-transform: uppercase; }
 
 /* specific classes */
-.page-x-spacing {
-  margin-left: 1.25rem; margin-right: 1.25rem;
-  // @media (min-width: 64em) { margin-left: 0; margin-right: 0; }
-}
+.page-x-spacing { padding-left: 1.25rem; padding-right: 1.25rem; }
