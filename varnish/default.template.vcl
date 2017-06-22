@@ -10,6 +10,10 @@ backend wordpress {
   .port = "80";
 }
 
+acl purgers {
+  PURGERS_ACL
+}
+
 sub vcl_hash {
   hash_data(req.http.X-Forwarded-Proto);
 }
@@ -22,8 +26,12 @@ sub vcl_pipe {
 
 sub vcl_recv {
   if (req.method == "BAN") {
-    ban("req.url ~ " + req.url);
-    return (synth(200, "Banned"));
+    if (client.ip ~ purgers) {
+      ban("req.url ~ " + req.url);
+      return (synth(200, "Banned"));
+    } else {
+      return (synth(403, "Invalid IP address"));
+    }
   }
 
   if (req.url == "/health") {

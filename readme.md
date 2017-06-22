@@ -35,8 +35,9 @@ Sign up for an [AWS account](https://aws.amazon.com/), then do the following:
 - Create an Elastic Beanstalk application and environment, specifying all the environment variables from `docker-compose.yml`.
   - Use the AWS console, or `eb create prod --elb-type application --sample -i t2.micro -k coderintros --platform "multi-container-docker-1.12.6-(generic)" -pr --vpc.id REPLACE_ME --vpc.ec2subnets REPLACE_ME,REPLACE_ME --vpc.elbpublic --vpc.publicip --vpc.elbsubnets REPLACE_ME,REPLACE_ME`
 - In ECS, create repositories named `react`, `wordpress`, and `varnish`.
+- Create an Elastic IP and assign it to your Elastic Beanstalk instance.
 - Create a Code Pipeline project, pulling from Github, running CodeBuild, deploying to Elastic Beanstalk.
-  - Define `AWS_REGION`, `AWS_ACCOUNT_ID`, and `BUILD_BUCKET` environment variables in CodeBuild.
+  - Define `AWS_REGION`, `AWS_ACCOUNT_ID`, `BUILD_BUCKET`, and `PURGERS_ACL` environment variables in CodeBuild.
   - Upload `gcloud-service-account.json` to the `BUILD_BUCKET` S3 folder
   - Add the `AmazonEC2ContainerRegistryFullAccess` and `AmazonS3ReadOnlyAccess` policies to IAM role `code-build-coderintros-service-role`.
 - Push to Github and watch the magic happen!

@@ -56,11 +56,11 @@ services:
 
   varnish:
     build:
+      args:
+        - PURGERS_ACL="0.0.0.0\/0";
       context: ./varnish
     depends_on:
       - react
       - wordpress
     ports:
       - 80:80
-    volumes:
-      - ./varnish/default.vcl:/etc/varnish/default.vcl

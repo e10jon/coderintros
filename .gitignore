@@ -1,4 +1,5 @@
 .DS_Store
+Dockerrun.aws.json
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
