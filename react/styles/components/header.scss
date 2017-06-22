@@ -1,4 +1,7 @@
-.header-logo { max-width: 350px; width: 70%; }
+.header-logo {
+  max-width: 250px; width: 70%;
+  @media (min-width: 64em) { max-width: 350px; }
+}
 
 .header-icon {
   height: 30px; width: 30px;

@@ -145,13 +145,13 @@ export default function (Child: Object, {
           ) : (
             <div className='max-width-4 mx-auto'>
               <div className={this.fullWidthClassName}>
-                {hrTop ? <hr className={this.hrTopClassName} /> : null}
-
                 <main className={this.maxWidthClassName}>
-                  <Child {...this.props} />
-                </main>
+                  {hrTop ? <hr className={this.hrTopClassName} /> : null}
 
-                {hrBottom ? <hr className={this.hrBottomClassName} /> : null}
+                  <Child {...this.props} />
+
+                  {hrBottom ? <hr className={this.hrBottomClassName} /> : null}
+                </main>
               </div>
             </div>
           )}
