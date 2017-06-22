@@ -7,19 +7,31 @@ import {observer} from 'mobx-react'
 import PropTypes from 'prop-types'
 import 'isomorphic-fetch'
 
-import {createModalStore} from '../helpers/create-modal'
 import EmailModal from '../components/modals/email'
 import Footer from '../components/footer'
 import {getFetchHeaders, getWordpressUrl} from './fetch'
-import Header, {createHeaderStore} from '../components/header'
+import Header from '../components/header'
 import LikeModal, {didLikeFBPageStoreKey} from '../components/modals/like'
-import SitePassword, {createSitePasswordStore} from '../components/site-password'
+import SitePassword, {PasswordStore} from '../components/site-password'
+import HeaderStore from '../stores/header'
+import ModalStore from '../stores/modal'
 import styles from '../styles/app.scss'
 import trackEvent from '../helpers/track-event'
+
+const DevTools = process.env.NODE_ENV !== 'production'
+  ? require('mobx-react-devtools')
+  : null
+
+if (DevTools) {
+  DevTools.configureDevtool({
+    logEnabled: true
+  })
+}
 
 const getHrClassName = (className: string, opt: mixed) =>
   typeof opt === 'string' ? `${className} ${opt}` : className
 
+@observer
 export default function (Child: Object, {
   propPaths = () => ({}),
   childContextTypes = {},
@@ -30,6 +42,8 @@ export default function (Child: Object, {
   getChildContext = () => ({})
 }: Object = {}) {
   class Page extends Component {
+    static displayName = `${Child.displayName}Page`
+
     static childContextTypes = Object.assign({}, {
       emailModalStore: PropTypes.object,
       headerStore: PropTypes.object,
@@ -89,11 +103,11 @@ export default function (Child: Object, {
     }, getChildContext.call(this))
 
     componentWillMount () {
-      this.emailModalStore = createModalStore()
-      this.headerStore = createHeaderStore()
-      this.likeModalStore = createModalStore()
+      this.emailModalStore = new ModalStore()
+      this.headerStore = new HeaderStore()
+      this.likeModalStore = new ModalStore()
       if (this.props.siteData.site_password_enabled) {
-        this.sitePasswordStore = createSitePasswordStore()
+        this.sitePasswordStore = new PasswordStore()
       }
     }
 
@@ -118,8 +132,7 @@ export default function (Child: Object, {
     hrBottomClassName = getHrClassName('mt3', hrBottom)
     hrTopClassName = getHrClassName('mb3', hrTop)
     maxWidthClassName = (() => {
-      const width = typeof maxWidth === 'function' ? maxWidth(this.props) : maxWidth
-      return width !== 4 ? `max-width-${width}` : ''
+      return `max-width-${typeof maxWidth === 'function' ? maxWidth(this.props) : maxWidth}`
     })()
 
     emailModalStore: Object
@@ -133,6 +146,8 @@ export default function (Child: Object, {
           <Head>
             <style dangerouslySetInnerHTML={{__html: styles}} />
           </Head>
+
+          {DevTools ? <DevTools.default /> : null}
 
           <div className='max-width-3 mx-auto page-x-spacing'>
             <Header />
@@ -163,5 +178,5 @@ export default function (Child: Object, {
     }
   }
 
-  return observer(Page)
+  return Page
 }

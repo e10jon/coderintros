@@ -11,19 +11,20 @@ import {getFetchHeaders, getWordpressUrl} from '../helpers/fetch'
 
 const storeKey = 'sitePassword'
 
-export const createSitePasswordStore = () => (
-  observable({
-    isAuthorized: false,
-    didFailAuthorization: false,
-    authorize: action(function authorize () {
-      this.isAuthorized = true
-    }),
-    failedAuthorization: action(function failedAuthorization () {
-      this.didFailAuthorization = true
-    })
-  })
-)
+export class PasswordStore {
+  @observable isAuthorized = false
+  @observable didFailAuthorization = false
 
+  @action authorize = () => {
+    this.isAuthorized = true
+  }
+
+  @action failedAuthorization = () => {
+    this.didFailAuthorization = true
+  }
+}
+
+@observer
 class SitePassword extends Component {
   componentDidMount () {
     const storedPassword = Cookies.get(storeKey)
@@ -102,4 +103,4 @@ SitePassword.contextTypes = {
   sitePasswordStore: PropTypes.object
 }
 
-export default observer(SitePassword)
+export default SitePassword

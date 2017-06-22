@@ -8,6 +8,7 @@
 flow-typed
 
 [options]
+esproposal.decorators=ignore
 module.file_ext=.css
 module.file_ext=.js
 module.file_ext=.jsx

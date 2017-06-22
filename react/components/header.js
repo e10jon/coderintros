@@ -4,30 +4,13 @@ import React, {Component} from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-import {action, observable} from 'mobx'
 import {IoIosEmailOutline, IoSocialFacebookOutline} from 'react-icons/lib/io'
 import {observer} from 'mobx-react'
 
 import styles from '../styles/components/header.scss'
 import trackEvent from '../helpers/track-event'
 
-export const createHeaderStore = () => (
-  observable({
-    scrollHeaderIsEnabled: false,
-    scrollHeaderIsVisible: false,
-    scrollTitle: null,
-    disableScrollHeader: action(function disableScrollHeader () {
-      this.scrollTitle = null
-      this.scrollHeaderIsVisible = false
-      this.scrollHeaderIsEnabled = false
-    }),
-    enableScrollHeader: action(function enableScrollHeader ({scrollTitle}: Object) {
-      this.scrollTitle = scrollTitle
-      this.scrollHeaderIsEnabled = true
-    })
-  })
-)
-
+@observer
 class Header extends Component {
   componentDidMount () {
     window.addEventListener('scroll', this.handleScroll)
@@ -146,4 +129,4 @@ Header.contextTypes = {
   siteData: PropTypes.object
 }
 
-export default observer(Header)
+export default Header

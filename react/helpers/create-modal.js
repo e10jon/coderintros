@@ -3,31 +3,17 @@
 import React, {Component} from 'react'
 import Head from 'next/head'
 import ReactModal from 'react-modal'
-import {action, observable} from 'mobx'
 import {IoClose} from 'react-icons/lib/io'
 import {observer} from 'mobx-react'
 
 import styles from '../styles/modal.scss'
 import trackEvent from '../helpers/track-event'
 
-export const createModalStore = ({isOpen, storeKey}: {isOpen: boolean, storeKey?: string} = {}) => (
-  observable({
-    isOpen,
-    close: action(function close () {
-      this.isOpen = false
-    }),
-    autoOpen: action(function autoOpen () {
-      this.isOpen = true
-      this.wasAutoOpened = true
-    }),
-    open: action(function open () {
-      this.isOpen = true
-    })
-  })
-)
-
+@observer
 export default function (Child: Object) {
   class Modal extends Component {
+    static displayName = `${Child.displayName}Modal`
+
     handleCloseClick = () => {
       this.props.store.close()
       trackEvent({
@@ -70,5 +56,5 @@ export default function (Child: Object) {
     }
   }
 
-  return observer(Modal)
+  return Modal
 }

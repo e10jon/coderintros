@@ -17,6 +17,8 @@ const Singular = ({postsData, revisionsData, url: {query: {type}}}: Object) => (
   />
 )
 
+Singular.displayName = 'Singular'
+
 export default createPage(Singular, {
   fullWidth: (props: Object) => {
     const postData = extractPostData(props)

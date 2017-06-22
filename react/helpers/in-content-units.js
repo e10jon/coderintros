@@ -44,8 +44,8 @@ const units = [
 
 const interval = 3
 
-export default function (content: string, {skip = false}: Object) {
-  if (skip) {
+export default function (content: ?string, {skip = false}: Object) {
+  if (skip || !content) {
     return content
   }
 
