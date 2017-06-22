@@ -14,4 +14,5 @@ COPY . .
 RUN if [ -z "$SKIP_BUILD" ]; then yarn run build && yarn install --production --pure-lockfile; fi
 
 EXPOSE 3000
+
 CMD yarn start

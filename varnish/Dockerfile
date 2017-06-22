@@ -6,6 +6,8 @@ RUN apk update && \
 
 COPY default.vcl /etc/varnish/default.vcl
 
-CMD varnishd -F -f /etc/varnish/default.vcl
+CMD varnishd -f /etc/varnish/default.vcl && \
+  sleep 5 && \
+  varnishncsa
 
 EXPOSE 80
