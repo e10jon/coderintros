@@ -79,7 +79,7 @@ module.exports = app.prepare().then(() => {
 
   server.use(async (ctx, next) => {
     ctx.status = 200
-    ctx.set('Cache-Control', 'public, smax-age=31536000')
+    ctx.set('Cache-Control', 'public, max-age=5, s-maxage=31536000')
     global.HOST = ctx.req.headers.host
     await next()
   })

@@ -160,7 +160,7 @@ add_action( 'rest_api_init', function () {
 // add cache control headers
 add_action( 'rest_post_dispatch', function ( $response ) {
   if ( !array_key_exists( 'Cache-Control', $response->headers ) ) {
-    $response->headers['Cache-Control'] = 'public, smax-age=31536000';
+    $response->headers['Cache-Control'] = 'public, max-age=5, s-maxage=31536000';
   }
   return $response;
 } );
