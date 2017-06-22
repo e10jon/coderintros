@@ -29,7 +29,7 @@ module.exports = app.prepare().then(() => {
   })
 
   router.get('/interview', async ctx => {
-    ctx.set('Cache-Control', 'public, smax-age=30')
+    ctx.set('Cache-Control', 'public, max-age=5, s-maxage=30')
     await app.render(ctx.req, ctx.res, '/interview', ctx.query)
     ctx.respond = false
   })

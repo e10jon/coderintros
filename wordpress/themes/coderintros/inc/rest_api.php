@@ -150,7 +150,7 @@ add_action( 'rest_api_init', function () {
       }
 
       $response = rest_ensure_response( $questions );
-      $response->headers['Cache-Control'] = 'public, smax-age=30';
+      $response->headers['Cache-Control'] = 'public, max-age=5, s-maxage=30';
 
       return $response;
     }
