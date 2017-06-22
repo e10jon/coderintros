@@ -13,7 +13,6 @@ hr { margin-top: 0; margin-bottom: 0; }
 ul { margin: 0; padding: 0; }
 
 /* generic classes */
-.bg-darken-5 { background-color: rgba(0, 0, 0, 0.75); }
 .bg-fb-blue { background-color: #3b5998; }
 .fb-blue { color: #3b5998; }
 .fit-y { max-height: 100%; }
@@ -28,7 +27,5 @@ ul { margin: 0; padding: 0; }
 /* specific classes */
 .page-x-spacing {
   margin-left: 1.25rem; margin-right: 1.25rem;
-  @media (min-width: 66em) {
-    margin-left: 0; margin-right: 0;
-  }
+  // @media (min-width: 64em) { margin-left: 0; margin-right: 0; }
 }

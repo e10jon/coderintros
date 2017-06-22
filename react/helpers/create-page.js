@@ -115,8 +115,8 @@ export default function (Child: Object, {
       const isFull = typeof fullWidth === 'function' ? fullWidth(this.props) : fullWidth
       return isFull ? '' : 'page-x-spacing'
     })()
-    hrBottomClassName = getHrClassName('mt3 sm-mt4', hrBottom)
-    hrTopClassName = getHrClassName('mb3 sm-mb4', hrTop)
+    hrBottomClassName = getHrClassName('mt3', hrBottom)
+    hrTopClassName = getHrClassName('mb3', hrTop)
     maxWidthClassName = (() => {
       const width = typeof maxWidth === 'function' ? maxWidth(this.props) : maxWidth
       return width !== 4 ? `max-width-${width} mx-auto` : ''
@@ -134,7 +134,7 @@ export default function (Child: Object, {
             <style dangerouslySetInnerHTML={{__html: styles}} />
           </Head>
 
-          <div className='max-width-4 mx-auto'>
+          <div className='max-width-3 mx-auto'>
             <div className='page-x-spacing'>
               <Header />
             </div>
@@ -156,7 +156,7 @@ export default function (Child: Object, {
             </div>
           )}
 
-          <div className='max-width-4 mx-auto'>
+          <div className='max-width-3 mx-auto'>
             <div className='page-x-spacing'>
               <Footer />
             </div>

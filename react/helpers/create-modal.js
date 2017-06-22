@@ -48,7 +48,7 @@ export default function (Child: Object) {
             closeTimeoutMS={200}
             contentLabel='modal'
             isOpen={this.props.store.isOpen}
-            overlayClassName='fixed top-0 right-0 bottom-0 left-0 bg-darken-5 flex justify-center items-center'
+            overlayClassName='fixed top-0 right-0 bottom-0 left-0 flex justify-center items-center'
           >
             <div
               className='bg-white m2 relative col-12'
