@@ -8,10 +8,13 @@ import createPage from '../helpers/create-page'
 import Post from '../components/post'
 import EditableInterviewStore from '../stores/editable-interview'
 
+@observer
 class Interview extends Component {
   static childContextTypes = {
     editableInterviewStore: PropTypes.object
   }
+
+  static displayName = 'Interview'
 
   getChildContext = () => ({
     editableInterviewStore: this.editableInterviewStore
@@ -30,6 +33,6 @@ class Interview extends Component {
   }
 }
 
-export default createPage(observer(Interview), {
+export default createPage(Interview, {
   hrTop: false
 })

@@ -34,6 +34,7 @@
     "react-icons": "^2.2.5",
     "react-modal": "^1.7.12",
     "sass-loader": "^6.0.6",
+    "store": "^2.0.12",
     "striptags": "^2.2.1"
   },
   "devDependencies": {

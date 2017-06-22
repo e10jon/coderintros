@@ -4,6 +4,7 @@ import React, {Component} from 'react'
 import Dropzone from 'react-dropzone'
 import Head from 'next/head'
 import Link from 'next/link'
+import {observer} from 'mobx-react'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import stripTags from 'striptags'
@@ -16,6 +17,7 @@ import Share from '../components/share'
 import Suggest from '../components/sidebar/suggest'
 import styles from '../styles/pages/post.scss'
 
+@observer
 class Post extends Component {
   static contextTypes = {
     editableInterviewStore: PropTypes.object,

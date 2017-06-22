@@ -1,12 +1,14 @@
 // @flow
 
 import React from 'react'
-import Document, {Head, Main, NextScript} from 'next/document'
+import NextDocument, {Head, Main, NextScript} from 'next/document'
 
 import favicons from '../helpers/favicons'
 import {fbInit, gaInit} from '../helpers/raw'
 
-class Doc extends Document {
+class Document extends NextDocument {
+  static displayName = 'Document'
+
   render () {
     const {siteData} = this.props.__NEXT_DATA__.props
 
@@ -56,4 +58,4 @@ class Doc extends Document {
   }
 }
 
-export default Doc
+export default Document
