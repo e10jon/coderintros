@@ -43,7 +43,7 @@ class Like extends Component {
 
   closeAndCookie = () => {
     this.context.likeModalStore.close()
-    Cookies.set(didLikeFBPageStoreKey, true)
+    Cookies.set(didLikeFBPageStoreKey, true, {expires: 7})
   }
 
   handleAlreadyLikeClick = () => {

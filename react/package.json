@@ -1,7 +1,4 @@
 {
-  "name": "coderintros-react",
-  "version": "1.0.0",
-  "description": "Turning Wordpress API data into beautiful HTML markup since 2017.",
   "main": "index.js",
   "scripts": {
     "flow": "flow",
@@ -11,8 +8,6 @@
     "build": "next build",
     "start": "node index.js"
   },
-  "author": "Ethan Jon",
-  "license": "ISC",
   "dependencies": {
     "autoprefixer": "^7.1.1",
     "babel-loader": "^7.0.0",

@@ -48,7 +48,7 @@ class SitePassword extends Component {
     })
 
     if (res.status >= 200 && res.status < 400) {
-      Cookies.set(storeKey, this.passwordNode.value)
+      Cookies.set(storeKey, this.passwordNode.value, {expires: 365})
       this.context.sitePasswordStore.authorize()
     } else {
       this.context.sitePasswordStore.failedAuthorization()

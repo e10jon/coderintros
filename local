@@ -1,3 +1,5 @@
 # /bin/bash
 
+ln -s -f ../../git-hooks/pre-commit .git/hooks/pre-commit
+
 docker-compose down && docker-compose build && docker-compose up -d
