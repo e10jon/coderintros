@@ -93,11 +93,8 @@ class Header extends Component {
 
         </div>
 
-        <div
-          className='max-width-4 mx-auto'
-          ref={r => { this.node = r }}
-        >
-          <div className='flex items-center justify-between py2 sm-py4 page-x-spacing bg-white'>
+        <div ref={r => { this.node = r }}>
+          <div className='flex items-center justify-between py2 sm-py4 bg-white'>
             <div>
               <a
                 className={aClassName}

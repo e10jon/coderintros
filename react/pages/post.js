@@ -62,7 +62,7 @@ class Post extends Component {
     const featuredImageProps = getFeaturedImageProps(postData, {sizes: ['large', 'medium_large']})
 
     return (
-      <main>
+      <div>
         <Head>
           <title>{postData.og_title || postData.title.rendered}</title>
 
@@ -118,95 +118,98 @@ class Post extends Component {
           </div>
         ) : null}
 
-        <div className={`max-width-${postData._formatting && postData._formatting.no_sidebar ? '3' : '4'} mx-auto`}>
-          <div className={!postData._formatting || !postData._formatting.full_width ? 'page-x-spacing' : ''}>
-            <div className='flex mb2'>
-              <div className='col-12 md-flex-auto'>
-                {!postData._formatting || !postData._formatting.hide_title ? (
-                  <h1 className='mb2 md-h0'>
-                    <Link
-                      as={postData.link}
-                      href={getUrlObj(postData)}
-                    >
-                      <a>{postData.title.rendered}</a>
-                    </Link>
-                  </h1>
-                ) : null}
-
-                {this.props.url.query.type !== 'pages' ? (
-                  <div
-                    className='mb2 gray italic'
-                    dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
-                  />
-                ) : null}
-
-                {this.props.url.query.type !== 'pages' ? (
-                  <div className='mb2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
-                ) : null}
-
-                {this.props.url.query.type !== 'pages' ? (
-                  <Share
-                    hackerNewsUrl={postData._social_links.hacker_news}
-                    position='Above Content'
-                    redditUrl={postData._social_links.reddit}
-                    title={postData.title.rendered}
-                    url={postData.link}
-                  />
-                ) : null}
-
-                <div
-                  className='mb3 serif post-content'
-                  dangerouslySetInnerHTML={{__html: insertUnits(postData.content.rendered, {
-                    skip: postData._formatting && postData._formatting.no_incontent_units
-                  })}}
-                  style={{fontSize: '1.125rem', lineHeight: '1.8'}}
-                />
-
-                {this.props.url.query.type !== 'pages' ? (
-                  <Share
-                    hackerNewsUrl={postData._social_links.hacker_news}
-                    position='Below Content'
-                    redditUrl={postData._social_links.reddit}
-                    title={postData.title.rendered}
-                    url={postData.link}
-                  />
-                ) : null}
-              </div>
-
-              {!postData._formatting || !postData._formatting.no_sidebar ? (
-                <div
-                  className='xs-hide sm-hide ml3'
-                  style={{flex: '0 0 300px'}}
+        <div className='flex mb2'>
+          <div className='col-12 md-flex-auto'>
+            {!postData._formatting || !postData._formatting.hide_title ? (
+              <h1 className='mb2 md-h0'>
+                <Link
+                  as={postData.link}
+                  href={getUrlObj(postData)}
                 >
-                  <Ad
-                    className='mb3'
-                    height={600}
-                    width={300}
-                  />
+                  <a>{postData.title.rendered}</a>
+                </Link>
+              </h1>
+            ) : null}
 
-                  <Suggest className='mb3' />
+            {this.props.url.query.type !== 'pages' ? (
+              <div
+                className='mb2 gray italic'
+                dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+              />
+            ) : null}
 
-                  <Ad
-                    className='mb3'
-                    height={250}
-                    width={300}
-                  />
+            {this.props.url.query.type !== 'pages' ? (
+              <div className='mb2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
+            ) : null}
 
-                  <Related />
-                </div>
+            {this.props.url.query.type !== 'pages' ? (
+              <Share
+                hackerNewsUrl={postData._social_links.hacker_news}
+                position='Above Content'
+                redditUrl={postData._social_links.reddit}
+                title={postData.title.rendered}
+                url={postData.link}
+              />
+            ) : null}
 
-              ) : null}
+            <div
+              className='mb3 serif post-content'
+              dangerouslySetInnerHTML={{__html: insertUnits(postData.content.rendered, {
+                skip: postData._formatting && postData._formatting.no_incontent_units
+              })}}
+              style={{fontSize: '1.125rem', lineHeight: '1.8'}}
+            />
+
+            {this.props.url.query.type !== 'pages' ? (
+              <Share
+                hackerNewsUrl={postData._social_links.hacker_news}
+                position='Below Content'
+                redditUrl={postData._social_links.reddit}
+                title={postData.title.rendered}
+                url={postData.link}
+              />
+            ) : null}
+          </div>
+
+          {!postData._formatting || !postData._formatting.no_sidebar ? (
+            <div
+              className='xs-hide sm-hide ml3'
+              style={{flex: '0 0 300px'}}
+            >
+              <Ad
+                className='mb3'
+                height={600}
+                width={300}
+              />
+
+              <Suggest className='mb3' />
+
+              <Ad
+                className='mb3'
+                height={250}
+                width={300}
+              />
+
+              <Related />
             </div>
 
-            <hr className='my3' />
-          </div>
+          ) : null}
         </div>
-      </main>
+      </div>
     )
   }
 }
 
 export default createPage(Post, {
+  fullWidth: (props: Object) => {
+    const postData = Post.getPostData(props)
+    return postData._formatting && postData._formatting.full_width
+  },
+  hrTop: false,
+  maxWidth: (props: Object) => {
+    const postData = Post.getPostData(props)
+    return postData._formatting && postData._formatting.no_sidebar ? '3' : '4'
+  },
   propPaths: ({asPath, query: {p, page_id, preview, preview_id, type, slug}}) => {
     const paths: Object = {
       postsData: {

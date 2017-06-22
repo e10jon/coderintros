@@ -17,9 +17,16 @@ import SitePassword, {createSitePasswordStore} from '../components/site-password
 import styles from '../styles/app.scss'
 import trackEvent from '../helpers/track-event'
 
+const getHrClassName = (className: string, opt: mixed) =>
+  typeof opt === 'string' ? `${className} ${opt}` : className
+
 export default function (Child: Object, {
   propPaths = () => ({}),
   childContextTypes = {},
+  fullWidth = false,
+  hrBottom = true,
+  hrTop = true,
+  maxWidth = 4,
   getChildContext = () => ({})
 }: Object = {}) {
   class Page extends Component {
@@ -104,29 +111,54 @@ export default function (Child: Object, {
       }
     }
 
+    fullWidthClassName = (() => {
+      const isFull = typeof fullWidth === 'function' ? fullWidth(this.props) : fullWidth
+      return isFull ? '' : 'page-x-spacing'
+    })()
+    hrBottomClassName = getHrClassName('mt3 sm-mt4', hrBottom)
+    hrTopClassName = getHrClassName('mb3 sm-mb4', hrTop)
+    maxWidthClassName = (() => {
+      const width = typeof maxWidth === 'function' ? maxWidth(this.props) : maxWidth
+      return width !== 4 ? `max-width-${width} mx-auto` : ''
+    })()
+
     emailModalStore: Object
     likeModalStore: Object
     sitePasswordStore: Object
 
     render () {
       return (
-        <div>
+        <div className='sans-serif black'>
           <Head>
             <style dangerouslySetInnerHTML={{__html: styles}} />
           </Head>
 
-          <div className='sans-serif black'>
-            <Header />
+          <div className='max-width-4 mx-auto'>
+            <div className='page-x-spacing'>
+              <Header />
+            </div>
+          </div>
 
-            <main className='flex-auto bg-white'>
-              {this.sitePasswordStore && !this.sitePasswordStore.isAuthorized ? (
-                <SitePassword />
-              ) : (
-                <Child {...this.props} />
-              )}
-            </main>
+          {this.sitePasswordStore && !this.sitePasswordStore.isAuthorized ? (
+            <SitePassword />
+          ) : (
+            <div className='max-width-4 mx-auto'>
+              <div className={this.fullWidthClassName}>
+                {hrTop ? <hr className={this.hrTopClassName} /> : null}
 
-            <Footer />
+                <main className={this.maxWidthClassName}>
+                  <Child {...this.props} />
+                </main>
+
+                {hrBottom ? <hr className={this.hrBottomClassName} /> : null}
+              </div>
+            </div>
+          )}
+
+          <div className='max-width-4 mx-auto'>
+            <div className='page-x-spacing'>
+              <Footer />
+            </div>
           </div>
 
           <EmailModal store={this.emailModalStore} />

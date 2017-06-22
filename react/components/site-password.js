@@ -57,48 +57,42 @@ class SitePassword extends Component {
 
   render () {
     return (
-      <main className='max-width-4 mx-auto'>
-        <div className='page-x-spacing'>
-          <Head>
-            <title>{'Password Required'}</title>
-          </Head>
+      <div>
+        <Head>
+          <title>{'Password Required'}</title>
+        </Head>
 
-          <hr className='mt3 mb3 sm-mb4' />
+        <div
+          className='col-12 mx-auto center bg-darken-1 border border-silver py3'
+          style={{maxWidth: '500px'}}
+        >
+          <div className='h2 mb2'>{this.context.siteData.description}</div>
+          <div className='h3 my2 gray'>{'Coming soon.'}</div>
 
-          <div
-            className='col-12 mx-auto center my3'
-            style={{maxWidth: '500px'}}
-          >
-            <div className='h2 my2'>{this.context.siteData.description}</div>
-            <div className='h3 my2 gray'>{'Coming soon.'}</div>
+          <form onSubmit={this.handleSubmit}>
+            <div
+              className='flex mt3 col-12 mx-auto'
+              style={{maxWidth: '300px'}}
+            >
+              <input
+                className='block input col-9 not-rounded'
+                name='password'
+                placeholder='Enter password...'
+                ref={r => { this.passwordNode = r }}
+                style={{borderRight: 'none'}}
+                type='text'
+              />
 
-            <form onSubmit={this.handleSubmit}>
-              <div
-                className='flex my3 col-12 mx-auto'
-                style={{maxWidth: '350px'}}
+              <button
+                className={`input regular block col-3 not-rounded btn-primary border-none ${this.context.sitePasswordStore.didFailAuthorization ? 'bg-red' : ''}`}
+                type='submit'
               >
-                <input
-                  className='block input col-10 not-rounded'
-                  name='password'
-                  placeholder='Enter password to continue...'
-                  ref={r => { this.passwordNode = r }}
-                  style={{borderRight: 'none'}}
-                  type='text'
-                />
-
-                <button
-                  className={`input regular block col-2 not-rounded btn-primary border-none ${this.context.sitePasswordStore.didFailAuthorization ? 'bg-red' : ''}`}
-                  type='submit'
-                >
-                  {'Enter'}
-                </button>
-              </div>
-            </form>
-          </div>
+                {'Enter'}
+              </button>
+            </div>
+          </form>
         </div>
-
-        <hr className='mt3 mb3 sm-mt4' />
-      </main>
+      </div>
     )
   }
 }

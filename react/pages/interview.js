@@ -137,124 +137,123 @@ class Interview extends Component {
 
   render () {
     return (
-      <main className='max-width-3 mx-auto center'>
-        <div className='page-x-spacing'>
-          <h1>{'The Interview'}</h1>
+      <div>
+        <h1>{'The Interview'}</h1>
 
-          {this.store.isDone ? (
-            <div>{'Thank you!'}</div>
-          ) : (
+        {this.store.isDone ? (
+          <div>{'Thank you!'}</div>
+        ) : (
+          <div>
             <div>
-              <div>
-                <span>{`Submission status: `}</span>
-                {this.store.isSubmitting ? <span>{'submitting...'}</span> : null}
-                {this.store.didSubmit ? <span>{'done!'}</span> : null}
-              </div>
-
-              <nav className='my2'>
-                {this.store.steps.map(section => (
-                  <NavButton
-                    key={`NavButton${section}`}
-                    section={section}
-                  />
-                ))}
-              </nav>
-
-              <form onSubmit={this.handleSubmit}>
-                <fieldset className={this.store.activeStep === 'Welcome' ? '' : 'hide'}>
-                  <div className='h3 bold'>{'Setup'}</div>
-                  <div>
-                    <label>{'Name'}</label>
-                    <input
-                      className='input'
-                      name='name'
-                      readOnly
-                      required
-                      type='text'
-                      value={this.props.url.query.name}
-                    />
-                  </div>
-                  <div>
-                    <label>{'Email'}</label>
-                    <input
-                      className='input'
-                      name='email'
-                      readOnly
-                      required
-                      type='email'
-                      value={this.props.url.query.email}
-                    />
-                  </div>
-                </fieldset>
-
-                {this.props.questionsData.map(questionData => (
-                  <fieldset
-                    className={this.store.activeStep === questionData.section ? '' : 'hide'}
-                    key={`Section${questionData.section}`}
-                  >
-                    <div className='h3 bold'>{questionData.section}</div>
-                    {questionData.questions.map(question => (
-                      <div key={question}>
-                        <label>{question}</label>
-                        <textarea
-                          className='input'
-                          name={question}
-                        />
-                      </div>
-                    ))}
-                  </fieldset>
-                ))}
-
-                <fieldset className={this.store.activeStep === 'Photo' ? '' : 'hide'}>
-                  <div className='h3 bold'>{'Photo'}</div>
-                  <div>
-                    <label className='label'>{'Photo'}</label>
-                    <input
-                      name='photo'
-                      required
-                      type='file'
-                    />
-                  </div>
-                </fieldset>
-
-                <fieldset className={this.store.activeStep === 'Confirm' ? '' : 'hide'}>
-                  <button
-                    className='btn btn-primary'
-                    type='submit'
-                  >
-                    {'Submit'}
-                  </button>
-                </fieldset>
-              </form>
-
-              <nav className='my2'>
-                {this.store.prevStep !== null ? (
-                  <a
-                    className='inline-block px1 mx1 underline'
-                    dangerouslySetInnerHTML={{__html: '&laquo; Prev'}}
-                    href='javascript:void(0)'
-                    onClick={this.store.handlePrevStepClick}
-                  />
-                ) : null}
-
-                {this.store.nextStep !== null ? (
-                  <a
-                    className='inline-block px1 mx1 underline'
-                    dangerouslySetInnerHTML={{__html: 'Next &raquo;'}}
-                    href='javascript:void(0)'
-                    onClick={this.store.handleNextStepClick}
-                  />
-              ) : null}
-              </nav>
+              <span>{`Submission status: `}</span>
+              {this.store.isSubmitting ? <span>{'submitting...'}</span> : null}
+              {this.store.didSubmit ? <span>{'done!'}</span> : null}
             </div>
-          )}
-        </div>
-      </main>
+
+            <nav className='my2'>
+              {this.store.steps.map(section => (
+                <NavButton
+                  key={`NavButton${section}`}
+                  section={section}
+                />
+              ))}
+            </nav>
+
+            <form onSubmit={this.handleSubmit}>
+              <fieldset className={this.store.activeStep === 'Welcome' ? '' : 'hide'}>
+                <div className='h3 bold'>{'Setup'}</div>
+                <div>
+                  <label>{'Name'}</label>
+                  <input
+                    className='input'
+                    name='name'
+                    readOnly
+                    required
+                    type='text'
+                    value={this.props.url.query.name}
+                  />
+                </div>
+                <div>
+                  <label>{'Email'}</label>
+                  <input
+                    className='input'
+                    name='email'
+                    readOnly
+                    required
+                    type='email'
+                    value={this.props.url.query.email}
+                  />
+                </div>
+              </fieldset>
+
+              {this.props.questionsData.map(questionData => (
+                <fieldset
+                  className={this.store.activeStep === questionData.section ? '' : 'hide'}
+                  key={`Section${questionData.section}`}
+                >
+                  <div className='h3 bold'>{questionData.section}</div>
+                  {questionData.questions.map(question => (
+                    <div key={question}>
+                      <label>{question}</label>
+                      <textarea
+                        className='input'
+                        name={question}
+                      />
+                    </div>
+                  ))}
+                </fieldset>
+              ))}
+
+              <fieldset className={this.store.activeStep === 'Photo' ? '' : 'hide'}>
+                <div className='h3 bold'>{'Photo'}</div>
+                <div>
+                  <label className='label'>{'Photo'}</label>
+                  <input
+                    name='photo'
+                    required
+                    type='file'
+                  />
+                </div>
+              </fieldset>
+
+              <fieldset className={this.store.activeStep === 'Confirm' ? '' : 'hide'}>
+                <button
+                  className='btn btn-primary'
+                  type='submit'
+                >
+                  {'Submit'}
+                </button>
+              </fieldset>
+            </form>
+
+            <nav className='my2'>
+              {this.store.prevStep !== null ? (
+                <a
+                  className='inline-block px1 mx1 underline'
+                  dangerouslySetInnerHTML={{__html: '&laquo; Prev'}}
+                  href='javascript:void(0)'
+                  onClick={this.store.handlePrevStepClick}
+                />
+              ) : null}
+
+              {this.store.nextStep !== null ? (
+                <a
+                  className='inline-block px1 mx1 underline'
+                  dangerouslySetInnerHTML={{__html: 'Next &raquo;'}}
+                  href='javascript:void(0)'
+                  onClick={this.store.handleNextStepClick}
+                />
+            ) : null}
+            </nav>
+          </div>
+        )}
+      </div>
     )
   }
 }
 
 export default createPage(observer(Interview), {
+  maxWidth: 3,
   propPaths: () => ({
     questionsData: '/ci/questions'
   })

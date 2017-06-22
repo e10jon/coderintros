@@ -7,13 +7,13 @@ import createPage from '../helpers/create-page'
 
 const Archive = ({postsData}: Object) => {
   return (
-    <main>
+    <div>
       <Head>
         <title>{'Archive'}</title>
       </Head>
 
       <div className='h2 my4 center'>{'Coming soon'}</div>
-    </main>
+    </div>
   )
 }
 
