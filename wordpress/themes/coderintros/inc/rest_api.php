@@ -16,6 +16,17 @@ add_action( 'rest_api_init', function () {
   }
 } );
 
+// add updatable-only meta fields to posts
+add_action( 'rest_api_init', function () {
+  foreach( ['email', 'phone'] as $field ) {
+    register_rest_field( 'post', $field, [
+      'update_callback' => function ( $value, $object, $field_name ) {
+        return update_post_meta( $object->ID, $field_name, $value );
+      }
+    ] );
+  }
+} );
+
 // add social links to posts
 add_action( 'rest_api_init', function () {
   register_rest_field( 'post', '_social_links', [

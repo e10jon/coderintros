@@ -38,6 +38,8 @@ services:
       SECURE_AUTH_KEY: 123
       SECURE_AUTH_SALT: 123
       WP_DEBUG: 'true'
+    volumes:
+      - ./wordpress/themes/coderintros:/var/www/html/wp-content/themes/coderintros
 
   react:
     build:

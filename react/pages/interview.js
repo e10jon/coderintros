@@ -89,14 +89,16 @@ class Interview extends Component {
     this.store.beginSubmission()
 
     const photoFormData = new global.FormData()
-    let name
+    let name, email, phone
     let htmlEls = []
 
     for (let node of e.target.querySelectorAll('input, textarea')) {
       if (node.name === 'email') {
-        htmlEls.push(<p key='Email'>{node.value}</p>)
+        email = node.value
       } else if (node.name === 'name') {
         name = node.value
+      } else if (node.name === 'phone') {
+        phone = node.value
       } else if (node.name === 'photo') {
         photoFormData.append('file', node.files[0])
       } else {
@@ -118,7 +120,9 @@ class Interview extends Component {
     await global.fetch(getWordpressUrl('/wp/v2/posts'), {
       body: JSON.stringify({
         content: renderToStaticMarkup(<div>{htmlEls}</div>),
+        email,
         featured_media: photoUploadResJson.id,
+        phone,
         status: 'pending',
         title: name
       }),
@@ -182,6 +186,14 @@ class Interview extends Component {
                     required
                     type='email'
                     value={this.props.url.query.email}
+                  />
+                </div>
+                <div>
+                  <label>{'Phone'}</label>
+                  <input
+                    className='input'
+                    name='phone'
+                    type='text'
                   />
                 </div>
               </fieldset>
