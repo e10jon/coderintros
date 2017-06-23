@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react'
 import Cookies from 'js-cookie'
-import {observer} from 'mobx-react'
+import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
 
@@ -86,7 +86,7 @@ class SitePassword extends Component {
 
 SitePassword.contextTypes = {
   siteData: PropTypes.object,
-  sitePasswordStore: PropTypes.object
+  sitePasswordStore: MobxReactPropTypes.observableObject
 }
 
 export default SitePassword

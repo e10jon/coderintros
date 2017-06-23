@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import {IoIosEmailOutline, IoSocialFacebookOutline} from 'react-icons/lib/io'
-import {observer} from 'mobx-react'
+import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 
 import styles from '../styles/components/header.scss'
 import trackEvent from '../helpers/track-event'
@@ -51,7 +51,6 @@ class Header extends Component {
   }
 
   node: Object
-  scrollNode: Object
 
   render () {
     const aClassName = 'inline-block'
@@ -63,21 +62,19 @@ class Header extends Component {
           <style dangerouslySetInnerHTML={{__html: styles}} />
         </Head>
 
-        <div
-          className={`fixed top-0 right-0 left-0 flex items-center bg-black header-scroll header-scroll-${this.context.headerStore.scrollHeaderIsVisible ? 'show' : 'hide'}`}
-          ref={r => { this.scrollNode = r }}
-        >
-          <img
-            alt={`${this.context.siteData.name} logo`}
-            className='fit block mx1 sm-mx2 lg-mx3 header-scroll-logo'
-            src={this.context.siteData.images['apple-icon-180x180']}
-          />
+        {this.context.headerStore.scrollHeaderIsEnabled ? (
+          <div className={`fixed top-0 right-0 left-0 flex items-center bg-black header-scroll header-scroll-${this.context.headerStore.scrollHeaderIsVisible ? 'show' : 'hide'}`}>
+            <img
+              alt={`${this.context.siteData.name} logo`}
+              className='fit block mx1 sm-mx2 lg-mx3 header-scroll-logo'
+              src={this.context.siteData.images['apple-icon-180x180']}
+            />
 
-          {this.context.headerStore.scrollTitle ? (
-            <div className='white h3'>{this.context.headerStore.scrollTitle}</div>
-          ) : null}
-
-        </div>
+            {this.context.headerStore.scrollTitle ? (
+              <div className='white h3'>{this.context.headerStore.scrollTitle}</div>
+            ) : null}
+          </div>
+        ) : null}
 
         <div ref={r => { this.node = r }}>
           <div className='flex items-center justify-between py2 lg-py3 bg-white'>
@@ -122,9 +119,9 @@ class Header extends Component {
 }
 
 Header.contextTypes = {
-  emailModalStore: PropTypes.object,
-  headerStore: PropTypes.object,
-  likeModalStore: PropTypes.object,
+  emailModalStore: MobxReactPropTypes.observableObject,
+  headerStore: MobxReactPropTypes.observableObject,
+  likeModalStore: MobxReactPropTypes.observableObject,
   pagesData: PropTypes.array,
   siteData: PropTypes.object
 }

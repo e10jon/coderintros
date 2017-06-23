@@ -1,6 +1,7 @@
 // @flow
 
 import React, {Component} from 'react'
+import {PropTypes as MobxReactPropTypes} from 'mobx-react'
 import PropTypes from 'prop-types'
 
 import createModal from '../../helpers/create-modal'
@@ -8,7 +9,7 @@ import trackEvent from '../../helpers/track-event'
 
 class Email extends Component {
   static contextTypes = {
-    emailModalStore: PropTypes.object,
+    emailModalStore: MobxReactPropTypes.observableObject,
     siteData: PropTypes.object
   }
 

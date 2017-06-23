@@ -1,6 +1,7 @@
 // @flow
 
 import React, {Component} from 'react'
+import {PropTypes as MobxReactPropTypes} from 'mobx-react'
 import Cookies from 'js-cookie'
 import PropTypes from 'prop-types'
 
@@ -11,7 +12,7 @@ export const didLikeFBPageStoreKey = 'didLikeFBPage'
 
 class Like extends Component {
   static contextTypes = {
-    likeModalStore: PropTypes.object,
+    likeModalStore: MobxReactPropTypes.observableObject,
     siteData: PropTypes.object
   }
 

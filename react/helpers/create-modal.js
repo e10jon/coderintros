@@ -1,10 +1,10 @@
 // @flow
 
 import React, {Component} from 'react'
+import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 import Head from 'next/head'
 import ReactModal from 'react-modal'
 import {IoClose} from 'react-icons/lib/io'
-import {observer} from 'mobx-react'
 
 import styles from '../styles/modal.scss'
 import trackEvent from '../helpers/track-event'
@@ -13,6 +13,10 @@ import trackEvent from '../helpers/track-event'
 export default function (Child: Object) {
   class Modal extends Component {
     static displayName = `${Child.displayName}Modal`
+
+    props: {
+      store: MobxReactPropTypes.observableObject
+    }
 
     handleCloseClick = () => {
       this.props.store.close()

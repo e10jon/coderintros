@@ -1,34 +1,33 @@
 // @flow
 
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
-import {observer} from 'mobx-react'
+import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 
 import createPage from '../helpers/create-page'
 import Post from '../components/post'
-import EditableInterviewStore from '../stores/editable-interview'
+import PostStore from '../stores/post'
 
 @observer
 class Interview extends Component {
   static childContextTypes = {
-    editableInterviewStore: PropTypes.object
+    postStore: MobxReactPropTypes.observableObject
   }
 
   static displayName = 'Interview'
 
   getChildContext = () => ({
-    editableInterviewStore: this.editableInterviewStore
+    postStore: this.postStore
   })
 
   componentWillMount () {
-    this.editableInterviewStore = new EditableInterviewStore()
+    this.postStore = new PostStore()
   }
 
-  editableInterviewStore: Object
+  postStore: Object
 
   render () {
     return (
-      <Post editable />
+      <Post />
     )
   }
 }

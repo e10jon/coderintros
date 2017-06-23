@@ -4,9 +4,8 @@ import React, {Component} from 'react'
 import Dropzone from 'react-dropzone'
 import Head from 'next/head'
 import Link from 'next/link'
-import {observer} from 'mobx-react'
+import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 import moment from 'moment'
-import PropTypes from 'prop-types'
 import stripTags from 'striptags'
 
 import Ad from '../components/ad'
@@ -20,8 +19,8 @@ import styles from '../styles/pages/post.scss'
 @observer
 class Post extends Component {
   static contextTypes = {
-    editableInterviewStore: PropTypes.object,
-    headerStore: PropTypes.object
+    postStore: MobxReactPropTypes.observableObject,
+    headerStore: MobxReactPropTypes.observableObject
   }
 
   static defaultProps = {
@@ -42,6 +41,15 @@ class Post extends Component {
   }
 
   shouldComponentUpdate = () => true
+
+  componentDidUpdate () {
+    this.updateHeaderStore()
+  }
+
+  props: {
+    postData?: Object,
+    type?: string
+  }
 
   updateHeaderStore () {
     if (this.props.type === 'posts') {
@@ -111,15 +119,15 @@ class Post extends Component {
 
         {!this.props.postData._formatting || !this.props.postData._formatting.hide_featured_image ? (
           <div className='mb2 sm-mb3 lg-page-x-spacing'>
-            {this.props.editable ? (
+            {this.context.postStore ? (
               <Dropzone
                 className='col-12'
-                onDrop={this.context.editableInterviewStore.handleFeaturedImageDrop}
+                onDrop={this.context.postStore.handleFeaturedImageDrop}
               >
                 <img
                   className='col-12 bg-silver flex items-center justify-center'
                   style={{height: '600px'}}
-                  {...this.context.editableInterviewStore.featuredImageProps}
+                  {...this.context.postStore.featuredImageProps}
                 />
               </Dropzone>
             ) : (

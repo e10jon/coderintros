@@ -2,7 +2,7 @@
 
 import {action, observable} from 'mobx'
 
-export default class {
+export default class HeaderStore {
   @observable scrollHeaderIsEnabled = false
   @observable scrollHeaderIsVisible = false
   @observable scrollTitle = null

@@ -2,7 +2,7 @@
 
 import {action, observable} from 'mobx'
 
-export default class {
+export default class SitePasswordStore {
   @observable isAuthorized = false
   @observable didFailAuthorization = false
 

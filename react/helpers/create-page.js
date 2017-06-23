@@ -1,9 +1,9 @@
 // @flow
 
 import React, {Component} from 'react'
+import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 import Cookies from 'js-cookie'
 import Head from 'next/head'
-import {observer} from 'mobx-react'
 import PropTypes from 'prop-types'
 import 'isomorphic-fetch'
 
@@ -33,12 +33,10 @@ const hrClassName = (className: string, opt: mixed) =>
 @observer
 export default function (Child: Object, {
   propPaths = () => ({}),
-  childContextTypes = {},
   fullWidth = false,
   hrBottom = true,
   hrTop = true,
-  maxWidth = 4,
-  getChildContext = () => ({})
+  maxWidth = 4
 }: Object = {}) {
   const fullWidthClassName = (props: Object) => {
     const isFull = typeof fullWidth === 'function' ? fullWidth(props) : fullWidth
@@ -52,14 +50,14 @@ export default function (Child: Object, {
   class Page extends Component {
     static displayName = `${Child.displayName}Page`
 
-    static childContextTypes = Object.assign({}, {
-      emailModalStore: PropTypes.object,
-      headerStore: PropTypes.object,
-      likeModalStore: PropTypes.object,
+    static childContextTypes = {
+      emailModalStore: MobxReactPropTypes.observableObject,
+      headerStore: MobxReactPropTypes.observableObject,
+      likeModalStore: MobxReactPropTypes.observableObject,
       pagesData: PropTypes.array,
       siteData: PropTypes.object,
-      sitePasswordStore: PropTypes.object
-    }, childContextTypes)
+      sitePasswordStore: MobxReactPropTypes.observableObject
+    }
 
     static async getInitialProps ({asPath, req, query}) {
       const paths = Object.assign({}, {
@@ -101,14 +99,14 @@ export default function (Child: Object, {
       return finalProps
     }
 
-    getChildContext = () => Object.assign({}, {
+    getChildContext = () => ({
       emailModalStore: this.emailModalStore,
       headerStore: this.headerStore,
       likeModalStore: this.likeModalStore,
       pagesData: this.props.pagesData,
       siteData: this.props.siteData,
       sitePasswordStore: this.sitePasswordStore
-    }, getChildContext.call(this))
+    })
 
     componentWillMount () {
       this.emailModalStore = new ModalStore()
@@ -136,6 +134,11 @@ export default function (Child: Object, {
     emailModalStore: Object
     headerStore: Object
     likeModalStore: Object
+    props: {
+      fetchCache: Object,
+      pagesData: Object,
+      siteData: Object
+    }
     sitePasswordStore: Object
 
     render () {

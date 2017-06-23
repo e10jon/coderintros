@@ -9,7 +9,7 @@ import {getFeaturedImageProps} from '../helpers/post-data'
 // obtain using btoa(user:password)
 const Authorization = 'Basic YXV0b21hdGVkOnBhc3N3b3Jk'
 
-export default class {
+export default class Post {
   @observable featuredImageProps = {}
 
   @action handleFeaturedImageDrop = async (files: Array<?Object> = []) => {

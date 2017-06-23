@@ -2,7 +2,7 @@
 
 import {action, observable} from 'mobx'
 
-export default class {
+export default class ModalStore {
   @observable isOpen = false
   wasAutoOpened = null
 
