@@ -20,7 +20,7 @@ class Interview extends Component {
   })
 
   componentWillMount () {
-    this.postStore = new PostStore()
+    this.postStore = PostStore()
   }
 
   postStore: Object

@@ -127,7 +127,7 @@ class Post extends Component {
                 <img
                   className='col-12 bg-silver flex items-center justify-center'
                   style={{height: '600px'}}
-                  {...this.context.postStore.featuredImageProps}
+                  {...getFeaturedImageProps(this.context.postStore.post, {sizes: ['large', 'medium_large']})}
                 />
               </Dropzone>
             ) : (
@@ -144,12 +144,20 @@ class Post extends Component {
             <div className={!this.props.postData._formatting || !this.props.postData._formatting.full_width ? 'page-x-spacing' : ''}>
               {!this.props.postData._formatting || !this.props.postData._formatting.hide_title ? (
                 <h1 className='mb2 md-h0'>
-                  <Link
-                    as={this.props.postData.link}
-                    href={getUrlObj(this.props.postData)}
-                  >
-                    <a>{this.props.postData.title.rendered}</a>
-                  </Link>
+                  {this.context.postStore ? (
+                    <div
+                      contentEditable
+                      dangerouslySetInnerHTML={{__html: this.context.postStore.post.title}}
+                      onBlur={this.context.postStore.handleTitleChange}
+                    />
+                  ) : (
+                    <Link
+                      as={this.props.postData.link}
+                      href={getUrlObj(this.props.postData)}
+                    >
+                      <a>{this.props.postData.title.rendered}</a>
+                    </Link>
+                  )}
                 </h1>
               ) : null}
 
