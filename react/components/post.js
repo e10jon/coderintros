@@ -9,6 +9,7 @@ import moment from 'moment'
 import stripTags from 'striptags'
 
 import Ad from '../components/ad'
+import InterviewQuestion from '../components/interview-question'
 import insertUnits from '../helpers/in-content-units'
 import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
 import Related from '../components/sidebar/related'
@@ -151,7 +152,7 @@ class Post extends Component {
                   {this.context.postStore ? (
                     <div
                       contentEditable
-                      dangerouslySetInnerHTML={{__html: this.context.postStore.post.title.rendered}}
+                      dangerouslySetInnerHTML={{__html: postData.title.rendered}}
                       onBlur={this.context.postStore.handleTitleChange}
                     />
                   ) : (
@@ -188,9 +189,26 @@ class Post extends Component {
 
               <div
                 className='mb3 serif post-content'
-                dangerouslySetInnerHTML={{__html: !postData._formatting.no_incontent_units ? insertUnits(postData.content.rendered) : postData.content.rendered}}
                 style={{fontSize: '1.125rem', lineHeight: '1.8'}}
-              />
+              >
+                {this.context.postStore ? (
+                  postData.questions.map((question, i) => (
+                    <InterviewQuestion
+                      index={i}
+                      key={`Question${question.id}`}
+                      question={question}
+                    />
+                  ))
+                ) : (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: !postData._formatting.no_incontent_units
+                        ? insertUnits(postData.content.rendered)
+                        : postData.content.rendered
+                    }}
+                  />
+                )}
+              </div>
 
               {this.props.type !== 'pages' ? (
                 <Share
