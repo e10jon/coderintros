@@ -31,13 +31,7 @@ const hrClassName = (className: string, opt: mixed) =>
   typeof opt === 'string' ? `${className} ${opt}` : className
 
 @observer
-export default function (Child: Object, {
-  propPaths = () => ({}),
-  fullWidth = false,
-  hrBottom = true,
-  hrTop = true,
-  maxWidth = 4
-}: Object = {}) {
+export default function (Child: Object, {propPaths = () => ({}), fullWidth = false, hrBottom = true, hrTop = true, maxWidth = 4}: Object = {}) {
   const fullWidthClassName = (props: Object) => {
     const isFull = typeof fullWidth === 'function' ? fullWidth(props) : fullWidth
     return isFull ? '' : 'page-x-spacing'

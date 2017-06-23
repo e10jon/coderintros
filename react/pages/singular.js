@@ -10,7 +10,7 @@ const extractPostData = ({postsData, revisionsData}: Object) => Object.assign({}
   revisionsData ? revisionsData[0] : {}
 )
 
-const Singular = ({postsData, revisionsData, url: {query: {type}}}: Object) => (
+export const Singular = ({postsData, revisionsData, url: {query: {type}}}: Object) => (
   <Post
     postData={extractPostData({postsData, revisionsData})}
     type={type}

@@ -1,8 +1,7 @@
 // @flow
 
-import localForage from 'localforage'
 import {action, observable} from 'mobx'
-import { create, persist } from 'mobx-persist'
+import {persist} from 'mobx-persist'
 import 'isomorphic-fetch'
 
 import {getWordpressUrl} from '../helpers/fetch'
@@ -11,11 +10,15 @@ import {getWordpressUrl} from '../helpers/fetch'
 const Authorization = 'Basic YXV0b21hdGVkOnBhc3N3b3Jk'
 
 class Post {
-  @persist @observable title = ''
-  @persist('object') @observable _embedded = {}
+  @persist('object') @observable content = {rendered: ''}
+  @persist('object') @observable excerpt = {rendered: ''}
+  @persist('object') @observable title = {rendered: ''}
+  @persist('object') @observable _embedded = {'wp:featuredmedia': []}
+  @persist('object') @observable _formatting = {}
+  @persist('object') @observable _social_links = {}
 }
 
-class PostStore {
+export default class PostStore {
   @persist('object', Post) @observable post = new Post()
 
   @action handleFeaturedImageDrop = async (files: Array<?Object> = []) => {
@@ -34,14 +37,6 @@ class PostStore {
   }
 
   @action handleTitleChange = (e: Object) => {
-    this.post.title = e.target.innerHTML
+    this.post.title.rendered = e.target.innerHTML
   }
-}
-
-const hydrate = create({store: localForage})
-
-export default function () {
-  const postStore = new PostStore()
-  hydrate('post', postStore)
-  return postStore
 }

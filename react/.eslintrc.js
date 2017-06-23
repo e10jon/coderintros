@@ -12,6 +12,8 @@ module.exports = {
   ],
   rules: {
     'camelcase': 'off',
+    'indent': ['error', 2],
+    'react/default-props-match-prop-types': [1, {'allowRequiredDefaults': true}],
     'react/forbid-component-props': 'off',
     'react/no-danger': 'off',
     'react/jsx-no-bind': ['warn', {ignoreRefs: true}],

@@ -2,4 +2,4 @@
 
 ln -s -f ../../git-hooks/pre-commit .git/hooks/pre-commit
 
-docker-compose down && docker-compose build && docker-compose up -d
+docker-compose down && docker-compose build --force-rm && docker-compose up -d
