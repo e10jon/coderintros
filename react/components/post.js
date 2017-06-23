@@ -109,99 +109,105 @@ class Post extends Component {
           ) : null}
         </Head>
 
-        <div className='mb2 sm-mb3'>
-          {this.props.editable ? (
-            <Dropzone
-              className='col-12'
-              onDrop={this.context.editableInterviewStore.handleFeaturedImageDrop}
-            >
+        {!this.props.postData._formatting || !this.props.postData._formatting.hide_featured_image ? (
+          <div className='mb2 sm-mb3 lg-page-x-spacing'>
+            {this.props.editable ? (
+              <Dropzone
+                className='col-12'
+                onDrop={this.context.editableInterviewStore.handleFeaturedImageDrop}
+              >
+                <img
+                  className='col-12 bg-silver flex items-center justify-center'
+                  style={{height: '600px'}}
+                  {...this.context.editableInterviewStore.featuredImageProps}
+                />
+              </Dropzone>
+            ) : (
               <img
-                className='col-12 bg-silver flex items-center justify-center'
-                style={{height: '600px'}}
-                {...this.context.editableInterviewStore.featuredImageProps}
+                className='col-12 block'
+                {...getFeaturedImageProps(this.props.postData, {sizes: ['large', 'medium_large']})}
               />
-            </Dropzone>
-          ) : (
-            <img
-              className='col-12 block'
-              {...getFeaturedImageProps(this.props.postData, {sizes: ['large', 'medium_large']})}
-            />
-          )}
-        </div>
+            )}
+          </div>
+        ) : null}
 
         <div className='flex mb2'>
           <div className='col-12 md-flex-auto'>
-            {!this.props.postData._formatting || !this.props.postData._formatting.hide_title ? (
-              <h1 className='mb2 md-h0'>
-                <Link
-                  as={this.props.postData.link}
-                  href={getUrlObj(this.props.postData)}
-                >
-                  <a>{this.props.postData.title.rendered}</a>
-                </Link>
-              </h1>
-            ) : null}
+            <div className={!this.props.postData._formatting || !this.props.postData._formatting.full_width ? 'page-x-spacing' : ''}>
+              {!this.props.postData._formatting || !this.props.postData._formatting.hide_title ? (
+                <h1 className='mb2 md-h0'>
+                  <Link
+                    as={this.props.postData.link}
+                    href={getUrlObj(this.props.postData)}
+                  >
+                    <a>{this.props.postData.title.rendered}</a>
+                  </Link>
+                </h1>
+              ) : null}
 
-            {this.props.type !== 'pages' ? (
+              {this.props.type !== 'pages' ? (
+                <div
+                  className='mb2 gray italic'
+                  dangerouslySetInnerHTML={{__html: stripTags(this.props.postData.excerpt.rendered)}}
+                />
+              ) : null}
+
+              {this.props.type !== 'pages' ? (
+                <div className='mb2 gray'>{moment(this.props.postData.date).format('MMMM D, YYYY')}</div>
+              ) : null}
+
+              {this.props.type !== 'pages' ? (
+                <Share
+                  hackerNewsUrl={this.props.postData._social_links.hacker_news}
+                  position='Above Content'
+                  redditUrl={this.props.postData._social_links.reddit}
+                  title={this.props.postData.title.rendered}
+                  url={this.props.postData.link}
+                />
+              ) : null}
+
               <div
-                className='mb2 gray italic'
-                dangerouslySetInnerHTML={{__html: stripTags(this.props.postData.excerpt.rendered)}}
+                className='mb3 serif post-content'
+                dangerouslySetInnerHTML={{__html: insertUnits(this.props.postData.content.rendered, {
+                  skip: this.props.postData._formatting && this.props.postData._formatting.no_incontent_units
+                })}}
+                style={{fontSize: '1.125rem', lineHeight: '1.8'}}
               />
-            ) : null}
 
-            {this.props.type !== 'pages' ? (
-              <div className='mb2 gray'>{moment(this.props.postData.date).format('MMMM D, YYYY')}</div>
-            ) : null}
-
-            {this.props.type !== 'pages' ? (
-              <Share
-                hackerNewsUrl={this.props.postData._social_links.hacker_news}
-                position='Above Content'
-                redditUrl={this.props.postData._social_links.reddit}
-                title={this.props.postData.title.rendered}
-                url={this.props.postData.link}
-              />
-            ) : null}
-
-            <div
-              className='mb3 serif post-content'
-              dangerouslySetInnerHTML={{__html: insertUnits(this.props.postData.content.rendered, {
-                skip: this.props.postData._formatting && this.props.postData._formatting.no_incontent_units
-              })}}
-              style={{fontSize: '1.125rem', lineHeight: '1.8'}}
-            />
-
-            {this.props.type !== 'pages' ? (
-              <Share
-                hackerNewsUrl={this.props.postData._social_links.hacker_news}
-                position='Below Content'
-                redditUrl={this.props.postData._social_links.reddit}
-                title={this.props.postData.title.rendered}
-                url={this.props.postData.link}
-              />
-            ) : null}
+              {this.props.type !== 'pages' ? (
+                <Share
+                  hackerNewsUrl={this.props.postData._social_links.hacker_news}
+                  position='Below Content'
+                  redditUrl={this.props.postData._social_links.reddit}
+                  title={this.props.postData.title.rendered}
+                  url={this.props.postData.link}
+                />
+              ) : null}
+            </div>
           </div>
 
           {!this.props.postData._formatting || !this.props.postData._formatting.no_sidebar ? (
             <div
-              className='xs-hide sm-hide ml3'
+              className='xs-hide sm-hide'
               style={{flex: '0 0 300px'}}
             >
-              <Ad
-                className='mb3'
-                height={600}
-                width={300}
-              />
+              <div className={!this.props.postData._formatting || !this.props.postData._formatting.full_width ? 'page-x-spacing' : ''}>
+                <Ad
+                  className='mb3'
+                  height={600}
+                  width={300}
+                />
 
-              <Suggest className='mb3' />
+                <Suggest className='mb3' />
 
-              <Ad
-                className='mb3'
-                height={250}
-                width={300}
-              />
+                <Ad
+                  className='mb3'
+                  height={250}
+                  width={300}
+                />
 
-              <Related />
+                <Related />
+              </div>
             </div>
           ) : null}
         </div>
