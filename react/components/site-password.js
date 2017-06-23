@@ -2,7 +2,6 @@
 
 import React, {Component} from 'react'
 import Cookies from 'js-cookie'
-import {action, observable} from 'mobx'
 import {observer} from 'mobx-react'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
@@ -10,19 +9,6 @@ import PropTypes from 'prop-types'
 import {getFetchHeaders, getWordpressUrl} from '../helpers/fetch'
 
 const storeKey = 'sitePassword'
-
-export class PasswordStore {
-  @observable isAuthorized = false
-  @observable didFailAuthorization = false
-
-  @action authorize = () => {
-    this.isAuthorized = true
-  }
-
-  @action failedAuthorization = () => {
-    this.didFailAuthorization = true
-  }
-}
 
 @observer
 class SitePassword extends Component {

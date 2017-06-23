@@ -1,6 +1,6 @@
 import test from 'ava'
 import React from 'react'
-import {mount} from 'enzyme'
+import {shallow} from 'enzyme'
 
 import enableBrowserTesting from '../helpers/enable-browser-testing'
 import {createPostsData, createSiteData, createUrl} from '../helpers/initial-props'
@@ -11,7 +11,7 @@ test.before(() => {
 })
 
 test('renders', t => {
-  const wrapper = mount(
+  const wrapper = shallow(
     <Singular
       postsData={createPostsData()}
       siteData={createSiteData()}

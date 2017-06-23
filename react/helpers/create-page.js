@@ -12,9 +12,10 @@ import Footer from '../components/footer'
 import {getFetchHeaders, getWordpressUrl} from './fetch'
 import Header from '../components/header'
 import LikeModal, {didLikeFBPageStoreKey} from '../components/modals/like'
-import SitePassword, {PasswordStore} from '../components/site-password'
+import SitePassword from '../components/site-password'
 import HeaderStore from '../stores/header'
 import ModalStore from '../stores/modal'
+import SitePasswordStore from '../stores/site-password'
 import styles from '../styles/app.scss'
 import trackEvent from '../helpers/track-event'
 
@@ -116,7 +117,7 @@ export default function (Child: Object, {
       this.headerStore = new HeaderStore()
       this.likeModalStore = new ModalStore()
       if (this.props.siteData.site_password_enabled) {
-        this.sitePasswordStore = new PasswordStore()
+        this.sitePasswordStore = new SitePasswordStore()
       }
     }
 
