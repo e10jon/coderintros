@@ -31,7 +31,12 @@ class Post {
 }
 
 export default class PostStore {
+  questionsData = null
   @persist('object', Post) @observable post = new Post()
+
+  constructor ({questionsData}: {questionsData: Object}) {
+    this.questionsData = questionsData
+  }
 
   @action handleAddQuestion = (index: number) => {
     this.post.questions.splice(index + 1, 0, new Question())

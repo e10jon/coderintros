@@ -22,13 +22,18 @@ class Interview extends Component {
   })
 
   componentWillMount () {
-    this.postStore = new PostStore()
+    this.postStore = new PostStore({
+      questionsData: this.props.questionsData
+    })
   }
 
   componentDidMount () {
     create({store: localForage})('NewInterview', this.postStore)
   }
 
+  props: {
+    questionsData: Object
+  }
   postStore: Object
 
   render () {

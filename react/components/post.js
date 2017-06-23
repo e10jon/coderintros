@@ -174,7 +174,13 @@ class Post extends Component {
               ) : null}
 
               {this.props.type !== 'pages' ? (
-                <div className='mb2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
+                <div className='mb2 gray'>
+                  {postData.date ? (
+                    <div>{moment(postData.date).format('MMMM D, YYYY')}</div>
+                  ) : (
+                    <div>{'Coming soon`'}</div>
+                  )}
+                </div>
               ) : null}
 
               {this.props.type !== 'pages' ? (
