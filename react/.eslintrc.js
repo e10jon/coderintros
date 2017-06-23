@@ -1,4 +1,7 @@
 module.exports = {
+  env: {
+    jest: true
+  },
   extends: [
     'standard',
     'plugin:react/all',
@@ -6,6 +9,7 @@ module.exports = {
   ],
   parser: 'babel-eslint',
   plugins: [
+    'jest',
     'standard',
     'react',
     'flowtype'
