@@ -11,7 +11,7 @@ COPY package.json yarn.lock ./
 RUN yarn install --pure-lockfile
 COPY . .
 
-RUN if [ -z "$SKIP_BUILD" ]; then yarn run build && yarn install --production --pure-lockfile; fi
+RUN if [ -z "$SKIP_BUILD" ]; then yarn run build && rm -rf node_modules && yarn install --production --pure-lockfile; fi
 
 EXPOSE 3000
 
