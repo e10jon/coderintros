@@ -20,14 +20,12 @@ import styles from '../styles/app.scss'
 import trackEvent from '../helpers/track-event'
 
 const DevTools = process.env.NODE_ENV !== 'production'
-  ? require('mobx-react-devtools')
+  ? (() => {
+    const DevTools = require('mobx-react-devtools')
+    DevTools.configureDevtool({logEnabled: true})
+    return DevTools.default
+  })()
   : null
-
-if (DevTools) {
-  DevTools.configureDevtool({
-    logEnabled: true
-  })
-}
 
 const hrClassName = (className: string, opt: mixed) =>
   typeof opt === 'string' ? `${className} ${opt}` : className
@@ -147,7 +145,7 @@ export default function (Child: Object, {
             <style dangerouslySetInnerHTML={{__html: styles}} />
           </Head>
 
-          {DevTools ? <DevTools.default /> : null}
+          {DevTools ? <DevTools /> : null}
 
           <div className='max-width-3 mx-auto'>
             <div className='page-x-spacing'>

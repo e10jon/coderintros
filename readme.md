@@ -10,11 +10,11 @@
 
 ## What is this?
 
-It's the code that powers [coderintros.com](https://coderintros.com/). It's open-sourced because why not. My hope is that you can read through this repo to get inspired to create something new, or maybe integrate a piece of my infrastructure/workflow into an existing project of yours.
+It's the code that powers [coderintros.com](https://coderintros.com/). View it, fork it, learn from it, help make it better, or do none of those at all.
 
 ## Look, I just want a profile on coderintros.com
 
-No problem! Head on over to [https://coderintros.com/suggest/](https://coderintros.com/suggest/). No shame in suggesting yourself, I promise.
+No problem! Head on over to [our suggestions page](https://coderintros.com/pages/suggest/). No shame in suggesting yourself, I promise.
 
 ## How to run locally
 
