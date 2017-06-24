@@ -196,11 +196,11 @@ class Post extends Component {
                 style={{fontSize: '1.125rem', lineHeight: '1.8'}}
               >
                 {this.context.postStore ? (
-                  postData.questions.map((question, i) => (
+                  postData.responses.map((response, i) => (
                     <InterviewQuestion
                       index={i}
-                      key={`Question${question.id}`}
-                      question={question}
+                      key={`Response${response.id}`}
+                      response={response}
                     />
                   ))
                 ) : (

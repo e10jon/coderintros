@@ -10,10 +10,10 @@ import {getWordpressUrl} from '../helpers/fetch'
 // obtain using btoa(user:password)
 const Authorization = 'Basic YXV0b21hdGVkOnBhc3N3b3Jk'
 
-class Question {
-  @persist id = null
-  @persist question = ''
-  @persist answer = ''
+class Response {
+  @persist @observable id = null
+  @persist @observable question = 'Edit me'
+  @persist @observable answer = 'Edit me'
 
   constructor (id: string = uuid()) {
     this.id = id
@@ -21,9 +21,11 @@ class Question {
 }
 
 class Post {
+  type = 'post'
+
   @persist('object') @observable content = {rendered: ''}
   @persist('object') @observable excerpt = {rendered: ''}
-  @persist('list', Question) @observable questions = [new Question('default')]
+  @persist('list', Response) @observable responses = [new Response('default')]
   @persist('object') @observable title = {rendered: ''}
   @persist('object') @observable _embedded = {'wp:featuredmedia': []}
   @persist('object') @observable _formatting = {}
@@ -38,8 +40,8 @@ export default class PostStore {
     this.questionsData = questionsData
   }
 
-  @action handleAddQuestion = (index: number) => {
-    this.post.questions.splice(index + 1, 0, new Question())
+  @action handleAddResponse = (index: number) => {
+    this.post.responses.splice(index + 1, 0, new Response())
   }
 
   @action handleFeaturedImageDrop = async (files: Array<?Object> = []) => {
@@ -57,9 +59,13 @@ export default class PostStore {
     this.post._embedded['wp:featuredmedia'] = [json]
   }
 
-  @action handleRemoveQuestion = (index: number) => {
-    if (this.post.questions.length > 1) {
-      this.post.questions.splice(index, 1)
+  @action handleResponseUpdate = ({response, attr}: {response: Object, attr: 'question' | 'answer'}, e: Object) => {
+    response[attr] = e.target.innerHTML
+  }
+
+  @action handleRemoveResponse = (index: number) => {
+    if (this.post.responses.length > 1) {
+      this.post.responses.splice(index, 1)
     }
   }
 

@@ -15,23 +15,23 @@ class InterviewQuestion extends Component {
   }
 
   props: {
-    index: number
+    index: number,
+    response: Object
   }
   store: Store
 
-  handleAddQuestion = () => this.context.postStore.handleAddQuestion.bind(this, this.props.index)
-  handleRemoveQuestion = () => this.context.postStore.handleRemoveQuestion.bind(this, this.props.index)
+  handleAddResponse = this.context.postStore.handleAddResponse.bind(this, this.props.index)
+  handleAnswerUpdate = this.context.postStore.handleResponseUpdate.bind(this, {response: this.props.response, attr: 'answer'})
+  handleQuestionUpdate = this.context.postStore.handleResponseUpdate.bind(this, {response: this.props.response, attr: 'question'})
+  handleRemoveResponse = this.context.postStore.handleRemoveResponse.bind(this, this.props.index)
 
   render () {
-    const {handleAddQuestion, handleRemoveQuestion} = this
-    const {postStore} = this.context
-
     return (
       <div>
         <a
           className='inline-block p1 border'
           href='javascript:void(0)'
-          onClick={handleAddQuestion}
+          onClick={this.handleAddResponse}
         >
           {'Add'}
         </a>
@@ -39,14 +39,14 @@ class InterviewQuestion extends Component {
         <a
           className='inline-block p1 border'
           href='javascript:void(0)'
-          onClick={handleRemoveQuestion}
+          onClick={this.handleRemoveResponse}
         >
           {'Remove'}
         </a>
 
         <div>
           <select className='input'>
-            {postStore.questionsData.map(questionData => (
+            {this.context.postStore.questionsData.map(questionData => (
               <optgroup
                 key={`OptGroup${questionData.section}`}
                 label={questionData.section}
@@ -62,6 +62,21 @@ class InterviewQuestion extends Component {
               </optgroup>
             ))}
           </select>
+        </div>
+
+        <div>
+          <p>
+            <strong
+              contentEditable
+              dangerouslySetInnerHTML={{__html: this.props.response.question}}
+              onBlur={this.handleQuestionUpdate}
+            />
+          </p>
+          <p
+            contentEditable
+            dangerouslySetInnerHTML={{__html: this.props.response.answer}}
+            onBlur={this.handleAnswerUpdate}
+          />
         </div>
       </div>
     )
