@@ -9,7 +9,7 @@ import moment from 'moment'
 import stripTags from 'striptags'
 
 import Ad from '../components/ad'
-import InterviewQuestion from '../components/interview-question'
+import Response from '../components/response'
 import insertUnits from '../helpers/in-content-units'
 import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
 import Related from '../components/sidebar/related'
@@ -134,9 +134,14 @@ class Post extends Component {
                 className='col-12'
                 onDrop={this.context.postStore.handleFeaturedImageDrop}
               >
-                <div style={{height: '600px'}}>
-                  {featuredImg}
-                </div>
+                {featuredImg.props.src ? featuredImg : (
+                  <div
+                    className='bg-silver flex items-center justify-center'
+                    style={{height: '600px'}}
+                  >
+                    {this.context.postStore.isFeaturedImageUploading ? 'Uploading...' : 'Drop an image here.'}
+                  </div>
+                )}
               </Dropzone>
             ) : featuredImg}
           </div>
@@ -152,6 +157,7 @@ class Post extends Component {
                       contentEditable
                       dangerouslySetInnerHTML={{__html: postData.title.rendered}}
                       onBlur={this.context.postStore.handleTitleChange}
+                      placeholder='Your Name'
                     />
                   ) : (
                     <Link
@@ -167,7 +173,10 @@ class Post extends Component {
               {postData.type !== 'page' ? (
                 <div
                   className='mb2 gray italic'
+                  contentEditable={!!this.context.postStore}
                   dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+                  onBlur={this.context.postStore ? this.context.postStore.handleExcerptChange : null}
+                  placeholder='Your brief bio'
                 />
               ) : null}
 
@@ -181,7 +190,7 @@ class Post extends Component {
                 </div>
               ) : null}
 
-              {postData.type !== 'page' ? (
+              {postData.type !== 'page' && !this.context.postStore ? (
                 <Share
                   hackerNewsUrl={postData._social_links.hacker_news}
                   position='Above Content'
@@ -197,7 +206,7 @@ class Post extends Component {
               >
                 {this.context.postStore ? (
                   postData.responses.map((response, i) => (
-                    <InterviewQuestion
+                    <Response
                       index={i}
                       key={`Response${response.id}`}
                       response={response}
@@ -214,7 +223,7 @@ class Post extends Component {
                 )}
               </div>
 
-              {postData.type !== 'page' ? (
+              {postData.type !== 'page' && !this.context.postStore ? (
                 <Share
                   hackerNewsUrl={postData._social_links.hacker_news}
                   position='Below Content'
@@ -222,6 +231,22 @@ class Post extends Component {
                   title={postData.title.rendered}
                   url={postData.link}
                 />
+              ) : null}
+
+              {this.context.postStore ? (
+                <div>
+                  {this.context.postStore.didSubmit ? 'Thank you!' : (
+                    this.context.postStore.isSubmitting ? 'Submitting...' : (
+                      <button
+                        className='btn btn-primary'
+                        onClick={this.context.postStore.handleSubmit}
+                        type='submit'
+                      >
+                        {'Submit'}
+                      </button>
+                    )
+                  )}
+                </div>
               ) : null}
             </div>
           </div>
