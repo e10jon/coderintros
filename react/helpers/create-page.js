@@ -86,9 +86,7 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
       const finalProps = pathsKeys.reduce((obj, key, i) => {
         obj[key] = fetches[i]
         return obj
-      }, {})
-
-      finalProps.fetchCache = fetchCache
+      }, {fetchCache})
 
       return finalProps
     }

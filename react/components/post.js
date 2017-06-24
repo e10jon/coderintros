@@ -31,8 +31,7 @@ class Post extends Component {
       title: {},
       _formatting: {},
       _social_links: {}
-    },
-    type: 'posts'
+    }
   }
 
   static displayName = 'Post'
@@ -48,14 +47,13 @@ class Post extends Component {
   }
 
   props: {
-    postData: Object,
-    type: string
+    postData: Object
   }
 
   updateHeaderStore () {
     const postData = this.context.postStore ? this.context.postStore.post : this.props.postData
 
-    if (this.props.type === 'posts') {
+    if (postData.type === 'post') {
       this.context.headerStore.enableScrollHeader({
         scrollTitle: postData.title.rendered
       })
@@ -71,6 +69,13 @@ class Post extends Component {
       sizes: ['large', 'medium_large'],
       returnLargestSizeData: true
     })
+
+    const featuredImg = (
+      <img
+        className='col-12 block'
+        {...getFeaturedImageProps(postData, {sizes: ['large', 'medium_large']})}
+      />
+    )
 
     return (
       <div>
@@ -129,18 +134,11 @@ class Post extends Component {
                 className='col-12'
                 onDrop={this.context.postStore.handleFeaturedImageDrop}
               >
-                <img
-                  className='col-12 bg-silver flex items-center justify-center'
-                  style={{height: '600px'}}
-                  {...getFeaturedImageProps(this.context.postStore.post, {sizes: ['large', 'medium_large']})}
-                />
+                <div style={{height: '600px'}}>
+                  {featuredImg}
+                </div>
               </Dropzone>
-            ) : (
-              <img
-                className='col-12 block'
-                {...getFeaturedImageProps(postData, {sizes: ['large', 'medium_large']})}
-              />
-            )}
+            ) : featuredImg}
           </div>
         ) : null}
 
@@ -166,14 +164,14 @@ class Post extends Component {
                 </h1>
               ) : null}
 
-              {this.props.type !== 'pages' ? (
+              {postData.type !== 'page' ? (
                 <div
                   className='mb2 gray italic'
                   dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
                 />
               ) : null}
 
-              {this.props.type !== 'pages' ? (
+              {postData.type !== 'page' ? (
                 <div className='mb2 gray'>
                   {postData.date ? (
                     <div>{moment(postData.date).format('MMMM D, YYYY')}</div>
@@ -183,7 +181,7 @@ class Post extends Component {
                 </div>
               ) : null}
 
-              {this.props.type !== 'pages' ? (
+              {postData.type !== 'page' ? (
                 <Share
                   hackerNewsUrl={postData._social_links.hacker_news}
                   position='Above Content'
@@ -216,7 +214,7 @@ class Post extends Component {
                 )}
               </div>
 
-              {this.props.type !== 'pages' ? (
+              {postData.type !== 'page' ? (
                 <Share
                   hackerNewsUrl={postData._social_links.hacker_news}
                   position='Below Content'

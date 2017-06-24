@@ -36,7 +36,7 @@ module.exports = app.prepare().then(() => {
 
   // regular post urls
   router.get('/profiles/:slug', async ctx => {
-    ctx.query.type = 'posts'
+    ctx.query.type = 'post'
     ctx.query.slug = ctx.params.slug
     await app.render(ctx.req, ctx.res, '/singular', ctx.query)
     ctx.respond = false
@@ -44,7 +44,7 @@ module.exports = app.prepare().then(() => {
 
   // pages
   router.get('/pages/:slug', async ctx => {
-    ctx.query.type = 'pages'
+    ctx.query.type = 'page'
     ctx.query.slug = ctx.params.slug
     await app.render(ctx.req, ctx.res, '/singular', ctx.query)
     ctx.respond = false
@@ -53,7 +53,7 @@ module.exports = app.prepare().then(() => {
   // post or page preview (without saving first)
   router.get('/', async (ctx, next) => {
     if (ctx.query.p || ctx.query.page_id) {
-      ctx.query.type = ctx.query.page_id ? 'pages' : 'posts'
+      ctx.query.type = ctx.query.page_id ? 'page' : 'post'
       await app.render(ctx.req, ctx.res, '/singular', ctx.query)
       ctx.respond = false
     } else {

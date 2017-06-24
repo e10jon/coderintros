@@ -4,7 +4,7 @@ export const getUrlObj = (postData: Object) => ({
   pathname: '/singular',
   query: {
     slug: postData.slug,
-    type: `${postData.type}s`
+    type: postData.type
   }
 })
 

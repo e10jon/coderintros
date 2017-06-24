@@ -10,10 +10,9 @@ const extractPostData = ({postsData, revisionsData}: Object) => Object.assign({}
   revisionsData ? revisionsData[0] : {}
 )
 
-export const Singular = ({postsData, revisionsData, url: {query: {type}}}: Object) => (
+export const Singular = ({postsData, revisionsData}: Object) => (
   <Post
     postData={extractPostData({postsData, revisionsData})}
-    type={type}
   />
 )
 
@@ -29,11 +28,11 @@ export default createPage(Singular, {
   propPaths: ({asPath, query: {p, page_id, preview, preview_id, type, slug}}) => ({
     postsData: {
       authorize: !!preview,
-      path: (p || page_id) ? `/wp/v2/${type}/${p || page_id}/?_embed` : `/wp/v2/${type}?_embed&slug=${slug}`
+      path: (p || page_id) ? `/wp/v2/${type}s/${p || page_id}/?_embed` : `/wp/v2/${type}s?_embed&slug=${slug}`
     },
     revisionsData: preview ? {
       authorize: true,
-      path: `/wp/v2/${type}/${p || page_id || preview_id}/revisions`
+      path: `/wp/v2/${type}s/${p || page_id || preview_id}/revisions`
     } : null
   })
 })
