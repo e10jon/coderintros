@@ -1,8 +1,6 @@
 // @flow
 
 import React, {Component} from 'react'
-import localForage from 'localforage'
-import {create} from 'mobx-persist'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 
 import createPage from '../helpers/create-page'
@@ -29,7 +27,7 @@ class Interview extends Component {
   }
 
   componentDidMount () {
-    create({store: localForage})('NewInterview', this.postStore)
+    this.postStore.loadFromStore()
   }
 
   props: {

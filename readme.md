@@ -37,7 +37,7 @@ Sign up for an [AWS account](https://aws.amazon.com/), then do the following:
 - In ECS, create repositories named `react`, `wordpress`, and `varnish`.
 - Create an Elastic IP and assign it to your Elastic Beanstalk instance.
 - Create a Code Pipeline project, pulling from Github, running CodeBuild, deploying to Elastic Beanstalk.
-  - Define `AWS_REGION`, `AWS_ACCOUNT_ID`, `BUILD_BUCKET`, and `PURGERS_ACL` environment variables in CodeBuild.
+  - Define `AWS_REGION`, `AWS_ACCOUNT_ID`, `BUILD_BUCKET`, `PURGERS_ACL`, and anything used by `Webpack.DefinePlugin` environment variables in CodeBuild.
   - Upload `gcloud-service-account.json` to the `BUILD_BUCKET` S3 folder
   - Add the `AmazonEC2ContainerRegistryFullAccess` and `AmazonS3ReadOnlyAccess` policies to IAM role `code-build-coderintros-service-role`.
 - Push to Github and watch the magic happen!

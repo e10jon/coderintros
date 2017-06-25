@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {action, observable} from 'mobx'
-import {persist} from 'mobx-persist'
+import {create, persist} from 'mobx-persist'
 import {renderToStaticMarkup} from 'react-dom/server'
 import uuid from 'uuid/v4'
 import 'isomorphic-fetch'
@@ -14,6 +14,8 @@ import {getWordpressUrl} from '../helpers/fetch'
 // to see if the token works, run this:
 // curl -X POST http://coderintros.dev/wp-json/jwt-auth/v1/token/validate -H 'Authorization: Bearer REPLACE_ME'
 const Authorization = `Bearer ${process.env.AUTOMATED_JWT_TOKEN || ''}`
+
+const storeKey = 'NewInterview'
 
 class Response {
   @persist @observable id = null
@@ -48,6 +50,10 @@ export default class PostStore {
 
   constructor ({questionsData}: {questionsData: Object}) {
     this.questionsData = questionsData
+  }
+
+  @action deleteFromStore = () => {
+    global.localStorage.removeItem(storeKey)
   }
 
   @action handleAddResponse = (index: number) => {
@@ -121,9 +127,15 @@ export default class PostStore {
 
     this.isSubmitting = false
     this.didSubmit = true
+
+    this.deleteFromStore()
   }
 
   @action handleTitleChange = (e: Object) => {
     this.post.title.rendered = e.target.innerHTML
+  }
+
+  @action loadFromStore = () => {
+    create()(storeKey, this)
   }
 }
