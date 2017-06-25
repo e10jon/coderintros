@@ -1,9 +1,12 @@
 // @flow
 
 import React, {Component} from 'react'
+import getHeight from 'dom-helpers/query/height'
+import getScrollTop from 'dom-helpers/query/scrollTop'
 import Head from 'next/head'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
+import raf from 'raf'
 import {IoIosEmailOutline, IoSocialFacebookOutline} from 'react-icons/lib/io'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 
@@ -39,6 +42,10 @@ class Header extends Component {
   }
 
   handleScroll = () => {
+    raf(this.updateScrollHeader)
+  }
+
+  updateScrollHeader = () => {
     if (this.context.headerStore.scrollHeaderIsEnabled) {
       const containerRect = this.node.getBoundingClientRect()
 
@@ -47,10 +54,17 @@ class Header extends Component {
       } else if (this.context.headerStore.scrollHeaderIsVisible && window.pageYOffset <= containerRect.height) {
         this.context.headerStore.scrollHeaderIsVisible = false
       }
+
+      const scrollTop = getScrollTop(document.body)
+      const clientHeight = getHeight(document.body, true)
+      const scrollHeight = document.body ? document.body.scrollHeight : 0
+      const decimal = scrollTop / (scrollHeight - clientHeight)
+      this.progressNode.style.width = `${decimal * 100}%`
     }
   }
 
   node: Object
+  progressNode: Object
 
   render () {
     const aClassName = 'inline-block'
@@ -63,16 +77,24 @@ class Header extends Component {
         </Head>
 
         {this.context.headerStore.scrollHeaderIsEnabled ? (
-          <div className={`fixed top-0 right-0 left-0 flex items-center bg-black header-scroll header-scroll-${this.context.headerStore.scrollHeaderIsVisible ? 'show' : 'hide'}`}>
-            <img
-              alt={`${this.context.siteData.name} logo`}
-              className='fit block mx1 sm-mx2 lg-mx3 header-scroll-logo'
-              src={this.context.siteData.images['apple-icon-180x180']}
+          <div className={`fixed top-0 right-0 left-0 bg-black header-scroll header-scroll-${this.context.headerStore.scrollHeaderIsVisible ? 'show' : 'hide'}`}>
+            <div
+              className='absolute top-0 right-0 bottom-0 left-0 bg-red'
+              ref={r => { this.progressNode = r }}
+              style={{width: '0%'}}
             />
 
-            {this.context.headerStore.scrollTitle ? (
-              <div className='white h3'>{this.context.headerStore.scrollTitle}</div>
-            ) : null}
+            <div className='absolute top-0 right-0 bottom-0 left-0 flex items-center'>
+              <img
+                alt={`${this.context.siteData.name} logo`}
+                className='fit block mx1 sm-mx2 lg-mx3 header-scroll-logo'
+                src={this.context.siteData.images['apple-icon-180x180']}
+              />
+
+              {this.context.headerStore.scrollTitle ? (
+                <div className='white h3'>{this.context.headerStore.scrollTitle}</div>
+              ) : null}
+            </div>
           </div>
         ) : null}
 

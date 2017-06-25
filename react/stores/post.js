@@ -1,5 +1,7 @@
 // @flow
 
+/* global AUTOMATED_JWT_TOKEN */
+
 import React from 'react'
 import {action, observable} from 'mobx'
 import {create, persist} from 'mobx-persist'
@@ -13,7 +15,7 @@ import {getWordpressUrl} from '../helpers/fetch'
 // curl -X POST http://coderintros.dev/wp-json/jwt-auth/v1/token --data 'username=automated&password=REPLACE_ME'
 // to see if the token works, run this:
 // curl -X POST http://coderintros.dev/wp-json/jwt-auth/v1/token/validate -H 'Authorization: Bearer REPLACE_ME'
-const Authorization = `Bearer ${process.env.AUTOMATED_JWT_TOKEN || ''}`
+const Authorization = `Bearer ${AUTOMATED_JWT_TOKEN}`
 
 const storeKey = 'NewInterview'
 
