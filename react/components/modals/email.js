@@ -1,7 +1,6 @@
 // @flow
 
 import React, {Component} from 'react'
-import {PropTypes as MobxReactPropTypes} from 'mobx-react'
 import PropTypes from 'prop-types'
 
 import createModal from '../../helpers/create-modal'
@@ -9,7 +8,6 @@ import trackEvent from '../../helpers/track-event'
 
 class Email extends Component {
   static contextTypes = {
-    emailModalStore: MobxReactPropTypes.observableObject,
     siteData: PropTypes.object
   }
 
@@ -23,8 +21,12 @@ class Email extends Component {
     this.mailchimpNode.querySelector('form').removeEventListener('submit', this.handleFormSubmission)
   }
 
+  props: {
+    store: Object
+  }
+
   handleFormSubmission = () => {
-    this.context.emailModalStore.close()
+    this.props.store.close()
     trackEvent({
       eventCategory: 'Modals',
       eventAction: 'Submitted Mailchimp Form'

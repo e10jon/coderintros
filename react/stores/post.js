@@ -80,7 +80,8 @@ export default class PostStore {
   }
 
   @action handleResponseUpdate = ({response, attr}: {response: Object, attr: 'question' | 'answer'}, e: Object) => {
-    response[attr] = e.target.innerHTML
+    // the incoming e may be from an onChange or onBlur event
+    response[attr] = e.target.value || e.target.innerHTML
   }
 
   @action handleRemoveResponse = (index: number) => {

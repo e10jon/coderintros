@@ -1,7 +1,6 @@
 // @flow
 
 import React, {Component} from 'react'
-import {PropTypes as MobxReactPropTypes} from 'mobx-react'
 import Cookies from 'js-cookie'
 import PropTypes from 'prop-types'
 
@@ -12,7 +11,6 @@ export const didLikeFBPageStoreKey = 'didLikeFBPage'
 
 class Like extends Component {
   static contextTypes = {
-    likeModalStore: MobxReactPropTypes.observableObject,
     siteData: PropTypes.object
   }
 
@@ -32,6 +30,10 @@ class Like extends Component {
     }
   }
 
+  props: {
+    store: Object
+  }
+
   handleFBEdgeCreation = url => {
     if (url === this.context.siteData.facebook_page_url) {
       this.closeAndCookie()
@@ -43,7 +45,7 @@ class Like extends Component {
   }
 
   closeAndCookie = () => {
-    this.context.likeModalStore.close()
+    this.props.store.close()
     Cookies.set(didLikeFBPageStoreKey, true, {expires: 7})
   }
 
@@ -56,7 +58,7 @@ class Like extends Component {
   }
 
   render () {
-    const [titleKey, bodyKey] = this.context.likeModalStore.wasAutoOpened
+    const [titleKey, bodyKey] = this.props.store.wasAutoOpened
       ? ['facebook_modal_title_auto_open', 'facebook_modal_body_auto_open']
       : ['facebook_modal_title', 'facebook_modal_body']
 

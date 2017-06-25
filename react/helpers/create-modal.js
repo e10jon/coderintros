@@ -19,8 +19,12 @@ export default function (Child: Object, {isOpen}: {isOpen?: boolean} = {}) {
 
     static displayName = `${Child.displayName}Modal`
 
-    props: {
-      store: MobxReactPropTypes.observableObject
+    componentDidMount () {
+      window.addEventListener('keyup', this.handleKeyUp)
+    }
+
+    componentWillUnmount () {
+      window.removeEventListener('keyup', this.handleKeyUp)
     }
 
     handleCloseClick = () => {
@@ -29,6 +33,16 @@ export default function (Child: Object, {isOpen}: {isOpen?: boolean} = {}) {
         eventCategory: 'Modals',
         eventAction: `Dismissed ${Child.displayName}`
       })
+    }
+
+    handleKeyUp = (e: Object) => {
+      if (e.code === 'Escape' && this.props.store.isOpen) {
+        this.handleCloseClick()
+      }
+    }
+
+    props: {
+      store: MobxReactPropTypes.observableObject
     }
 
     render () {
@@ -49,7 +63,7 @@ export default function (Child: Object, {isOpen}: {isOpen?: boolean} = {}) {
               className='bg-white m2 relative col-12'
               style={{maxWidth: '32rem'}}
             >
-              <Child />
+              <Child store={this.props.store} />
 
               <a
                 className='absolute block gray modal-close-btn p1'

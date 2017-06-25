@@ -1,8 +1,9 @@
 // @flow
 
 import React, {Component} from 'react'
-import {PropTypes as MobxReactPropTypes} from 'mobx-react'
+import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 
+@observer
 class Response extends Component {
   static contextTypes = {
     postStore: MobxReactPropTypes.observableObject
@@ -22,7 +23,10 @@ class Response extends Component {
     return (
       <div>
         <div>
-          <select className='input'>
+          <select
+            className='input'
+            onChange={this.handleQuestionUpdate}
+          >
             {this.context.postStore.questionsData.map(questionData => (
               <optgroup
                 key={`OptGroup${questionData.section}`}
