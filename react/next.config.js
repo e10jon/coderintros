@@ -1,13 +1,8 @@
 const path = require('path')
 const glob = require('glob')
-const webpack = require('webpack')
 
 module.exports = {
   webpack: config => {
-    config.plugins.push(new webpack.DefinePlugin({
-      'process.env.G_RECAPTCHA_SITEKEY': JSON.stringify(process.env.G_RECAPTCHA_SITEKEY)
-    }))
-
     config.module.rules.push({
       test: /\.(css|scss)/,
       loader: 'emit-file-loader',
