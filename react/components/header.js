@@ -59,12 +59,15 @@ class Header extends Component {
       const clientHeight = getHeight(document.body, true)
       const scrollHeight = document.body ? document.body.scrollHeight : 0
       const decimal = scrollTop / (scrollHeight - clientHeight)
-      this.progressNode.style.width = `${decimal * 100}%`
+      const percentage = `${(decimal * 100).toFixed(1)}%`
+      this.progressNode.style.flex = `0 0 ${percentage}`
+      this.progressTextNode.innerHTML = percentage
     }
   }
 
   node: Object
   progressNode: Object
+  progressTextNode: Object
 
   render () {
     const aClassName = 'inline-block'
@@ -77,12 +80,27 @@ class Header extends Component {
         </Head>
 
         {this.context.headerStore.scrollHeaderIsEnabled ? (
-          <div className={`fixed z1 top-0 right-0 left-0 bg-black header-scroll header-scroll-${this.context.headerStore.scrollHeaderIsVisible ? 'show' : 'hide'}`}>
+          <div className={`fixed z1 top-0 right-0 left-0 header-scroll header-scroll-${this.context.headerStore.scrollHeaderIsVisible ? 'show' : 'hide'}`}>
             <div
-              className='absolute top-0 right-0 bottom-0 left-0 bg-red'
-              ref={r => { this.progressNode = r }}
-              style={{width: '0%'}}
-            />
+              className='absolute top-0 right-0 bottom-0 left-0 flex items-center'
+            >
+              <div
+                className='row-12 header-progress-gradient'
+                ref={r => { this.progressNode = r }}
+              />
+              <div
+                className='bg-black row-12 relative'
+                style={{flex: '0 0 20px'}}
+              >
+                <div className='row-12 header-progress-arrow' />
+              </div>
+              <div className='flex-auto row-12 bg-black flex items-center'>
+                <div
+                  className='muted white pl1'
+                  ref={r => { this.progressTextNode = r }}
+                />
+              </div>
+            </div>
 
             <div className='absolute top-0 right-0 bottom-0 left-0 flex items-center'>
               <img
