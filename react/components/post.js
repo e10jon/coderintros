@@ -129,6 +129,14 @@ class Post extends Component {
               property='og:image:width'
             />
           ) : null}
+
+          {this.context.postStore ? (
+            <script
+              async
+              defer
+              src='https://www.google.com/recaptcha/api.js'
+            />
+          ) : null}
         </Head>
 
         {!postData._formatting.hide_featured_image ? (
