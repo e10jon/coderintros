@@ -6,12 +6,17 @@ import Head from 'next/head'
 import ReactModal from 'react-modal'
 import {IoClose} from 'react-icons/lib/io'
 
+import ModalStore from '../stores/modal'
 import styles from '../styles/modal.scss'
 import trackEvent from '../helpers/track-event'
 
 @observer
-export default function (Child: Object) {
+export default function (Child: Object, {isOpen}: {isOpen?: boolean} = {}) {
   class Modal extends Component {
+    static defaultProps = {
+      store: new ModalStore({isOpen})
+    }
+
     static displayName = `${Child.displayName}Modal`
 
     props: {

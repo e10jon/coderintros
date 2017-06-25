@@ -7,6 +7,7 @@ import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 
 import createPage from '../helpers/create-page'
 import Post from '../components/post'
+import InterviewModal from '../components/modals/interview'
 import PostStore from '../stores/post'
 
 @observer
@@ -36,7 +37,12 @@ class Interview extends Component {
   }
   postStore: Object
 
-  render = () => <Post />
+  render = () => (
+    <div>
+      <Post />
+      <InterviewModal />
+    </div>
+  )
 }
 
 export default createPage(Interview, {
