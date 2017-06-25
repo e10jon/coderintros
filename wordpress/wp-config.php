@@ -52,6 +52,9 @@ define( 'MULTISITE',            true );
 define( 'SUBDOMAIN_INSTALL',    true );
 define( 'COOKIE_DOMAIN',        false );
 
+define( 'JWT_AUTH_SECRET_KEY', $_ENV['JWT_AUTH_SECRET_KEY'] );
+define( 'JWT_AUTH_EXPIRE', time() + ( 60 * 60 * 24 * 365 * 100 ) );
+
 if ( strpos( $_SERVER['HTTP_X_FORWARDED_PROTO'], 'https' ) !== false ) {
   $_SERVER['HTTPS'] = 'on';
 }

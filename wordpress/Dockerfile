@@ -20,6 +20,7 @@ COPY php.ini                        /usr/local/etc/php/conf.d/
 COPY composer.json                  /usr/src/wordpress
 COPY composer.lock                  /usr/src/wordpress
 COPY gcloud-service-account.json    /usr/src
+COPY .htaccess                      /usr/src/wordpress
 
 RUN cd /usr/src/wordpress && \
   composer install --prefer-dist

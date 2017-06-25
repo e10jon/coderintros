@@ -19,23 +19,24 @@ services:
     depends_on:
       - mysql
     environment:
+      AUTH_KEY: 123
+      AUTH_SALT: 123
       DB_NAME: wordpress
       DB_USER: user
       DB_PASSWORD: password
       DB_HOST: mysql
+      G_RECAPTCHA_SECRET: 6LcAwiYUAAAAAAUHj73jknqise2Q449_30c3R8NC
+      LOGGED_IN_KEY: 123
+      LOGGED_IN_SALT: 123
+      NONCE_KEY: 123
+      NONCE_SALT: 123
+      JWT_AUTH_SECRET_KEY: 123
       S3_UPLOADS_BUCKET:
       S3_UPLOADS_KEY:
       S3_UPLOADS_SECRET:
       S3_UPLOADS_REGION:
       S3_UPLOADS_USE_LOCAL: 'true'
       S3_UPLOADS_BUCKET_URL:
-      AUTH_KEY: 123
-      AUTH_SALT: 123
-      LOGGED_IN_KEY: 123
-      LOGGED_IN_SALT: 123
-      G_RECAPTCHA_SECRET: 6LcAwiYUAAAAAAUHj73jknqise2Q449_30c3R8NC
-      NONCE_KEY: 123
-      NONCE_SALT: 123
       SECURE_AUTH_KEY: 123
       SECURE_AUTH_SALT: 123
       WP_DEBUG: 'true'
@@ -51,6 +52,7 @@ services:
     depends_on:
       - wordpress
     environment:
+      AUTOMATED_JWT_TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9jb2RlcmludHJvcy5kZXYiLCJpYXQiOjE0OTg0MDA1NTcsIm5iZiI6MTQ5ODQwMDU1NywiZXhwIjoxNDk5MDA1MzU3LCJkYXRhIjp7InVzZXIiOnsiaWQiOiIzIn19fQ.eGBYVwUTdzaL5alP9JWyJk2l0O_DwBUToEjmaOF6Hmw
       GA_DEBUG: 'false'
       G_RECAPTCHA_SITEKEY: 6LcAwiYUAAAAAIttGXXcBjiqhA1R3zfVTkpHbKA1
       NODE_ENV: development

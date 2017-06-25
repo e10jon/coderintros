@@ -176,9 +176,9 @@ add_action( 'rest_post_dispatch', function ( $response ) {
   return $response;
 } );
 
-// protect the post creation endpoint with recaptcha
+// protect the post modification endpoint with recaptcha
 add_filter( 'rest_pre_dispatch', function ( $result ) {
-  if ( $_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['REQUEST_URI'] == '/wp-json/wp/v2/posts' ) {
+  if ( $_SERVER['REQUEST_URI'] == '/wp-json/wp/v2/posts' && $_SERVER['REQUEST_METHOD'] != 'GET' ) {
     $recaptcha_response = isset( $_SERVER['HTTP_X_G_RECAPTCHA_RESPONSE'] )
       ? $_SERVER['HTTP_X_G_RECAPTCHA_RESPONSE']
       : null;
