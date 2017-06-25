@@ -1,7 +1,5 @@
 // @flow
 
-/* global G_RECAPTCHA_SITEKEY */
-
 import React, {Component} from 'react'
 import Dropzone from 'react-dropzone'
 import Head from 'next/head'
@@ -254,7 +252,7 @@ class Post extends Component {
                       <button
                         className='btn btn-primary g-recaptcha'
                         data-callback='handleGRecaptcha'
-                        data-sitekey={G_RECAPTCHA_SITEKEY}
+                        data-sitekey={process.env.G_RECAPTCHA_SITEKEY}
                         type='submit'
                       >
                         {'Submit'}
