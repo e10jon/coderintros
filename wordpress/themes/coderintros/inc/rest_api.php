@@ -175,3 +175,26 @@ add_action( 'rest_post_dispatch', function ( $response ) {
   }
   return $response;
 } );
+
+// protect the post creation endpoint with recaptcha
+add_filter( 'rest_pre_dispatch', function ( $result ) {
+  if ( $_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['REQUEST_URI'] == '/wp-json/wp/v2/posts' ) {
+    $recaptcha_response = isset( $_SERVER['HTTP_X_G_RECAPTCHA_RESPONSE'] )
+      ? $_SERVER['HTTP_X_G_RECAPTCHA_RESPONSE']
+      : null;
+
+    if ($recaptcha_response) {
+      $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $_ENV['G_RECAPTCHA_SECRET'] . '&response=' . $recaptcha_response;
+      $request = wp_remote_post( $url );
+      $body = json_decode( $request['body'] );
+
+      if ( !$body->success ) {
+        return new WP_Error( 'access_denied', __( 'Invalid X-G-Recaptcha-Response', 'text_domain' ), ['status' => 403]);
+      }
+    } else {
+      return new WP_Error( 'access_denied', __( 'Missing X-G-Recaptcha-Response', 'text_domain' ), ['status' => 403] );
+    }
+  }
+
+  return $result;
+} );

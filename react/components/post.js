@@ -38,6 +38,10 @@ class Post extends Component {
 
   componentDidMount () {
     this.updateHeaderStore()
+
+    window.handleGRecaptcha = (gRecaptchaResponse: string) => {
+      this.context.postStore.handleSubmit(null, {gRecaptchaResponse})
+    }
   }
 
   shouldComponentUpdate = () => true
@@ -238,8 +242,9 @@ class Post extends Component {
                   {this.context.postStore.didSubmit ? 'Thank you!' : (
                     this.context.postStore.isSubmitting ? 'Submitting...' : (
                       <button
-                        className='btn btn-primary'
-                        onClick={this.context.postStore.handleSubmit}
+                        className='btn btn-primary g-recaptcha'
+                        data-callback='handleGRecaptcha'
+                        data-sitekey={process.env.G_RECAPTCHA_SITEKEY}
                         type='submit'
                       >
                         {'Submit'}

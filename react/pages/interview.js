@@ -4,6 +4,7 @@ import React, {Component} from 'react'
 import localForage from 'localforage'
 import {create} from 'mobx-persist'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
+import Head from 'next/head'
 
 import createPage from '../helpers/create-page'
 import Post from '../components/post'
@@ -38,7 +39,13 @@ class Interview extends Component {
 
   render () {
     return (
-      <Post />
+      <div>
+        <Head>
+          <script src='https://www.google.com/recaptcha/api.js' />
+        </Head>
+
+        <Post />
+      </div>
     )
   }
 }

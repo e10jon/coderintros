@@ -84,8 +84,10 @@ export default class PostStore {
     }
   }
 
-  @action handleSubmit = async (e: Object) => {
-    e.preventDefault()
+  @action handleSubmit = async (e: ?Object, {gRecaptchaResponse}: {gRecaptchaResponse: ?string} = {}) => {
+    if (e) {
+      e.preventDefault()
+    }
 
     this.isSubmitting = true
     this.didSubmit = false
@@ -107,7 +109,8 @@ export default class PostStore {
       }),
       headers: {
         Authorization,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-G-Recaptcha-Response': gRecaptchaResponse
       },
       method: 'POST'
     })

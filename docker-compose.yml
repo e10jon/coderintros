@@ -33,6 +33,7 @@ services:
       AUTH_SALT: 123
       LOGGED_IN_KEY: 123
       LOGGED_IN_SALT: 123
+      G_RECAPTCHA_SECRET: 6LcAwiYUAAAAAAUHj73jknqise2Q449_30c3R8NC
       NONCE_KEY: 123
       NONCE_SALT: 123
       SECURE_AUTH_KEY: 123
@@ -51,6 +52,7 @@ services:
       - wordpress
     environment:
       GA_DEBUG: 'false'
+      G_RECAPTCHA_SITEKEY: 6LcAwiYUAAAAAIttGXXcBjiqhA1R3zfVTkpHbKA1
       NODE_ENV: development
     volumes:
       - /usr/src/app/node_modules
