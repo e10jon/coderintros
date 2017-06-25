@@ -15,6 +15,7 @@ export function getFeaturedImageProps (postData: ?Object, {returnLargestSizeData
 
   let imageData = postData._embedded &&
     postData._embedded['wp:featuredmedia'] &&
+    postData._embedded['wp:featuredmedia'].length &&
     postData._embedded['wp:featuredmedia'][0]
 
   if (!imageData) {
