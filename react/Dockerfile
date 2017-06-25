@@ -2,6 +2,9 @@ FROM node:8.1-alpine
 
 ARG SKIP_BUILD
 
+ARG AUTOMATED_JWT_TOKEN
+ARG G_RECAPTCHA_SITEKEY
+
 WORKDIR /usr/src/app
 
 RUN apk add --no-cache git bash

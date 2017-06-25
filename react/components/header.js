@@ -77,7 +77,7 @@ class Header extends Component {
         </Head>
 
         {this.context.headerStore.scrollHeaderIsEnabled ? (
-          <div className={`fixed top-0 right-0 left-0 bg-black header-scroll header-scroll-${this.context.headerStore.scrollHeaderIsVisible ? 'show' : 'hide'}`}>
+          <div className={`fixed z1 top-0 right-0 left-0 bg-black header-scroll header-scroll-${this.context.headerStore.scrollHeaderIsVisible ? 'show' : 'hide'}`}>
             <div
               className='absolute top-0 right-0 bottom-0 left-0 bg-red'
               ref={r => { this.progressNode = r }}

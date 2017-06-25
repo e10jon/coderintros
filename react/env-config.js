@@ -1,4 +1,6 @@
-// make sure these are defined at build-time in production
+// make sure these are defined at build-time when deploying.
+// that means adding them to the Dockerfile, defining them in CodeBuild,
+// and making sure they are passed through as build-args in buildspec.yml
 module.exports = {
   'AUTOMATED_JWT_TOKEN': process.env.AUTOMATED_JWT_TOKEN,
   'G_RECAPTCHA_SITEKEY': process.env.G_RECAPTCHA_SITEKEY
