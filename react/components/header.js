@@ -112,7 +112,7 @@ class Header extends Component {
               />
 
               {this.context.headerStore.scrollTitle ? (
-                <div className='white h3'>{this.context.headerStore.scrollTitle}</div>
+                <div className='white h3 nowrap'>{this.context.headerStore.scrollTitle}</div>
               ) : null}
             </div>
           </div>

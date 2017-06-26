@@ -288,14 +288,6 @@ class Post extends Component {
             </div>
           ) : null */}
         </div>
-
-        <div className='page-x-spacing'>
-          <hr />
-
-          <div className='my3'>
-            <div className='h2 my2'>{'Check out:'}</div>
-          </div>
-        </div>
       </div>
     )
   }

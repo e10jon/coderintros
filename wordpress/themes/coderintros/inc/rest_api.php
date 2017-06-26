@@ -168,6 +168,17 @@ add_action( 'rest_api_init', function () {
   ] );
 } );
 
+// add query parameter to get related posts via elasticpress
+add_action( 'rest_api_init', function () {
+  add_filter( 'rest_post_query', function ( $args, $request ) {
+    if ( $request['more_like'] ) {
+      $args['more_like'] = $request['more_like'];
+      $args['ep_integrate'] = true;
+    }
+    return $args;
+  }, 10, 2 );
+} );
+
 // add cache control headers
 add_action( 'rest_post_dispatch', function ( $response ) {
   if ( !array_key_exists( 'Cache-Control', $response->headers ) ) {

@@ -4,17 +4,30 @@ import React from 'react'
 
 import createPage from '../helpers/create-page'
 import Post from '../components/post'
+import Related from '../components/related'
 
 const extractPostData = ({postsData, revisionsData}: Object) => Object.assign({},
   Array.isArray(postsData) ? postsData[0] : postsData,
   revisionsData ? revisionsData[0] : {}
 )
 
-export const Singular = ({postsData, revisionsData}: Object) => (
-  <Post
-    postData={extractPostData({postsData, revisionsData})}
-  />
-)
+export const Singular = (props: Object) => {
+  const postData = extractPostData(props)
+
+  return (
+    <div>
+      <Post
+        key={`Post${postData.id}`}
+        postData={postData}
+      />
+
+      <Related
+        key={`Related${postData.id}`}
+        postData={postData}
+      />
+    </div>
+  )
+}
 
 Singular.displayName = 'Singular'
 
