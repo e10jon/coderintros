@@ -1,6 +1,12 @@
 version: '3'
 
 services:
+  elasticsearch:
+    image: elasticsearch:5.3-alpine
+    ports:
+      - 9200:9200
+      - 9300:9300
+
   mysql:
     environment:
       MYSQL_DATABASE: wordpress

@@ -8,6 +8,7 @@
     "humanmade/s3-uploads": "^1.1",
     "wpackagist-plugin/advanced-custom-fields": "4.4.11",
     "wpackagist-plugin/editorial-calendar": "3.6.4",
+    "wpackagist-plugin/elasticpress": "2.3",
     "wpackagist-plugin/fakerpress": "0.4.7",
     "wpackagist-plugin/google-sitemap-generator": "4.0.8",
     "wpackagist-plugin/jwt-authentication-for-wp-rest-api": "1.2.3",
