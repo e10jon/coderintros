@@ -21,10 +21,14 @@ export const Singular = (props: Object) => {
         postData={postData}
       />
 
+      <hr />
+
       <Related
         key={`Related${postData.id}`}
         postData={postData}
       />
+
+      <hr />
     </div>
   )
 }
@@ -33,6 +37,7 @@ Singular.displayName = 'Singular'
 
 export default createPage(Singular, {
   fullWidth: true,
+  hrBottom: false,
   hrTop: false,
   maxWidth: 3,
   // maxWidth: (props: Object) => {

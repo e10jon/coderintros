@@ -38,27 +38,28 @@ class Related extends PureComponent {
     }
 
     return (
-      <div className='page-x-spacing'>
-        <hr className='my2' />
+      <div className='bg-darken-0'>
+        <div className='page-x-spacing py2'>
+          <div className='h3 mb3 gray'>{'Related Profiles'}</div>
 
-        <div className='h3 my2 gray'>{'Related Profiles'}</div>
+          <div className='flex flex-wrap mt3 mxn1'>
+            {this.store.postsData.map((postData, i) => (
+              <Link
+                as={postData.link}
+                href={getUrlObj(postData)}
+                key={`Related${postData.id}`}
+              >
+                <a className={`col-4 sm-col-3 block px1 ${i === 3 ? 'xs-hide' : ''}`}>
+                  <img
+                    className='block fit col-12'
+                    {...getFeaturedImageProps(postData, {sizes: ['medium', 'thumbnail']})}
+                  />
 
-        <div className='flex flex-wrap my2 mxn1'>
-          {this.store.postsData.map((postData, i) => (
-            <Link
-              as={postData.link}
-              href={getUrlObj(postData)}
-              key={`Related${postData.id}`}
-            >
-              <a className={`col-4 sm-col-3 block px1 ${i === 3 ? 'xs-hide' : ''}`}>
-                <img
-                  className='block fit col-12'
-                  {...getFeaturedImageProps(postData, {sizes: ['medium', 'thumbnail']})}
-                />
-                <h4 className='my1'>{postData.title.rendered}</h4>
-              </a>
-            </Link>
-          ))}
+                  <div className='my2 h3 sm-h2 line-height-3 bold'>{postData.title.rendered}</div>
+                </a>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     )

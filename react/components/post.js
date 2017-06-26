@@ -139,7 +139,7 @@ class Post extends Component {
         </Head>
 
         {!postData._formatting.hide_featured_image ? (
-          <div className='mb2 sm-mb3 lg-page-x-spacing'>
+          <div className='mb2 sm-mb3 md-page-x-spacing'>
             {this.context.postStore ? (
               <Dropzone
                 className='col-12'
@@ -183,7 +183,7 @@ class Post extends Component {
 
               {postData.type !== 'page' ? (
                 <div
-                  className='mb2 gray italic'
+                  className='mb2 gray sm-col-10'
                   contentEditable={!!this.context.postStore}
                   dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
                   onBlur={this.context.postStore ? this.context.postStore.handleExcerptChange : null}

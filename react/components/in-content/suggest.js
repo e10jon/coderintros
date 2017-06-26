@@ -3,11 +3,14 @@
 import React from 'react'
 
 const Suggest = () => (
-  <div
-    className='border border-gray gray p1 my3'
-    style={{backgroundColor: '#f8f8f8'}}
-  >
-    {'Know someone that would be great for Coder Intros?'}
+  <div className='my3 center'>
+    <hr />
+
+    <div className='bg-darken-0 p2'>
+      {'Know someone that would be great for Coder Intros?'}
+    </div>
+
+    <hr />
   </div>
 )
 

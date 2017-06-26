@@ -43,6 +43,12 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
         />
       </Head>
 
+      <hr />
+
+      <div className='bg-darken-0 mb3 center p2 gray'>
+        {siteData.description}
+      </div>
+
       {postsData.map(postData => (
         <Link
           as={postData.link}
@@ -62,7 +68,7 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
                 <h2 className='my2 lora h1 line-height-3'>{postData.title.rendered}</h2>
 
                 <div
-                  className='my2 gray italic'
+                  className='my2 gray'
                   dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
                 />
 
@@ -83,7 +89,7 @@ Home.contextTypes = {
 }
 
 export default createPage(Home, {
-  hrTop: 'xs-hide',
+  hrTop: false,
   maxWidth: 3,
   propPaths: () => ({
     postsData: '/wp/v2/posts?_embed&per_page=50'

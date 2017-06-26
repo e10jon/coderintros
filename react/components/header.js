@@ -107,7 +107,7 @@ class Header extends Component {
             <div className='absolute top-0 right-0 bottom-0 left-0 flex items-center'>
               <img
                 alt={`${this.context.siteData.name} logo`}
-                className='fit block mx1 sm-mx2 lg-mx3 header-scroll-logo'
+                className='fit block mx1 sm-mx2 md-mx3 header-scroll-logo'
                 src={this.context.siteData.images['apple-icon-180x180']}
               />
 
@@ -119,7 +119,7 @@ class Header extends Component {
         ) : null}
 
         <div ref={r => { this.node = r }}>
-          <div className='flex items-center justify-between py2 lg-py3 bg-white'>
+          <div className='flex items-center justify-between py2 md-py3 bg-white'>
             <div>
               <a
                 className={aClassName}
