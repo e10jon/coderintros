@@ -10,13 +10,10 @@ import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 import moment from 'moment'
 import stripTags from 'striptags'
 
-import Ad from '../components/ad'
 import Response from '../components/response'
 import insertUnits from '../helpers/in-content-units'
 import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
-import Related from '../components/sidebar/related'
 import Share from '../components/share'
-import Suggest from '../components/sidebar/suggest'
 import styles from '../styles/pages/post.scss'
 
 @observer
@@ -266,7 +263,7 @@ class Post extends Component {
             </div>
           </div>
 
-          {!postData._formatting.no_sidebar ? (
+          {/* !postData._formatting.no_sidebar ? (
             <div
               className='xs-hide sm-hide'
               style={{flex: '0 0 300px'}}
@@ -289,7 +286,15 @@ class Post extends Component {
                 <Related />
               </div>
             </div>
-          ) : null}
+          ) : null */}
+        </div>
+
+        <div className='page-x-spacing'>
+          <hr />
+
+          <div className='my3'>
+            <div className='h2 my2'>{'Check out:'}</div>
+          </div>
         </div>
       </div>
     )

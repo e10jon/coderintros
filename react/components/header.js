@@ -88,15 +88,17 @@ class Header extends Component {
                 className='row-12 header-progress-gradient'
                 ref={r => { this.progressNode = r }}
               />
+
               <div
                 className='bg-black row-12 relative'
                 style={{flex: '0 0 20px'}}
               >
                 <div className='row-12 header-progress-arrow' />
               </div>
+
               <div className='flex-auto row-12 bg-black flex items-center'>
                 <div
-                  className='muted white pl1'
+                  className='muted white h6 pl1'
                   ref={r => { this.progressTextNode = r }}
                 />
               </div>

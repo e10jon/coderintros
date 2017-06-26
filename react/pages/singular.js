@@ -21,10 +21,11 @@ Singular.displayName = 'Singular'
 export default createPage(Singular, {
   fullWidth: true,
   hrTop: false,
-  maxWidth: (props: Object) => {
-    const postData = extractPostData(props)
-    return postData._formatting && postData._formatting.no_sidebar ? '3' : '4'
-  },
+  maxWidth: 3,
+  // maxWidth: (props: Object) => {
+  //   const postData = extractPostData(props)
+  //   return postData._formatting && postData._formatting.no_sidebar ? '3' : '4'
+  // },
   propPaths: ({asPath, query: {p, page_id, preview, preview_id, type, slug}}) => ({
     postsData: {
       authorize: !!preview,

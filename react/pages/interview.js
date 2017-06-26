@@ -45,6 +45,7 @@ class Interview extends Component {
 
 export default createPage(Interview, {
   hrTop: false,
+  maxWidth: 3,
   propPaths: () => ({
     questionsData: '/ci/questions'
   })

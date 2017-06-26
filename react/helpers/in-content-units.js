@@ -3,43 +3,10 @@
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
 
-import Ad from '../components/ad'
 import Suggest from '../components/in-content/suggest'
 
 const units = [
-  [
-    <Ad
-      className='my3 mx-auto'
-      height={250}
-      key='Ad1'
-      showAt={['xs', 'sm']}
-      width={300}
-    />,
-    <Ad
-      className='my3'
-      height={200}
-      key='Ad2'
-      showAt={['md', 'lg']}
-      width='100%'
-    />
-  ],
-  <Suggest key='Suggest' />,
-  [
-    <Ad
-      className='my3 mx-auto'
-      height={250}
-      key='Ad3'
-      showAt={['xs', 'sm']}
-      width={300}
-    />,
-    <Ad
-      className='my3'
-      height={200}
-      key='Ad4'
-      showAt={['md', 'lg']}
-      width='100%'
-    />
-  ]
+  <Suggest key='Suggest' />
 ]
 
 const interval = 3
