@@ -55,7 +55,7 @@ class Related extends PureComponent {
                     {...getFeaturedImageProps(postData, {sizes: ['medium', 'thumbnail']})}
                   />
 
-                  <div className='mt2 md-mb1 h3 sm-h2 line-height-3 bold'>{postData.title.rendered}</div>
+                  <div className='mt2 md-mb1 h3 sm-h2 line-height-3 bold'>{postData.name}</div>
                 </a>
               </Link>
             ))}

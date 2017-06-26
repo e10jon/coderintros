@@ -3,7 +3,7 @@ $progressEndColor: darken(#2ECC40, 30%);
 $progressFinishColor: #2ECC40;
 
 .header-bg-black {
-  background-color: rgba(#111, 0.85);
+  background-color: rgba(#111, 0.90);
 }
 
 .header-icon {
@@ -45,7 +45,7 @@ $progressFinishColor: #2ECC40;
 }
 
 .header-scroll {
-  $height: 44px;
+  $height: 40px;
 
   height: $height;
 

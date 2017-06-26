@@ -2,7 +2,7 @@
 
 /* global G_RECAPTCHA_SITEKEY */
 
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import Dropzone from 'react-dropzone'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -17,7 +17,7 @@ import Share from '../components/share'
 import styles from '../styles/pages/post.scss'
 
 @observer
-class Post extends Component {
+class Post extends PureComponent {
   static contextTypes = {
     postStore: MobxReactPropTypes.observableObject,
     headerStore: MobxReactPropTypes.observableObject
@@ -37,20 +37,17 @@ class Post extends Component {
 
   componentDidMount () {
     this.updateHeaderStore()
-
-    window.handleGRecaptcha = (gRecaptchaResponse: string) => {
-      this.context.postStore.handleSubmit(null, {gRecaptchaResponse})
-    }
-  }
-
-  shouldComponentUpdate = () => true
-
-  componentDidUpdate () {
-    this.updateHeaderStore()
+    this.defineGlobalRecaptchaCallbackFunction()
   }
 
   props: {
     postData: Object
+  }
+
+  defineGlobalRecaptchaCallbackFunction () {
+    window.handleGRecaptcha = (gRecaptchaResponse: string) => {
+      this.context.postStore.handleSubmit(null, {gRecaptchaResponse})
+    }
   }
 
   updateHeaderStore () {
@@ -165,7 +162,7 @@ class Post extends Component {
                     <div
                       contentEditable
                       dangerouslySetInnerHTML={{__html: postData.name}}
-                      onBlur={this.context.postStore.handleTitleChange}
+                      onBlur={this.context.postStore.handleNameChange}
                       placeholder='Your Name'
                     />
                   ) : (

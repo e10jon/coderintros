@@ -55,28 +55,17 @@ class Header extends Component {
         this.context.headerStore.scrollHeaderIsVisible = false
       }
 
-      if (!this.didFinishProgress) {
+      if (this.context.headerStore.progress !== 1) {
         const scrollTop = getScrollTop(document.body)
         const clientHeight = getHeight(document.body, true)
         const scrollHeight = document.body ? document.body.scrollHeight : 0
         const decimal = scrollTop / (scrollHeight - clientHeight)
-        const percentage = `${(decimal * 100).toFixed(2)}%`
-        this.progressNode.style.flex = `0 0 ${percentage}`
-        this.progressTextNode.innerHTML = percentage
-
-        if (decimal === 1) {
-          this.didFinishProgress = true
-          this.progressFinishedNode.className = `${this.progressFinishedNode.className} col-12`
-        }
+        this.context.headerStore.progress = decimal
       }
     }
   }
 
-  didFinishProgress: ?boolean
   node: Object
-  progressFinishedNode: Object
-  progressNode: Object
-  progressTextNode: Object
 
   render () {
     const aClassName = 'inline-block'
@@ -95,7 +84,7 @@ class Header extends Component {
             >
               <div
                 className='row-12 header-progress-gradient'
-                ref={r => { this.progressNode = r }}
+                style={{flex: `0 0 ${this.context.headerStore.progressPercentage}`}}
               />
 
               <div
@@ -108,15 +97,12 @@ class Header extends Component {
               <div className='flex-auto row-12 header-bg-black flex items-center'>
                 <div
                   className='header-progress-text'
-                  ref={r => { this.progressTextNode = r }}
+                  dangerouslySetInnerHTML={{__html: this.context.headerStore.progressPercentage}}
                 />
               </div>
             </div>
 
-            <div
-              className='row-12 header-progress-finished'
-              ref={r => { this.progressFinishedNode = r }}
-            />
+            <div className={`row-12 header-progress-finished ${this.context.headerStore.progress === 1 ? 'col-12' : ''}`} />
 
             <div className='absolute top-0 right-0 bottom-0 left-0 flex items-center'>
               <img

@@ -34,6 +34,7 @@ class Post {
 
   @persist('object') @observable content = {rendered: ''}
   @persist('object') @observable excerpt = {rendered: ''}
+  @persist @observable name = ''
   @persist('list', Response) @observable responses = [new Response('default')]
   @persist('object') @observable title = {rendered: ''}
   @persist('object') @observable _embedded = {'wp:featuredmedia': []}
@@ -133,8 +134,8 @@ export default class PostStore {
     this.deleteFromStore()
   }
 
-  @action handleTitleChange = (e: Object) => {
-    this.post.title.rendered = e.target.innerHTML
+  @action handleNameChange = (e: Object) => {
+    this.post.name = e.target.innerHTML
   }
 
   @action loadFromStore = () => {
