@@ -21,14 +21,20 @@ export const Singular = (props: Object) => {
         postData={postData}
       />
 
-      <hr />
+      {postData.type === 'page' ? <hr /> : null}
 
-      <Related
-        key={`Related${postData.id}`}
-        postData={postData}
-      />
+      {postData.type === 'post' ? (
+        <div>
+          <hr />
 
-      <hr />
+          <Related
+            key={`Related${postData.id}`}
+            postData={postData}
+          />
+
+          <hr />
+        </div>
+      ) : null}
     </div>
   )
 }
