@@ -1,5 +1,6 @@
-$progressEndColor: #2ECC40;
-$progressStartColor: rgba(46, 204, 64, 0.95);
+$progressStartColor: #2ECC40;
+$progressEndColor: darken(#2ECC40, 30%);
+$progressFinishColor: #2ECC40;
 
 .header-bg-black {
   background-color: rgba(#111, 0.85);
@@ -28,6 +29,15 @@ $progressStartColor: rgba(46, 204, 64, 0.95);
   clip-path: polygon(0 0, 0% 100%, 100% 50%);
   position: relative;
   left: -1px;
+}
+
+.header-progress-finished {
+  background: $progressFinishColor;
+  transition: transform 500ms ease-in-out;
+  transform: scaleX(0);
+  transform-origin: left;
+
+  &.col-12 { transform: scaleX(1); }
 }
 
 .header-progress-gradient {

@@ -55,17 +55,26 @@ class Header extends Component {
         this.context.headerStore.scrollHeaderIsVisible = false
       }
 
-      const scrollTop = getScrollTop(document.body)
-      const clientHeight = getHeight(document.body, true)
-      const scrollHeight = document.body ? document.body.scrollHeight : 0
-      const decimal = scrollTop / (scrollHeight - clientHeight)
-      const percentage = `${(decimal * 100).toFixed(2)}%`
-      this.progressNode.style.flex = `0 0 ${percentage}`
-      this.progressTextNode.innerHTML = percentage
+      if (!this.didFinishProgress) {
+        const scrollTop = getScrollTop(document.body)
+        const clientHeight = getHeight(document.body, true)
+        const scrollHeight = document.body ? document.body.scrollHeight : 0
+        const decimal = scrollTop / (scrollHeight - clientHeight)
+        const percentage = `${(decimal * 100).toFixed(2)}%`
+        this.progressNode.style.flex = `0 0 ${percentage}`
+        this.progressTextNode.innerHTML = percentage
+
+        if (decimal === 1) {
+          this.didFinishProgress = true
+          this.progressFinishedNode.className = `${this.progressFinishedNode.className} col-12`
+        }
+      }
     }
   }
 
+  didFinishProgress: ?boolean
   node: Object
+  progressFinishedNode: Object
   progressNode: Object
   progressTextNode: Object
 
@@ -103,6 +112,11 @@ class Header extends Component {
                 />
               </div>
             </div>
+
+            <div
+              className='row-12 header-progress-finished'
+              ref={r => { this.progressFinishedNode = r }}
+            />
 
             <div className='absolute top-0 right-0 bottom-0 left-0 flex items-center'>
               <img
