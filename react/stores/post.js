@@ -38,7 +38,7 @@ class Post {
   @persist('object') @observable title = {rendered: ''}
   @persist('object') @observable _embedded = {'wp:featuredmedia': []}
   @persist('object') @observable _formatting = {}
-  @persist('object') @observable _social_links = {}
+  @persist('object') @observable _social = {}
 }
 
 export default class PostStore {

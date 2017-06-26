@@ -29,7 +29,7 @@ class Post extends Component {
       excerpt: {},
       title: {},
       _formatting: {},
-      _social_links: {}
+      _social: {}
     }
   }
 
@@ -58,7 +58,7 @@ class Post extends Component {
 
     if (postData.type === 'post') {
       this.context.headerStore.enableScrollHeader({
-        scrollTitle: postData.title.rendered
+        scrollTitle: postData.name
       })
     } else {
       this.context.headerStore.disableScrollHeader()
@@ -83,9 +83,7 @@ class Post extends Component {
     return (
       <div>
         <Head>
-          {postData.og_title || postData.title.rendered ? (
-            <title>{postData.og_title || postData.title.rendered}</title>
-          ) : null}
+          <title>{postData.title.rendered || ''}</title>
 
           <style dangerouslySetInnerHTML={{__html: styles}} />
 
@@ -103,7 +101,7 @@ class Post extends Component {
             property='og:url'
           />
           <meta
-            content={postData.og_title}
+            content={postData.title.rendered}
             property='og:title'
           />
           <meta
@@ -166,7 +164,7 @@ class Post extends Component {
                   {this.context.postStore ? (
                     <div
                       contentEditable
-                      dangerouslySetInnerHTML={{__html: postData.title.rendered}}
+                      dangerouslySetInnerHTML={{__html: postData.name}}
                       onBlur={this.context.postStore.handleTitleChange}
                       placeholder='Your Name'
                     />
@@ -175,7 +173,7 @@ class Post extends Component {
                       as={postData.link}
                       href={getUrlObj(postData)}
                     >
-                      <a>{postData.title.rendered}</a>
+                      <a>{postData.name}</a>
                     </Link>
                   )}
                 </h1>
@@ -203,9 +201,9 @@ class Post extends Component {
 
               {postData.type !== 'page' && !this.context.postStore ? (
                 <Share
-                  hackerNewsUrl={postData._social_links.hacker_news}
+                  hackerNewsUrl={postData._social.hacker_news_url}
                   position='Above Content'
-                  redditUrl={postData._social_links.reddit}
+                  redditUrl={postData._social.reddit_url}
                   title={postData.title.rendered}
                   url={postData.link}
                 />
@@ -236,9 +234,9 @@ class Post extends Component {
 
               {postData.type !== 'page' && !this.context.postStore ? (
                 <Share
-                  hackerNewsUrl={postData._social_links.hacker_news}
+                  hackerNewsUrl={postData._social.hacker_news_url}
                   position='Below Content'
-                  redditUrl={postData._social_links.reddit}
+                  redditUrl={postData._social.reddit_url}
                   title={postData.title.rendered}
                   url={postData.link}
                 />

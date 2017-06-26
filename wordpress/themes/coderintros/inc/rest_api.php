@@ -13,12 +13,25 @@ add_action( 'rest_api_init', function () {
   }
 
   foreach ( ['page', 'post'] as $type ) {
-    register_rest_field( $type, '_formatting', ['get_callback' => 'formatting_callback'] );
+    register_rest_field( $type, '_formatting', [
+      'get_callback' => 'formatting_callback'
+    ] );
   }
 } );
 
-// add updatable-only meta fields to posts
+// add writable, maybe readable, fields to posts
 add_action( 'rest_api_init', function () {
+  foreach( ['name'] as $field ) {
+    register_rest_field( 'post', $field, [
+      'get_callback' => function ( $object, $field_name ) {
+        return get_field( $field_name );
+      },
+      'update_callback' => function ( $value, $object, $field_name ) {
+        return update_post_meta( $object->ID, $field_name, $value );
+      }
+    ] );
+  }
+
   foreach( ['email', 'phone'] as $field ) {
     register_rest_field( 'post', $field, [
       'update_callback' => function ( $value, $object, $field_name ) {
@@ -28,36 +41,17 @@ add_action( 'rest_api_init', function () {
   }
 } );
 
-// add social links to posts
+// add social fields to posts
 add_action( 'rest_api_init', function () {
-  register_rest_field( 'post', '_social_links', [
+  register_rest_field( 'post', '_social', [
     'get_callback' => function () {
       return [
-        'hacker_news' => get_field( 'hacker_news_url' ),
-        'reddit' => get_field( 'reddit_url' )
+        'facebook_message' => get_field( 'facebook_message' ),
+        'hacker_news_message' => get_field( 'hacker_news_message' ),
+        'hacker_news_url' => get_field( 'hacker_news_url' ),
+        'reddit_message' => get_field( 'reddit_message' ),
+        'reddit_url' => get_field( 'reddit_url' )
       ];
-    }
-  ] );
-} );
-
-// add profile to posts
-add_action( 'rest_api_init', function () {
-  register_rest_field( 'post', '_profile', [
-    'get_callback' => function () {
-      return [
-        'blurb' => get_field( 'blurb' )
-      ];
-    }
-  ] );
-} );
-
-// add custom social titles to posts
-add_action( 'rest_api_init', function () {
-  register_rest_field( 'post', 'og_title', [
-    'get_callback' => function () {
-      $blurb = get_field( 'blurb' );
-      $title = 'Meet ' . get_the_title();
-      return empty( $blurb ) ? $title : $title . ', ' . $blurb;
     }
   ] );
 } );

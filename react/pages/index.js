@@ -65,7 +65,7 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
 
             <div className='col-12 sm-col-8'>
               <div className='my2 sm-ml3'>
-                <h2 className='my2 lora h1 line-height-3'>{postData.title.rendered}</h2>
+                <h2 className='my2 lora h1 line-height-3'>{postData.name}</h2>
 
                 <div
                   className='my2 gray'
