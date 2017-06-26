@@ -48,6 +48,7 @@ services:
       WP_DEBUG: 'true'
     volumes:
       - ./wordpress/themes/coderintros:/var/www/html/wp-content/themes/coderintros
+      - ./wordpress/uploads:/var/www/html/wp-content/uploads
 
   react:
     build:
