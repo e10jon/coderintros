@@ -1,10 +1,8 @@
 $progressEndColor: #2ECC40;
 $progressStartColor: rgba(46, 204, 64, 0.95);
 
-.header-logo {
-  max-width: 180px;
-  @media (min-width: 40em) { max-width: 200px; }
-  @media (min-width: 64em) { max-width: 260px; }
+.header-bg-black {
+  background-color: rgba(#111, 0.85);
 }
 
 .header-icon {
@@ -12,15 +10,16 @@ $progressStartColor: rgba(46, 204, 64, 0.95);
   @media (min-width: 40em) { height: 40px; width: 40px; }
 }
 
-.header-scroll {
-  $height: 44px;
+.header-logo {
+  max-width: 180px;
+  @media (min-width: 40em) { max-width: 200px; }
+  @media (min-width: 64em) { max-width: 260px; }
+}
 
-  height: $height;
-
-  &.header-scroll-show { transform: translateY(-0); transition: transform 500ms ease-out; }
-  &.header-scroll-hide { transform: translateY(-$height); transition: transform 250ms ease-out; }
-
-  .header-scroll-logo { max-height: 70%; }
+.header-progress-text {
+  color: rgba(#fff, 0.35);
+  font-size: 0.5rem;
+  padding-left: 0.25rem;
 }
 
 // useful: http://bennettfeely.com/clippy/
@@ -33,4 +32,15 @@ $progressStartColor: rgba(46, 204, 64, 0.95);
 
 .header-progress-gradient {
   background: linear-gradient(to right, $progressStartColor, $progressEndColor);
+}
+
+.header-scroll {
+  $height: 44px;
+
+  height: $height;
+
+  &.header-scroll-show { transform: translateY(-0); transition: transform 500ms ease-out; }
+  &.header-scroll-hide { transform: translateY(-$height); transition: transform 250ms ease-out; }
+
+  .header-scroll-logo { max-height: 70%; }
 }

@@ -59,7 +59,7 @@ class Header extends Component {
       const clientHeight = getHeight(document.body, true)
       const scrollHeight = document.body ? document.body.scrollHeight : 0
       const decimal = scrollTop / (scrollHeight - clientHeight)
-      const percentage = `${(decimal * 100).toFixed(1)}%`
+      const percentage = `${(decimal * 100).toFixed(2)}%`
       this.progressNode.style.flex = `0 0 ${percentage}`
       this.progressTextNode.innerHTML = percentage
     }
@@ -90,15 +90,15 @@ class Header extends Component {
               />
 
               <div
-                className='bg-black row-12 relative'
+                className='header-bg-black row-12 relative'
                 style={{flex: '0 0 20px'}}
               >
                 <div className='row-12 header-progress-arrow' />
               </div>
 
-              <div className='flex-auto row-12 bg-black flex items-center'>
+              <div className='flex-auto row-12 header-bg-black flex items-center'>
                 <div
-                  className='muted white h6 pl1'
+                  className='header-progress-text'
                   ref={r => { this.progressTextNode = r }}
                 />
               </div>
