@@ -70,8 +70,12 @@ export default class PostStore {
     global.localStorage.removeItem(storeKey)
   }
 
-  @action handleAddResponse = () => {
-    this.post.responses.push(new Response())
+  @action handleAddResponse = (index: ?number) => {
+    if (typeof index === 'number') {
+      this.post.responses.splice(index + 1, 0, new Response())
+    } else {
+      this.post.responses.push(new Response())
+    }
   }
 
   // wordpress will return the excerpt in a <p> tag,

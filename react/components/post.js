@@ -218,16 +218,18 @@ class Post extends PureComponent {
                       />
                     ))}
 
-                    <div>
-                      <a
-                        className='inline-block py1 px2 border sans-serif'
-                        href='javascript:void(0)'
-                        onClick={this.context.postStore.handleAddResponse}
-                      >
-                        <AddResponseIcon />
-                        <span className='align-middle pl1'>{'Add your first question'}</span>
-                      </a>
-                    </div>
+                    {!postData.responses.length ? (
+                      <div>
+                        <a
+                          className='inline-block px1 h5 border sans-serif'
+                          href='javascript:void(0)'
+                          onClick={this.context.postStore.handleAddResponse}
+                        >
+                          <AddResponseIcon />
+                          <span className='align-middle pl1'>{'Add your first question'}</span>
+                        </a>
+                      </div>
+                    ) : null}
                   </div>
                 ) : (
                   <div
