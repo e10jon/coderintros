@@ -24,6 +24,12 @@ const Share = ({position, title, url, hackerNewsUrl, redditUrl}: Object) => {
       eventCategory: 'Share',
       eventAction: `Clicked ${network} From ${position}`
     })
+    trackEvent({
+      hitType: 'social',
+      socialNetwork: network,
+      socialAction: 'Share',
+      socialTarget: url
+    })
   }
 
   const handleFacebookClick = () => handleClick('Facebook')

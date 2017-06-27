@@ -14,7 +14,6 @@ class Response extends Component {
     response: Object
   }
 
-  handleAddResponse = this.context.postStore.handleAddResponse.bind(this, this.props.index)
   handleAnswerUpdate = this.context.postStore.handleResponseUpdate.bind(this, {response: this.props.response, attr: 'answer'})
   handleQuestionUpdate = this.context.postStore.handleResponseUpdate.bind(this, {response: this.props.response, attr: 'question'})
   handleRemoveResponse = this.context.postStore.handleRemoveResponse.bind(this, this.props.index)
@@ -27,6 +26,8 @@ class Response extends Component {
             className='input'
             onChange={this.handleQuestionUpdate}
           >
+            <option value=''>{'Select a question:'}</option>
+
             {this.context.postStore.questionsData.map(questionData => (
               <optgroup
                 key={`OptGroup${questionData.section}`}
@@ -42,12 +43,17 @@ class Response extends Component {
                 ))}
               </optgroup>
             ))}
+
+            <optgroup label='Custom'>
+              <option value='[Edit your question here]'>{'[Ask yourself a question]'}</option>
+            </optgroup>
           </select>
         </div>
 
         <div>
           <p>
             <strong
+              className='block'
               contentEditable
               dangerouslySetInnerHTML={{__html: this.props.response.question}}
               onBlur={this.handleQuestionUpdate}
@@ -55,6 +61,7 @@ class Response extends Component {
             />
           </p>
           <p
+            className='block'
             contentEditable
             dangerouslySetInnerHTML={{__html: this.props.response.answer}}
             onBlur={this.handleAnswerUpdate}
@@ -63,14 +70,6 @@ class Response extends Component {
         </div>
 
         <div>
-          <a
-            className='inline-block p1 border'
-            href='javascript:void(0)'
-            onClick={this.handleAddResponse}
-          >
-            {'Add'}
-          </a>
-
           <a
             className='inline-block p1 border'
             href='javascript:void(0)'

@@ -6,6 +6,7 @@ import React from 'react'
 import {action, observable} from 'mobx'
 import {create, persist} from 'mobx-persist'
 import {renderToStaticMarkup} from 'react-dom/server'
+import stripTags from 'striptags'
 import uuid from 'uuid/v4'
 import 'isomorphic-fetch'
 
@@ -19,8 +20,18 @@ const Authorization = `Bearer ${AUTOMATED_JWT_TOKEN}`
 
 const storeKey = 'NewInterview'
 
+// helper function to extract an edited value from
+// form elements or contenteditable elements
+const getValue = (e: Object) => {
+  if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.nodeName)) {
+    return e.target.value
+  } else {
+    return e.target.innerHTML
+  }
+}
+
 class Response {
-  @persist @observable id = null
+  @persist @observable id = ''
   @persist @observable question = ''
   @persist @observable answer = ''
 
@@ -35,7 +46,7 @@ class Post {
   @persist('object') @observable content = {rendered: ''}
   @persist('object') @observable excerpt = {rendered: ''}
   @persist @observable name = ''
-  @persist('list', Response) @observable responses = [new Response('default')]
+  @persist('list', Response) @observable responses = []
   @persist('object') @observable title = {rendered: ''}
   @persist('object') @observable _embedded = {'wp:featuredmedia': []}
   @persist('object') @observable _formatting = {}
@@ -45,9 +56,9 @@ class Post {
 export default class PostStore {
   questionsData = null
 
-  @observable isFeaturedImageUploading = null
-  @observable isSubmitting = null
-  @observable didSubmit = null
+  @observable isFeaturedImageUploading = false
+  @observable isSubmitting = false
+  @observable didSubmit = false
 
   @persist('object', Post) @observable post = new Post()
 
@@ -59,12 +70,14 @@ export default class PostStore {
     global.localStorage.removeItem(storeKey)
   }
 
-  @action handleAddResponse = (index: number) => {
-    this.post.responses.splice(index + 1, 0, new Response())
+  @action handleAddResponse = () => {
+    this.post.responses.push(new Response())
   }
 
+  // wordpress will return the excerpt in a <p> tag,
+  // so we'll be consistent and do the same
   @action handleExcerptChange = (e: Object) => {
-    this.post.excerpt.rendered = e.target.innerHTML
+    this.post.excerpt.rendered = `<p>${getValue(e)}</p>`
   }
 
   @action handleFeaturedImageDrop = async (files: Array<?Object> = []) => {
@@ -86,15 +99,16 @@ export default class PostStore {
     this.isFeaturedImageUploading = false
   }
 
+  @action handleNameChange = (e: Object) => {
+    this.post.name = getValue(e)
+  }
+
   @action handleResponseUpdate = ({response, attr}: {response: Object, attr: 'question' | 'answer'}, e: Object) => {
-    // the incoming e may be from an onChange or onBlur event
-    response[attr] = e.target.value || e.target.innerHTML
+    response[attr] = getValue(e)
   }
 
   @action handleRemoveResponse = (index: number) => {
-    if (this.post.responses.length > 1) {
-      this.post.responses.splice(index, 1)
-    }
+    this.post.responses.splice(index, 1)
   }
 
   @action handleSubmit = async (e: ?Object, {gRecaptchaResponse}: {gRecaptchaResponse: ?string} = {}) => {
@@ -105,9 +119,11 @@ export default class PostStore {
     this.isSubmitting = true
     this.didSubmit = false
 
+    const allowedHtmlTags = ['a', 'b', 'br', 'div', 'em', 'i', 'p', 'strong']
+
     const content: string = this.post.responses.reduce((els, response) => els.concat(
       renderToStaticMarkup(<p><strong>{response.question}</strong></p>),
-      renderToStaticMarkup(<p>{response.answer}</p>)
+      renderToStaticMarkup(<p dangerouslySetInnerHTML={{__html: stripTags(response.answer, allowedHtmlTags)}} />)
     ), []).join('')
 
     await global.fetch(getWordpressUrl('/wp/v2/posts'), {
@@ -132,10 +148,6 @@ export default class PostStore {
     this.didSubmit = true
 
     this.deleteFromStore()
-  }
-
-  @action handleNameChange = (e: Object) => {
-    this.post.name = e.target.innerHTML
   }
 
   @action loadFromStore = () => {

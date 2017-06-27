@@ -44,6 +44,7 @@ class Interview extends Component {
 }
 
 export default createPage(Interview, {
+  fullWidth: true,
   hrTop: false,
   maxWidth: 3,
   propPaths: () => ({

@@ -5,12 +5,10 @@ import {action, computed, observable} from 'mobx'
 export default class HeaderStore {
   @observable scrollHeaderIsEnabled = false
   @observable scrollHeaderIsVisible = false
-  @observable scrollTitle = null
+  @observable scrollTitle = ''
   @observable progress = 0
 
   @action disableScrollHeader = () => {
-    this.scrollTitle = null
-    this.scrollHeaderIsVisible = false
     this.scrollHeaderIsEnabled = false
   }
 

@@ -11,7 +11,7 @@ import styles from '../styles/modal.scss'
 import trackEvent from '../helpers/track-event'
 
 @observer
-export default function (Child: Object, {isOpen}: {isOpen?: boolean} = {}) {
+export default function (Child: Object, {isOpen, hideCloseButton}: {isOpen?: boolean, hideCloseButton?: boolean} = {}) {
   class Modal extends Component {
     static defaultProps = {
       store: new ModalStore({isOpen})
@@ -20,11 +20,15 @@ export default function (Child: Object, {isOpen}: {isOpen?: boolean} = {}) {
     static displayName = `${Child.displayName}Modal`
 
     componentDidMount () {
-      window.addEventListener('keyup', this.handleKeyUp)
+      if (!hideCloseButton) {
+        window.addEventListener('keyup', this.handleKeyUp)
+      }
     }
 
     componentWillUnmount () {
-      window.removeEventListener('keyup', this.handleKeyUp)
+      if (!hideCloseButton) {
+        window.removeEventListener('keyup', this.handleKeyUp)
+      }
     }
 
     handleCloseClick = () => {
@@ -65,13 +69,15 @@ export default function (Child: Object, {isOpen}: {isOpen?: boolean} = {}) {
             >
               <Child store={this.props.store} />
 
-              <a
-                className='absolute block gray modal-close-btn p1'
-                href='javascript:void(0)'
-                onClick={this.handleCloseClick}
-              >
-                <IoClose />
-              </a>
+              {!hideCloseButton ? (
+                <a
+                  className='absolute block gray modal-close-btn p1'
+                  href='javascript:void(0)'
+                  onClick={this.handleCloseClick}
+                >
+                  <IoClose />
+                </a>
+              ) : null}
             </div>
           </ReactModal>
         </div>

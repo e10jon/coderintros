@@ -15,6 +15,14 @@ import trackEvent from '../helpers/track-event'
 
 @observer
 class Header extends Component {
+  static contextTypes = {
+    emailModalStore: MobxReactPropTypes.observableObject,
+    headerStore: MobxReactPropTypes.observableObject,
+    likeModalStore: MobxReactPropTypes.observableObject,
+    pagesData: PropTypes.array,
+    siteData: PropTypes.object
+  }
+
   componentDidMount () {
     window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.handleScroll)
@@ -158,14 +166,6 @@ class Header extends Component {
       </header>
     )
   }
-}
-
-Header.contextTypes = {
-  emailModalStore: MobxReactPropTypes.observableObject,
-  headerStore: MobxReactPropTypes.observableObject,
-  likeModalStore: MobxReactPropTypes.observableObject,
-  pagesData: PropTypes.array,
-  siteData: PropTypes.object
 }
 
 export default Header

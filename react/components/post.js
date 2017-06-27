@@ -3,16 +3,16 @@
 /* global G_RECAPTCHA_SITEKEY */
 
 import React, {PureComponent} from 'react'
-import Dropzone from 'react-dropzone'
-import Head from 'next/head'
-import Link from 'next/link'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 import moment from 'moment'
+import Head from 'next/head'
+import Link from 'next/link'
+import Dropzone from 'react-dropzone'
 import stripTags from 'striptags'
 
-import Response from '../components/response'
 import insertUnits from '../helpers/in-content-units'
 import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
+import Response from '../components/response'
 import Share from '../components/share'
 import styles from '../styles/pages/post.scss'
 
@@ -35,8 +35,11 @@ class Post extends PureComponent {
 
   static displayName = 'Post'
 
-  componentDidMount () {
+  componentWillMount () {
     this.updateHeaderStore()
+  }
+
+  componentDidMount () {
     this.defineGlobalRecaptchaCallbackFunction()
   }
 
@@ -45,17 +48,17 @@ class Post extends PureComponent {
   }
 
   defineGlobalRecaptchaCallbackFunction () {
-    window.handleGRecaptcha = (gRecaptchaResponse: string) => {
-      this.context.postStore.handleSubmit(null, {gRecaptchaResponse})
+    if (this.context.postStore) {
+      window.handleGRecaptcha = (gRecaptchaResponse: string) => {
+        this.context.postStore.handleSubmit(null, {gRecaptchaResponse})
+      }
     }
   }
 
   updateHeaderStore () {
-    const postData = this.context.postStore ? this.context.postStore.post : this.props.postData
-
-    if (postData.type === 'post') {
+    if (this.props.postData.type === 'post' && !this.context.postStore) {
       this.context.headerStore.enableScrollHeader({
-        scrollTitle: postData.name
+        scrollTitle: this.props.postData.name
       })
     } else {
       this.context.headerStore.disableScrollHeader()
@@ -143,7 +146,7 @@ class Post extends PureComponent {
                 {featuredImg.props.src ? featuredImg : (
                   <div
                     className='bg-silver flex items-center justify-center'
-                    style={{height: '600px'}}
+                    style={{height: '400px'}}
                   >
                     {this.context.postStore.isFeaturedImageUploading ? 'Uploading...' : 'Drop an image here.'}
                   </div>
@@ -187,16 +190,10 @@ class Post extends PureComponent {
               ) : null}
 
               {postData.type !== 'page' ? (
-                <div className='mb2 gray'>
-                  {postData.date ? (
-                    <div>{moment(postData.date).format('MMMM D, YYYY')}</div>
-                  ) : (
-                    <div>{'Coming soon`'}</div>
-                  )}
-                </div>
+                <div className='mb2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
               ) : null}
 
-              {postData.type !== 'page' && !this.context.postStore ? (
+              {postData.type !== 'page' ? (
                 <Share
                   hackerNewsUrl={postData._social.hacker_news_url}
                   position='Above Content'
@@ -211,13 +208,25 @@ class Post extends PureComponent {
                 style={{fontSize: '1.125rem', lineHeight: '1.8'}}
               >
                 {this.context.postStore ? (
-                  postData.responses.map((response, i) => (
-                    <Response
-                      index={i}
-                      key={`Response${response.id}`}
-                      response={response}
-                    />
-                  ))
+                  <div>
+                    {postData.responses.map((response, i) => (
+                      <Response
+                        index={i}
+                        key={`Response${response.id}`}
+                        response={response}
+                      />
+                    ))}
+
+                    <div>
+                      <a
+                        className='inline-block p1 border'
+                        href='javascript:void(0)'
+                        onClick={this.context.postStore.handleAddResponse}
+                      >
+                        {'Add'}
+                      </a>
+                    </div>
+                  </div>
                 ) : (
                   <div
                     dangerouslySetInnerHTML={{
@@ -229,7 +238,7 @@ class Post extends PureComponent {
                 )}
               </div>
 
-              {postData.type !== 'page' && !this.context.postStore ? (
+              {postData.type !== 'page' ? (
                 <Share
                   hackerNewsUrl={postData._social.hacker_news_url}
                   position='Below Content'

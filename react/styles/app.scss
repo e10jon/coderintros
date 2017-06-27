@@ -11,12 +11,22 @@ html, body { height: 100%; }
 h1, h2, h3, h4, h5, h6 { font-weight: 800; margin-top: 0; margin-bottom: 0; }
 hr { margin-top: 0; margin-bottom: 0; }
 ul { margin: 0; padding: 0; }
-[contenteditable=true]:empty:before {
-  content: attr(placeholder);
-  display: block;
-  opacity: 0.5;
-  cursor: text;
+[contenteditable=true] {
+  border: 1px dashed transparent;
+
+  &:hover {
+    background-color: #fffef9;
+    border-color: #ddd;
+    cursor: text;
+  }
+
+  &:empty:before {
+    content: attr(placeholder);
+    display: block;
+    opacity: 0.5;
+  }
 }
+::placeholder { color: #bbb; }
 
 /* generic classes */
 .bg-darken-0 { background-color: rgba(0, 0, 0, 0.03125); }

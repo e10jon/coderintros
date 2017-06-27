@@ -45,7 +45,7 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
 
       <hr />
 
-      <div className='bg-darken-0 mb2 center p2 gray'>
+      <div className='bg-darken-0 mb3 center p2 gray'>
         {siteData.description}
       </div>
 

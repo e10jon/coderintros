@@ -77,9 +77,23 @@ module.exports = app.prepare().then(() => {
     }
   })
 
+  // next.js needs a status from koa
   server.use(async (ctx, next) => {
     ctx.status = 200
-    ctx.set('Cache-Control', 'public, max-age=5, s-maxage=31536000')
+    await next()
+  })
+
+  // set default cache-control
+  // but not for /_next/ paths, because HMR
+  server.use(async (ctx, next) => {
+    if (!/\/_next\//.test(ctx.path)) {
+      ctx.set('Cache-Control', 'public, max-age=5, s-maxage=31536000')
+    }
+    await next()
+  })
+
+  // set global.HOST so our fetch can use it
+  server.use(async (ctx, next) => {
     global.HOST = ctx.req.headers.host
     await next()
   })

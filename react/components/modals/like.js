@@ -41,6 +41,12 @@ class Like extends Component {
         eventCategory: 'Modals',
         eventAction: 'Liked FB Page'
       })
+      trackEvent({
+        hitType: 'social',
+        socialNetwork: 'Facebook',
+        socialAction: 'Like',
+        socialTarget: url
+      })
     }
   }
 

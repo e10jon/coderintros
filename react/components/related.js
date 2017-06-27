@@ -40,7 +40,7 @@ class Related extends PureComponent {
     return (
       <div className='bg-darken-0'>
         <div className='page-x-spacing py2'>
-          <div className='h3 mb2 md-mt1 gray line-height-3'>{'Related Profiles'}</div>
+          <div className='h3 mb2 mt1 gray line-height-3'>{'Related Profiles'}</div>
 
           <div className='flex flex-wrap mxn1'>
             {this.store.postsData.map((postData, i) => (
@@ -55,7 +55,7 @@ class Related extends PureComponent {
                     {...getFeaturedImageProps(postData, {sizes: ['medium', 'thumbnail']})}
                   />
 
-                  <div className='mt2 md-mb1 h3 sm-h2 line-height-3 bold'>{postData.name}</div>
+                  <div className='p1 mb1 line-height-3 gray bg-white'>{postData.name}</div>
                 </a>
               </Link>
             ))}
