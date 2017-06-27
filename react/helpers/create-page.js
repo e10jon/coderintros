@@ -27,11 +27,8 @@ const DevTools = process.env.NODE_ENV !== 'production'
   })()
   : null
 
-const hrClassName = (className: string, opt: mixed) =>
-  typeof opt === 'string' ? `${className} ${opt}` : className
-
 @observer
-export default function (Child: Object, {propPaths = () => ({}), fullWidth = false, hrBottom = true, hrTop = true, maxWidth = 4}: Object = {}) {
+export default function (Child: Object, {propPaths = () => ({}), fullWidth = false, maxWidth = 4}: Object = {}) {
   const fullWidthClassName = (props: Object) => {
     const isFull = typeof fullWidth === 'function' ? fullWidth(props) : fullWidth
     return isFull ? '' : 'page-x-spacing'
@@ -153,11 +150,7 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
           ) : (
             <main className={`${maxWidthClassName(this.props)} mx-auto`}>
               <div className={fullWidthClassName(this.props)}>
-                {hrTop ? <hr className={hrClassName('mb3', hrTop)} /> : null}
-
                 <Child {...this.props} />
-
-                {hrBottom ? <hr className={hrClassName('mt3', hrBottom)} /> : null}
               </div>
             </main>
           )}

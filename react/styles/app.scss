@@ -34,6 +34,7 @@ ul { margin: 0; padding: 0; }
 .fb-blue { color: #3b5998; }
 .fit-y { max-height: 100%; }
 .height-auto { height: auto; }
+.line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; }
 .row-12 { height: 100%; }
 .sans-serif { font-family: 'Overpass', sans-serif; }
 .serif { font-family: 'Lora', serif; }

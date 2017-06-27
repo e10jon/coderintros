@@ -6,7 +6,7 @@ import Link from 'next/link'
 import 'isomorphic-fetch'
 
 import {getFetchHeaders, getWordpressUrl} from '../helpers/fetch'
-import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
+import {getUrlObj, getThumbnailImageProps} from '../helpers/post-data'
 import RelatedStore from '../stores/related'
 
 @observer
@@ -52,7 +52,7 @@ class Related extends PureComponent {
                 <a className={`col-4 sm-col-3 block px1 ${i === 3 ? 'xs-hide' : ''}`}>
                   <img
                     className='block fit col-12'
-                    {...getFeaturedImageProps(postData, {sizes: ['medium', 'thumbnail']})}
+                    {...getThumbnailImageProps(postData)}
                   />
 
                   <div className='p1 mb1 line-height-3 gray bg-white'>{postData.name}</div>

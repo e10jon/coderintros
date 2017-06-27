@@ -5,7 +5,9 @@ import React from 'react'
 import createPage from '../helpers/create-page'
 
 const Error = () => (
-  <div>{'Error'}</div>
+  <div className='center h2'>{'There was an error.'}</div>
 )
 
-export default createPage(Error)
+export default createPage(Error, {
+  maxWidth: 3
+})

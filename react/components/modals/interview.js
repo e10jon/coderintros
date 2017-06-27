@@ -35,7 +35,7 @@ const InterviewModal = observer(({store}: {store: Object}, {postStore}: {postSto
       </div>
 
       <div className={store.slideClassName(2)}>
-        {slideTitle("In just a few sentences, tell us what you're best known for:")}
+        {slideTitle(`In a short paragraph, tell us about ${postStore.post.name}.`)}
 
         <div>
           <textarea

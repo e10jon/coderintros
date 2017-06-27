@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
+import {IoTrashA as RemoveIcon} from 'react-icons/lib/io'
 
 @observer
 class Response extends Component {
@@ -71,11 +72,12 @@ class Response extends Component {
 
         <div>
           <a
-            className='inline-block p1 border'
+            className='inline-block p1 border sans-serif'
             href='javascript:void(0)'
             onClick={this.handleRemoveResponse}
           >
-            {'Remove'}
+            <RemoveIcon />
+            <span className='align-middle pl1'>{'Remove'}</span>
           </a>
         </div>
       </div>

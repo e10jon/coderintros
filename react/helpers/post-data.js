@@ -8,7 +8,7 @@ export const getUrlObj = (postData: Object) => ({
   }
 })
 
-export function getFeaturedImageProps (postData: ?Object, {returnLargestSizeData, sizes = ['large', 'medium_large']}: Object = {}): ?{alt: string, src: string, srcSet?: string} {
+export function getFeaturedImageProps (postData: ?Object, {returnLargestSizeData, sizes = ['medium', 'medium_large', 'large']}: Object = {}): ?{alt: string, src: string, srcSet?: string} {
   if (!postData) {
     return null
   }
@@ -51,3 +51,5 @@ export function getFeaturedImageProps (postData: ?Object, {returnLargestSizeData
       .join(', ') : undefined
   }
 }
+
+export const getThumbnailImageProps = (postData: ?Object) => getFeaturedImageProps(postData, {sizes: ['thumbnail']})

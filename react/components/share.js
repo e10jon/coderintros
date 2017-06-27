@@ -20,16 +20,18 @@ const Share = ({position, title, url, hackerNewsUrl, redditUrl}: Object) => {
   const iconClassName = 'white'
 
   const handleClick = (network: string) => {
-    trackEvent({
-      eventCategory: 'Share',
-      eventAction: `Clicked ${network} From ${position}`
-    })
-    trackEvent({
-      hitType: 'social',
-      socialNetwork: network,
-      socialAction: 'Share',
-      socialTarget: url
-    })
+    if (url) {
+      trackEvent({
+        eventCategory: 'Share',
+        eventAction: `Clicked ${network} From ${position}`
+      })
+      trackEvent({
+        hitType: 'social',
+        socialNetwork: network,
+        socialAction: 'Share',
+        socialTarget: url
+      })
+    }
   }
 
   const handleFacebookClick = () => handleClick('Facebook')
@@ -47,7 +49,7 @@ const Share = ({position, title, url, hackerNewsUrl, redditUrl}: Object) => {
       <div className='inline-block'>
         <a
           className={`${className} bg-fb-blue`}
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+          href={url ? `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` : 'javascript:void(0)'}
           onClick={handleFacebookClick}
           rel='noopener noreferrer'
           target='_blank'
@@ -60,7 +62,7 @@ const Share = ({position, title, url, hackerNewsUrl, redditUrl}: Object) => {
       <div className='inline-block'>
         <a
           className={className}
-          href={`https://twitter.com/home?status=${encodedUrl}`}
+          href={url ? `https://twitter.com/home?status=${encodedUrl}` : 'javascript:void(0)'}
           onClick={handleTwitterClick}
           rel='noopener noreferrer'
           style={{backgroundColor: '#0084b4'}}
@@ -74,7 +76,7 @@ const Share = ({position, title, url, hackerNewsUrl, redditUrl}: Object) => {
       <div className='inline-block'>
         <a
           className={className}
-          href={`mailto:?&subject=You would like this page&body=Check%20out%20${encodedUrl}`}
+          href={url ? `mailto:?&subject=You would like this page&body=Check%20out%20${encodedUrl}` : 'javascript:void(0)'}
           onClick={handleEmailClick}
           rel='noopener noreferrer'
           style={{backgroundColor: '#738a8d'}}
@@ -89,7 +91,7 @@ const Share = ({position, title, url, hackerNewsUrl, redditUrl}: Object) => {
         <div className='inline-block'>
           <a
             className={className}
-            href={`https://news.ycombinator.com/submitlink?u=${encodeURI(hackerNewsUrl)}&t=${encodedTitle}`}
+            href={url ? `https://news.ycombinator.com/submitlink?u=${encodeURI(hackerNewsUrl)}&t=${encodedTitle}` : 'javascript:void(0)'}
             onClick={handleHackerNewsClick}
             rel='noopener noreferrer'
             style={{backgroundColor: '#ff6600'}}
@@ -105,7 +107,7 @@ const Share = ({position, title, url, hackerNewsUrl, redditUrl}: Object) => {
         <div className='inline-block'>
           <a
             className={className}
-            href={`https://www.reddit.com/submit?url=${encodeURI(redditUrl)}&title=${encodedTitle}`}
+            href={url ? `https://www.reddit.com/submit?url=${encodeURI(redditUrl)}&title=${encodedTitle}` : 'javascript:void(0)'}
             onClick={handleRedditClick}
             rel='noopener noreferrer'
             style={{backgroundColor: '#FF5700'}}

@@ -8,8 +8,11 @@ require_once( 'inc/rest_api.php' );
 
 // images
 add_theme_support( 'post-thumbnails' );
+update_option( 'thumbnail_size_w', 300 );
+update_option( 'thumbnail_size_h', 300 );
+update_option( 'thumbnail_crop', 1 );
 update_option( 'medium_size_w', 600 );
-update_option( 'medium_size_h', 600 );
+update_option( 'medium_size_h', 315 );
 update_option( 'medium_crop', 1 );
 update_option( 'medium_large_size_w', 1200 );
 update_option( 'medium_large_size_h', 630 );

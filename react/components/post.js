@@ -8,10 +8,12 @@ import moment from 'moment'
 import Head from 'next/head'
 import Link from 'next/link'
 import Dropzone from 'react-dropzone'
+import {IoCompose as AddResponseIcon} from 'react-icons/lib/io'
 import stripTags from 'striptags'
 
 import insertUnits from '../helpers/in-content-units'
 import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
+import Related from '../components/related'
 import Response from '../components/response'
 import Share from '../components/share'
 import styles from '../styles/pages/post.scss'
@@ -69,14 +71,13 @@ class Post extends PureComponent {
     const postData = this.context.postStore ? this.context.postStore.post : this.props.postData
 
     const ogImageData: ?Object = getFeaturedImageProps(postData, {
-      sizes: ['large', 'medium_large'],
       returnLargestSizeData: true
     })
 
     const featuredImg = (
       <img
         className='col-12 block'
-        {...getFeaturedImageProps(postData, {sizes: ['large', 'medium_large']})}
+        {...getFeaturedImageProps(postData)}
       />
     )
 
@@ -156,7 +157,7 @@ class Post extends PureComponent {
           </div>
         ) : null}
 
-        <div className='flex mb2'>
+        <div className='flex flex-wrap mb2'>
           <div className='col-12 md-flex-auto'>
             <div className={!postData._formatting.full_width ? 'page-x-spacing' : ''}>
               {!postData._formatting.hide_title ? (
@@ -173,7 +174,7 @@ class Post extends PureComponent {
                       as={postData.link}
                       href={getUrlObj(postData)}
                     >
-                      <a>{postData.name}</a>
+                      <a>{postData.name || postData.title.rendered}</a>
                     </Link>
                   )}
                 </h1>
@@ -219,11 +220,12 @@ class Post extends PureComponent {
 
                     <div>
                       <a
-                        className='inline-block p1 border'
+                        className='inline-block py1 px2 border sans-serif'
                         href='javascript:void(0)'
                         onClick={this.context.postStore.handleAddResponse}
                       >
-                        {'Add'}
+                        <AddResponseIcon />
+                        <span className='align-middle pl1'>{'Add your first question'}</span>
                       </a>
                     </div>
                   </div>
@@ -291,6 +293,20 @@ class Post extends PureComponent {
               </div>
             </div>
           ) : null */}
+
+          {postData.type === 'post' && !this.context.postStore ? (
+            <div className='col-12'>
+              <div className={!postData._formatting.full_width ? 'page-x-spacing' : ''}>
+                <Related postData={postData} />
+              </div>
+            </div>
+          ) : null}
+
+          <div className='col-12'>
+            <div className={!postData._formatting.full_width ? 'page-x-spacing' : ''}>
+              <hr />
+            </div>
+          </div>
         </div>
       </div>
     )

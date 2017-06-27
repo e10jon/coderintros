@@ -19,4 +19,6 @@ const Archive = ({postsData}: Object) => {
 
 Archive.displayName = 'Archive'
 
-export default createPage(Archive)
+export default createPage(Archive, {
+  maxWidth: 3
+})
