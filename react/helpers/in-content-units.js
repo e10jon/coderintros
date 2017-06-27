@@ -9,7 +9,7 @@ const units = [
   <Suggest key='Suggest' />
 ]
 
-const interval = 3
+const interval = 5
 
 export default function (content: ?string) {
   if (!content) {

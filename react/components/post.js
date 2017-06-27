@@ -161,7 +161,7 @@ class Post extends PureComponent {
           <div className='col-12 md-flex-auto'>
             <div className={!postData._formatting.full_width ? 'page-x-spacing' : ''}>
               {!postData._formatting.hide_title ? (
-                <h1 className='mb2 md-h0'>
+                <h1 className='mb2 sm-h0'>
                   {this.context.postStore ? (
                     <div
                       contentEditable
@@ -182,7 +182,7 @@ class Post extends PureComponent {
 
               {postData.type !== 'page' ? (
                 <div
-                  className='mb2 gray sm-col-10'
+                  className='mb2 gray h3 sm-col-10'
                   contentEditable={!!this.context.postStore}
                   dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
                   onBlur={this.context.postStore ? this.context.postStore.handleExcerptChange : null}
@@ -191,7 +191,7 @@ class Post extends PureComponent {
               ) : null}
 
               {postData.type !== 'page' ? (
-                <div className='mb2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
+                <div className='mb2 gray h5 ups'>{moment(postData.date).format('MMMM D, YYYY')}</div>
               ) : null}
 
               {postData.type !== 'page' ? (

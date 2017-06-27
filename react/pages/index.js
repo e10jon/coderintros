@@ -3,7 +3,6 @@
 import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import moment from 'moment'
 import PropTypes from 'prop-types'
 import stripTags from 'striptags'
 
@@ -64,14 +63,14 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
                 />
               </div>
 
-              <div className='xs-hide sm-col-4'>
+              <div className='xs-hide sm-col-3'>
                 <img
                   className='block fit bg-gray'
                   {...getThumbnailImageProps(postData)}
                 />
               </div>
 
-              <div className='col-12 sm-col-8'>
+              <div className='col-12 sm-col-9'>
                 <div className='my2 page-x-spacing'>
                   <h2 className='my2 lora h1 line-height-3'>{postData.name}</h2>
 
@@ -79,8 +78,6 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
                     className='my2 gray line-clamp-3'
                     dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
                   />
-
-                  <div className='my2 gray'>{moment(postData.date).format('MMMM D, YYYY')}</div>
                 </div>
               </div>
             </a>
