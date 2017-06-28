@@ -36,6 +36,7 @@ Sign up for an [AWS account](https://aws.amazon.com/), then do the following:
   - Use the AWS console, or `eb create prod --elb-type application --sample -i t2.micro -k coderintros --platform "multi-container-docker-1.12.6-(generic)" -pr --vpc.id REPLACE_ME --vpc.ec2subnets REPLACE_ME,REPLACE_ME --vpc.elbpublic --vpc.publicip --vpc.elbsubnets REPLACE_ME,REPLACE_ME`
 - In ECS, create repositories named `react`, `wordpress`, and `varnish`.
 - Create an Elastic IP and assign it to your Elastic Beanstalk instance.
+  - Add the `AmazonEC2FullAccess` role to `aws-elasticbeanstalk-ec2-role` so that you can assign the Elastic IP address to your instance.
 - Create a Code Pipeline project, pulling from Github, running CodeBuild, deploying to Elastic Beanstalk.
   - Define `AWS_REGION`, `AWS_ACCOUNT_ID`, `BUILD_BUCKET`, `PURGERS_ACL`, and anything in `react/env-config.js` environment variables in CodeBuild.
   - Upload `gcloud-service-account.json` to the `BUILD_BUCKET` S3 folder
