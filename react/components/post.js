@@ -9,7 +9,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Dropzone from 'react-dropzone'
 import {IoCompose as AddResponseIcon} from 'react-icons/lib/io'
-import {FaPencil as EditResponseIcon} from 'react-icons/lib/fa'
 import {CSSTransitionGroup} from 'react-transition-group'
 import stripTags from 'striptags'
 
@@ -149,10 +148,10 @@ class Post extends PureComponent {
               >
                 {featuredImg.props.src ? featuredImg : (
                   <div
-                    className='bg-silver flex items-center justify-center'
+                    className='border border-gray bg-darken-0 gray flex items-center justify-center'
                     style={{height: '400px'}}
                   >
-                    {this.context.postStore.isFeaturedImageUploading ? 'Uploading...' : 'Drop an image here.'}
+                    {this.context.postStore.isFeaturedImageUploading ? 'Uploading...' : '[Drop a photo here]'}
                   </div>
                 )}
               </Dropzone>
@@ -166,14 +165,11 @@ class Post extends PureComponent {
               {!postData._formatting.hide_title ? (
                 <h1 className='mb2 sm-h0'>
                   {this.context.postStore ? (
-                    <ContentEditable Icon={EditResponseIcon}>
-                      <div
-                        contentEditable
-                        dangerouslySetInnerHTML={{__html: postData.name}}
-                        onBlur={this.context.postStore.handleNameChange}
-                        placeholder='Your Name'
-                      />
-                    </ContentEditable>
+                    <ContentEditable
+                      dangerouslySetInnerHTML={{__html: postData.name}}
+                      onBlur={this.context.postStore.handleNameChange}
+                      placeholder='Your Name'
+                    />
                   ) : (
                     <Link
                       as={postData.link}
@@ -188,14 +184,11 @@ class Post extends PureComponent {
               {postData.type !== 'page' ? (
                 <div className='mb2 gray h3 sm-col-10'>
                   {this.context.postStore ? (
-                    <ContentEditable Icon={EditResponseIcon}>
-                      <div
-                        contentEditable={!!this.context.postStore}
-                        dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
-                        onBlur={this.context.postStore ? this.context.postStore.handleExcerptChange : null}
-                        placeholder='Your brief bio'
-                      />
-                    </ContentEditable>
+                    <ContentEditable
+                      dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+                      onBlur={this.context.postStore ? this.context.postStore.handleExcerptChange : null}
+                      placeholder='Your brief bio'
+                    />
                   ) : (
                     <div dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}} />
                   )}
@@ -207,13 +200,15 @@ class Post extends PureComponent {
               ) : null}
 
               {postData.type !== 'page' ? (
-                <Share
-                  hackerNewsUrl={postData._social.hacker_news_url}
-                  position='Above Content'
-                  redditUrl={postData._social.reddit_url}
-                  title={postData.title.rendered}
-                  url={postData.link}
-                />
+                this.context.postStore ? <hr className='my3 col-6 ml0' /> : (
+                  <Share
+                    hackerNewsUrl={postData._social.hacker_news_url}
+                    position='Above Content'
+                    redditUrl={postData._social.reddit_url}
+                    title={postData.title.rendered}
+                    url={postData.link}
+                  />
+                )
               ) : null}
 
               <div
@@ -262,21 +257,23 @@ class Post extends PureComponent {
               </div>
 
               {postData.type !== 'page' ? (
-                <Share
-                  hackerNewsUrl={postData._social.hacker_news_url}
-                  position='Below Content'
-                  redditUrl={postData._social.reddit_url}
-                  title={postData.title.rendered}
-                  url={postData.link}
-                />
+                this.context.postStore ? <hr className='my3 col-6 ml0' /> : (
+                  <Share
+                    hackerNewsUrl={postData._social.hacker_news_url}
+                    position='Below Content'
+                    redditUrl={postData._social.reddit_url}
+                    title={postData.title.rendered}
+                    url={postData.link}
+                  />
+                )
               ) : null}
 
               {this.context.postStore ? (
-                <div>
+                <div className='my3'>
                   {this.context.postStore.didSubmit ? 'Thank you!' : (
                     this.context.postStore.isSubmitting ? 'Submitting...' : (
                       <button
-                        className='btn btn-primary g-recaptcha'
+                        className='btn btn-primary g-recaptcha btn-big h2'
                         data-callback='handleGRecaptcha'
                         data-sitekey={G_RECAPTCHA_SITEKEY}
                         type='submit'

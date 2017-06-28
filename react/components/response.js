@@ -2,7 +2,6 @@
 
 import React, {PureComponent} from 'react'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
-import {FaPencil as EditResponseIcon} from 'react-icons/lib/fa'
 import {
   IoPlus as AddIcon,
   IoShuffle as RandomQuestionIcon,
@@ -31,27 +30,20 @@ class Response extends PureComponent {
     return (
       <div className='my2 relative response'>
         <p>
-          <ContentEditable Icon={EditResponseIcon}>
-            <strong
-              className='block'
-              contentEditable
-              dangerouslySetInnerHTML={{__html: this.props.response.question}}
-              onBlur={this.handleQuestionUpdate}
-              placeholder='The question'
-            />
-          </ContentEditable>
+          <ContentEditable
+            NodeName='strong'
+            dangerouslySetInnerHTML={{__html: this.props.response.question}}
+            onBlur={this.handleQuestionUpdate}
+            placeholder='The question'
+          />
         </p>
 
         <p>
-          <ContentEditable Icon={EditResponseIcon}>
-            <span
-              className='block'
-              contentEditable
-              dangerouslySetInnerHTML={{__html: this.props.response.answer}}
-              onBlur={this.handleAnswerUpdate}
-              placeholder='Your answer'
-            />
-          </ContentEditable>
+          <ContentEditable
+            dangerouslySetInnerHTML={{__html: this.props.response.answer}}
+            onBlur={this.handleAnswerUpdate}
+            placeholder='Your answer'
+          />
         </p>
 
         <div className='response-row-icons'>

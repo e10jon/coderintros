@@ -15,9 +15,9 @@
 
   > svg {
     color: #444;
+    flex: 0 0 $iconWidth;
     font-size: 1rem;
     margin: 0 $iconMarginX;
     opacity: 0.25;
-    width: $iconWidth;
   }
 }
