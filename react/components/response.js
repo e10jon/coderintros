@@ -29,7 +29,7 @@ class Response extends PureComponent {
 
   render () {
     return (
-      <div className='my2 relative'>
+      <div className='my2 relative response'>
         <p>
           <ContentEditable Icon={EditResponseIcon}>
             <strong
@@ -44,7 +44,8 @@ class Response extends PureComponent {
 
         <p>
           <ContentEditable Icon={EditResponseIcon}>
-            <div
+            <span
+              className='block'
               contentEditable
               dangerouslySetInnerHTML={{__html: this.props.response.answer}}
               onBlur={this.handleAnswerUpdate}

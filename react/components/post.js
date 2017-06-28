@@ -197,12 +197,7 @@ class Post extends PureComponent {
                       />
                     </ContentEditable>
                   ) : (
-                    <div
-                      contentEditable={!!this.context.postStore}
-                      dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
-                      onBlur={this.context.postStore ? this.context.postStore.handleExcerptChange : null}
-                      placeholder='Your brief bio'
-                    />
+                    <div dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}} />
                   )}
                 </div>
               ) : null}

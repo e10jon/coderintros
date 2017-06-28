@@ -1,39 +1,10 @@
+@import 'content-editable';
+@import 'response';
+
 .post-content {
   color: #0b0b0b;
   p { margin-top: 0; margin-bottom: 1.5rem; }
   strong { color: #111; }
-}
-
-.response-row {
-  $iconWidth: 1.25rem;
-  $iconMarginX: 1rem;
-
-  border: 1px dashed transparent;
-  margin-left: ($iconWidth + ($iconMarginX * 2)) * -1;
-
-  &:hover {
-    background-color: #fffef9;
-    border-color: #ddd;
-    cursor: text;
-
-    > svg { opacity: 1; }
-  }
-
-  > svg {
-    color: #444;
-    font-size: 1rem;
-    margin: 0 $iconMarginX;
-    opacity: 0.25;
-    width: $iconWidth;
-  }
-}
-
-.response-row-icons {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  position: absolute;
-  top: 0;
-  right: 0;
 }
 
 .responses {

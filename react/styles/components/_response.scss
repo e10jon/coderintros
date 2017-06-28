@@ -1,0 +1,20 @@
+.response {
+  &:hover {
+    .response-row-icons {
+      opacity: 1;
+      transform: scale(1, 1);
+    }
+  }
+
+  .response-row-icons {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    position: absolute;
+    opacity: 0;
+    transform: scale(0, 0);
+    transform-origin: right;
+    transition: all 250ms ease-out;
+    top: 0;
+    right: 0;
+  }
+}

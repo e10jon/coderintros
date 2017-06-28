@@ -77,6 +77,10 @@ export default class PostStore {
     response.question = this.getRandomQuestionData()
   }
 
+  getRandomQuestionData = () => this.questionsDataFlattened
+    ? this.questionsDataFlattened[floor(random() * this.questionsDataFlattened.length)]
+    : null
+
   @action generateRandomResponses = (desired: number = 10) => {
     const actual = desired - this.post.responses.length
     if (actual > 0) {
@@ -88,17 +92,17 @@ export default class PostStore {
     }
   }
 
-  getRandomQuestionData = () => this.questionsDataFlattened
-    ? this.questionsDataFlattened[floor(random() * this.questionsDataFlattened.length)]
-    : null
-
   getResponseIndex = (response: Response) => this.post.responses.findIndex(r => r.id === response.id)
 
-  @action handleAddResponse = (response: ?Response) => {
-    if (response) {
-      this.post.responses.splice(this.getResponseIndex(response) + 1, 0, new Response())
+  @action handleAddResponse = (after: ?Response) => {
+    const response = new Response({
+      question: this.getRandomQuestionData()
+    })
+
+    if (after) {
+      this.post.responses.splice(this.getResponseIndex(after) + 1, 0, response)
     } else {
-      this.post.responses.push(new Response())
+      this.post.responses.push(response)
     }
   }
 
