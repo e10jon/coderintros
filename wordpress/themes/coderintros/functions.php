@@ -26,9 +26,3 @@ update_option( 'large_crop', 1 );
 add_action( 'admin_init', function () {
   setcookie( 'wp_rest_nonce',  wp_create_nonce( 'wp_rest' ), 0, '/' );
 } );
-
-// change pages to have a path prefix
-add_action( 'init', function () {
-  global $wp_rewrite;
-  $wp_rewrite->page_structure = $wp_rewrite->root . 'pages/%pagename%';
-} );

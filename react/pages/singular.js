@@ -2,8 +2,8 @@
 
 import React from 'react'
 
-import createPage from '../helpers/create-page'
 import Post from '../components/post'
+import createPage from '../helpers/create-page'
 
 const extractPostData = ({postsData, revisionsData}: Object) => Object.assign({},
   Array.isArray(postsData) ? postsData[0] : postsData,
@@ -12,6 +12,16 @@ const extractPostData = ({postsData, revisionsData}: Object) => Object.assign({}
 
 export const Singular = (props: Object) => {
   const postData = extractPostData(props)
+
+  if (!Object.keys(postData).length) {
+    return (
+      <div>
+        <hr />
+        <h2 className='center my3'>{"We couldn't find that page."}</h2>
+        <hr />
+      </div>
+    )
+  }
 
   return (
     <Post

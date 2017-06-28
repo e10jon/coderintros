@@ -16,7 +16,7 @@ import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
 import Related from '../components/related'
 import Response from '../components/response'
 import Share from '../components/share'
-import styles from '../styles/pages/post.scss'
+import styles from '../styles/components/post.scss'
 
 @observer
 class Post extends PureComponent {

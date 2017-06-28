@@ -4,8 +4,12 @@ import React from 'react'
 
 import createPage from '../helpers/create-page'
 
-const Error = () => (
-  <div className='center h2'>{'There was an error.'}</div>
+export const Error = () => (
+  <div className='center h2'>
+    <hr />
+    {'There was an error.'}
+    <hr />
+  </div>
 )
 
 export default createPage(Error, {

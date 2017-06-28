@@ -42,14 +42,6 @@ module.exports = app.prepare().then(() => {
     ctx.respond = false
   })
 
-  // pages
-  router.get('/pages/:slug', async ctx => {
-    ctx.query.type = 'page'
-    ctx.query.slug = ctx.params.slug
-    await app.render(ctx.req, ctx.res, '/singular', ctx.query)
-    ctx.respond = false
-  })
-
   // post or page preview (without saving first)
   router.get('/', async (ctx, next) => {
     if (ctx.query.p || ctx.query.page_id) {
@@ -59,6 +51,14 @@ module.exports = app.prepare().then(() => {
     } else {
       await next()
     }
+  })
+
+  // pages
+  router.get('/:slug', async ctx => {
+    ctx.query.type = 'page'
+    ctx.query.slug = ctx.params.slug
+    await app.render(ctx.req, ctx.res, '/singular', ctx.query)
+    ctx.respond = false
   })
 
   // everything else

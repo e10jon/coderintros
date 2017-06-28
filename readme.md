@@ -14,7 +14,7 @@ It's the code that powers [coderintros.com](https://coderintros.com/). View it, 
 
 ## Look, I just want a profile on coderintros.com
 
-No problem! Head on over to [our suggestions page](https://coderintros.com/pages/suggest/). No shame in suggesting yourself, I promise.
+No problem! Head on over to [our suggestions page](https://coderintros.com/suggest/). No shame in suggesting yourself, I promise.
 
 ## How to run locally
 
