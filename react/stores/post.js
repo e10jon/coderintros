@@ -47,8 +47,10 @@ class Post {
   type = 'post'
 
   @persist('object') @observable content = {rendered: ''}
+  @persist @observable email = ''
   @persist('object') @observable excerpt = {rendered: ''}
   @persist @observable name = ''
+  @persist @observable phone = ''
   @persist('list', Response) @observable responses = []
   @persist('object') @observable title = {rendered: ''}
   @persist('object') @observable _embedded = {'wp:featuredmedia': []}
@@ -106,6 +108,10 @@ export default class PostStore {
     }
   }
 
+  @action handleEmailChange = (e: Object) => {
+    this.post.email = getValue(e)
+  }
+
   // wordpress will return the excerpt in a <p> tag,
   // so we'll be consistent and do the same
   @action handleExcerptChange = (e: Object) => {
@@ -135,6 +141,10 @@ export default class PostStore {
     this.post.name = getValue(e)
   }
 
+  @action handlePhoneChange = (e: Object) => {
+    this.post.phone = getValue(e)
+  }
+
   @action handleResponseUpdate = ({response, attr}: {response: Object, attr: 'question' | 'answer'}, e: Object) => {
     response[attr] = getValue(e)
   }
@@ -161,12 +171,13 @@ export default class PostStore {
     await global.fetch(getWordpressUrl('/wp/v2/posts'), {
       body: JSON.stringify({
         content,
-        // email,
-        excerpt: this.post.excerpt.rendered,
+        email: this.post.email,
+        excerpt: stripTags(this.post.excerpt.rendered),
         featured_media: this.post._embedded['wp:featuredmedia'][0].id,
-        // phone,
+        name: this.post.name,
+        phone: this.post.phone,
         status: 'pending',
-        title: this.post.title.rendered
+        title: this.post.name
       }),
       headers: {
         Authorization,

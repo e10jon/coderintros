@@ -211,10 +211,7 @@ class Post extends PureComponent {
                 )
               ) : null}
 
-              <div
-                className='mb3 serif post-content'
-                style={{fontSize: '1.125rem', lineHeight: '1.8'}}
-              >
+              <div className='mb3 serif post-content'>
                 {this.context.postStore ? (
                   <div>
                     <CSSTransitionGroup

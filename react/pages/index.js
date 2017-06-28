@@ -55,7 +55,7 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
             href={getUrlObj(postData)}
             key={`Post${postData.id}`}
           >
-            <a className='flex flex-wrap items-center mb2 sm-mb3'>
+            <a className='flex flex-wrap items-center mb3 sm-mb3'>
               <div className='col-12 sm-hide md-hide lg-hide'>
                 <img
                   className='block fit bg-gray'
@@ -72,10 +72,10 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
 
               <div className='col-12 sm-col-9'>
                 <div className='my2 page-x-spacing'>
-                  <h2 className='my2 lora h1 line-height-3'>{postData.name}</h2>
+                  <h2 className='my1 lora h1 line-height-3'>{postData.name}</h2>
 
                   <div
-                    className='my2 gray line-clamp-3'
+                    className='my1 gray line-clamp-3'
                     dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
                   />
                 </div>

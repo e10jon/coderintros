@@ -3,14 +3,10 @@
 import React from 'react'
 
 const Suggest = () => (
-  <div className='my3 center'>
-    <hr />
-
-    <div className='bg-darken-0 p2'>
+  <div className='my3 center sans-serif'>
+    <div className='border border-gray p3 inline-block'>
       {'Know someone that would be great for Coder Intros?'}
     </div>
-
-    <hr />
   </div>
 )
 

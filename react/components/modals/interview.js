@@ -36,6 +36,40 @@ const InterviewModal = observer(({store}: {store: Object}, {postStore}: {postSto
       </div>
 
       <div className={store.slideClassName(2)}>
+        {slideTitle('And how can we get in touch with you?')}
+
+        <div>
+          <label
+            className='label'
+            htmlFor='#email'
+          >
+            {'Your email'}
+          </label>
+          <input
+            className='input'
+            onChange={postStore.handleEmailChange}
+            type='email'
+            value={postStore.post.email}
+          />
+        </div>
+
+        <div>
+          <label
+            className='label'
+            htmlFor='#phone'
+          >
+            {'Your phone'}
+          </label>
+          <input
+            className='input'
+            onChange={postStore.handlePhoneChange}
+            type='tel'
+            value={postStore.post.phone}
+          />
+        </div>
+      </div>
+
+      <div className={store.slideClassName(3)}>
         {slideTitle(`In a short paragraph, tell us about ${postStore.post.name}.`)}
 
         <div>
