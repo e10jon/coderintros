@@ -3,7 +3,7 @@
 /* global AUTOMATED_JWT_TOKEN */
 
 import React from 'react'
-import {action, observable} from 'mobx'
+import {action, computed, observable} from 'mobx'
 import {create, persist} from 'mobx-persist'
 import {renderToStaticMarkup} from 'react-dom/server'
 import stripTags from 'striptags'
@@ -11,6 +11,8 @@ import uuid from 'uuid/v4'
 import 'isomorphic-fetch'
 
 import {getWordpressUrl} from '../helpers/fetch'
+
+const {floor, random} = Math
 
 // to obtain the JWT token, run this:
 // curl -X POST http://coderintros.dev/wp-json/jwt-auth/v1/token --data 'username=automated&password=REPLACE_ME'
@@ -35,8 +37,9 @@ class Response {
   @persist @observable question = ''
   @persist @observable answer = ''
 
-  constructor (id: string = uuid()) {
-    this.id = id
+  constructor ({question}: {question: ?string} = {}) {
+    this.id = uuid()
+    this.question = question
   }
 }
 
@@ -54,7 +57,7 @@ class Post {
 }
 
 export default class PostStore {
-  questionsData = null
+  questionsData = []
 
   @observable isFeaturedImageUploading = false
   @observable isSubmitting = false
@@ -70,9 +73,30 @@ export default class PostStore {
     global.localStorage.removeItem(storeKey)
   }
 
-  @action handleAddResponse = (index: ?number) => {
-    if (typeof index === 'number') {
-      this.post.responses.splice(index + 1, 0, new Response())
+  @action generateRandomQuestion = (response: Response) => {
+    response.question = this.getRandomQuestionData()
+  }
+
+  @action generateRandomResponses = (desired: number = 10) => {
+    const actual = desired - this.post.responses.length
+    if (actual > 0) {
+      for (let i = 0; i <= actual; i += 1) {
+        this.post.responses.push(new Response({
+          question: this.getRandomQuestionData()
+        }))
+      }
+    }
+  }
+
+  getRandomQuestionData = () => this.questionsDataFlattened
+    ? this.questionsDataFlattened[floor(random() * this.questionsDataFlattened.length)]
+    : null
+
+  getResponseIndex = (response: Response) => this.post.responses.findIndex(r => r.id === response.id)
+
+  @action handleAddResponse = (response: ?Response) => {
+    if (response) {
+      this.post.responses.splice(this.getResponseIndex(response) + 1, 0, new Response())
     } else {
       this.post.responses.push(new Response())
     }
@@ -111,8 +135,8 @@ export default class PostStore {
     response[attr] = getValue(e)
   }
 
-  @action handleRemoveResponse = (index: number) => {
-    this.post.responses.splice(index, 1)
+  @action handleRemoveResponse = (response: Response) => {
+    this.post.responses.splice(this.getResponseIndex(response), 1)
   }
 
   @action handleSubmit = async (e: ?Object, {gRecaptchaResponse}: {gRecaptchaResponse: ?string} = {}) => {
@@ -156,5 +180,9 @@ export default class PostStore {
 
   @action loadFromStore = () => {
     create()(storeKey, this)
+  }
+
+  @computed get questionsDataFlattened (): Array<string> {
+    return this.questionsData.reduce((arr, section) => arr.concat(section.questions), [])
   }
 }

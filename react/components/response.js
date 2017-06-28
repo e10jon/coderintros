@@ -1,109 +1,83 @@
 // @flow
 
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
-import {IoTrashA as RemoveIcon} from 'react-icons/lib/io'
+import {FaPencil as EditResponseIcon} from 'react-icons/lib/fa'
+import {
+  IoPlus as AddIcon,
+  IoShuffle as RandomQuestionIcon,
+  IoTrashA as RemoveIcon
+} from 'react-icons/lib/io'
 
-import ResponseStore from '../stores/response'
+import ContentEditable from './content-editable'
 
 @observer
-class Response extends Component {
+class Response extends PureComponent {
   static contextTypes = {
     postStore: MobxReactPropTypes.observableObject
   }
 
-  componentWillMount () {
-    this.store = new ResponseStore(this.props.response)
-  }
-
   props: {
-    index: number,
     response: Object
   }
-  store: Object
 
-  handleAddResponse = this.context.postStore.handleAddResponse.bind(null, this.props.index)
+  handleAddResponse = this.context.postStore.handleAddResponse.bind(null, this.props.response)
   handleAnswerUpdate = this.context.postStore.handleResponseUpdate.bind(null, {response: this.props.response, attr: 'answer'})
+  handleGenerateRandomQuestion = this.context.postStore.generateRandomQuestion.bind(null, this.props.response)
   handleQuestionUpdate = this.context.postStore.handleResponseUpdate.bind(null, {response: this.props.response, attr: 'question'})
-  handleRemoveResponse = this.context.postStore.handleRemoveResponse.bind(null, this.props.index)
-
-  handleSelectQuestion = (e: Object) => {
-    this.store.didSelectQuestion = true
-    this.context.postStore.handleResponseUpdate({response: this.props.response, attr: 'question'}, e)
-  }
+  handleRemoveResponse = this.context.postStore.handleRemoveResponse.bind(null, this.props.response)
 
   render () {
     return (
-      <div className='my2'>
-        {!this.store.didSelectQuestion ? (
-          <div>
-            <select
-              className='input'
-              onChange={this.handleSelectQuestion}
-            >
-              <option value=''>{'Select a question:'}</option>
-
-              {this.context.postStore.questionsData.map(questionData => (
-                <optgroup
-                  key={`OptGroup${questionData.section}`}
-                  label={questionData.section}
-                >
-                  {questionData.questions.map(questionText => (
-                    <option
-                      key={`${questionData.section}${questionText}`}
-                      value={questionText}
-                    >
-                      {questionText}
-                    </option>
-                  ))}
-                </optgroup>
-              ))}
-
-              <optgroup label='Custom'>
-                <option value='[Edit your question here]'>{'[Ask yourself a question]'}</option>
-              </optgroup>
-            </select>
-          </div>
-        ) : (
-          <div>
-            <p>
-              <strong
-                className='block'
-                contentEditable
-                dangerouslySetInnerHTML={{__html: this.props.response.question}}
-                onBlur={this.handleQuestionUpdate}
-                placeholder='Question'
-              />
-            </p>
-            <p
+      <div className='my2 relative'>
+        <p>
+          <ContentEditable Icon={EditResponseIcon}>
+            <strong
               className='block'
+              contentEditable
+              dangerouslySetInnerHTML={{__html: this.props.response.question}}
+              onBlur={this.handleQuestionUpdate}
+              placeholder='The question'
+            />
+          </ContentEditable>
+        </p>
+
+        <p>
+          <ContentEditable Icon={EditResponseIcon}>
+            <div
               contentEditable
               dangerouslySetInnerHTML={{__html: this.props.response.answer}}
               onBlur={this.handleAnswerUpdate}
-              placeholder='Answer'
+              placeholder='Your answer'
             />
+          </ContentEditable>
+        </p>
 
-            <div>
-              <a
-                className='inline-block h5 px1 border sans-serif'
-                href='javascript:void(0)'
-                onClick={this.handleAddResponse}
-              >
-                <RemoveIcon />
-                <span className='align-middle pl1'>{'Add another question'}</span>
-              </a>
+        <div className='response-row-icons'>
+          <a
+            className='inline-block h5 px1 sans-serif mx1'
+            href='javascript:void(0)'
+            onClick={this.handleGenerateRandomQuestion}
+          >
+            <RandomQuestionIcon />
+          </a>
 
-              <a
-                className='inline-block h5 px1 border sans-serif'
-                href='javascript:void(0)'
-                onClick={this.handleRemoveResponse}
-              >
-                <RemoveIcon />
-                <span className='align-middle pl1'>{'Delete'}</span>
-              </a>
-            </div>
-          </div>
-        )}
+          <a
+            className='inline-block h5 px1 sans-serif mx1'
+            href='javascript:void(0)'
+            onClick={this.handleAddResponse}
+          >
+            <AddIcon />
+          </a>
+
+          <a
+            className='inline-block h5 px1 sans-serif mx1'
+            href='javascript:void(0)'
+            onClick={this.handleRemoveResponse}
+          >
+            <RemoveIcon />
+          </a>
+        </div>
       </div>
     )
   }

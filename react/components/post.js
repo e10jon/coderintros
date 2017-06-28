@@ -9,13 +9,16 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Dropzone from 'react-dropzone'
 import {IoCompose as AddResponseIcon} from 'react-icons/lib/io'
+import {FaPencil as EditResponseIcon} from 'react-icons/lib/fa'
+import {CSSTransitionGroup} from 'react-transition-group'
 import stripTags from 'striptags'
 
 import insertUnits from '../helpers/in-content-units'
 import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
-import Related from '../components/related'
-import Response from '../components/response'
-import Share from '../components/share'
+import ContentEditable from './content-editable'
+import Related from './related'
+import Response from './response'
+import Share from './share'
 import styles from '../styles/components/post.scss'
 
 @observer
@@ -163,12 +166,14 @@ class Post extends PureComponent {
               {!postData._formatting.hide_title ? (
                 <h1 className='mb2 sm-h0'>
                   {this.context.postStore ? (
-                    <div
-                      contentEditable
-                      dangerouslySetInnerHTML={{__html: postData.name}}
-                      onBlur={this.context.postStore.handleNameChange}
-                      placeholder='Your Name'
-                    />
+                    <ContentEditable Icon={EditResponseIcon}>
+                      <div
+                        contentEditable
+                        dangerouslySetInnerHTML={{__html: postData.name}}
+                        onBlur={this.context.postStore.handleNameChange}
+                        placeholder='Your Name'
+                      />
+                    </ContentEditable>
                   ) : (
                     <Link
                       as={postData.link}
@@ -181,13 +186,25 @@ class Post extends PureComponent {
               ) : null}
 
               {postData.type !== 'page' ? (
-                <div
-                  className='mb2 gray h3 sm-col-10'
-                  contentEditable={!!this.context.postStore}
-                  dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
-                  onBlur={this.context.postStore ? this.context.postStore.handleExcerptChange : null}
-                  placeholder='Your brief bio'
-                />
+                <div className='mb2 gray h3 sm-col-10'>
+                  {this.context.postStore ? (
+                    <ContentEditable Icon={EditResponseIcon}>
+                      <div
+                        contentEditable={!!this.context.postStore}
+                        dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+                        onBlur={this.context.postStore ? this.context.postStore.handleExcerptChange : null}
+                        placeholder='Your brief bio'
+                      />
+                    </ContentEditable>
+                  ) : (
+                    <div
+                      contentEditable={!!this.context.postStore}
+                      dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
+                      onBlur={this.context.postStore ? this.context.postStore.handleExcerptChange : null}
+                      placeholder='Your brief bio'
+                    />
+                  )}
+                </div>
               ) : null}
 
               {postData.type !== 'page' ? (
@@ -210,13 +227,20 @@ class Post extends PureComponent {
               >
                 {this.context.postStore ? (
                   <div>
-                    {postData.responses.map((response, i) => (
-                      <Response
-                        index={i}
-                        key={`Response${response.id}`}
-                        response={response}
-                      />
-                    ))}
+                    <CSSTransitionGroup
+                      className='responses'
+                      transitionEnterTimeout={500}
+                      transitionLeaveTimeout={300}
+                      transitionName='response'
+                    >
+                      {postData.responses.map((response, i) => (
+                        <Response
+                          index={i}
+                          key={`Response${response.id}`}
+                          response={response}
+                        />
+                      ))}
+                    </CSSTransitionGroup>
 
                     {!postData.responses.length ? (
                       <div>

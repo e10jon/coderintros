@@ -8,6 +8,7 @@ import createModal from '../../helpers/create-modal'
 
 const InterviewModal = observer(({store}: {store: Object}, {postStore}: {postStore: Object}) => {
   const handleButtonClick = () => {
+    postStore.generateRandomResponses(10)
     store.close()
   }
 
