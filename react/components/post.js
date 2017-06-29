@@ -1,5 +1,6 @@
 // @flow
 
+/* global G_RECAPTCHA_ENABLED */
 /* global G_RECAPTCHA_SITEKEY */
 
 import React, {PureComponent} from 'react'
@@ -267,12 +268,29 @@ class Post extends PureComponent {
 
               {this.context.postStore ? (
                 <div className='my3'>
+                  {this.context.postStore.errorMessages.length ? (
+                    <div className='border border-red my3 p2'>
+                      <div className='h3 mb1'>{'Please resolve the following issues:'}</div>
+                      <ul>
+                        {this.context.postStore.errorMessages.map(message => (
+                          <li
+                            className='ml3'
+                            key={`Post${message}`}
+                          >
+                            {message}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+
                   {this.context.postStore.didSubmit ? 'Thank you!' : (
                     this.context.postStore.isSubmitting ? 'Submitting...' : (
                       <button
-                        className='btn btn-primary g-recaptcha btn-big h2'
-                        data-callback='handleGRecaptcha'
-                        data-sitekey={G_RECAPTCHA_SITEKEY}
+                        className={`btn btn-primary btn-big h2 ${G_RECAPTCHA_ENABLED !== 'false' ? 'g-recaptcha' : ''}`}
+                        data-callback={G_RECAPTCHA_ENABLED !== 'false' ? 'handleGRecaptcha' : null}
+                        data-sitekey={G_RECAPTCHA_ENABLED !== 'false' ? G_RECAPTCHA_SITEKEY : null}
+                        onClick={G_RECAPTCHA_ENABLED === 'false' ? this.context.postStore.handleSubmit : null}
                         type='submit'
                       >
                         {'Submit'}

@@ -63,7 +63,9 @@ export default class PostStore {
 
   @observable isFeaturedImageUploading = false
   @observable isSubmitting = false
+  @observable didError = false
   @observable didSubmit = false
+  @observable errorMessages = []
 
   @persist('object', Post) @observable post = new Post()
 
@@ -168,6 +170,12 @@ export default class PostStore {
       renderToStaticMarkup(<p dangerouslySetInnerHTML={{__html: stripTags(response.answer, allowedHtmlTags)}} />)
     ), []).join('')
 
+    if (!this.validate()) {
+      this.didError = true
+      this.isSubmitting = false
+      return
+    }
+
     await global.fetch(getWordpressUrl('/wp/v2/posts'), {
       body: JSON.stringify({
         content,
@@ -199,5 +207,27 @@ export default class PostStore {
 
   @computed get questionsDataFlattened (): Array<string> {
     return this.questionsData.reduce((arr, section) => arr.concat(section.questions), [])
+  }
+
+  validate = () => {
+    this.errorMessages = []
+
+    if (!this.post._embedded['wp:featuredmedia'].length) {
+      this.errorMessages.push('missing photo')
+    }
+
+    if (!this.post.name) {
+      this.errorMessages.push('missing name')
+    }
+
+    if (!this.post.excerpt.rendered) {
+      this.errorMessages.push('missing excerpt')
+    }
+
+    // if (!this.post.responses.length < 10) {
+    //   this.errorMessages.push('need at least 10 responses')
+    // }
+
+    return !this.errorMessages.length
   }
 }

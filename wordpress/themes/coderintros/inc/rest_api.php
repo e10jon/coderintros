@@ -186,7 +186,7 @@ add_action( 'rest_post_dispatch', function ( $response ) {
 
 // protect the post modification endpoint with recaptcha
 add_filter( 'rest_pre_dispatch', function ( $result ) {
-  if ( $_SERVER['REQUEST_URI'] == '/wp-json/wp/v2/posts' && $_SERVER['REQUEST_METHOD'] != 'GET' ) {
+  if ( $_SERVER['REQUEST_URI'] == '/wp-json/wp/v2/posts' && $_SERVER['REQUEST_METHOD'] != 'GET' && $_ENV['G_RECAPTCHA_ENABLED'] != 'false') {
     $recaptcha_response = isset( $_SERVER['HTTP_X_G_RECAPTCHA_RESPONSE'] )
       ? $_SERVER['HTTP_X_G_RECAPTCHA_RESPONSE']
       : null;

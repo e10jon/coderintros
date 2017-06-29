@@ -31,6 +31,7 @@ services:
       DB_USER: user
       DB_PASSWORD: password
       DB_HOST: mysql
+      G_RECAPTCHA_ENABLED: 'false'
       G_RECAPTCHA_SECRET: 6LcAwiYUAAAAAAUHj73jknqise2Q449_30c3R8NC
       LOGGED_IN_KEY: 123
       LOGGED_IN_SALT: 123
@@ -61,6 +62,7 @@ services:
     environment:
       AUTOMATED_JWT_TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9jb2RlcmludHJvcy5kZXYiLCJpYXQiOjE0OTg0MDA1NTcsIm5iZiI6MTQ5ODQwMDU1NywiZXhwIjoxNDk5MDA1MzU3LCJkYXRhIjp7InVzZXIiOnsiaWQiOiIzIn19fQ.eGBYVwUTdzaL5alP9JWyJk2l0O_DwBUToEjmaOF6Hmw
       GA_DEBUG: 'false'
+      G_RECAPTCHA_ENABLED: 'false'
       G_RECAPTCHA_SITEKEY: 6LcAwiYUAAAAAIttGXXcBjiqhA1R3zfVTkpHbKA1
       NODE_ENV: development
     volumes:
