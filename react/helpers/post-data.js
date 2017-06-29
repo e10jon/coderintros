@@ -52,4 +52,4 @@ export function getFeaturedImageProps (postData: ?Object, {returnLargestSizeData
   }
 }
 
-export const getThumbnailImageProps = (postData: ?Object) => getFeaturedImageProps(postData, {sizes: ['thumbnail']})
+export const getThumbnailImageProps = (postData: ?Object) => getFeaturedImageProps(postData, {sizes: ['thumbnail', 'thumbnail_large']})

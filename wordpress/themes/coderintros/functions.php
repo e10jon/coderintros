@@ -11,6 +11,7 @@ add_theme_support( 'post-thumbnails' );
 update_option( 'thumbnail_size_w', 300 );
 update_option( 'thumbnail_size_h', 300 );
 update_option( 'thumbnail_crop', 1 );
+add_image_size( 'thumbnail_large', 600, 600, true );
 update_option( 'medium_size_w', 600 );
 update_option( 'medium_size_h', 315 );
 update_option( 'medium_crop', 1 );
