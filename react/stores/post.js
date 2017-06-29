@@ -56,6 +56,10 @@ class Post {
   @persist('object') @observable _embedded = {'wp:featuredmedia': []}
   @persist('object') @observable _formatting = {}
   @persist('object') @observable _social = {}
+
+  @computed get completedResponses (): Array<Response> {
+    return this.responses.filter(r => !!r.answer)
+  }
 }
 
 export default class PostStore {
@@ -165,7 +169,7 @@ export default class PostStore {
 
     const allowedHtmlTags = ['a', 'b', 'br', 'div', 'em', 'i', 'p', 'strong']
 
-    const content: string = this.post.responses.reduce((els, response) => els.concat(
+    const content: string = this.post.completedResponses.reduce((els, response) => els.concat(
       renderToStaticMarkup(<p><strong>{response.question}</strong></p>),
       renderToStaticMarkup(<p dangerouslySetInnerHTML={{__html: stripTags(response.answer, allowedHtmlTags)}} />)
     ), []).join('')
@@ -224,9 +228,9 @@ export default class PostStore {
       this.errorMessages.push('missing excerpt')
     }
 
-    // if (!this.post.responses.length < 10) {
-    //   this.errorMessages.push('need at least 10 responses')
-    // }
+    if (this.post.completedResponses.length < 10) {
+      this.errorMessages.push('need at least 10 responses')
+    }
 
     return !this.errorMessages.length
   }
