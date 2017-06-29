@@ -3,7 +3,7 @@
 /* global AUTOMATED_JWT_TOKEN */
 
 import React from 'react'
-import {action, computed, observable} from 'mobx'
+import {action, autorun, computed, observable} from 'mobx'
 import {create, persist} from 'mobx-persist'
 import {renderToStaticMarkup} from 'react-dom/server'
 import stripTags from 'striptags'
@@ -52,10 +52,10 @@ class Post {
   @persist @observable name = ''
   @persist @observable phone = ''
   @persist('list', Response) @observable responses = []
-  @persist('object') @observable title = {rendered: ''}
+  @observable title = {rendered: 'Your Interview'}
   @persist('object') @observable _embedded = {'wp:featuredmedia': []}
-  @persist('object') @observable _formatting = {}
-  @persist('object') @observable _social = {}
+  @observable _formatting = {}
+  @observable _social = {}
 
   @computed get completedResponses (): Array<Response> {
     return this.responses.filter(r => !!r.answer)
@@ -65,16 +65,24 @@ class Post {
 export default class PostStore {
   questionsData = []
 
-  @observable isFeaturedImageUploading = false
-  @observable isSubmitting = false
   @observable didError = false
   @observable didSubmit = false
   @observable errorMessages = []
+  @observable isFeaturedImageUploading = false
+  @observable isSubmitting = false
+  @observable lastUpdatedAt = new Date().toString()
 
   @persist('object', Post) @observable post = new Post()
 
   constructor ({questionsData}: {questionsData: Object}) {
     this.questionsData = questionsData
+
+    autorun(() => {
+      // is there a better way to observe the post?
+      if (JSON.stringify(this.post)) {
+        this.lastUpdatedAt = new Date().toString()
+      }
+    })
   }
 
   @action deleteFromStore = () => {

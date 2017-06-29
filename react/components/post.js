@@ -9,7 +9,11 @@ import moment from 'moment'
 import Head from 'next/head'
 import Link from 'next/link'
 import Dropzone from 'react-dropzone'
-import {IoCompose as AddResponseIcon} from 'react-icons/lib/io'
+import {
+  IoPlus as AddResponseIcon,
+  IoClose as XIcon,
+  IoCheckmark as CheckMarkIcon
+} from 'react-icons/lib/io'
 import {CSSTransitionGroup} from 'react-transition-group'
 import stripTags from 'striptags'
 
@@ -59,6 +63,8 @@ class Post extends PureComponent {
       }
     }
   }
+
+  handleAddResponse = this.context.postStore.handleAddResponse.bind(null, null)
 
   updateHeaderStore () {
     if (this.props.postData.type === 'post' && !this.context.postStore) {
@@ -230,18 +236,16 @@ class Post extends PureComponent {
                       ))}
                     </CSSTransitionGroup>
 
-                    {!postData.responses.length ? (
-                      <div>
-                        <a
-                          className='inline-block px1 h5 border sans-serif'
-                          href='javascript:void(0)'
-                          onClick={this.context.postStore.handleAddResponse}
-                        >
-                          <AddResponseIcon />
-                          <span className='align-middle pl1'>{'Add your first question'}</span>
-                        </a>
-                      </div>
-                    ) : null}
+                    <div className='my3'>
+                      <a
+                        className='inline-block p1 h5 border sans-serif'
+                        href='javascript:void(0)'
+                        onClick={this.handleAddResponse}
+                      >
+                        <AddResponseIcon />
+                        <span className='align-middle pl1'>{!postData.responses.length ? 'Add your first question' : 'Add another question'}</span>
+                      </a>
+                    </div>
                   </div>
                 ) : (
                   <div
@@ -254,20 +258,70 @@ class Post extends PureComponent {
                 )}
               </div>
 
-              {postData.type !== 'page' ? (
-                this.context.postStore ? <hr className='my3 col-6 ml0' /> : (
-                  <Share
-                    hackerNewsUrl={postData._social.hacker_news_url}
-                    position='Below Content'
-                    redditUrl={postData._social.reddit_url}
-                    title={postData.title.rendered}
-                    url={postData.link}
-                  />
-                )
+              {postData.type !== 'page' && !this.context.postStore ? (
+                <Share
+                  hackerNewsUrl={postData._social.hacker_news_url}
+                  position='Below Content'
+                  redditUrl={postData._social.reddit_url}
+                  title={postData.title.rendered}
+                  url={postData.link}
+                />
               ) : null}
 
               {this.context.postStore ? (
-                <div className='my3'>
+                <div className='my3 border border-gray bg-darken-0 p2'>
+                  <div className='mb2 h3 gray'>{'Submission status'}</div>
+
+                  <div className='flex my1'>
+                    <div className='col-1'>
+                      <CheckMarkIcon className='green' />
+                      <XIcon className='red' />
+                    </div>
+                    <div className='col-11'>
+                      {'Upload a photo'}
+                    </div>
+                  </div>
+
+                  <div className='flex my1'>
+                    <div className='col-1'>
+                      <CheckMarkIcon className='green' />
+                      <XIcon className='red' />
+                    </div>
+                    <div className='col-11'>
+                      {'Enter your name'}
+                    </div>
+                  </div>
+
+                  <div className='flex my1'>
+                    <div className='col-1'>
+                      <CheckMarkIcon className='green' />
+                      <XIcon className='red' />
+                    </div>
+                    <div className='col-11'>
+                      {'Enter your bio'}
+                    </div>
+                  </div>
+
+                  <div className='flex my1'>
+                    <div className='col-1'>
+                      <CheckMarkIcon className='green' />
+                      <XIcon className='red' />
+                    </div>
+                    <div className='col-11'>
+                      {'Answer at least 10 questions'}
+                    </div>
+                  </div>
+
+                  <div className='my2'>
+                    {'Enter your email:'}
+                    <input />
+                  </div>
+
+                  <div className='my2'>
+                    {'Enter your phone:'}
+                    <input />
+                  </div>
+
                   {this.context.postStore.errorMessages.length ? (
                     <div className='border border-red my3 p2'>
                       <div className='h3 mb1'>{'Please resolve the following issues:'}</div>
@@ -287,7 +341,7 @@ class Post extends PureComponent {
                   {this.context.postStore.didSubmit ? 'Thank you!' : (
                     this.context.postStore.isSubmitting ? 'Submitting...' : (
                       <button
-                        className={`btn btn-primary btn-big h2 ${G_RECAPTCHA_ENABLED !== 'false' ? 'g-recaptcha' : ''}`}
+                        className={`btn btn-primary regular ${G_RECAPTCHA_ENABLED !== 'false' ? 'g-recaptcha' : ''}`}
                         data-callback={G_RECAPTCHA_ENABLED !== 'false' ? 'handleGRecaptcha' : null}
                         data-sitekey={G_RECAPTCHA_ENABLED !== 'false' ? G_RECAPTCHA_SITEKEY : null}
                         onClick={G_RECAPTCHA_ENABLED === 'false' ? this.context.postStore.handleSubmit : null}

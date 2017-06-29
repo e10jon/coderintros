@@ -20,6 +20,7 @@ class ContentEditable extends PureComponent {
   handleKeyDown = (e: Object) => {
     if (e.keyCode === 13 && !this.props.allowReturnKeyPress) {
       window.getSelection().removeAllRanges()
+      e.target.blur()
     }
   }
 

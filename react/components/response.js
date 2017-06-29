@@ -43,7 +43,7 @@ class Response extends PureComponent {
             allowReturnKeyPress
             dangerouslySetInnerHTML={{__html: this.props.response.answer}}
             onBlur={this.handleAnswerUpdate}
-            placeholder='Your answer'
+            placeholder='...'
           />
         </p>
 
