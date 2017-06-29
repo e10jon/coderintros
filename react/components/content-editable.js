@@ -5,14 +5,22 @@ import {FaPencil as EditResponseIcon} from 'react-icons/lib/fa'
 
 class ContentEditable extends PureComponent {
   static defaultProps = {
+    allowReturnKeyPress: false,
     NodeName: 'span'
   }
 
   props: {
+    allowReturnKeyPress: boolean,
     dangerouslySetInnerHTML: ?Object,
     NodeName: string,
     onBlur: ?Object,
     placeholder: ?string
+  }
+
+  handleKeyDown = (e: Object) => {
+    if (e.keyCode === 13 && !this.props.allowReturnKeyPress) {
+      window.getSelection().removeAllRanges()
+    }
   }
 
   render () {
@@ -27,6 +35,7 @@ class ContentEditable extends PureComponent {
             contentEditable
             dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML}
             onBlur={this.props.onBlur}
+            onKeyDown={this.handleKeyDown}
             placeholder={this.props.placeholder}
           />
         </span>

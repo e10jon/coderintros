@@ -40,7 +40,7 @@ export default function (Child: Object, {isOpen, hideCloseButton}: {isOpen?: boo
     }
 
     handleKeyUp = (e: Object) => {
-      if (e.code === 'Escape' && this.props.store.isOpen) {
+      if (e.keyCode === 27 && this.props.store.isOpen) {
         this.handleCloseClick()
       }
     }

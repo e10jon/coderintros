@@ -40,6 +40,7 @@ class Response extends PureComponent {
 
         <p>
           <ContentEditable
+            allowReturnKeyPress
             dangerouslySetInnerHTML={{__html: this.props.response.answer}}
             onBlur={this.handleAnswerUpdate}
             placeholder='Your answer'
