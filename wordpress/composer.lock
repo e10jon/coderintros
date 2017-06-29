@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "354ddfe538fd03554995682c578377b3",
+    "content-hash": "b48a142d00ab223e7bc22d4a57b53019",
     "packages": [
         {
             "name": "composer/installers",
@@ -888,7 +888,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://downloads.wordpress.org/plugin/elasticpress.2.3.zip",
-                "reference": null,
+                "reference": "tags/2.3",
                 "shasum": null
             },
             "require": {
@@ -948,7 +948,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://downloads.wordpress.org/plugin/jwt-authentication-for-wp-rest-api.1.2.3.zip",
-                "reference": null,
+                "reference": "tags/1.2.3",
                 "shasum": null
             },
             "require": {
@@ -968,7 +968,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://downloads.wordpress.org/plugin/mailgun.1.5.8.3.zip",
-                "reference": null,
+                "reference": "tags/1.5.8.3",
                 "shasum": null
             },
             "require": {
@@ -996,6 +996,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/mb-imagechimp-rss-feed-enhancer/"
+        },
+        {
+            "name": "wpackagist-plugin/perfect-pullquotes",
+            "version": "1.7.3",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/perfect-pullquotes/",
+                "reference": "tags/1.7.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/perfect-pullquotes.1.7.3.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/perfect-pullquotes/"
         },
         {
             "name": "wpackagist-plugin/safe-svg",

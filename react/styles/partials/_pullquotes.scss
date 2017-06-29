@@ -1,0 +1,38 @@
+.perfect-pullquote {
+  margin-bottom: 1.5rem;
+
+  blockquote {
+    font-style: normal;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 1.25;
+
+    p { margin: 0; }
+  }
+
+  // for using cite="..."
+  footer span {
+    font-size: 1.5rem;
+    font-weight: normal;
+  }
+
+  &.pullquote-align-full {
+    @media (min-width: 40em) { margin-left: auto; margin-right: auto; text-align: center; width: 90%; }
+  }
+
+  &.pullquote-align-left, &.pullquote-align-right {
+    @media (min-width: 40em) { margin-bottom: 1rem; margin-top: 1rem; width: 65%; }
+  }
+
+  $negXMargin: -3rem;
+  $xMargin: 3rem;
+  &.pullquote-align-left {
+    @media (min-width: 40em) { float: left; margin-right: $xMargin; }
+    @media (min-width: 64em) { margin-left: $negXMargin; }
+  }
+
+  &.pullquote-align-right {
+    @media (min-width: 40em) { float: right; margin-left: $xMargin; }
+    @media (min-width: 64em) { margin-right: $negXMargin; }
+  }
+}

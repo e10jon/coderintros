@@ -16,7 +16,7 @@ export default function (content: ?string) {
     return content
   }
 
-  const contentEls = content.match(/(<p.*?>.+?<\/p>)/gi)
+  const contentEls = content.match(/(.+?)\\n/gi)
 
   if (!contentEls) {
     return content
