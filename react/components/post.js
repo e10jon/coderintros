@@ -52,19 +52,25 @@ class Post extends PureComponent {
     this.defineGlobalRecaptchaCallbackFunction()
   }
 
+  context: {
+    headerStore: Object,
+    postStore?: Object
+  }
   props: {
     postData: Object
   }
 
   defineGlobalRecaptchaCallbackFunction () {
-    if (this.context.postStore) {
-      window.handleGRecaptcha = (gRecaptchaResponse: string) => {
+    window.handleGRecaptcha = (gRecaptchaResponse: string) => {
+      if (this.context.postStore) {
         this.context.postStore.handleSubmit(null, {gRecaptchaResponse})
       }
     }
   }
 
-  handleAddResponse = this.context.postStore.handleAddResponse.bind(null, null)
+  handleAddResponse = this.context.postStore
+    ? this.context.postStore.handleAddResponse.bind(null, null)
+    : null
 
   updateHeaderStore () {
     if (this.props.postData.type === 'post' && !this.context.postStore) {
