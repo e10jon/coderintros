@@ -22,6 +22,8 @@ const Authorization = `Bearer ${AUTOMATED_JWT_TOKEN}`
 
 const storeKey = 'NewInterview'
 
+export const minResponsesRequired = 10
+
 // helper function to extract an edited value from
 // form elements or contenteditable elements
 const getValue = (e: Object) => {
@@ -67,7 +69,7 @@ export default class PostStore {
 
   @observable didError = false
   @observable didSubmit = false
-  @observable errorMessages = []
+  @observable errorMessage = ''
   @observable isFeaturedImageUploading = false
   @observable isSubmitting = false
   @observable lastUpdatedAt = new Date().toString()
@@ -100,7 +102,7 @@ export default class PostStore {
   @action generateRandomResponses = (desired: number = 10) => {
     const actual = desired - this.post.responses.length
     if (actual > 0) {
-      for (let i = 0; i <= actual; i += 1) {
+      for (let i = 0; i < actual; i += 1) {
         this.post.responses.push(new Response({
           question: this.getRandomQuestionData()
         }))
@@ -172,6 +174,7 @@ export default class PostStore {
       e.preventDefault()
     }
 
+    this.didError = false
     this.isSubmitting = true
     this.didSubmit = false
 
@@ -182,35 +185,64 @@ export default class PostStore {
       renderToStaticMarkup(<p dangerouslySetInnerHTML={{__html: stripTags(response.answer, allowedHtmlTags)}} />)
     ), []).join('')
 
-    if (!this.validate()) {
-      this.didError = true
+    try {
+      await global.fetch(getWordpressUrl('/wp/v2/posts'), {
+        body: JSON.stringify({
+          content,
+          email: this.post.email,
+          excerpt: stripTags(this.post.excerpt.rendered),
+          featured_media: this.post._embedded['wp:featuredmedia'][0].id,
+          name: this.post.name,
+          phone: this.post.phone,
+          status: 'pending',
+          title: this.post.name
+        }),
+        headers: {
+          Authorization,
+          'Content-Type': 'application/json',
+          'X-G-Recaptcha-Response': gRecaptchaResponse
+        },
+        method: 'POST'
+      })
+
       this.isSubmitting = false
-      return
+      this.didSubmit = true
+
+      this.deleteFromStore()
+    } catch (e) {
+      this.isSubmitting = false
+      this.didError = true
+
+      this.errorMessage = e.message
     }
+  }
 
-    await global.fetch(getWordpressUrl('/wp/v2/posts'), {
-      body: JSON.stringify({
-        content,
-        email: this.post.email,
-        excerpt: stripTags(this.post.excerpt.rendered),
-        featured_media: this.post._embedded['wp:featuredmedia'][0].id,
-        name: this.post.name,
-        phone: this.post.phone,
-        status: 'pending',
-        title: this.post.name
-      }),
-      headers: {
-        Authorization,
-        'Content-Type': 'application/json',
-        'X-G-Recaptcha-Response': gRecaptchaResponse
-      },
-      method: 'POST'
-    })
+  @computed get isEmailValid (): boolean {
+    return !!this.post.email.length
+  }
 
-    this.isSubmitting = false
-    this.didSubmit = true
+  @computed get isExcerptValid (): boolean {
+    return !!this.post.excerpt.rendered.length
+  }
 
-    this.deleteFromStore()
+  @computed get isNameValid (): boolean {
+    return !!this.post.name.length
+  }
+
+  @computed get isPhotoValid (): boolean {
+    return !!this.post._embedded['wp:featuredmedia'].length
+  }
+
+  @computed get isResponsesLengthValid (): boolean {
+    return this.post.completedResponses.length >= minResponsesRequired
+  }
+
+  @computed get isValid (): boolean {
+    return this.isEmailValid &&
+      this.isExcerptValid &&
+      this.isNameValid &&
+      this.isPhotoValid &&
+      this.isResponsesLengthValid
   }
 
   @action loadFromStore = () => {
@@ -219,27 +251,5 @@ export default class PostStore {
 
   @computed get questionsDataFlattened (): Array<string> {
     return this.questionsData.reduce((arr, section) => arr.concat(section.questions), [])
-  }
-
-  validate = () => {
-    this.errorMessages = []
-
-    if (!this.post._embedded['wp:featuredmedia'].length) {
-      this.errorMessages.push('missing photo')
-    }
-
-    if (!this.post.name) {
-      this.errorMessages.push('missing name')
-    }
-
-    if (!this.post.excerpt.rendered) {
-      this.errorMessages.push('missing excerpt')
-    }
-
-    if (this.post.completedResponses.length < 10) {
-      this.errorMessages.push('need at least 10 responses')
-    }
-
-    return !this.errorMessages.length
   }
 }

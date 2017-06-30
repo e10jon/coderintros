@@ -9,8 +9,7 @@ add_action( 'rest_api_init', function () {
       'hide_title' => get_field( 'hide_title' ),
       'hr_bottom' => get_field( 'hr_bottom' ),
       'hr_top' => get_field( 'hr_top' ),
-      'no_incontent_units' => get_field( 'no_incontent_units' ),
-      'no_sidebar' => get_field( 'no_sidebar' )
+      'no_incontent_units' => get_field( 'no_incontent_units' )
     ];
   }
 

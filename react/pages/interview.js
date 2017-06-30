@@ -5,7 +5,8 @@ import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 
 import createPage from '../helpers/create-page'
 import Post from '../components/post'
-import InterviewModal from '../components/modals/interview'
+import ThankYouModal from '../components/modals/interview/thank-you'
+import WelcomeModal from '../components/modals/interview/welcome'
 import PostStore from '../stores/post'
 
 @observer
@@ -21,9 +22,7 @@ class Interview extends Component {
   })
 
   componentWillMount () {
-    this.postStore = new PostStore({
-      questionsData: this.props.questionsData
-    })
+    this.postStore = new PostStore({questionsData: this.props.questionsData})
   }
 
   componentDidMount () {
@@ -34,11 +33,13 @@ class Interview extends Component {
     questionsData: Object
   }
   postStore: Object
+  thankYouModalStore: Object
 
   render = () => (
     <div>
       <Post />
-      <InterviewModal />
+      <WelcomeModal />
+      {this.postStore.didSubmit && <ThankYouModal />}
     </div>
   )
 }

@@ -9,11 +9,7 @@ import moment from 'moment'
 import Head from 'next/head'
 import Link from 'next/link'
 import Dropzone from 'react-dropzone'
-import {
-  IoPlus as AddResponseIcon,
-  IoClose as XIcon,
-  IoCheckmark as CheckMarkIcon
-} from 'react-icons/lib/io'
+import {IoPlus as AddResponseIcon} from 'react-icons/lib/io'
 import {CSSTransitionGroup} from 'react-transition-group'
 import stripTags from 'striptags'
 
@@ -23,7 +19,9 @@ import ContentEditable from './content-editable'
 import Related from './related'
 import Response from './response'
 import Share from './share'
+import {minResponsesRequired} from '../stores/post'
 import styles from '../styles/components/post.scss'
+import SubmissionStatusItem from './submission-status-item'
 
 @observer
 class Post extends PureComponent {
@@ -275,117 +273,81 @@ class Post extends PureComponent {
               ) : null}
 
               {this.context.postStore ? (
-                <div className='my3 border border-gray bg-darken-0 p2'>
-                  <div className='mb2 h3 gray'>{'Submission status'}</div>
+                <div className='mt4 bg-darken-0 p3'>
+                  <div className='mb3 h3 gray'>{'Validate and submit'}</div>
 
-                  <div className='flex my1'>
-                    <div className='col-1'>
-                      <CheckMarkIcon className='green' />
-                      <XIcon className='red' />
-                    </div>
-                    <div className='col-11'>
-                      {'Upload a photo'}
-                    </div>
-                  </div>
+                  <SubmissionStatusItem isValid={this.context.postStore.isPhotoValid}>
+                    {'Upload a photo'}
+                  </SubmissionStatusItem>
 
-                  <div className='flex my1'>
-                    <div className='col-1'>
-                      <CheckMarkIcon className='green' />
-                      <XIcon className='red' />
-                    </div>
-                    <div className='col-11'>
-                      {'Enter your name'}
-                    </div>
-                  </div>
+                  <SubmissionStatusItem isValid={this.context.postStore.isNameValid}>
+                    {'Enter your name'}
+                  </SubmissionStatusItem>
 
-                  <div className='flex my1'>
-                    <div className='col-1'>
-                      <CheckMarkIcon className='green' />
-                      <XIcon className='red' />
-                    </div>
-                    <div className='col-11'>
-                      {'Enter your bio'}
-                    </div>
-                  </div>
+                  <SubmissionStatusItem isValid={this.context.postStore.isExcerptValid}>
+                    {'Enter your bio'}
+                  </SubmissionStatusItem>
 
-                  <div className='flex my1'>
-                    <div className='col-1'>
-                      <CheckMarkIcon className='green' />
-                      <XIcon className='red' />
+                  <SubmissionStatusItem isValid={this.context.postStore.isResponsesLengthValid}>
+                    {`Answer at least ${minResponsesRequired} questions`}
+                  </SubmissionStatusItem>
+
+                  <SubmissionStatusItem isValid={this.context.postStore.isEmailValid}>
+                    <div className='mb1'>
+                      <span>{'Enter your email '}</span>
+                      <span className='h5'>{'(will not be published)'}</span>
                     </div>
-                    <div className='col-11'>
-                      {'Answer at least 10 questions'}
+
+                    <input
+                      className='input mb1'
+                      onChange={this.context.postStore.handleEmailChange}
+                      placeholder='you@domain.com'
+                      required
+                      type='email'
+                      value={postData.email}
+                    />
+                  </SubmissionStatusItem>
+
+                  <SubmissionStatusItem isValid={null}>
+                    <div className='mb1'>
+                      <span>{'Optionally, enter your phone number '}</span>
+                      <span className='h5'>{'(in case we want to ask more questions)'}</span>
                     </div>
-                  </div>
 
-                  <div className='my2'>
-                    {'Enter your email:'}
-                    <input />
-                  </div>
+                    <input
+                      className='input mb0'
+                      onChange={this.context.postStore.handlePhoneChange}
+                      placeholder='555-123-1234'
+                      type='tel'
+                      value={postData.phone}
+                    />
+                  </SubmissionStatusItem>
 
-                  <div className='my2'>
-                    {'Enter your phone:'}
-                    <input />
-                  </div>
+                  <hr className='my3' />
 
-                  {this.context.postStore.errorMessages.length ? (
-                    <div className='border border-red my3 p2'>
-                      <div className='h3 mb1'>{'Please resolve the following issues:'}</div>
-                      <ul>
-                        {this.context.postStore.errorMessages.map(message => (
-                          <li
-                            className='ml3'
-                            key={`Post${message}`}
-                          >
-                            {message}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-
-                  {this.context.postStore.didSubmit ? 'Thank you!' : (
-                    this.context.postStore.isSubmitting ? 'Submitting...' : (
+                  <SubmissionStatusItem isValid={null}>
+                    <div className='flex items-center'>
                       <button
-                        className={`btn btn-primary regular ${G_RECAPTCHA_ENABLED !== 'false' ? 'g-recaptcha' : ''}`}
+                        className={`btn btn-primary btn-big h3 ${G_RECAPTCHA_ENABLED !== 'false' ? 'g-recaptcha' : ''}`}
                         data-callback={G_RECAPTCHA_ENABLED !== 'false' ? 'handleGRecaptcha' : null}
                         data-sitekey={G_RECAPTCHA_ENABLED !== 'false' ? G_RECAPTCHA_SITEKEY : null}
+                        disabled={!this.context.postStore.isValid || this.context.postStore.isSubmitting || this.context.postStore.didSubmit}
                         onClick={G_RECAPTCHA_ENABLED === 'false' ? this.context.postStore.handleSubmit : null}
                         type='submit'
                       >
                         {'Submit'}
                       </button>
-                    )
-                  )}
+
+                      <div className='ml2'>
+                        {this.context.postStore.isSubmitting && <span className='gray'>{'Please wait...'}</span>}
+                        {this.context.postStore.didError && <span className='red'>{`Sorry, but there was an error: ${this.context.postStore.errorMessage}`}</span>}
+                      </div>
+                    </div>
+                  </SubmissionStatusItem>
                 </div>
               ) : null}
             </div>
           </div>
-
-          {/* !postData._formatting.no_sidebar ? (
-            <div
-              className='xs-hide sm-hide'
-              style={{flex: '0 0 300px'}}
-            >
-              <div className={!postData._formatting.full_width ? 'page-x-spacing' : ''}>
-                <Ad
-                  className='mb3'
-                  height={600}
-                  width={300}
-                />
-
-                <Suggest className='mb3' />
-
-                <Ad
-                  className='mb3'
-                  height={250}
-                  width={300}
-                />
-
-                <Related />
-              </div>
-            </div>
-          ) : null */}
 
           {postData.type === 'post' && !this.context.postStore ? (
             <div className='col-12'>
