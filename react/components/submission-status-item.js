@@ -13,7 +13,7 @@ const SubmissionStatusItem = ({children, isValid}: {children?: Node, isValid: ?b
         isValid ? <CheckMarkIcon className='green' /> : <XIcon className='red' />
       ) : null}
     </div>
-    <div className='flex-auto'>
+    <div className={`flex-auto ${isValid ? 'gray' : 'black'}`}>
       {children}
     </div>
   </div>

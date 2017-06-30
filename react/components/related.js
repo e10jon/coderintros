@@ -20,7 +20,7 @@ class Related extends PureComponent {
   }
 
   async loadRelatedPosts () {
-    const res = await global.fetch(getWordpressUrl(`/wp/v2/posts?more_like=${this.props.postData.id}&per_page=4&_embed`), {
+    const res = await global.fetch(getWordpressUrl(`/wp/v2/posts?more_like=${this.props.postData.id}&exclude=${this.props.postData.id}&per_page=4&_embed`), {
       headers: getFetchHeaders()
     })
     const json = await res.json()

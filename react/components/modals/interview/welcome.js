@@ -11,14 +11,29 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
     store.close()
   }
 
+  const handleVideoClick = (e: Object) => {
+    if (e.target.paused) {
+      e.target.play()
+    } else {
+      e.target.pause()
+    }
+  }
+
   return (
     <div className='m2'>
-      <div>
-        <div className='my2 h2 line-height-3'>{'Welcome!'}</div>
-        <div className='my2'>{'Use this page to create your own interview.'}</div>
-      </div>
+      <div className='my2 h2 line-height-3'>{'Welcome!'}</div>
 
-      <div>
+      <video
+        autoPlay
+        className='block fit my2'
+        controls
+        loop
+        onClick={handleVideoClick}
+        playsInline
+        src='//cf.coderintros.com/interview-tutorial.mp4'
+      />
+
+      <div className='center'>
         <button
           className='btn btn-primary'
           onClick={handleButtonClick}
