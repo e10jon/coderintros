@@ -35,6 +35,8 @@ const Footer = (props: Object, {pagesData, siteData}: Object) => (
         <a
           className='gray p1 h5 ups inline-block'
           href={siteData.github_repo_url}
+          rel='noopener noreferrer'
+          target='_blank'
         >
           <IoSocialGithub />
           <span className='pl1 align-middle'>{'Github'}</span>

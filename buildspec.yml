@@ -27,5 +27,5 @@ phases:
 
 artifacts:
   files:
-    - .ebextensions
+    - .ebextensions/*
     - Dockerrun.aws.json
