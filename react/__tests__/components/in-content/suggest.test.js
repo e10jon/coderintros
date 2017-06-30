@@ -1,9 +1,9 @@
 import React from 'react'
 import {mount} from 'enzyme'
 
-import Ad from '../../components/ad'
+import Suggest from '../../../components/in-content/suggest'
 
 test('renders', () => {
-  const component = mount(<Ad />)
+  const component = mount(<Suggest />)
   expect(component.length).toBeTruthy()
 })

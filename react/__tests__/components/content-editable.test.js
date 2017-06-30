@@ -1,9 +1,9 @@
 import React from 'react'
 import {mount} from 'enzyme'
 
-import Ad from '../../components/ad'
+import ContentEditable from '../../components/content-editable'
 
 test('renders', () => {
-  const component = mount(<Ad />)
+  const component = mount(<ContentEditable />)
   expect(component.length).toBeTruthy()
 })
