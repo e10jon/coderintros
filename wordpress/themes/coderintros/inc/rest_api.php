@@ -205,3 +205,13 @@ add_filter( 'rest_pre_dispatch', function ( $result ) {
 
   return $result;
 } );
+
+// any time a post is inserted from the automated user, change the author to something else
+// this way we can publicly share keys to create posts and not worry about unauthorized editing
+add_filter( 'wp_insert_post_data' , function ( $data ) {
+  if ( $data['post_author'] == get_user_by( 'login', 'automated' )->ID ) {
+    $data['post_author'] = get_user_by( 'login', 'staff' )->ID;
+  }
+
+  return $data;
+} );
