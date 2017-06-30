@@ -17,11 +17,11 @@
   }
 
   &.pullquote-align-full {
-    @media (min-width: 40em) { margin-left: auto; margin-right: auto; text-align: center; width: 90%; }
+    @media (min-width: 40em) { margin-left: auto; margin-right: auto; text-align: center; max-width: 90%; }
   }
 
   &.pullquote-align-left, &.pullquote-align-right {
-    @media (min-width: 40em) { margin-bottom: 1rem; margin-top: 1rem; width: 65%; }
+    @media (min-width: 40em) { margin-bottom: 1rem; margin-top: 1rem; max-width: 65%; }
   }
 
   $negXMargin: -3rem;

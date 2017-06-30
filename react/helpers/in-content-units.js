@@ -16,7 +16,7 @@ export default function (content: ?string) {
     return content
   }
 
-  const contentEls = content.match(/(.+?)\\n/gi)
+  const contentEls = content.match(/<([A-Z][A-Z0-9]*)\b[^>]*>(.*?)<\/\1>/gi)
 
   if (!contentEls) {
     return content
