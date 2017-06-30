@@ -51,6 +51,7 @@ Welcome.contextTypes = {
 }
 
 export default createModal(Welcome, {
+  hideCloseButton: true,
   isOpen: true,
   maxWidth: 3
 })

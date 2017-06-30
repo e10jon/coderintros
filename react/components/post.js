@@ -323,10 +323,8 @@ class Post extends PureComponent {
                     />
                   </SubmissionStatusItem>
 
-                  <hr className='my3' />
-
                   <SubmissionStatusItem isValid={null}>
-                    <div className='flex items-center'>
+                    <div className='flex items-center mt3'>
                       <button
                         className={`btn btn-primary btn-big h3 ${G_RECAPTCHA_ENABLED !== 'false' ? 'g-recaptcha' : ''}`}
                         data-callback={G_RECAPTCHA_ENABLED !== 'false' ? 'handleGRecaptcha' : null}
