@@ -11,7 +11,7 @@ import styles from '../styles/modal.scss'
 import trackEvent from '../helpers/track-event'
 
 @observer
-export default function (Child: Object, {isOpen, hideCloseButton}: {isOpen?: boolean, hideCloseButton?: boolean} = {}) {
+export default function (Child: Object, {isOpen, hideCloseButton, maxWidth = 2}: {isOpen?: boolean, hideCloseButton?: boolean, maxWidth?: number} = {}) {
   class Modal extends Component {
     static defaultProps = {
       store: new ModalStore({isOpen})
@@ -63,10 +63,7 @@ export default function (Child: Object, {isOpen, hideCloseButton}: {isOpen?: boo
             isOpen={this.props.store.isOpen}
             overlayClassName='fixed top-0 right-0 bottom-0 left-0 z2 flex justify-center items-center'
           >
-            <div
-              className='bg-white m2 relative col-12'
-              style={{maxWidth: '32rem'}}
-            >
+            <div className={`bg-white m2 relative col-12m max-width-${maxWidth}`}>
               <Child store={this.props.store} />
 
               {!hideCloseButton ? (
