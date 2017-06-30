@@ -4,16 +4,20 @@ import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
+import {IoArrowDownA as DownArrowIcon} from 'react-icons/lib/io'
 import stripTags from 'striptags'
 
 import createPage from '../helpers/create-page'
 import {getUrlObj, getFeaturedImageProps, getThumbnailImageProps} from '../helpers/post-data'
+import styles from '../styles/pages/index.scss'
 
 const Home = ({postsData}: Object, {siteData}: Object) => {
   return (
     <div>
       <Head>
         <title>{siteData.name}</title>
+
+        <style dangerouslySetInnerHTML={{__html: styles}} />
 
         <meta
           content={siteData.description}
@@ -45,8 +49,12 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
       <div className='sm-page-x-spacing'>
         <hr />
 
-        <div className='bg-darken-0 sm-mb3 center p2 gray'>
-          {siteData.description}
+        <div className='bg-darken-0 sm-mb3 flex justify-between items-center center py2 px1'>
+          <DownArrowIcon className='explainer-banner-arrow muted gray' />
+          <div className='px2 muted'>
+            {siteData.description}
+          </div>
+          <DownArrowIcon className='explainer-banner-arrow muted gray' />
         </div>
 
         {postsData.map(postData => (
