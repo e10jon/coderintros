@@ -30,7 +30,7 @@ class SitePassword extends Component {
 
     const res = await global.fetch(getWordpressUrl('/ci/site_password'), {
       method: 'POST',
-      headers: getFetchHeaders(),
+      headers: getFetchHeaders({contentType: 'text/plain'}),
       body: this.passwordNode.value
     })
 
