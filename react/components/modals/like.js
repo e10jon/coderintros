@@ -91,9 +91,9 @@ class Like extends Component {
           </blockquote>
         </div>
 
-        <div className='right-align'>
+        <div className='center'>
           <a
-            className='inline-block h5 pt2 pb1 gray'
+            className='inline-block h5 pt2 pb1 px2 gray'
             href='javascript:void(0)'
             onClick={this.handleAlreadyLikeClick}
           >
