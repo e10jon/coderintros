@@ -3,13 +3,17 @@
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
 
+import Newsletter from '../components/in-content/newsletter'
 import Suggest from '../components/in-content/suggest'
 
 const units = [
-  <Suggest key='Suggest' />
+  <Suggest key='Suggest' />,
+  <Newsletter key='Newsletter' />
 ]
 
-const interval = 5
+const interval = 7
+
+const createWrappedUnit = (unit: Object) => <div className='my3'>{unit}</div>
 
 export default function (content: ?string) {
   if (!content) {
@@ -31,10 +35,10 @@ export default function (content: ?string) {
 
       if (Array.isArray(unit)) {
         unit.forEach(u => {
-          finalEls.push(renderToStaticMarkup(u))
+          finalEls.push(renderToStaticMarkup(createWrappedUnit(u)))
         })
       } else {
-        finalEls.push(renderToStaticMarkup(unit))
+        finalEls.push(renderToStaticMarkup(createWrappedUnit(unit)))
       }
 
       unitI += 1
