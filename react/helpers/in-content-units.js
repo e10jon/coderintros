@@ -17,7 +17,7 @@ const createUnits = (context?: Object) => [
 
 const interval = 7
 
-const createWrappedUnit = (unit: Object) => <div className='my3'>{unit}</div>
+const createWrappedUnit = (unit: Object) => <div className='my3 clear'>{unit}</div>
 
 export default function (content: ?string, {context}: {context?: Object} = {}) {
   if (!content) {

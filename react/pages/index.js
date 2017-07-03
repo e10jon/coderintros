@@ -48,7 +48,7 @@ const Home = ({postsData}: Object, {siteData}: Object) => {
       <div className='sm-page-x-spacing'>
         <hr />
 
-        <div className='bg-darken-0 sm-mb3 center p2 line-height-3 muted'>
+        <div className='bg-darken-0 sm-mb3 center p2 muted'>
           {siteData.description}
         </div>
 

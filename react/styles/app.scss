@@ -21,6 +21,9 @@ ul { margin: 0; padding: 0; }
 /* generic classes */
 .bg-darken-0 { background-color: rgba(0, 0, 0, 0.015); }
 .bg-fb-blue { background-color: #3b5998; }
+.border-left-none { border-left-width: 0 }
+.border-right-none { border-right-width: 0 }
+.clear { clear: both }
 .fb-blue { color: #3b5998; }
 .fit-y { max-height: 100%; }
 .height-auto { height: auto; }

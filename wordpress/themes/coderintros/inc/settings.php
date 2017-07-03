@@ -4,10 +4,6 @@
 add_action( 'admin_init', function () {
   register_setting( 'ci', 'cloudflare_zone_id' );
   register_setting( 'ci', 'facebook_page_url' );
-  register_setting( 'ci', 'facebook_modal_title' );
-  register_setting( 'ci', 'facebook_modal_title_auto_open' );
-  register_setting( 'ci', 'facebook_modal_body' );
-  register_setting( 'ci', 'facebook_modal_body_auto_open' );
   register_setting( 'ci', 'facebook_modal_delay' );
   register_setting( 'ci', 'facebook_app_id' );
   register_setting( 'ci', 'ga_tracking_id' );
@@ -35,50 +31,6 @@ add_action( 'admin_init', function () {
     function () {
       $option = get_option('facebook_page_url');
       echo "<input id='facebook_page_url' name='facebook_page_url' type='text' class='regular-text code' value='{$option}' />";
-    },
-    'ci',
-    'ci_general'
-  );
-
-  add_settings_field(
-    'facebook_modal_title',
-    '<label for="facebook_modal_title">' . __( 'Facebook Modal Title' , 'facebook_modal_title' ) . '</label>',
-    function () {
-      $option = get_option('facebook_modal_title');
-      echo "<input id='facebook_modal_title' name='facebook_modal_title' type='text' class='regular-text' value='{$option}' />";
-    },
-    'ci',
-    'ci_general'
-  );
-
-  add_settings_field(
-    'facebook_modal_title_auto_open',
-    '<label for="facebook_modal_title_auto_open">' . __( 'Facebook Modal Title (Auto-Open)' , 'facebook_modal_title_auto_open' ) . '</label>',
-    function () {
-      $option = get_option('facebook_modal_title_auto_open');
-      echo "<input id='facebook_modal_title_auto_open' name='facebook_modal_title_auto_open' type='text' class='regular-text' value='{$option}' />";
-    },
-    'ci',
-    'ci_general'
-  );
-
-  add_settings_field(
-    'facebook_modal_body',
-    '<label for="facebook_modal_body">' . __( 'Facebook Modal Body' , 'facebook_modal_body' ) . '</label>',
-    function () {
-      $option = get_option('facebook_modal_body');
-      echo "<input id='facebook_modal_body' name='facebook_modal_body' type='text' class='regular-text' value='{$option}' />";
-    },
-    'ci',
-    'ci_general'
-  );
-
-  add_settings_field(
-    'facebook_modal_body_auto_open',
-    '<label for="facebook_modal_body_auto_open">' . __( 'Facebook Modal Body (Auto-Open)' , 'facebook_modal_body_auto_open' ) . '</label>',
-    function () {
-      $option = get_option('facebook_modal_body_auto_open');
-      echo "<input id='facebook_modal_body_auto_open' name='facebook_modal_body_auto_open' type='text' class='regular-text' value='{$option}' />";
     },
     'ci',
     'ci_general'

@@ -64,21 +64,9 @@ class Like extends Component {
   }
 
   render () {
-    const [titleKey, bodyKey] = this.props.store.wasAutoOpened
-      ? ['facebook_modal_title_auto_open', 'facebook_modal_body_auto_open']
-      : ['facebook_modal_title', 'facebook_modal_body']
-
     return (
-      <div className='center p2'>
-        <div
-          className='h2 bold line-height-2 my2'
-          dangerouslySetInnerHTML={{__html: this.context.siteData[titleKey]}}
-        />
-
-        <p
-          className='gray px2 sm-px4 mx-auto'
-          dangerouslySetInnerHTML={{__html: this.context.siteData[bodyKey]}}
-        />
+      <div className='pt3 px3 pb2 bg-darken-0'>
+        <div className='h2 bold line-height-3 mb2'>{'Get intros via Facebook'}</div>
 
         <div
           className='fb-page'
@@ -87,6 +75,7 @@ class Like extends Component {
           data-href={this.context.siteData.facebook_page_url}
           data-show-facepile='true'
           data-small-header='false'
+          data-width='500px'
         >
           <blockquote
             cite={this.context.siteData.facebook_modal_cta}
@@ -102,13 +91,13 @@ class Like extends Component {
           </blockquote>
         </div>
 
-        <div>
+        <div className='right-align'>
           <a
-            className='inline-block py1 px2 h5 mt1 gray'
+            className='inline-block h5 pt2 pb1 gray'
             href='javascript:void(0)'
             onClick={this.handleAlreadyLikeClick}
           >
-            {'I already like your page.'}
+            {'I already like your page'}
           </a>
         </div>
       </div>

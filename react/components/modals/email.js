@@ -22,8 +22,8 @@ class Email extends Component {
 
   render () {
     return (
-      <div className='center p2'>
-        <div className='h2 bold line-height-2 my2'>{'Get intros in your inbox'}</div>
+      <div className='p3 bg-darken-0'>
+        <div className='h2 bold line-height-3 mb2'>{'Get intros in your inbox'}</div>
 
         <form
           action={this.context.siteData.mailchimp_newsletter_url}
@@ -33,9 +33,9 @@ class Email extends Component {
         >
           <div className='flex'>
             <input
-              className='input mb0 col-9 flex-auto'
+              className='input mb0 col-9 flex-auto not-rounded border-right-none'
               name='EMAIL'
-              placeholder='you@you.com'
+              placeholder='youremail@domain.com'
               type='email'
             />
 
@@ -46,7 +46,7 @@ class Email extends Component {
             />
 
             <button
-              className='btn btn-primary col-3 h5 regular ups'
+              className='btn btn-primary col-3 h5 regular ups not-rounded border-left-none'
               style={{flex: '0 0 80px'}}
               type='submit'
             >
