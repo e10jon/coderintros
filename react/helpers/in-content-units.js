@@ -6,16 +6,20 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import Newsletter from '../components/in-content/newsletter'
 import Suggest from '../components/in-content/suggest'
 
-const units = [
+const createUnits = (context?: Object) => [
   <Suggest key='Suggest' />,
-  <Newsletter key='Newsletter' />
+  <Newsletter
+    formAction={context && context.siteData && context.siteData.mailchimp_newsletter_url}
+    frequencyGroup={context && context.siteData && context.siteData.mailchimp_frequency_group}
+    key='Newsletter'
+  />
 ]
 
 const interval = 7
 
 const createWrappedUnit = (unit: Object) => <div className='my3'>{unit}</div>
 
-export default function (content: ?string) {
+export default function (content: ?string, {context}: {context?: Object} = {}) {
   if (!content) {
     return content
   }
@@ -26,6 +30,7 @@ export default function (content: ?string) {
     return content
   }
 
+  const units = createUnits(context)
   const finalEls = []
   let unitI = 0
 

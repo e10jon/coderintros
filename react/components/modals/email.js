@@ -4,7 +4,6 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
 import createModal from '../../helpers/create-modal'
-import trackEvent from '../../helpers/track-event'
 
 class Email extends Component {
   static contextTypes = {
@@ -13,35 +12,48 @@ class Email extends Component {
 
   static displayName = 'Email'
 
-  componentDidMount () {
-    this.mailchimpNode.querySelector('form').addEventListener('submit', this.handleFormSubmission)
-  }
-
-  componentWillUnmount () {
-    this.mailchimpNode.querySelector('form').removeEventListener('submit', this.handleFormSubmission)
-  }
-
   props: {
     store: Object
   }
 
   handleFormSubmission = () => {
     this.props.store.close()
-    trackEvent({
-      eventCategory: 'Modals',
-      eventAction: 'Submitted Mailchimp Form'
-    })
   }
-
-  mailchimpNode: Object
 
   render () {
     return (
       <div className='center p2'>
-        <div
-          dangerouslySetInnerHTML={{__html: this.context.siteData.mailchimp_form_html}}
-          ref={r => { this.mailchimpNode = r }}
-        />
+        <div className='h2 bold line-height-2 my2'>{'Get intros in your inbox'}</div>
+
+        <form
+          action={this.context.siteData.mailchimp_newsletter_url}
+          method='post'
+          onSubmit={this.handleFormSubmission}
+          target='_blank'
+        >
+          <div className='flex'>
+            <input
+              className='input mb0 col-9 flex-auto'
+              name='EMAIL'
+              placeholder='you@you.com'
+              type='email'
+            />
+
+            <input
+              name={`group[${this.context.siteData.mailchimp_frequency_group}]`}
+              type='hidden'
+              value='2'
+            />
+
+            <button
+              className='btn btn-primary col-3 h5 regular ups'
+              style={{flex: '0 0 80px'}}
+              type='submit'
+            >
+              {'Submit'}
+            </button>
+          </div>
+        </form>
       </div>
     )
   }

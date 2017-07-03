@@ -12,7 +12,8 @@ add_action( 'admin_init', function () {
   register_setting( 'ci', 'facebook_app_id' );
   register_setting( 'ci', 'ga_tracking_id' );
   register_setting( 'ci', 'github_repo_url' );
-  register_setting( 'ci', 'mailchimp_form_html' );
+  register_setting( 'ci', 'mailchimp_frequency_group' );
+  register_setting( 'ci', 'mailchimp_newsletter_url' );
   register_setting( 'ci', 'site_password' );
 
   add_settings_section( 'ci_general', null, null, 'ci' );
@@ -129,11 +130,22 @@ add_action( 'admin_init', function () {
   );
 
   add_settings_field(
-    'mailchimp_form_html',
-    '<label for="mailchimp_form_html">' . __( 'Mailchimp Form HTML' , 'mailchimp_form_html' ) . '</label>',
+    'mailchimp_frequency_group',
+    '<label for="mailchimp_frequency_group">' . __( 'Mailchimp Frequency Group' , 'mailchimp_frequency_group' ) . '</label>',
     function () {
-      $option = get_option('mailchimp_form_html');
-      echo "<textarea id='mailchimp_form_html' name='mailchimp_form_html' class='regular-text' rows=20>{$option}</textarea>";
+      $option = get_option('mailchimp_frequency_group');
+      echo "<input id='mailchimp_frequency_group' name='mailchimp_frequency_group' type='text' class='regular-text' value='{$option}' />";
+    },
+    'ci',
+    'ci_general'
+  );
+
+  add_settings_field(
+    'mailchimp_newsletter_url',
+    '<label for="mailchimp_newsletter_url">' . __( 'Mailchimp Newsletter URL' , 'mailchimp_newsletter_url' ) . '</label>',
+    function () {
+      $option = get_option('mailchimp_newsletter_url');
+      echo "<input id='mailchimp_newsletter_url' name='mailchimp_newsletter_url' type='text' class='regular-text code' value='{$option}' />";
     },
     'ci',
     'ci_general'
@@ -162,10 +174,6 @@ add_action( 'admin_menu', function () {
     function () {
       if ( !current_user_can( 'manage_options' ) ) {
         return;
-      }
-
-      if ( isset( $_GET['settings-updated'] ) ) {
-        add_settings_error( 'ci_messages', 'ci_message', __( 'Settings Saved', 'ci' ), 'updated' );
       }
 
       settings_errors( 'ci_messages' );?>

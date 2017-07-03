@@ -8,6 +8,7 @@ import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 import moment from 'moment'
 import Head from 'next/head'
 import Link from 'next/link'
+import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
 import {IoPlus as AddResponseIcon} from 'react-icons/lib/io'
 import {CSSTransitionGroup} from 'react-transition-group'
@@ -26,8 +27,9 @@ import SubmissionStatusItem from './submission-status-item'
 @observer
 class Post extends PureComponent {
   static contextTypes = {
+    headerStore: MobxReactPropTypes.observableObject,
     postStore: MobxReactPropTypes.observableObject,
-    headerStore: MobxReactPropTypes.observableObject
+    siteData: PropTypes.object
   }
 
   static defaultProps = {
@@ -255,7 +257,7 @@ class Post extends PureComponent {
                   <div
                     dangerouslySetInnerHTML={{
                       __html: !postData._formatting.no_incontent_units
-                        ? insertUnits(postData.content.rendered)
+                        ? insertUnits(postData.content.rendered, {context: this.context})
                         : postData.content.rendered
                     }}
                   />

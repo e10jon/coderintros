@@ -89,7 +89,8 @@ add_action( 'rest_api_init', function () {
         'facebook_modal_delay' => intval( get_option( 'facebook_modal_delay' ) ),
         'ga_tracking_id' => get_option( 'ga_tracking_id' ),
         'github_repo_url' => get_option( 'github_repo_url' ),
-        'mailchimp_form_html' => get_option( 'mailchimp_form_html' ),
+        'mailchimp_frequency_group' => get_option( 'mailchimp_frequency_group' ),
+        'mailchimp_newsletter_url' => get_option( 'mailchimp_newsletter_url' ),
         'site_password_enabled' => ! empty( get_option( 'site_password' ) ),
         'sites' => []
       ];
