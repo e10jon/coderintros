@@ -31,17 +31,14 @@ export default function (Child: Object, {isOpen, hideCloseButton, maxWidth = 2}:
       }
     }
 
-    handleCloseClick = () => {
-      this.props.store.close()
-      trackEvent({
-        eventCategory: 'Modals',
-        eventAction: `Dismissed ${Child.displayName}`
-      })
-    }
-
     handleKeyUp = (e: Object) => {
+      // escape key
       if (e.keyCode === 27 && this.props.store.isOpen) {
-        this.handleCloseClick()
+        this.props.store.close()
+        trackEvent({
+          eventCategory: 'Modals',
+          eventAction: `Dismissed ${Child.displayName} Via Escape Key`
+        })
       }
     }
 
@@ -69,8 +66,11 @@ export default function (Child: Object, {isOpen, hideCloseButton, maxWidth = 2}:
               {!hideCloseButton ? (
                 <a
                   className='absolute block gray modal-close-btn p1'
+                  data-ga-event-action={`Dismissed ${Child.displayName} Via Close Button`}
+                  data-ga-event-category='Modals'
+                  data-ga-on='click'
                   href='javascript:void(0)'
-                  onClick={this.handleCloseClick}
+                  onClick={this.props.store.handleClose}
                 >
                   <IoClose />
                 </a>

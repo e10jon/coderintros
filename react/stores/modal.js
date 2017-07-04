@@ -30,6 +30,9 @@ export default class ModalStore {
     this.isOpen = true
   }
 
+  handleClose = this.close
+  handleOpen = this.open
+
   @action handleNextSlideClick = () => {
     this.goToSlide(this.activeSlide + 1 > this.numSlides ? 0 : this.activeSlide + 1)
   }

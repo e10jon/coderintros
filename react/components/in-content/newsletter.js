@@ -17,31 +17,33 @@ const Newsletter = ({formAction, frequencyGroup}: {formAction: ?string, frequenc
 
       <form
         action={formAction}
+        className='flex'
+        data-ga-event-action='Submitted Newsletter Form'
+        data-ga-event-category='In-content Units'
+        data-ga-on='submit'
         method='post'
         target='_blank'
       >
-        <div className='flex'>
-          <input
-            className='input mb0 col-9 flex-auto not-rounded border-right-none'
-            name='EMAIL'
-            placeholder='youremail@domain.com'
-            type='email'
-          />
+        <input
+          className='input mb0 col-9 flex-auto not-rounded border-right-none'
+          name='EMAIL'
+          placeholder='youremail@domain.com'
+          type='email'
+        />
 
-          <input
-            name={`group[${frequencyGroup || ''}]`}
-            type='hidden'
-            value='2'
-          />
+        <input
+          name={`group[${frequencyGroup || ''}]`}
+          type='hidden'
+          value='2'
+        />
 
-          <button
-            className='btn btn-primary col-3 h5 regular ups not-rounded border-left-none'
-            style={{flex: '0 0 80px'}}
-            type='submit'
-          >
-            {'Submit'}
-          </button>
-        </div>
+        <button
+          className='btn btn-primary col-3 h5 regular ups not-rounded border-left-none'
+          style={{flex: '0 0 80px'}}
+          type='submit'
+        >
+          {'Submit'}
+        </button>
       </form>
     </div>
   )

@@ -49,7 +49,12 @@ class Related extends PureComponent {
                 href={getUrlObj(postData)}
                 key={`Related${postData.id}`}
               >
-                <a className={`col-4 sm-col-3 block px1 ${i === 3 ? 'xs-hide' : ''}`}>
+                <a
+                  className={`col-4 sm-col-3 block px1 ${i === 3 ? 'xs-hide' : ''}`}
+                  data-ga-event-action={`Clicked index ${i}`}
+                  data-ga-event-category='Related Posts'
+                  data-ga-on='click'
+                >
                   <img
                     className='block fit col-12'
                     {...getThumbnailImageProps(postData)}

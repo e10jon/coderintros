@@ -11,7 +11,6 @@ import {IoIosEmailOutline, IoSocialFacebookOutline} from 'react-icons/lib/io'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 
 import styles from '../styles/components/header.scss'
-import trackEvent from '../helpers/track-event'
 
 @observer
 class Header extends Component {
@@ -31,22 +30,6 @@ class Header extends Component {
   componentWillUnmount () {
     window.removeEventListener('scroll', this.handleScroll)
     window.removeEventListener('resize', this.handleScroll)
-  }
-
-  handleEmailClick = () => {
-    this.context.emailModalStore.open()
-    trackEvent({
-      eventCategory: 'Modals',
-      eventAction: 'Opened Email From Header'
-    })
-  }
-
-  handleFacebookClick = () => {
-    this.context.likeModalStore.open()
-    trackEvent({
-      eventCategory: 'Modals',
-      eventAction: 'Opened Like From Header'
-    })
   }
 
   handleScroll = () => {
@@ -131,8 +114,11 @@ class Header extends Component {
             <div>
               <a
                 className={aClassName}
+                data-ga-event-action='Opened Email From Header'
+                data-ga-event-category='Modals'
+                data-ga-on='click'
                 href='javascript:void(0)'
-                onClick={this.handleEmailClick}
+                onClick={this.context.emailModalStore.handleOpen}
               >
                 <IoIosEmailOutline className={iconClassName} />
               </a>
@@ -154,8 +140,11 @@ class Header extends Component {
               {this.context.siteData.facebook_page_url ? (
                 <a
                   className={aClassName}
+                  data-ga-event-action='Opened Like From Header'
+                  data-ga-event-category='Modals'
+                  data-ga-on='click'
                   href='javascript:void(0)'
-                  onClick={this.handleFacebookClick}
+                  onClick={this.context.likeModalStore.handleOpen}
                 >
                   <IoSocialFacebookOutline className={iconClassName} />
                 </a>

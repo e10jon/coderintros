@@ -36,7 +36,8 @@ class Like extends Component {
 
   handleFBEdgeCreation = url => {
     if (url === this.context.siteData.facebook_page_url) {
-      this.closeAndCookie()
+      this.handleAlreadyLikeClick()
+
       trackEvent({
         eventCategory: 'Modals',
         eventAction: 'Liked FB Page'
@@ -50,17 +51,9 @@ class Like extends Component {
     }
   }
 
-  closeAndCookie = () => {
+  handleAlreadyLikeClick = () => {
     this.props.store.close()
     Cookies.set(didLikeFBPageStoreKey, true, {expires: 7})
-  }
-
-  handleAlreadyLikeClick = () => {
-    this.closeAndCookie()
-    trackEvent({
-      eventCategory: 'Modals',
-      eventAction: 'Clicked Already Liked Button'
-    })
   }
 
   render () {
@@ -94,6 +87,9 @@ class Like extends Component {
         <div className='center'>
           <a
             className='inline-block h5 pt2 pb1 px2 gray'
+            data-ga-event-action='Clicked Already Liked Button'
+            data-ga-event-category='Modals'
+            data-ga-on='click'
             href='javascript:void(0)'
             onClick={this.handleAlreadyLikeClick}
           >

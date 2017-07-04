@@ -22,8 +22,9 @@ const Share = ({position, title, url, hackerNewsUrl, redditUrl}: Object) => {
   const handleClick = (network: string) => {
     if (url) {
       trackEvent({
+        eventAction: `Clicked ${network} From ${position}`,
         eventCategory: 'Share',
-        eventAction: `Clicked ${network} From ${position}`
+        eventLabel: url
       })
       trackEvent({
         hitType: 'social',

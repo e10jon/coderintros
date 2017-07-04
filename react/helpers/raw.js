@@ -1,7 +1,7 @@
 // @flow
 
 // to regenerate the custom autotrack.custom.js, use:
-// ./node_modules/.bin/autotrack -o static/js/autotrack.custom.js -p cleanUrlTracker,outboundFormTracker,outboundLinkTracker,maxScrollTracker,urlChangeTracker
+// ./node_modules/.bin/autotrack -o static/js/autotrack.custom.js -p cleanUrlTracker,eventTracker,outboundFormTracker,outboundLinkTracker,maxScrollTracker,urlChangeTracker
 
 export const gaInit = (trackingId: string, {autoLink = []}: Object = {}) => (
   `(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -11,6 +11,7 @@ export const gaInit = (trackingId: string, {autoLink = []}: Object = {}) => (
   ga('create', '${trackingId}', 'auto', {'allowLinker': true});
   ga('require', 'linker');
   ga('require', 'cleanUrlTracker');
+  ga('require', 'eventTracker', {'attributePrefix': 'data-ga-', 'events': ['click', 'submit']});
   ga('require', 'outboundFormTracker');
   ga('require', 'outboundLinkTracker');
   ga('require', 'maxScrollTracker');
