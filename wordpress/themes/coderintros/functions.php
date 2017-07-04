@@ -27,3 +27,9 @@ update_option( 'large_crop', 1 );
 add_action( 'admin_init', function () {
   setcookie( 'wp_rest_nonce',  wp_create_nonce( 'wp_rest' ), 0, '/' );
 } );
+
+// set our auth tokens to basically never expire
+// $default is 1 week from when the token was issued
+add_filter( 'jwt_auth_expire', function ( $default ) {
+  return $default * 52 * 10;
+} );
