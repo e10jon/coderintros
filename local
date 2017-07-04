@@ -1,5 +1,9 @@
 # /bin/bash
 
-# useful docker commands: http://jimhoskins.com/2013/07/27/remove-untagged-docker-images.html
+# useful docker commands:
+# https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
 
-docker-compose down && docker-compose up -d --build
+docker-compose down && \
+  docker-compose up -d --build && \
+  docker rmi $(docker images -f dangling=true -q) 2> /dev/null && \
+  docker volume rm $(docker volume ls -f dangling=true -q) 2> /dev/null
