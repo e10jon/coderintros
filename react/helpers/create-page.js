@@ -22,7 +22,7 @@ import trackEvent from '../helpers/track-event'
 const DevTools = process.env.NODE_ENV !== 'production'
   ? (() => {
     const DevTools = require('mobx-react-devtools')
-    DevTools.configureDevtool({logEnabled: true})
+    DevTools.configureDevtool({logEnabled: process.env.NODE_ENV === 'development'})
     return DevTools.default
   })()
   : null

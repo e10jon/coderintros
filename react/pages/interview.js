@@ -10,7 +10,7 @@ import WelcomeModal from '../components/modals/interview/welcome'
 import PostStore from '../stores/post'
 
 @observer
-class Interview extends Component {
+export class Interview extends Component {
   static childContextTypes = {
     postStore: MobxReactPropTypes.observableObject
   }

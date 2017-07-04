@@ -76,7 +76,7 @@ export default class PostStore {
 
   @persist('object', Post) @observable post = new Post()
 
-  constructor ({questionsData}: {questionsData: Object}) {
+  constructor ({questionsData}: {questionsData: Object} = {}) {
     this.questionsData = questionsData
 
     autorun(() => {

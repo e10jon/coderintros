@@ -10,7 +10,7 @@ import createPage from '../helpers/create-page'
 import {getUrlObj, getFeaturedImageProps, getThumbnailImageProps} from '../helpers/post-data'
 import styles from '../styles/pages/index.scss'
 
-const Home = ({postsData}: Object, {siteData}: Object) => {
+export const Home = ({postsData}: Object, {siteData}: Object) => {
   return (
     <div>
       <Head>

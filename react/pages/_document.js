@@ -45,9 +45,7 @@ class Document extends NextDocument {
 
         <body>
           <div id='fb-root' />
-          <script
-            dangerouslySetInnerHTML={{__html: fbInit(siteData.facebook_app_id)}}
-          />
+          <script dangerouslySetInnerHTML={{__html: fbInit(siteData.facebook_app_id)}} />
 
           <Main />
 
