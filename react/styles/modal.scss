@@ -5,7 +5,7 @@
 
 .ReactModalPortal {
   > div {
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(0, 0, 0, 0.6);
     opacity: 0;
   }
 
@@ -14,4 +14,9 @@
     &--after-open { opacity: 1; }
     &--before-close { opacity: 0; }
   }
+}
+
+body.ReactModal__Body--open #__next {
+  filter: blur(20px);
+  transition: filter 300ms ease-out;
 }
