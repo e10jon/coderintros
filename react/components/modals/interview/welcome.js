@@ -7,7 +7,7 @@ import createModal from '../../../helpers/create-modal'
 
 const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Object}) => {
   const handleButtonClick = () => {
-    postStore.generateRandomResponses(10)
+    postStore.generateRandomResponses()
     store.close()
   }
 
@@ -20,12 +20,12 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
   }
 
   return (
-    <div className='m2'>
-      <div className='my2 h2 line-height-3'>{'Welcome!'}</div>
+    <div className='pt3 px3 pb2 bg-darken-0'>
+      <div className='h2 bold line-height-3 mb2'>{'Welcome to your interview!'}</div>
 
       <video
         autoPlay
-        className='block fit my2'
+        className='block fit my2 border border-gray'
         controls
         loop
         onClick={handleVideoClick}
@@ -35,7 +35,7 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
 
       <div className='center'>
         <button
-          className='btn btn-primary'
+          className='btn btn-primary btn-big h3'
           onClick={handleButtonClick}
           type='submit'
         >

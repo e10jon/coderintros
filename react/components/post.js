@@ -164,7 +164,7 @@ class Post extends PureComponent {
                     className='border border-gray bg-darken-0 gray flex items-center justify-center'
                     style={{height: '400px'}}
                   >
-                    {this.context.postStore.isFeaturedImageUploading ? 'Uploading...' : '[Drop a photo here]'}
+                    {this.context.postStore.isFeaturedImageUploading ? 'Uploading...' : '[Drag a high-res photo of you here]'}
                   </div>
                 )}
               </Dropzone>
@@ -249,7 +249,7 @@ class Post extends PureComponent {
                         onClick={this.handleAddResponse}
                       >
                         <AddResponseIcon />
-                        <span className='align-middle pl1'>{!postData.responses.length ? 'Add your first question' : 'Add another question'}</span>
+                        <span className='align-middle pl1'>{!postData.responses.length ? 'Add your first Q&A' : 'Add another Q&A'}</span>
                       </a>
                     </div>
                   </div>

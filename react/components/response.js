@@ -34,7 +34,7 @@ class Response extends PureComponent {
             NodeName='strong'
             dangerouslySetInnerHTML={{__html: this.props.response.question}}
             onBlur={this.handleQuestionUpdate}
-            placeholder='The question'
+            placeholder='Ask yourself anything you want...'
           />
         </p>
 
@@ -52,6 +52,7 @@ class Response extends PureComponent {
             className='inline-block h5 px1 sans-serif mx1'
             href='javascript:void(0)'
             onClick={this.handleGenerateRandomQuestion}
+            title='Change question'
           >
             <RandomQuestionIcon />
           </a>
@@ -60,6 +61,7 @@ class Response extends PureComponent {
             className='inline-block h5 px1 sans-serif mx1'
             href='javascript:void(0)'
             onClick={this.handleAddResponse}
+            title='Insert a Q&amp;A below'
           >
             <AddIcon />
           </a>
@@ -68,6 +70,7 @@ class Response extends PureComponent {
             className='inline-block h5 px1 sans-serif mx1'
             href='javascript:void(0)'
             onClick={this.handleRemoveResponse}
+            title='Delete Q&amp;A'
           >
             <RemoveIcon />
           </a>

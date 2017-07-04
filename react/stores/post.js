@@ -99,7 +99,7 @@ export default class PostStore {
     ? this.questionsDataFlattened[floor(random() * this.questionsDataFlattened.length)]
     : null
 
-  @action generateRandomResponses = (desired: number = 10) => {
+  @action generateRandomResponses = (desired: number = 3) => {
     const actual = desired - this.post.responses.length
     if (actual > 0) {
       for (let i = 0; i < actual; i += 1) {
