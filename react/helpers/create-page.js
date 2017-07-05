@@ -118,6 +118,7 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
     props: {
       fetchCache: Object,
       pagesData: Object,
+      postsData: Object,
       siteData: Object
     }
     sitePasswordStore: Object
@@ -135,15 +136,17 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
             </div>
           </div>
 
-          {this.sitePasswordStore && !this.sitePasswordStore.isAuthorized ? (
-            <SitePassword />
-          ) : (
-            <main className={`${maxWidthClassName(this.props)} mx-auto`}>
-              <div className={fullWidthClassName(this.props)}>
-                <Child {...this.props} />
-              </div>
-            </main>
-          )}
+          {this.sitePasswordStore && !this.sitePasswordStore.isAuthorized &&
+          (!this.props.postsData || !this.props.postsData[0] || !this.props.postsData[0]._formatting ||
+          !this.props.postsData[0]._formatting.skip_site_password)
+            ? <SitePassword /> : (
+              <main className={`${maxWidthClassName(this.props)} mx-auto`}>
+                <div className={fullWidthClassName(this.props)}>
+                  <Child {...this.props} />
+                </div>
+              </main>
+            )
+          }
 
           <div className='max-width-3 mx-auto'>
             <div className='page-x-spacing'>
