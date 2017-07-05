@@ -87,6 +87,7 @@ add_action( 'rest_api_init', function () {
         'github_repo_url' => get_option( 'github_repo_url' ),
         'mailchimp_frequency_group' => get_option( 'mailchimp_frequency_group' ),
         'mailchimp_newsletter_url' => get_option( 'mailchimp_newsletter_url' ),
+        'public_email' => get_option( 'public_email' ),
         'site_password_enabled' => ! empty( get_option( 'site_password' ) ),
         'sites' => []
       ];

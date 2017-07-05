@@ -4,13 +4,13 @@ import React from 'react'
 import Link from 'next/link'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import {IoSocialGithub} from 'react-icons/lib/io'
+import {IoEmail as EmailIcon, IoSocialGithub as GithubIcon} from 'react-icons/lib/io'
 
 import {getUrlObj} from '../helpers/post-data'
 
 const Footer = (props: Object, {pagesData, siteData}: Object) => (
   <footer className='py2 sm-py3 center'>
-    <div className='mb2'>
+    <div className='mb1'>
       {pagesData && pagesData.map(p => (
         <Link
           as={p.link}
@@ -25,24 +25,36 @@ const Footer = (props: Object, {pagesData, siteData}: Object) => (
       ))}
     </div>
 
-    <div
-      className='gray mb2 h5 ups'
-      dangerouslySetInnerHTML={{__html: `&copy;${moment().format('YYYY')} ${siteData.name}`}}
-    />
-
-    {siteData.github_repo_url ? (
-      <div className='mt2'>
+    <div className='mb2'>
+      {siteData.github_repo_url && (
         <a
-          className='gray p1 h5 ups inline-block'
+          className='gray p1 h5 inline-block'
           href={siteData.github_repo_url}
           rel='noopener noreferrer'
           target='_blank'
         >
-          <IoSocialGithub />
+          <GithubIcon />
           <span className='pl1 align-middle'>{'Github'}</span>
         </a>
-      </div>
-    ) : null}
+      )}
+
+      {siteData.public_email && (
+        <a
+          className='gray p1 h5 inline-block'
+          href={`mailto:${siteData.public_email}`}
+          rel='noopener noreferrer'
+          target='_blank'
+        >
+          <EmailIcon />
+          <span className='pl1 align-middle'>{'Email'}</span>
+        </a>
+      )}
+    </div>
+
+    <div
+      className='gray my2 h5'
+      dangerouslySetInnerHTML={{__html: `&copy;${moment().format('YYYY')} ${siteData.name}`}}
+    />
   </footer>
 )
 
