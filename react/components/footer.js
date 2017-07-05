@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import {IoEmail as EmailIcon, IoSocialGithub as GithubIcon} from 'react-icons/lib/io'
+import {IoSocialFacebook as FacebookIcon, IoSocialGithub as GithubIcon} from 'react-icons/lib/io'
 
 import {getUrlObj} from '../helpers/post-data'
 
@@ -25,10 +25,10 @@ const Footer = (props: Object, {pagesData, siteData}: Object) => (
       ))}
     </div>
 
-    <div className='mb2'>
+    <div className='mb2 h5'>
       {siteData.github_repo_url && (
         <a
-          className='gray p1 h5 inline-block'
+          className='gray p1 inline-block'
           href={siteData.github_repo_url}
           rel='noopener noreferrer'
           target='_blank'
@@ -38,15 +38,15 @@ const Footer = (props: Object, {pagesData, siteData}: Object) => (
         </a>
       )}
 
-      {siteData.public_email && (
+      {siteData.facebook_page_url && (
         <a
-          className='gray p1 h5 inline-block'
-          href={`mailto:${siteData.public_email}`}
+          className='gray p1 inline-block'
+          href={siteData.facebook_page_url}
           rel='noopener noreferrer'
           target='_blank'
         >
-          <EmailIcon />
-          <span className='pl1 align-middle'>{'Email'}</span>
+          <FacebookIcon />
+          <span className='pl1 align-middle'>{'Facebook'}</span>
         </a>
       )}
     </div>

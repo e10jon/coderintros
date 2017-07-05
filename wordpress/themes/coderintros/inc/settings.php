@@ -10,7 +10,6 @@ add_action( 'admin_init', function () {
   register_setting( 'ci', 'github_repo_url' );
   register_setting( 'ci', 'mailchimp_frequency_group' );
   register_setting( 'ci', 'mailchimp_newsletter_url' );
-  register_setting( 'ci', 'public_email' );
   register_setting( 'ci', 'site_password' );
 
   add_settings_section( 'ci_general', null, null, 'ci' );
@@ -99,17 +98,6 @@ add_action( 'admin_init', function () {
     function () {
       $option = get_option('mailchimp_newsletter_url');
       echo "<input id='mailchimp_newsletter_url' name='mailchimp_newsletter_url' type='text' class='regular-text code' value='{$option}' />";
-    },
-    'ci',
-    'ci_general'
-  );
-
-  add_settings_field(
-    'public_email',
-    '<label for="public_email">' . __( 'Public Email Address' , 'public_email' ) . '</label>',
-    function () {
-      $option = get_option('public_email');
-      echo "<input id='public_email' name='public_email' type='text' class='regular-text code' value='{$option}' />";
     },
     'ci',
     'ci_general'
