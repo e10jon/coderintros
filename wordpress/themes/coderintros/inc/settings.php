@@ -6,6 +6,7 @@ add_action( 'admin_init', function () {
   register_setting( 'ci', 'facebook_page_url' );
   register_setting( 'ci', 'facebook_modal_delay' );
   register_setting( 'ci', 'facebook_app_id' );
+  register_setting( 'ci', 'facebook_pixel_id' );
   register_setting( 'ci', 'ga_tracking_id' );
   register_setting( 'ci', 'github_repo_url' );
   register_setting( 'ci', 'mailchimp_frequency_group' );
@@ -54,6 +55,17 @@ add_action( 'admin_init', function () {
     function () {
       $option = get_option('facebook_app_id');
       echo "<input id='facebook_app_id' name='facebook_app_id' type='text' class='regular-text code' value='{$option}' />";
+    },
+    'ci',
+    'ci_general'
+  );
+
+  add_settings_field(
+    'facebook_pixel_id',
+    '<label for="facebook_pixel_id">' . __( 'Facebook Pixel ID' , 'facebook_pixel_id' ) . '</label>',
+    function () {
+      $option = get_option('facebook_pixel_id');
+      echo "<input id='facebook_pixel_id' name='facebook_pixel_id' type='text' class='regular-text code' value='{$option}' />";
     },
     'ci',
     'ci_general'

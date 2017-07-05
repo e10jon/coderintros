@@ -82,6 +82,7 @@ add_action( 'rest_api_init', function () {
         'home' => get_home_url(),
         'images' => [],
         'facebook_app_id' => get_option( 'facebook_app_id' ),
+        'facebook_pixel_id' => get_option( 'facebook_pixel_id' ),
         'facebook_page_url' => get_option( 'facebook_page_url' ),
         'facebook_modal_delay' => intval( get_option( 'facebook_modal_delay' ) ),
         'ga_tracking_id' => get_option( 'ga_tracking_id' ),

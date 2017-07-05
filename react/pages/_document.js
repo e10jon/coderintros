@@ -6,7 +6,7 @@ import React from 'react'
 import NextDocument, {Head, Main, NextScript} from 'next/document'
 
 import favicons from '../helpers/favicons'
-import {fbInit, gaInit} from '../helpers/raw'
+import {fbPixelScriptInit, fbPixelNoscriptInit, fbInit, gaInit} from '../helpers/raw'
 
 class Document extends NextDocument {
   static displayName = 'Document'
@@ -43,6 +43,17 @@ class Document extends NextDocument {
             <script
               dangerouslySetInnerHTML={{__html: `Raven.config('${SENTRY_DSN_REACT}').install();`}}
               key='SentryConfig'
+            />
+          ]}
+
+          {siteData.facebook_pixel_id && [
+            <script
+              dangerouslySetInnerHTML={{__html: fbPixelScriptInit(siteData.facebook_pixel_id)}}
+              key='FBPixelScriptInit'
+            />,
+            <noscript
+              dangerouslySetInnerHTML={{__html: fbPixelNoscriptInit(siteData.facebook_pixel_id)}}
+              key='FBPixelNoscriptInit'
             />
           ]}
 
