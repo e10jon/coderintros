@@ -14,7 +14,7 @@ It's the code that powers [coderintros.com](https://coderintros.com/). View it, 
 
 ## Look, I just want a profile on coderintros.com
 
-No problem! Head on over to [our suggestions page](https://coderintros.com/suggest/). No shame in suggesting yourself, I promise.
+No problem! Head on over to [our suggestion page](https://coderintros.com/suggest/). No shame in suggesting yourself, I promise.
 
 ## How to run locally
 
@@ -26,6 +26,8 @@ No problem! Head on over to [our suggestions page](https://coderintros.com/sugge
   - Login with `admin` `password`
 - Also:
   - Download `gcloud-service-account.json` to the `wordpress` folder
+  - Install the [MobX Dev Tools Chrome extension](https://chrome.google.com/webstore/detail/mobx-developer-tools/pfgnfdagidkfgccljigdamigbcnndkod?hl=en)
+  - Install the [Google Analytics Debugger Chrome extension](https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna?hl=en)
 
 ## How to deploy
 
@@ -63,4 +65,5 @@ To let you know about some awesome businesses (and so that I don't forget about 
 - [Mailchimp](https://mailchimp.com/)
 - [Mailgun](https://www.mailgun.com/)
 - [Namecheap](https://www.namecheap.com/)
+- [Sentry](https://sentry.io)
 - [Zapier](https://zapier.com/app/explore)

@@ -9,7 +9,7 @@ phases:
 
   build:
     commands:
-      - docker build -t react:$VERSION ./react --build-arg G_RECAPTCHA_SITEKEY=$G_RECAPTCHA_SITEKEY --build-arg AUTOMATED_JWT_TOKEN=$AUTOMATED_JWT_TOKEN
+      - docker build -t react:$VERSION ./react --build-arg G_RECAPTCHA_SITEKEY=$G_RECAPTCHA_SITEKEY --build-arg AUTOMATED_JWT_TOKEN=$AUTOMATED_JWT_TOKEN --build-arg SENTRY_DSN_REACT=$SENTRY_DSN_REACT
       - docker build -t varnish:$VERSION --build-arg PURGERS_ACL=$PURGERS_ACL ./varnish
       - docker build -t wordpress:$VERSION ./wordpress
 

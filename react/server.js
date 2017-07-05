@@ -3,15 +3,24 @@ const {join} = require('path')
 const mobxReact = require('mobx-react')
 const Router = require('koa-router')
 const next = require('next')
+const Raven = require('raven')
 
 mobxReact.useStaticRendering(true)
 
 const app = next({dev: process.env.NODE_ENV !== 'production'})
 const handle = app.getRequestHandler()
 
+if (process.env.SENTRY_DSN_NODE) {
+  Raven.config(process.env.SENTRY_DSN_NODE).install()
+}
+
 module.exports = app.prepare().then(() => {
   const server = new Koa()
   const router = new Router()
+
+  if (process.env.SENTRY_DSN_NODE) {
+    server.on('error', err => Raven.captureException(err))
+  }
 
   router.get('/robots.txt', async ctx => {
     await app.serveStatic(ctx.req, ctx.res, join(__dirname, 'static/robots.txt'))

@@ -19,14 +19,6 @@ import SitePasswordStore from '../stores/site-password'
 import styles from '../styles/app.scss'
 import trackEvent from '../helpers/track-event'
 
-const DevTools = process.env.NODE_ENV !== 'production'
-  ? (() => {
-    const DevTools = require('mobx-react-devtools')
-    DevTools.configureDevtool({logEnabled: process.env.NODE_ENV === 'development'})
-    return DevTools.default
-  })()
-  : null
-
 @observer
 export default function (Child: Object, {propPaths = () => ({}), fullWidth = false, maxWidth = 4}: Object = {}) {
   const fullWidthClassName = (props: Object) => {
@@ -136,8 +128,6 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
           <Head>
             <style dangerouslySetInnerHTML={{__html: styles}} />
           </Head>
-
-          {DevTools ? <DevTools /> : null}
 
           <div className='max-width-3 mx-auto'>
             <div className='page-x-spacing'>

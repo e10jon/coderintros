@@ -1,5 +1,7 @@
 // @flow
 
+/* global SENTRY_DSN_REACT */
+
 import React from 'react'
 import NextDocument, {Head, Main, NextScript} from 'next/document'
 
@@ -31,6 +33,18 @@ class Document extends NextDocument {
           />
 
           {favicons(siteData.images)}
+
+          {SENTRY_DSN_REACT && [
+            <script
+              crossOrigin='anonymous'
+              key='SentryLoadJS'
+              src='https://cdn.ravenjs.com/3.16.1/raven.min.js'
+            />,
+            <script
+              dangerouslySetInnerHTML={{__html: `Raven.config('${SENTRY_DSN_REACT}').install();`}}
+              key='SentryConfig'
+            />
+          ]}
 
           <script
             dangerouslySetInnerHTML={{__html: gaInit(siteData.ga_tracking_id, {
