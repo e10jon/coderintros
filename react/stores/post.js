@@ -15,7 +15,7 @@ import {getWordpressUrl} from '../helpers/fetch'
 const {floor, random} = Math
 
 // to obtain the JWT token, run this:
-// curl -X POST http://coderintros.dev/wp-json/jwt-auth/v1/token --data 'username=automated&password=REPLACE_ME'
+// curl -X POST http://coderintros.dev/wp-json/jwt-auth/v1/token --data 'username=automated&password=password'
 // to see if the token works, run this:
 // curl -X POST http://coderintros.dev/wp-json/jwt-auth/v1/token/validate -H 'Authorization: Bearer REPLACE_ME'
 const Authorization = `Bearer ${AUTOMATED_JWT_TOKEN}`
