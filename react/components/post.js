@@ -21,7 +21,6 @@ import Related from './related'
 import Response from './response'
 import Share from './share'
 import {minResponsesRequired} from '../stores/post'
-import styles from '../styles/components/post.scss'
 import SubmissionStatusItem from './submission-status-item'
 
 @observer
@@ -129,8 +128,6 @@ class Post extends PureComponent {
       <div>
         <Head>
           <title>{postData.title.rendered || ''}</title>
-
-          <style dangerouslySetInnerHTML={{__html: styles}} />
 
           <meta
             content={stripTags(postData.excerpt.rendered)}

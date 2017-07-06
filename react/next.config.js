@@ -22,7 +22,7 @@ module.exports = {
             .map((g) => glob.sync(g))
             .reduce((a, c) => a.concat(c), [])
         }
-      }]
+      }, 'import-glob-loader']
     })
 
     // the following is required because `npm run build` failed

@@ -56,6 +56,7 @@
     "flow-bin": "^0",
     "glob": "^7.1.2",
     "identity-obj-proxy": "^3.0.0",
+    "import-glob-loader": "^1.1.0",
     "jest": "^20.0.4",
     "node-sass": "^4.5.3",
     "postcss-easy-import": "^2.1.0",

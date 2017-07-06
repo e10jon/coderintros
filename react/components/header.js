@@ -3,14 +3,11 @@
 import React, {Component} from 'react'
 import getHeight from 'dom-helpers/query/height'
 import getScrollTop from 'dom-helpers/query/scrollTop'
-import Head from 'next/head'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import raf from 'raf'
 import {IoIosEmailOutline, IoSocialFacebookOutline} from 'react-icons/lib/io'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
-
-import styles from '../styles/components/header.scss'
 
 @observer
 class Header extends Component {
@@ -64,10 +61,6 @@ class Header extends Component {
 
     return (
       <header>
-        <Head>
-          <style dangerouslySetInnerHTML={{__html: styles}} />
-        </Head>
-
         {this.context.headerStore.scrollHeaderIsEnabled ? (
           <div className={`fixed z1 top-0 right-0 left-0 header-scroll header-scroll-${this.context.headerStore.scrollHeaderIsVisible ? 'show' : 'hide'}`}>
             <div

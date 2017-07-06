@@ -1,4 +1,4 @@
-@import 'ace.css';
+@import 'static/ace.css';
 
 /* tag overrides */
 a {
@@ -45,3 +45,7 @@ ul { margin: 0; padding: 0; }
 .sm-h0 { @media (min-width: 40em) { @include h0; }}
 .md-h0 { @media (min-width: 52em) { @include h0; }}
 .lg-h0 { @media (min-width: 60em) { @include h0; }}
+
+@import 'components/**/*';
+@import 'helpers/**/*';
+@import 'pages/**/*';

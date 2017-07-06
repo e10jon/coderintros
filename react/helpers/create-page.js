@@ -2,22 +2,22 @@
 
 import React, {Component} from 'react'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
-import Cookies from 'js-cookie'
 import Head from 'next/head'
+import Cookies from 'js-cookie'
 import PropTypes from 'prop-types'
 import 'isomorphic-fetch'
 
 import EmailModal from '../components/modals/email'
 import Footer from '../components/footer'
-import {getFetchHeaders, getWordpressUrl} from './fetch'
 import Header from '../components/header'
 import LikeModal, {didLikeFBPageStoreKey} from '../components/modals/like'
 import SitePassword from '../components/site-password'
+import {getFetchHeaders, getWordpressUrl} from './fetch'
+import trackEvent from '../helpers/track-event'
 import HeaderStore from '../stores/header'
 import ModalStore from '../stores/modal'
 import SitePasswordStore from '../stores/site-password'
 import styles from '../styles/app.scss'
-import trackEvent from '../helpers/track-event'
 
 @observer
 export default function (Child: Object, {propPaths = () => ({}), fullWidth = false, maxWidth = 4, autoOpenFacebookModal = false}: Object = {}) {

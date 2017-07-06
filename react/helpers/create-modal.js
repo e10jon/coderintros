@@ -2,12 +2,10 @@
 
 import React, {Component} from 'react'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
-import Head from 'next/head'
 import ReactModal from 'react-modal'
 import {IoClose} from 'react-icons/lib/io'
 
 import ModalStore from '../stores/modal'
-import styles from '../styles/modal.scss'
 import trackEvent from '../helpers/track-event'
 
 @observer
@@ -49,10 +47,6 @@ export default function (Child: Object, {isOpen, hideCloseButton, maxWidth = 2}:
     render () {
       return (
         <div>
-          <Head>
-            <style dangerouslySetInnerHTML={{__html: styles}} />
-          </Head>
-
           <ReactModal
             className='absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center sans-serif'
             closeTimeoutMS={200}

@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react'
-import Head from 'next/head'
 import {FaFacebookOfficial} from 'react-icons/lib/fa'
 import {
   IoEmail,
@@ -10,7 +9,6 @@ import {
   IoSocialTwitter
 } from 'react-icons/lib/io'
 
-import styles from '../styles/components/share.scss'
 import trackEvent from '../helpers/track-event'
 
 const Share = ({position, title, url, hackerNewsUrl, redditUrl}: Object) => {
@@ -43,10 +41,6 @@ const Share = ({position, title, url, hackerNewsUrl, redditUrl}: Object) => {
 
   return (
     <div className='my3 nowrap'>
-      <Head>
-        <style dangerouslySetInnerHTML={{__html: styles}} />
-      </Head>
-
       <div className='inline-block'>
         <a
           className={`${className} bg-fb-blue`}
