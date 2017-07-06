@@ -4,7 +4,7 @@
     "precommit": "yarn run lint && yarn run flow && yarn test",
     "flow": "flow",
     "lint": "eslint .",
-    "test": "NODE_PATH=. NODE_ENV=test jest --notify",
+    "test": "NODE_PATH=. NODE_ENV=test jest --notify --verbose",
     "dev": "node index.js",
     "build": "next build",
     "start": "node index.js"
