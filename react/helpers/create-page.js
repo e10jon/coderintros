@@ -20,7 +20,7 @@ import styles from '../styles/app.scss'
 import trackEvent from '../helpers/track-event'
 
 @observer
-export default function (Child: Object, {propPaths = () => ({}), fullWidth = false, maxWidth = 4}: Object = {}) {
+export default function (Child: Object, {propPaths = () => ({}), fullWidth = false, maxWidth = 4, autoOpenFacebookModal = false}: Object = {}) {
   const fullWidthClassName = (props: Object) => {
     const isFull = typeof fullWidth === 'function' ? fullWidth(props) : fullWidth
     return isFull ? '' : 'page-x-spacing'
@@ -99,7 +99,8 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
     }
 
     componentDidMount () {
-      if (this.props.siteData.facebook_modal_delay) {
+      if ((typeof autoOpenFacebookModal === 'function' ? autoOpenFacebookModal(this.props) : autoOpenFacebookModal) &&
+      this.props.siteData.facebook_modal_delay) {
         setTimeout(() => {
           if (!Cookies.get(didLikeFBPageStoreKey) && !this.emailModalStore.isOpen) {
             this.likeModalStore.autoOpen()

@@ -100,6 +100,7 @@ Home.contextTypes = {
 }
 
 export default createPage(Home, {
+  autoOpenFacebookModal: true,
   fullWidth: true,
   maxWidth: 3,
   propPaths: () => ({

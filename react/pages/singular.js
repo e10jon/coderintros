@@ -34,6 +34,7 @@ export const Singular = (props: Object) => {
 Singular.displayName = 'Singular'
 
 export default createPage(Singular, {
+  autoOpenFacebookModal: ({url: {query: {type}}}) => type === 'post',
   fullWidth: true,
   maxWidth: 3,
   propPaths: ({asPath, query: {p, page_id, preview, preview_id, type, slug}}) => ({

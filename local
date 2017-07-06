@@ -4,6 +4,4 @@
 # https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
 
 docker-compose down && \
-  docker-compose up -d --build && \
-  docker rmi $(docker images -f dangling=true -q) 2> /dev/null && \
-  docker volume rm $(docker volume ls -f dangling=true -q) 2> /dev/null
+  docker-compose up -d --build
