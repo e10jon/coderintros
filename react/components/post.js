@@ -195,7 +195,7 @@ class Post extends PureComponent {
           <div className='col-12 md-flex-auto'>
             <div className={!postData._formatting.full_width ? 'page-x-spacing' : ''}>
               {!postData._formatting.hide_title && (
-                <h1 className='mb2 sm-h0'>
+                <h1 className='mb1 sm-h0'>
                   {this.context.postStore ? (
                     <ContentEditable
                       dangerouslySetInnerHTML={{__html: postData.name}}
@@ -307,6 +307,65 @@ class Post extends PureComponent {
                     {'Enter your name'}
                   </SubmissionStatusItem>
 
+                  <SubmissionStatusItem isValid={this.context.postStore.isJobTitleValid}>
+                    <div className='mb1'>
+                      <span>{'Input your job title '}</span>
+                    </div>
+
+                    <input
+                      className='input mb1'
+                      onChange={this.context.postStore.handleJobTitleChange}
+                      placeholder='Senior Developer'
+                      required
+                      type='text'
+                      value={postData.job_title}
+                    />
+                  </SubmissionStatusItem>
+
+                  <SubmissionStatusItem isValid>
+                    <div className='mb1'>
+                      <span>{'Input your current employer '}</span>
+                      <span className='h5'>{'(optional)'}</span>
+                    </div>
+
+                    <input
+                      className='input mb1'
+                      onChange={this.context.postStore.handleEmployerChange}
+                      placeholder='Initech, Inc.'
+                      type='text'
+                      value={postData.employer}
+                    />
+                  </SubmissionStatusItem>
+
+                  <SubmissionStatusItem isValid={this.context.postStore.isCurrentLocationValid}>
+                    <div className='mb1'>
+                      <span>{'Input your current location '}</span>
+                    </div>
+
+                    <input
+                      className='input mb1'
+                      onChange={this.context.postStore.handleCurrentLocationChange}
+                      placeholder='Coderville, CA'
+                      required
+                      type='text'
+                      value={postData.current_location}
+                    />
+                  </SubmissionStatusItem>
+
+                  <SubmissionStatusItem isValid>
+                    <div className='mb1'>
+                      <span>{'Input your hometown '}</span>
+                    </div>
+
+                    <input
+                      className='input mb1'
+                      onChange={this.context.postStore.handleHometownLocationChange}
+                      placeholder='Smalltown, TX'
+                      type='text'
+                      value={postData.hometown_location}
+                    />
+                  </SubmissionStatusItem>
+
                   <SubmissionStatusItem isValid={this.context.postStore.isExcerptValid}>
                     {'Enter your bio'}
                   </SubmissionStatusItem>
@@ -317,7 +376,7 @@ class Post extends PureComponent {
 
                   <SubmissionStatusItem isValid={this.context.postStore.isEmailValid}>
                     <div className='mb1'>
-                      <span>{'Enter your email '}</span>
+                      <span>{'Input your email '}</span>
                       <span className='h5'>{'(will not be published)'}</span>
                     </div>
 
@@ -333,8 +392,8 @@ class Post extends PureComponent {
 
                   <SubmissionStatusItem isValid={null}>
                     <div className='mb1'>
-                      <span>{'Optionally, enter your phone number '}</span>
-                      <span className='h5'>{'(in case we want to ask more questions)'}</span>
+                      <span>{'Input your phone number '}</span>
+                      <span className='h5'>{'(optional, in case we want to ask more questions)'}</span>
                     </div>
 
                     <input

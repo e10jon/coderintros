@@ -23,7 +23,7 @@ add_action( 'rest_api_init', function () {
 
 // add writable, maybe readable, fields to posts
 add_action( 'rest_api_init', function () {
-  foreach( ['name'] as $field ) {
+  foreach( ['name', 'current_location', 'hometown_location', 'employer', 'job_title'] as $field ) {
     register_rest_field( 'post', $field, [
       'get_callback' => function ( $object, $field_name ) {
         return get_field( $field_name );

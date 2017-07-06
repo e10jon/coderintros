@@ -49,8 +49,12 @@ class Post {
   type = 'post'
 
   @persist('object') @observable content = {rendered: ''}
+  @persist @observable current_location = ''
+  @persist @observable hometown_location = ''
   @persist @observable email = ''
+  @persist @observable employer = ''
   @persist('object') @observable excerpt = {rendered: ''}
+  @persist @observable job_title = ''
   @persist @observable name = ''
   @persist @observable phone = ''
   @persist('list', Response) @observable responses = []
@@ -138,6 +142,10 @@ export default class PostStore {
     this.post.email = getValue(e)
   }
 
+  @action handleEmployerChange = (e: Object) => {
+    this.post.employer = getValue(e)
+  }
+
   // wordpress will return the excerpt in a <p> tag,
   // so we'll be consistent and do the same
   @action handleExcerptChange = (e: Object) => {
@@ -168,8 +176,20 @@ export default class PostStore {
     this.isFeaturedImageUploading = false
   }
 
+  @action handleCurrentLocationChange = (e: Object) => {
+    this.post.current_location = getValue(e)
+  }
+
+  @action handleHometownLocationChange = (e: Object) => {
+    this.post.hometown_location = getValue(e)
+  }
+
   @action handleNameChange = (e: Object) => {
     this.post.name = getValue(e)
+  }
+
+  @action handleJobTitleChange = (e: Object) => {
+    this.post.job_title = getValue(e)
   }
 
   @action handlePhoneChange = (e: Object) => {
@@ -204,9 +224,13 @@ export default class PostStore {
       await global.fetch(getWordpressUrl('/wp/v2/posts'), {
         body: JSON.stringify({
           content,
+          current_location: this.post.current_location,
           email: this.post.email,
+          employer: this.post.employer,
           excerpt: stripTags(this.post.excerpt.rendered),
           featured_media: this.post._embedded['wp:featuredmedia'][0].id,
+          hometown_location: this.post.hometown_location,
+          job_title: this.post.job_title,
           name: this.post.name,
           phone: this.post.phone,
           status: 'pending',
@@ -232,6 +256,10 @@ export default class PostStore {
     }
   }
 
+  @computed get isCurrentLocationValid (): boolean {
+    return !!this.post.current_location.length
+  }
+
   @computed get isEmailValid (): boolean {
     return !!this.post.email.length
   }
@@ -244,6 +272,10 @@ export default class PostStore {
     return !!this.post.name.length
   }
 
+  @computed get isJobTitleValid (): boolean {
+    return !!this.post.job_title.length
+  }
+
   @computed get isPhotoValid (): boolean {
     return !!this.post._embedded['wp:featuredmedia'].length
   }
@@ -254,7 +286,9 @@ export default class PostStore {
 
   @computed get isValid (): boolean {
     return this.isEmailValid &&
+      this.isCurrentLocationValid &&
       this.isExcerptValid &&
+      this.isJobTitleValid &&
       this.isNameValid &&
       this.isPhotoValid &&
       this.isResponsesLengthValid

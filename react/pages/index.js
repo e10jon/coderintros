@@ -6,6 +6,7 @@ import Link from 'next/link'
 import PropTypes from 'prop-types'
 import stripTags from 'striptags'
 
+import Tagline from '../components/tagline'
 import createPage from '../helpers/create-page'
 import {getUrlObj, getFeaturedImageProps, getThumbnailImageProps} from '../helpers/post-data'
 import styles from '../styles/pages/index.scss'
@@ -81,6 +82,12 @@ export const Home = ({postsData}: Object, {siteData}: Object) => {
                     className='my1 gray line-clamp-3'
                     dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
                   />
+
+                  <Tagline
+                    className='my1 h5'
+                    postData={postData}
+                  />
+
                 </div>
               </div>
             </a>
