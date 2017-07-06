@@ -67,9 +67,7 @@ class Post extends PureComponent {
     }
   }
 
-  handleAddResponse = this.context.postStore
-    ? this.context.postStore.handleAddResponse.bind(null, null)
-    : null
+  handleAddResponse = this.context.postStore && this.context.postStore.handleAddResponse.bind(null, null)
 
   updateHeaderStore () {
     if (this.props.postData.type === 'post' && !this.context.postStore) {
@@ -87,6 +85,8 @@ class Post extends PureComponent {
     const ogImageData: ?Object = getFeaturedImageProps(postData, {
       returnLargestSizeData: true
     })
+
+    const strippedExcerpt = stripTags(postData.excerpt.rendered)
 
     const featuredImg = (
       <img
@@ -130,7 +130,7 @@ class Post extends PureComponent {
           <title>{postData.title.rendered || ''}</title>
 
           <meta
-            content={stripTags(postData.excerpt.rendered)}
+            content={strippedExcerpt}
             name='description'
           />
 
@@ -147,38 +147,38 @@ class Post extends PureComponent {
             property='og:title'
           />
           <meta
-            content={stripTags(postData.excerpt.rendered)}
+            content={strippedExcerpt}
             property='og:description'
           />
-          {ogImageData ? (
+          {ogImageData && (
             <meta
               content={ogImageData.source_url}
               property='og:image'
             />
-          ) : null}
-          {ogImageData ? (
+          )}
+          {ogImageData && (
             <meta
               content={ogImageData.height}
               property='og:image:height'
             />
-          ) : null}
-          {ogImageData ? (
+          )}
+          {ogImageData && (
             <meta
               content={ogImageData.width}
               property='og:image:width'
             />
-          ) : null}
+          )}
 
-          {this.context.postStore ? (
+          {this.context.postStore && (
             <script
               async
               defer
               src='https://www.google.com/recaptcha/api.js'
             />
-          ) : null}
+          )}
         </Head>
 
-        {!postData._formatting.hide_featured_image ? (
+        {!postData._formatting.hide_featured_image && (
           <div className='mb2 sm-mb3 md-page-x-spacing'>
             {this.context.postStore ? (
               <Dropzone
@@ -189,12 +189,12 @@ class Post extends PureComponent {
               </Dropzone>
             ) : featuredImg}
           </div>
-        ) : null}
+        )}
 
         <div className='flex flex-wrap mb2'>
           <div className='col-12 md-flex-auto'>
             <div className={!postData._formatting.full_width ? 'page-x-spacing' : ''}>
-              {!postData._formatting.hide_title ? (
+              {!postData._formatting.hide_title && (
                 <h1 className='mb2 sm-h0'>
                   {this.context.postStore ? (
                     <ContentEditable
@@ -211,29 +211,30 @@ class Post extends PureComponent {
                     </Link>
                   )}
                 </h1>
-              ) : null}
+              )}
 
-              {postData.type !== 'page' ? (
+              {postData.type !== 'page' && (
                 <div className='mb2 gray h3 sm-col-10'>
                   {this.context.postStore ? (
                     <ContentEditable
-                      dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}}
-                      onBlur={this.context.postStore ? this.context.postStore.handleExcerptChange : null}
+                      dangerouslySetInnerHTML={{__html: strippedExcerpt}}
+                      onBlur={this.context.postStore && this.context.postStore.handleExcerptChange}
                       placeholder='Your brief bio'
                     />
                   ) : (
-                    <div dangerouslySetInnerHTML={{__html: stripTags(postData.excerpt.rendered)}} />
+                    <div dangerouslySetInnerHTML={{__html: strippedExcerpt}} />
                   )}
                 </div>
-              ) : null}
+              )}
 
-              {postData.type !== 'page' ? (
+              {postData.type !== 'page' && (
                 <div className='mb2 gray h5 ups'>{moment(postData.date).format('MMMM D, YYYY')}</div>
-              ) : null}
+              )}
 
-              {postData.type !== 'page' ? (
+              {postData.type !== 'page' && (
                 this.context.postStore ? <hr className='my3 col-6 ml0' /> : (
                   <Share
+                    description={strippedExcerpt}
                     hackerNewsUrl={postData._social.hacker_news_url}
                     position='Above Content'
                     redditUrl={postData._social.reddit_url}
@@ -241,7 +242,7 @@ class Post extends PureComponent {
                     url={postData.link}
                   />
                 )
-              ) : null}
+              )}
 
               <div className='mb3 serif post-content'>
                 {this.context.postStore ? (
@@ -283,17 +284,18 @@ class Post extends PureComponent {
                 )}
               </div>
 
-              {postData.type !== 'page' && !this.context.postStore ? (
+              {postData.type !== 'page' && !this.context.postStore && (
                 <Share
+                  description={strippedExcerpt}
                   hackerNewsUrl={postData._social.hacker_news_url}
                   position='Below Content'
                   redditUrl={postData._social.reddit_url}
                   title={postData.title.rendered}
                   url={postData.link}
                 />
-              ) : null}
+              )}
 
-              {this.context.postStore ? (
+              {this.context.postStore && (
                 <div className='mt4 bg-darken-0 p3'>
                   <div className='mb3 h3 gray'>{'Validate and submit'}</div>
 
@@ -348,10 +350,10 @@ class Post extends PureComponent {
                     <div className='flex items-center mt3'>
                       <button
                         className={`btn btn-primary btn-big h3 ${G_RECAPTCHA_ENABLED !== 'false' ? 'g-recaptcha' : ''}`}
-                        data-callback={G_RECAPTCHA_ENABLED !== 'false' ? 'handleGRecaptcha' : null}
-                        data-sitekey={G_RECAPTCHA_ENABLED !== 'false' ? G_RECAPTCHA_SITEKEY : null}
+                        data-callback={G_RECAPTCHA_ENABLED !== 'false' && 'handleGRecaptcha'}
+                        data-sitekey={G_RECAPTCHA_ENABLED !== 'false' && G_RECAPTCHA_SITEKEY}
                         disabled={!this.context.postStore.isValid || this.context.postStore.isSubmitting || this.context.postStore.didSubmit}
-                        onClick={G_RECAPTCHA_ENABLED === 'false' ? this.context.postStore.handleSubmit : null}
+                        onClick={G_RECAPTCHA_ENABLED === 'false' && this.context.postStore.handleSubmit}
                         type='submit'
                       >
                         {'Submit'}
@@ -364,17 +366,17 @@ class Post extends PureComponent {
                     </div>
                   </SubmissionStatusItem>
                 </div>
-              ) : null}
+              )}
             </div>
           </div>
 
-          {postData.type === 'post' && !this.context.postStore ? (
+          {postData.type === 'post' && !this.context.postStore && (
             <div className='col-12'>
               <div className={!postData._formatting.full_width ? 'page-x-spacing' : ''}>
                 <Related postData={postData} />
               </div>
             </div>
-          ) : null}
+          )}
 
           <div className='col-12'>
             <div className={!postData._formatting.full_width ? 'page-x-spacing' : ''}>
