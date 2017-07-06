@@ -164,7 +164,7 @@ class Post extends PureComponent {
                     className='border border-gray bg-darken-0 gray flex items-center justify-center'
                     style={{height: '400px'}}
                   >
-                    {this.context.postStore.isFeaturedImageUploading ? 'Uploading...' : '[Drag a high-res photo of you here]'}
+                    {this.context.postStore.isFeaturedImageUploading ? 'Uploading...' : 'Drag a high-res photo of yourself here (1200x630px min)'}
                   </div>
                 )}
               </Dropzone>
