@@ -1,0 +1,21 @@
+.post-content {
+  color: #0b0b0b;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  img {
+    $smallMargin: 0.5rem;
+    $largeMargin: 1.5rem;
+
+    &.size-medium, &.size-large, &.size-full, &.size-thumbnail { display: block; }
+    &.size-thumbnail.aligncenter { margin: $smallMargin auto; }
+    &.size-thumbnail.alignleft { float: left; margin-top: $smallMargin; margin-right: $largeMargin; margin-bottom: $smallMargin; }
+    &.size-thumbnail.alignright { float: right; margin-top: $smallMargin; margin-bottom: $smallMargin; margin-left: $largeMargin; }
+  }
+  p, h1, h2, h3, h4, h5, h6 { margin-top: 0; margin-bottom: 1.5rem; }
+  strong { color: #111; }
+
+  .wp-caption {
+    max-width: 100%;
+    .wp-caption-text { font-size: 1rem; }
+  }
+}
