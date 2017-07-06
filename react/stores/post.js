@@ -77,6 +77,7 @@ export default class PostStore {
   questionsData = []
 
   @observable didError = false
+  @observable didFeaturedImageUploadError = false
   @observable didSubmit = false
   @observable errorMessage = ''
   @observable isFeaturedImageUploading = false
@@ -149,15 +150,20 @@ export default class PostStore {
     const photoFormData = new global.FormData()
     photoFormData.append('file', files[0])
 
-    const res = await global.fetch(getWordpressUrl('/wp/v2/media'), {
-      body: photoFormData,
-      headers: {Authorization},
-      method: 'POST'
-    })
-    const json = await res.json()
+    try {
+      const res = await global.fetch(getWordpressUrl('/wp/v2/media'), {
+        body: photoFormData,
+        headers: {Authorization},
+        method: 'POST'
+      })
+      const json = await res.json()
 
-    // have to adjust the input a little bit so it looks like a regular post
-    this.post._embedded['wp:featuredmedia'] = [json]
+      // have to adjust the input a little bit so it looks like a regular post
+      this.post._embedded['wp:featuredmedia'] = [json]
+    } catch (e) {
+      this.post._embedded['wp:featuredmedia'] = []
+      this.didFeaturedImageUploadError = true
+    }
 
     this.isFeaturedImageUploading = false
   }

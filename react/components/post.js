@@ -96,6 +96,35 @@ class Post extends PureComponent {
       />
     )
 
+    const renderDropzone = () => {
+      if (!this.context.postStore) {
+        return null
+      }
+
+      if (this.context.postStore.isFeaturedImageUploading || this.context.postStore.didFeaturedImageUploadError || !featuredImg.props.src) {
+        let message
+
+        if (this.context.postStore.isFeaturedImageUploading) {
+          message = 'Uploading...'
+        } else if (this.context.postStore.didFeaturedImageUploadError) {
+          message = 'There was an error. Please try a different photo.'
+        } else {
+          message = 'Drag a high-res photo of yourself or click here'
+        }
+
+        return (
+          <div
+            className='border border-gray bg-darken-0 gray flex items-center justify-center pointer'
+            style={{height: '400px'}}
+          >
+            {message}
+          </div>
+        )
+      } else {
+        return featuredImg
+      }
+    }
+
     return (
       <div>
         <Head>
@@ -157,16 +186,9 @@ class Post extends PureComponent {
             {this.context.postStore ? (
               <Dropzone
                 className='col-12'
-                onDrop={this.context.postStore.handleFeaturedImageDrop}
+                onDrop={this.context.postStore && this.context.postStore.handleFeaturedImageDrop}
               >
-                {featuredImg.props.src ? featuredImg : (
-                  <div
-                    className='border border-gray bg-darken-0 gray flex items-center justify-center'
-                    style={{height: '400px'}}
-                  >
-                    {this.context.postStore.isFeaturedImageUploading ? 'Uploading...' : 'Drag a high-res photo of yourself here (1200x630px min)'}
-                  </div>
-                )}
+                {renderDropzone()}
               </Dropzone>
             ) : featuredImg}
           </div>
