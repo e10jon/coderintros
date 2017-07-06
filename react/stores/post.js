@@ -64,6 +64,15 @@ class Post {
   }
 }
 
+const filterEmptyQuestions = (questionsData?: Object) => {
+  return questionsData ? questionsData.reduce((arr, questionData) => (
+    arr.concat({
+      section: questionData.section,
+      questions: questionData.questions.filter(q => q.length)
+    })
+  ), []) : questionsData
+}
+
 export default class PostStore {
   questionsData = []
 
@@ -76,8 +85,8 @@ export default class PostStore {
 
   @persist('object', Post) @observable post = new Post()
 
-  constructor ({questionsData}: {questionsData: Object} = {}) {
-    this.questionsData = questionsData
+  constructor ({questionsData}: {questionsData?: Object} = {}) {
+    this.questionsData = filterEmptyQuestions(questionsData)
 
     autorun(() => {
       // is there a better way to observe the post?
@@ -250,6 +259,6 @@ export default class PostStore {
   }
 
   @computed get questionsDataFlattened (): Array<string> {
-    return this.questionsData.reduce((arr, section) => arr.concat(section.questions), [])
+    return this.questionsData ? this.questionsData.reduce((arr, section) => arr.concat(section.questions), []) : []
   }
 }

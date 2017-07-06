@@ -46,7 +46,7 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
       const paths = Object.assign({}, {
         pagesData: '/wp/v2/pages?orderby=menu_order&order=asc',
         siteData: '/ci/site_details'
-      }, propPaths({asPath, query}))
+      }, typeof propPaths === 'function' ? propPaths({asPath, query}) : propPaths)
       const pathsKeys = Object.keys(paths).filter(k => paths[k])
 
       const fetchCache = global.__FETCH__DATA__ || {}
