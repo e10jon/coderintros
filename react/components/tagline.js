@@ -12,7 +12,7 @@ const Tagline = ({className = '', postData}: Object) => {
       {postData.employer && (
         <span className='inline-block tagline-item'>
           <EmployerIcon />
-          {postData.job_title && <span>{`${postData.job_title}, `}</span>}
+          {postData.job_title && <span>{`${postData.job_title} at `}</span>}
           <span>{postData.employer}</span>
         </span>
       )}

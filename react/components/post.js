@@ -303,7 +303,7 @@ class Post extends PureComponent {
 
               {this.context.postStore && (
                 <div className='mt4 bg-darken-0 p3'>
-                  <div className='mb3 h3 gray'>{'Interview validation'}</div>
+                  <div className='mb2 h3 gray'>{'Interview validation'}</div>
 
                   <SubmissionStatusItem isValid={this.context.postStore.isPhotoValid}>
                     {'Upload a photo'}
@@ -323,7 +323,7 @@ class Post extends PureComponent {
 
                   <hr className='my3 border-silver' />
 
-                  <div className='mb3 h3 gray'>{'Enter additional information'}</div>
+                  <div className='mb2 h3 gray'>{'Enter additional information'}</div>
 
                   <div className='flex flex-wrap'>
                     <div className='col-6'>
@@ -363,7 +363,7 @@ class Post extends PureComponent {
                     <div className='col-6'>
                       <SubmissionStatusItem isValid={this.context.postStore.isCurrentLocationValid}>
                         <div className='mb1'>
-                          <span>{'Current location'}</span>
+                          <span>{'Current area of residence'}</span>
                         </div>
 
                         <input
@@ -397,7 +397,7 @@ class Post extends PureComponent {
 
                   <hr className='my3 border-silver' />
 
-                  <div className='mb3 h3 gray'>
+                  <div className='mb2 h3 gray'>
                     <span>{'Enter URLs'}</span>
                     <span className='pl1 h4'>{'(optional)'}</span>
                   </div>
@@ -470,7 +470,7 @@ class Post extends PureComponent {
 
                   <hr className='my3 border-silver' />
 
-                  <div className='mb3 h3 gray'>
+                  <div className='mb2 h3 gray'>
                     <span>{'Enter contact information'}</span>
                     <span className='pl1 h4'>{'(will not be published)'}</span>
                   </div>
