@@ -17,6 +17,7 @@ import stripTags from 'striptags'
 import insertUnits from '../helpers/in-content-units'
 import {getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
 import ContentEditable from './content-editable'
+import LearnMore from './learn-more'
 import Related from './related'
 import Response from './response'
 import Share from './share'
@@ -535,6 +536,16 @@ class Post extends PureComponent {
               )}
             </div>
           </div>
+
+          {postData.type === 'post' && (postData.facebook_url || postData.linkedin_url || postData.personal_url || postData.twitter_url) && (
+            <div className='col-12 mb3'>
+              <div className={!postData._formatting.full_width ? 'page-x-spacing' : ''}>
+                <div className='bg-darken-0 p2'>
+                  <LearnMore postData={postData} />
+                </div>
+              </div>
+            </div>
+          )}
 
           {postData.type === 'post' && !this.context.postStore && (
             <div className='col-12'>
