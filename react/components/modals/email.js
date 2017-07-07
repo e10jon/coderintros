@@ -35,7 +35,7 @@ class Email extends Component {
             <input
               className='input mb0 col-9 flex-auto not-rounded border-right-none'
               name='EMAIL'
-              placeholder='youremail@domain.com'
+              placeholder='name@domain.com'
               type='email'
             />
 
@@ -46,11 +46,11 @@ class Email extends Component {
             />
 
             <button
-              className='btn btn-primary col-3 h5 regular ups not-rounded border-left-none'
-              style={{flex: '0 0 80px'}}
+              className='btn btn-primary col-3 h5 ups not-rounded border-left-none'
+              style={{flex: '0 0 90px'}}
               type='submit'
             >
-              {'Submit'}
+              {'Sign up'}
             </button>
           </div>
         </form>

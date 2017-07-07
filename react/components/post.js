@@ -124,6 +124,11 @@ class Post extends PureComponent {
       }
     }
 
+    const isSubmitButtonDisabled = this.context.postStore &&
+      (!this.context.postStore.isValid ||
+      this.context.postStore.isSubmitting ||
+      this.context.postStore.didSubmit)
+
     return (
       <div>
         <Head>
@@ -307,9 +312,17 @@ class Post extends PureComponent {
                     {'Enter your name'}
                   </SubmissionStatusItem>
 
+                  <SubmissionStatusItem isValid={this.context.postStore.isExcerptValid}>
+                    {'Enter your bio'}
+                  </SubmissionStatusItem>
+
+                  <SubmissionStatusItem isValid={this.context.postStore.isResponsesLengthValid}>
+                    {`Answer at least ${minResponsesRequired} questions`}
+                  </SubmissionStatusItem>
+
                   <SubmissionStatusItem isValid={this.context.postStore.isJobTitleValid}>
                     <div className='mb1'>
-                      <span>{'Input your job title '}</span>
+                      <span>{'Enter your job title:'}</span>
                     </div>
 
                     <input
@@ -322,9 +335,9 @@ class Post extends PureComponent {
                     />
                   </SubmissionStatusItem>
 
-                  <SubmissionStatusItem isValid>
+                  <SubmissionStatusItem isValid={null}>
                     <div className='mb1'>
-                      <span>{'Input your current employer '}</span>
+                      <span>{'Enter your current employer: '}</span>
                       <span className='h5'>{'(optional)'}</span>
                     </div>
 
@@ -339,7 +352,7 @@ class Post extends PureComponent {
 
                   <SubmissionStatusItem isValid={this.context.postStore.isCurrentLocationValid}>
                     <div className='mb1'>
-                      <span>{'Input your current location '}</span>
+                      <span>{'Enter your current location:'}</span>
                     </div>
 
                     <input
@@ -352,9 +365,10 @@ class Post extends PureComponent {
                     />
                   </SubmissionStatusItem>
 
-                  <SubmissionStatusItem isValid>
+                  <SubmissionStatusItem isValid={null}>
                     <div className='mb1'>
-                      <span>{'Input your hometown '}</span>
+                      <span>{'Enter your hometown: '}</span>
+                      <span className='h5'>{'(optional)'}</span>
                     </div>
 
                     <input
@@ -366,17 +380,9 @@ class Post extends PureComponent {
                     />
                   </SubmissionStatusItem>
 
-                  <SubmissionStatusItem isValid={this.context.postStore.isExcerptValid}>
-                    {'Enter your bio'}
-                  </SubmissionStatusItem>
-
-                  <SubmissionStatusItem isValid={this.context.postStore.isResponsesLengthValid}>
-                    {`Answer at least ${minResponsesRequired} questions`}
-                  </SubmissionStatusItem>
-
                   <SubmissionStatusItem isValid={this.context.postStore.isEmailValid}>
                     <div className='mb1'>
-                      <span>{'Input your email '}</span>
+                      <span>{'Enter your email: '}</span>
                       <span className='h5'>{'(will not be published)'}</span>
                     </div>
 
@@ -392,8 +398,8 @@ class Post extends PureComponent {
 
                   <SubmissionStatusItem isValid={null}>
                     <div className='mb1'>
-                      <span>{'Input your phone number '}</span>
-                      <span className='h5'>{'(optional, in case we want to ask more questions)'}</span>
+                      <span>{'Enter your phone number: '}</span>
+                      <span className='h5'>{'(optional, will not be published)'}</span>
                     </div>
 
                     <input
@@ -408,10 +414,10 @@ class Post extends PureComponent {
                   <SubmissionStatusItem isValid={null}>
                     <div className='flex items-center mt3'>
                       <button
-                        className={`btn btn-primary btn-big h3 ${G_RECAPTCHA_ENABLED !== 'false' ? 'g-recaptcha' : ''}`}
+                        className={`btn btn-big h3 ${G_RECAPTCHA_ENABLED !== 'false' ? 'g-recaptcha' : ''} ${isSubmitButtonDisabled ? 'muted silver bg-gray' : 'btn-primary'}`}
                         data-callback={G_RECAPTCHA_ENABLED !== 'false' && 'handleGRecaptcha'}
                         data-sitekey={G_RECAPTCHA_ENABLED !== 'false' && G_RECAPTCHA_SITEKEY}
-                        disabled={!this.context.postStore.isValid || this.context.postStore.isSubmitting || this.context.postStore.didSubmit}
+                        disabled={isSubmitButtonDisabled}
                         onClick={G_RECAPTCHA_ENABLED === 'false' && this.context.postStore.handleSubmit}
                         type='submit'
                       >
