@@ -97,7 +97,6 @@ const Share = ({description, position, title, url, hackerNewsUrl, redditUrl}: Ob
           target='_blank'
         >
           <IoSocialLinkedin className={iconClassName} />
-          <span className='xs-hide'>{'Share'}</span>
         </a>
       </div>
 
@@ -112,7 +111,6 @@ const Share = ({description, position, title, url, hackerNewsUrl, redditUrl}: Ob
             target='_blank'
           >
             <IoSocialReddit className={iconClassName} />
-            <span className='xs-hide'>{'Vote'}</span>
           </a>
         </div>
       )}
@@ -127,7 +125,6 @@ const Share = ({description, position, title, url, hackerNewsUrl, redditUrl}: Ob
           target='_blank'
         >
           <IoEmail className={iconClassName} />
-          <span className='xs-hide'>{'Email '}</span>
         </a>
       </div>
     </div>
