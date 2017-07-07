@@ -302,7 +302,7 @@ class Post extends PureComponent {
 
               {this.context.postStore && (
                 <div className='mt4 bg-darken-0 p3'>
-                  <div className='mb3 h3 gray'>{'Validate and submit'}</div>
+                  <div className='mb3 h3 gray'>{'Interview validation'}</div>
 
                   <SubmissionStatusItem isValid={this.context.postStore.isPhotoValid}>
                     {'Upload a photo'}
@@ -320,99 +320,200 @@ class Post extends PureComponent {
                     {`Answer at least ${minResponsesRequired} questions`}
                   </SubmissionStatusItem>
 
-                  <SubmissionStatusItem isValid={this.context.postStore.isJobTitleValid}>
-                    <div className='mb1'>
-                      <span>{'Enter your job title:'}</span>
+                  <hr className='my3 border-silver' />
+
+                  <div className='mb3 h3 gray'>{'Enter additional information'}</div>
+
+                  <div className='flex flex-wrap'>
+                    <div className='col-6'>
+                      <SubmissionStatusItem isValid={this.context.postStore.isJobTitleValid}>
+                        <div className='mb1'>
+                          <span>{'Job title'}</span>
+                        </div>
+
+                        <input
+                          className='input mb1'
+                          onChange={this.context.postStore.handleJobTitleChange}
+                          placeholder='Senior Developer'
+                          required
+                          type='text'
+                          value={postData.job_title}
+                        />
+                      </SubmissionStatusItem>
                     </div>
 
-                    <input
-                      className='input mb1'
-                      onChange={this.context.postStore.handleJobTitleChange}
-                      placeholder='Senior Developer'
-                      required
-                      type='text'
-                      value={postData.job_title}
-                    />
-                  </SubmissionStatusItem>
+                    <div className='col-6'>
+                      <SubmissionStatusItem isValid={null}>
+                        <div className='mb1'>
+                          <span>{'Current employer'}</span>
+                          <span className='pl1 h5'>{'(optional)'}</span>
+                        </div>
+
+                        <input
+                          className='input mb1'
+                          onChange={this.context.postStore.handleEmployerChange}
+                          placeholder='Initech, Inc.'
+                          type='text'
+                          value={postData.employer}
+                        />
+                      </SubmissionStatusItem>
+                    </div>
+
+                    <div className='col-6'>
+                      <SubmissionStatusItem isValid={this.context.postStore.isCurrentLocationValid}>
+                        <div className='mb1'>
+                          <span>{'Current location'}</span>
+                        </div>
+
+                        <input
+                          className='input mb1'
+                          onChange={this.context.postStore.handleCurrentLocationChange}
+                          placeholder='Coderville, CA'
+                          required
+                          type='text'
+                          value={postData.current_location}
+                        />
+                      </SubmissionStatusItem>
+                    </div>
+
+                    <div className='col-6'>
+                      <SubmissionStatusItem isValid={null}>
+                        <div className='mb1'>
+                          <span>{'Hometown'}</span>
+                          <span className='pl1 h5'>{'(optional)'}</span>
+                        </div>
+
+                        <input
+                          className='input mb1'
+                          onChange={this.context.postStore.handleHometownLocationChange}
+                          placeholder='Smalltown, TX'
+                          type='text'
+                          value={postData.hometown_location}
+                        />
+                      </SubmissionStatusItem>
+                    </div>
+                  </div>
+
+                  <hr className='my3 border-silver' />
+
+                  <div className='mb3 h3 gray'>
+                    <span>{'Enter URLs'}</span>
+                    <span className='pl1 h4'>{'(optional)'}</span>
+                  </div>
+
+                  <div className='flex flex-wrap'>
+                    <div className='col-6'>
+                      <SubmissionStatusItem isValid={null}>
+                        <div className='mb1'>
+                          <span>{'Facebook URL'}</span>
+                        </div>
+
+                        <input
+                          className='input mb0 h5'
+                          onChange={this.context.postStore.handleFacebookUrlChange}
+                          placeholder='https://www.facebook.com/yourname'
+                          type='text'
+                          value={postData.facebook_url}
+                        />
+                      </SubmissionStatusItem>
+                    </div>
+
+                    <div className='col-6'>
+                      <SubmissionStatusItem isValid={null}>
+                        <div className='mb1'>
+                          <span>{'Twitter URL'}</span>
+                        </div>
+
+                        <input
+                          className='input mb0 h5'
+                          onChange={this.context.postStore.handleTwitterUrlChange}
+                          placeholder='https://twitter.com/yourname'
+                          type='text'
+                          value={postData.twitter_url}
+                        />
+                      </SubmissionStatusItem>
+                    </div>
+
+                    <div className='col-6'>
+                      <SubmissionStatusItem isValid={null}>
+                        <div className='mb1'>
+                          <span>{'LinkedIn URL'}</span>
+                        </div>
+
+                        <input
+                          className='input mb0 h5'
+                          onChange={this.context.postStore.handleLinkedInUrlChange}
+                          placeholder='https://www.linkedin.com/in/yourname/'
+                          type='text'
+                          value={postData.linkedin_url}
+                        />
+                      </SubmissionStatusItem>
+                    </div>
+
+                    <div className='col-6'>
+                      <SubmissionStatusItem isValid={null}>
+                        <div className='mb1'>
+                          <span>{'Personal URL'}</span>
+                        </div>
+
+                        <input
+                          className='input mb0 h5'
+                          onChange={this.context.postStore.handlePersonalUrlChange}
+                          placeholder='http://www.yoursite.com'
+                          type='text'
+                          value={postData.personal_url}
+                        />
+                      </SubmissionStatusItem>
+                    </div>
+                  </div>
+
+                  <hr className='my3 border-silver' />
+
+                  <div className='mb3 h3 gray'>
+                    <span>{'Enter contact information'}</span>
+                    <span className='pl1 h4'>{'(will not be published)'}</span>
+                  </div>
+
+                  <div className='flex flex-wrap'>
+                    <div className='col-6'>
+                      <SubmissionStatusItem isValid={this.context.postStore.isEmailValid}>
+                        <div className='mb1'>
+                          <span>{'Email'}</span>
+                        </div>
+
+                        <input
+                          className='input mb1'
+                          onChange={this.context.postStore.handleEmailChange}
+                          placeholder='you@domain.com'
+                          required
+                          type='email'
+                          value={postData.email}
+                        />
+                      </SubmissionStatusItem>
+                    </div>
+
+                    <div className='col-6'>
+                      <SubmissionStatusItem isValid={null}>
+                        <div className='mb1'>
+                          <span>{'Phone'}</span>
+                          <span className='pl1 h5'>{'(optional)'}</span>
+                        </div>
+
+                        <input
+                          className='input mb0'
+                          onChange={this.context.postStore.handlePhoneChange}
+                          placeholder='555-123-1234'
+                          type='tel'
+                          value={postData.phone}
+                        />
+                      </SubmissionStatusItem>
+                    </div>
+                  </div>
+
+                  <hr className='my3 border-silver' />
 
                   <SubmissionStatusItem isValid={null}>
-                    <div className='mb1'>
-                      <span>{'Enter your current employer: '}</span>
-                      <span className='h5'>{'(optional)'}</span>
-                    </div>
-
-                    <input
-                      className='input mb1'
-                      onChange={this.context.postStore.handleEmployerChange}
-                      placeholder='Initech, Inc.'
-                      type='text'
-                      value={postData.employer}
-                    />
-                  </SubmissionStatusItem>
-
-                  <SubmissionStatusItem isValid={this.context.postStore.isCurrentLocationValid}>
-                    <div className='mb1'>
-                      <span>{'Enter your current location:'}</span>
-                    </div>
-
-                    <input
-                      className='input mb1'
-                      onChange={this.context.postStore.handleCurrentLocationChange}
-                      placeholder='Coderville, CA'
-                      required
-                      type='text'
-                      value={postData.current_location}
-                    />
-                  </SubmissionStatusItem>
-
-                  <SubmissionStatusItem isValid={null}>
-                    <div className='mb1'>
-                      <span>{'Enter your hometown: '}</span>
-                      <span className='h5'>{'(optional)'}</span>
-                    </div>
-
-                    <input
-                      className='input mb1'
-                      onChange={this.context.postStore.handleHometownLocationChange}
-                      placeholder='Smalltown, TX'
-                      type='text'
-                      value={postData.hometown_location}
-                    />
-                  </SubmissionStatusItem>
-
-                  <SubmissionStatusItem isValid={this.context.postStore.isEmailValid}>
-                    <div className='mb1'>
-                      <span>{'Enter your email: '}</span>
-                      <span className='h5'>{'(will not be published)'}</span>
-                    </div>
-
-                    <input
-                      className='input mb1'
-                      onChange={this.context.postStore.handleEmailChange}
-                      placeholder='you@domain.com'
-                      required
-                      type='email'
-                      value={postData.email}
-                    />
-                  </SubmissionStatusItem>
-
-                  <SubmissionStatusItem isValid={null}>
-                    <div className='mb1'>
-                      <span>{'Enter your phone number: '}</span>
-                      <span className='h5'>{'(optional, will not be published)'}</span>
-                    </div>
-
-                    <input
-                      className='input mb0'
-                      onChange={this.context.postStore.handlePhoneChange}
-                      placeholder='555-123-1234'
-                      type='tel'
-                      value={postData.phone}
-                    />
-                  </SubmissionStatusItem>
-
-                  <SubmissionStatusItem isValid={null}>
-                    <div className='flex items-center mt3'>
+                    <div className='flex items-center'>
                       <button
                         className={`btn btn-big h3 ${G_RECAPTCHA_ENABLED !== 'false' ? 'g-recaptcha' : ''} ${isSubmitButtonDisabled ? 'muted silver bg-gray' : 'btn-primary'}`}
                         data-callback={G_RECAPTCHA_ENABLED !== 'false' && 'handleGRecaptcha'}

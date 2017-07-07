@@ -21,9 +21,14 @@ add_action( 'rest_api_init', function () {
   }
 } );
 
-// add writable, maybe readable, fields to posts
+// add public and private custom fields to posts
 add_action( 'rest_api_init', function () {
-  foreach( ['name', 'current_location', 'hometown_location', 'employer', 'job_title'] as $field ) {
+  $publicFields = ['name', 'current_location', 'hometown_location', 'employer',
+    'job_title', 'facebook_url', 'linkedin_url', 'personal_url', 'twitter_url'];
+
+  $privateFields = ['email', 'phone'];
+
+  foreach( $publicFields as $field ) {
     register_rest_field( 'post', $field, [
       'get_callback' => function ( $object, $field_name ) {
         return get_field( $field_name );
@@ -34,7 +39,7 @@ add_action( 'rest_api_init', function () {
     ] );
   }
 
-  foreach( ['email', 'phone'] as $field ) {
+  foreach( $privateFields as $field ) {
     register_rest_field( 'post', $field, [
       'update_callback' => function ( $value, $object, $field_name ) {
         return update_post_meta( $object->ID, $field_name, $value );

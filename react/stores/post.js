@@ -49,19 +49,28 @@ class Post {
   type = 'post'
 
   @persist('object') @observable content = {rendered: ''}
-  @persist @observable current_location = ''
-  @persist @observable hometown_location = ''
-  @persist @observable email = ''
-  @persist @observable employer = ''
   @persist('object') @observable excerpt = {rendered: ''}
-  @persist @observable job_title = ''
-  @persist @observable name = ''
-  @persist @observable phone = ''
-  @persist('list', Response) @observable responses = []
-  @observable title = {rendered: 'Your Interview'}
   @persist('object') @observable _embedded = {'wp:featuredmedia': []}
+
+  @persist('list', Response) @observable responses = []
+
   @observable _formatting = {}
   @observable _social = {}
+
+  @observable title = {rendered: 'Your Interview'}
+
+  @persist @observable current_location = ''
+  @persist @observable email = ''
+  @persist @observable employer = ''
+  @persist @observable facebook_url = ''
+  @persist @observable github_url = ''
+  @persist @observable hometown_location = ''
+  @persist @observable job_title = ''
+  @persist @observable linkedin_url = ''
+  @persist @observable name = ''
+  @persist @observable personal_url = ''
+  @persist @observable phone = ''
+  @persist @observable twitter_url = ''
 
   @computed get completedResponses (): Array<Response> {
     return this.responses.filter(r => !!r.answer)
@@ -233,13 +242,17 @@ export default class PostStore {
           email: this.post.email,
           employer: this.post.employer,
           excerpt: stripTags(this.post.excerpt.rendered),
+          facebook_url: this.post.facebook_url,
           featured_media: this.post._embedded['wp:featuredmedia'][0].id,
           hometown_location: this.post.hometown_location,
+          linkedin_url: this.post.linkedin_url,
           job_title: this.post.job_title,
           name: this.post.name,
+          personal_url: this.post.personal_url,
           phone: this.post.phone,
           status: 'pending',
-          title: this.post.name
+          title: this.post.name,
+          twitter_url: this.post.twitter_url
         }),
         headers: {
           Authorization,
@@ -260,6 +273,11 @@ export default class PostStore {
       this.errorMessage = e.message
     }
   }
+
+  @action handleFacebookUrlChange = (e: Object) => { this.post.facebook_url = getValue(e) }
+  @action handleLinkedInUrlChange = (e: Object) => { this.post.linkedin_url = getValue(e) }
+  @action handlePersonalUrlChange = (e: Object) => { this.post.personal_url = getValue(e) }
+  @action handleTwitterUrlChange = (e: Object) => { this.post.twitter_url = getValue(e) }
 
   @computed get isCurrentLocationValid (): boolean {
     return !!this.post.current_location.length
