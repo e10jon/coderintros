@@ -113,14 +113,19 @@ export default class PostStore {
     ? this.questionsDataFlattened[floor(random() * this.questionsDataFlattened.length)]
     : null
 
-  @action generateRandomResponses = (desired: number = 3) => {
-    const actual = desired - this.post.responses.length
-    if (actual > 0) {
-      for (let i = 0; i < actual; i += 1) {
-        this.post.responses.push(new Response({
-          question: this.getRandomQuestionData()
-        }))
+  @action generateInitialResponses = () => {
+    if (!this.post.responses.length) {
+      // add all the required questions
+      if (this.questionsData) {
+        this.questionsData[0].questions.forEach(question =>
+          this.post.responses.push(new Response({question}))
+        )
       }
+
+      // add 1 random question
+      this.post.responses.push(new Response({
+        question: this.getRandomQuestionData()
+      }))
     }
   }
 

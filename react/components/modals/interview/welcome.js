@@ -7,7 +7,7 @@ import createModal from '../../../helpers/create-modal'
 
 const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Object}) => {
   const handleButtonClick = () => {
-    postStore.generateRandomResponses()
+    postStore.generateInitialResponses()
     store.close()
   }
 
