@@ -3,6 +3,7 @@
 require_once( 'inc/purge.php' );
 require_once( 'inc/helpers.php' );
 require_once( 'inc/mu_settings.php' );
+require_once( 'inc/passwords.php' );
 require_once( 'inc/settings.php' );
 require_once( 'inc/rest_api.php' );
 

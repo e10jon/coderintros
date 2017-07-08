@@ -8,7 +8,7 @@ import stripTags from 'striptags'
 
 import Tagline from '../components/tagline'
 import createPage from '../helpers/create-page'
-import {getUrlObj, getFeaturedImageProps, getThumbnailImageProps} from '../helpers/post-data'
+import {didPassPasswordAuthorization, getUrlObj, getFeaturedImageProps, getThumbnailImageProps} from '../helpers/post-data'
 import styles from '../styles/pages/index.scss'
 
 export const Home = ({postsData}: Object, {siteData}: Object) => {
@@ -53,7 +53,7 @@ export const Home = ({postsData}: Object, {siteData}: Object) => {
           {siteData.description}
         </div>
 
-        {postsData.map(postData => (
+        {postsData.filter(didPassPasswordAuthorization).map(postData => (
           <Link
             as={postData.link}
             href={getUrlObj(postData)}

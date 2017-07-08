@@ -1,5 +1,13 @@
 // @flow
 
+export const didFailPasswordAuthorization = (postData: Object) => (
+  postData.content.protected && !postData.content.rendered
+)
+
+export const didPassPasswordAuthorization = (postData: Object) => (
+  !postData.content.protected || !!postData.content.rendered
+)
+
 export const hasAURL = (postData: Object) => (
   postData.facebook_url || postData.linkedin_url ||
   postData.personal_url || postData.twitter_url
