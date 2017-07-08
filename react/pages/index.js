@@ -110,7 +110,10 @@ export default createPage(Home, {
   autoOpenFacebookModal: true,
   fullWidth: true,
   maxWidth: 3,
-  propPaths: () => ({
-    postsData: '/wp/v2/posts?_embed&per_page=50'
+  propPaths: ({query: {preview}}) => ({
+    postsData: {
+      authorize: !!preview,
+      path: `/wp/v2/posts?_embed&per_page=50${preview ? '&status[]=pending&status[]=publish' : ''}`
+    }
   })
 })
