@@ -5,12 +5,12 @@
 
 import React from 'react'
 import classNames from 'classnames'
-import {PropTypes as MobxReactPropTypes} from 'mobx-react'
+import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 
 import {minResponsesRequired} from '../stores/post'
 import SubmissionStatusItem from '../components/submission-status-item'
 
-const SubmissionStatus = ({className, postData}: {className: string, postData: Object}, {postStore}: {postStore: Object}) => {
+const SubmissionStatus = observer(({className, postData}: {className: string, postData: Object}, {postStore}: {postStore: Object}) => {
   const isSubmitButtonDisabled = !postStore.isValid || postStore.isSubmitting || postStore.didSubmit
 
   return (
@@ -246,7 +246,7 @@ const SubmissionStatus = ({className, postData}: {className: string, postData: O
       </SubmissionStatusItem>
     </div>
   )
-}
+})
 
 SubmissionStatus.contextTypes = {
   postStore: MobxReactPropTypes.observableObject

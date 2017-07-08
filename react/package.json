@@ -64,7 +64,8 @@
     "postcss-loader": "^2.0.6",
     "raw-loader": "^0.5.1",
     "react-test-renderer": "^15.6.1",
-    "sass-loader": "^6.0.6"
+    "sass-loader": "^6.0.6",
+    "sinon": "^2.3.6"
   },
   "babel": {
     "env": {

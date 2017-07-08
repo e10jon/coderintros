@@ -53,6 +53,7 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
         <div>
           <input
             className='input h3'
+            id='welcome-name-input'
             onChange={postStore.handleNameChange}
             onKeyDown={handleKeyDown}
             placeholder='Pat Riley'
@@ -73,6 +74,7 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
         <div>
           <input
             className='input h3'
+            id='welcome-email-input'
             onChange={postStore.handleEmailChange}
             onKeyDown={handleKeyDown}
             placeholder='you@domain.com'
@@ -88,6 +90,7 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
         <div>
           <input
             className='input h3'
+            id='welcome-current-location-input'
             onChange={postStore.handleCurrentLocationChange}
             onKeyDown={handleKeyDown}
             placeholder='Coderville, CA'
@@ -127,6 +130,7 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
         {store.showNextButton ? (
           <button
             className='btn btn-primary pr1'
+            id='welcome-next-button'
             onClick={store.handleNextSlideClick}
             type='submit'
           >
@@ -136,6 +140,7 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
         ) : (
           <button
             className='btn btn-primary'
+            id='welcome-submit-button'
             onClick={handleButtonClick}
             type='submit'
           >
@@ -150,6 +155,8 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
 Welcome.contextTypes = {
   postStore: MobxReactPropTypes.observableObject
 }
+
+Welcome.displayName = 'Welcome'
 
 export default createModal(Welcome, {
   hideCloseButton: true,

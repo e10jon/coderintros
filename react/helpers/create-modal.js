@@ -46,32 +46,30 @@ export default function (Child: Object, {isOpen, hideCloseButton, maxWidth = 2}:
 
     render () {
       return (
-        <div>
-          <ReactModal
-            className='absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center sans-serif'
-            closeTimeoutMS={200}
-            contentLabel='modal'
-            isOpen={this.props.store.isOpen}
-            overlayClassName='fixed top-0 right-0 bottom-0 left-0 z2 flex justify-center items-center'
-          >
-            <div className={`bg-white m2 relative col-12 max-width-${maxWidth}`}>
-              <Child store={this.props.store} />
+        <ReactModal
+          className='absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center sans-serif'
+          closeTimeoutMS={200}
+          contentLabel='modal'
+          isOpen={this.props.store.isOpen}
+          overlayClassName='fixed top-0 right-0 bottom-0 left-0 z2 flex justify-center items-center'
+        >
+          <div className={`bg-white m2 relative col-12 max-width-${maxWidth}`}>
+            <Child store={this.props.store} />
 
-              {!hideCloseButton ? (
-                <a
-                  className='absolute block gray modal-close-btn p1'
-                  data-ga-event-action={`Dismissed ${Child.displayName} Via Close Button`}
-                  data-ga-event-category='Modals'
-                  data-ga-on='click'
-                  href='javascript:void(0)'
-                  onClick={this.props.store.handleClose}
-                >
-                  <IoClose />
-                </a>
-              ) : null}
-            </div>
-          </ReactModal>
-        </div>
+            {!hideCloseButton ? (
+              <a
+                className='absolute block gray modal-close-btn p1'
+                data-ga-event-action={`Dismissed ${Child.displayName} Via Close Button`}
+                data-ga-event-category='Modals'
+                data-ga-on='click'
+                href='javascript:void(0)'
+                onClick={this.props.store.handleClose}
+              >
+                <IoClose />
+              </a>
+            ) : null}
+          </div>
+        </ReactModal>
       )
     }
   }
