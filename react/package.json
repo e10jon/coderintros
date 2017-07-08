@@ -10,6 +10,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "detect-node": "^2.0.3",
     "dom-helpers": "^3.2.1",
     "isomorphic-fetch": "^2.2.1",
@@ -20,7 +21,7 @@
     "mobx-persist": "^0.3.3",
     "mobx-react": "^4.2.1",
     "moment": "^2.18.1",
-    "next": "beta",
+    "next": "^3.0.1-beta",
     "prop-types": "^15.5.10",
     "raf": "^3.3.2",
     "raven": "^2.1.0",

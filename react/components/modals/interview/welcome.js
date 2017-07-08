@@ -15,6 +15,12 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
     store.close()
   }
 
+  const handleKeyDown = (e: Object) => {
+    if (e.keyCode === 13) {
+      store.handleNextSlideClick()
+    }
+  }
+
   const handleVideoClick = (e: Object) => {
     if (e.target.paused) {
       e.target.play()
@@ -48,6 +54,7 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
           <input
             className='input h3'
             onChange={postStore.handleNameChange}
+            onKeyDown={handleKeyDown}
             placeholder='Pat Riley'
             type='text'
             value={postStore.post.name}
@@ -67,6 +74,7 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
           <input
             className='input h3'
             onChange={postStore.handleEmailChange}
+            onKeyDown={handleKeyDown}
             placeholder='you@domain.com'
             type='email'
             value={postStore.post.email}
@@ -81,6 +89,7 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
           <input
             className='input h3'
             onChange={postStore.handleCurrentLocationChange}
+            onKeyDown={handleKeyDown}
             placeholder='Coderville, CA'
             type='text'
             value={postStore.post.current_location}

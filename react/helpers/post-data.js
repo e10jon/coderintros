@@ -1,5 +1,10 @@
 // @flow
 
+export const hasAURL = (postData: Object) => (
+  postData.facebook_url || postData.linkedin_url ||
+  postData.personal_url || postData.twitter_url
+)
+
 export const getUrlObj = (postData: Object) => ({
   pathname: '/singular',
   query: {
