@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import classNames from 'classnames'
 import {FaFacebookOfficial} from 'react-icons/lib/fa'
 import {
   IoEmail,
@@ -46,7 +47,7 @@ const Share = ({description, position, title, url, hackerNewsUrl, redditUrl}: Ob
     <div className='my3 nowrap'>
       <div className='inline-block'>
         <a
-          className={`${className} bg-fb-blue`}
+          className={classNames([className, 'bg-fb-blue'])}
           href={url ? `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` : 'javascript:void(0)'}
           onClick={handleFacebookClick}
           rel='noopener noreferrer'

@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import classNames from 'classnames'
 import {
   IoClose as XIcon,
   IoCheckmark as CheckMarkIcon
@@ -13,7 +14,7 @@ const SubmissionStatusItem = ({children, isValid}: {children?: Node, isValid: ?b
         isValid ? <CheckMarkIcon className='green' /> : <XIcon className='red' />
       ) : null}
     </div>
-    <div className={`flex-auto ${isValid || isValid === null ? 'gray' : 'black'}`}>
+    <div className={classNames(['flex-auto', isValid || isValid === null ? 'gray' : 'black'])}>
       {children}
     </div>
   </div>

@@ -1,6 +1,7 @@
 // @flow
 
 import React, {Component} from 'react'
+import classNames from 'classnames'
 import Cookies from 'js-cookie'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 import Head from 'next/head'
@@ -71,7 +72,9 @@ class SitePassword extends Component {
               />
 
               <button
-                className={`input regular block col-3 not-rounded btn-primary border-none ${this.context.sitePasswordStore.didFailAuthorization ? 'bg-red' : ''}`}
+                className={classNames([
+                  'input regular block col-3 not-rounded btn-primary border-none',
+                  {'bg-red': this.context.sitePasswordStore.didFailAuthorization}])}
                 type='submit'
               >
                 {'Enter'}

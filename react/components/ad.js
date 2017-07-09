@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import classNames from 'classnames'
 
 const getSizeClassName = showAt => {
   if (!showAt.length) {
@@ -14,7 +15,7 @@ const getSizeClassName = showAt => {
 
 const Ad = ({className = '', showAt = [], width, height}: Object) => (
   <div
-    className={`bg-silver ${className} ${getSizeClassName(showAt)}`}
+    className={classNames(['bg-silver', className, getSizeClassName(showAt)])}
     style={{width, height}}
   >
     {''}

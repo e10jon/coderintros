@@ -1,6 +1,7 @@
 // @flow
 
 import React, {PureComponent} from 'react'
+import classNames from 'classnames'
 import {observer} from 'mobx-react'
 import Link from 'next/link'
 import 'isomorphic-fetch'
@@ -50,7 +51,7 @@ class Related extends PureComponent {
                 key={`Related${postData.id}`}
               >
                 <a
-                  className={`col-4 sm-col-3 block px1 ${i === 3 ? 'xs-hide' : ''}`}
+                  className={classNames(['col-4 sm-col-3 block px1', {'xs-hide': i === 3}])}
                   data-ga-event-action={`Clicked index ${i}`}
                   data-ga-event-category='Related Posts'
                   data-ga-on='click'
