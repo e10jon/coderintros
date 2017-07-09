@@ -11,12 +11,10 @@ import EmailModal from '../components/modals/email'
 import Footer from '../components/footer'
 import Header from '../components/header'
 import LikeModal, {didLikeFBPageStoreKey} from '../components/modals/like'
-import SitePassword from '../components/site-password'
 import {getFetchHeaders, getWordpressUrl} from './fetch'
 import trackEvent from '../helpers/track-event'
 import HeaderStore from '../stores/header'
 import ModalStore from '../stores/modal'
-import SitePasswordStore from '../stores/site-password'
 import styles from '../styles/app.scss'
 
 @observer
@@ -38,8 +36,7 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
       headerStore: MobxReactPropTypes.observableObject,
       likeModalStore: MobxReactPropTypes.observableObject,
       pagesData: PropTypes.array,
-      siteData: PropTypes.object,
-      sitePasswordStore: MobxReactPropTypes.observableObject
+      siteData: PropTypes.object
     }
 
     static async getInitialProps ({asPath, req, query}) {
@@ -91,17 +88,13 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
       headerStore: this.headerStore,
       likeModalStore: this.likeModalStore,
       pagesData: this.props.pagesData,
-      siteData: this.props.siteData,
-      sitePasswordStore: this.sitePasswordStore
+      siteData: this.props.siteData
     })
 
     componentWillMount () {
       this.emailModalStore = new ModalStore()
       this.headerStore = new HeaderStore()
       this.likeModalStore = new ModalStore()
-      if (this.props.siteData.site_password_enabled) {
-        this.sitePasswordStore = new SitePasswordStore()
-      }
     }
 
     componentDidMount () {
@@ -125,10 +118,8 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
     props: {
       fetchCache: Object,
       pagesData: Object,
-      postsData: Object,
       siteData: Object
     }
-    sitePasswordStore: Object
 
     render () {
       return (
@@ -143,17 +134,11 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
             </div>
           </div>
 
-          {this.sitePasswordStore && !this.sitePasswordStore.isAuthorized &&
-          (!this.props.postsData || !this.props.postsData[0] || !this.props.postsData[0]._formatting ||
-          !this.props.postsData[0]._formatting.skip_site_password)
-            ? <SitePassword /> : (
-              <main className={`${maxWidthClassName(this.props)} mx-auto`}>
-                <div className={fullWidthClassName(this.props)}>
-                  <Child {...this.props} />
-                </div>
-              </main>
-            )
-          }
+          <main className={`${maxWidthClassName(this.props)} mx-auto`}>
+            <div className={fullWidthClassName(this.props)}>
+              <Child {...this.props} />
+            </div>
+          </main>
 
           <div className='max-width-3 mx-auto'>
             <div className='page-x-spacing'>

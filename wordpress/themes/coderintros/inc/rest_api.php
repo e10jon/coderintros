@@ -9,8 +9,7 @@ add_action( 'rest_api_init', function () {
       'hide_title' => get_field( 'hide_title' ),
       'hr_bottom' => get_field( 'hr_bottom' ),
       'hr_top' => get_field( 'hr_top' ),
-      'no_incontent_units' => get_field( 'no_incontent_units' ),
-      'skip_site_password' => get_field( 'skip_site_password' )
+      'no_incontent_units' => get_field( 'no_incontent_units' )
     ];
   }
 
@@ -94,7 +93,6 @@ add_action( 'rest_api_init', function () {
         'github_repo_url' => get_option( 'github_repo_url' ),
         'mailchimp_frequency_group' => get_option( 'mailchimp_frequency_group' ),
         'mailchimp_newsletter_url' => get_option( 'mailchimp_newsletter_url' ),
-        'site_password_enabled' => ! empty( get_option( 'site_password' ) ),
         'sites' => []
       ];
 
@@ -110,22 +108,6 @@ add_action( 'rest_api_init', function () {
       }
 
       return $finalArray;
-    }
-  ] );
-} );
-
-// add a custom endpoint to validate site password
-add_action( 'rest_api_init', function () {
-  register_rest_route( 'ci', '/site_password', [
-    'methods' => 'POST',
-    'callback' => function ( $request ) {
-      if ( $request->get_body() != get_option( 'site_password' ) ) {
-        return new WP_Error(
-          'invalid_site_password',
-          'Invalid site password',
-          ['status' => 401]
-        );
-      }
     }
   ] );
 } );

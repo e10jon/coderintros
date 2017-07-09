@@ -11,7 +11,6 @@ add_action( 'admin_init', function () {
   register_setting( 'ci', 'github_repo_url' );
   register_setting( 'ci', 'mailchimp_frequency_group' );
   register_setting( 'ci', 'mailchimp_newsletter_url' );
-  register_setting( 'ci', 'site_password' );
 
   add_settings_section( 'ci_general', null, null, 'ci' );
 
@@ -110,18 +109,6 @@ add_action( 'admin_init', function () {
     function () {
       $option = get_option('mailchimp_newsletter_url');
       echo "<input id='mailchimp_newsletter_url' name='mailchimp_newsletter_url' type='text' class='regular-text code' value='{$option}' />";
-    },
-    'ci',
-    'ci_general'
-  );
-
-  add_settings_field(
-    'site_password',
-    '<label for="site_password">' . __( 'Password for Site Protection' , 'site_password' ) . '</label>',
-    function () {
-      $option = get_option('site_password');
-      echo "<input id='site_password' name='site_password' type='text' class='regular-text code' value='{$option}' />";
-      echo "<p class='description'>Require a password to view the front-end. Set to nothing to disable.</p>";
     },
     'ci',
     'ci_general'
