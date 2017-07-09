@@ -53,7 +53,9 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
 
       let fetches = await Promise.all(pathsKeys.map(async k => {
         const input = paths[k]
-        const [path, authorize] = typeof input === 'string' ? [input, false] : [input.path, input.authorize]
+        const [path, authorize, makeSingle] = typeof input === 'string'
+          ? [input, false, false]
+          : [input.path, input.authorize, input.makeSingle]
 
         if (fetchCache[path]) {
           return fetchCache[path]
@@ -67,9 +69,13 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
           })
         })
 
-        fetchCache[path] = await res.json()
+        let json = await res.json()
 
-        return fetchCache[path]
+        if (makeSingle && Array.isArray(json)) {
+          json = json[0]
+        }
+
+        return fetchCache[path] = json
       }))
 
       const finalProps = pathsKeys.reduce((obj, key, i) => {

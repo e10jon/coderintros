@@ -11,7 +11,7 @@ import createPage from '../helpers/create-page'
 import {didPassPasswordAuthorization, getUrlObj, getFeaturedImageProps, getThumbnailImageProps} from '../helpers/post-data'
 import styles from '../styles/pages/index.scss'
 
-export const Home = ({postsData}: Object, {siteData}: Object) => {
+export const Home = ({pageData, postsData}: Object, {siteData}: Object) => {
   return (
     <div>
       <Head>
@@ -87,7 +87,6 @@ export const Home = ({postsData}: Object, {siteData}: Object) => {
                     className='my1 h5'
                     postData={postData}
                   />
-
                 </div>
               </div>
             </a>
@@ -111,6 +110,10 @@ export default createPage(Home, {
   fullWidth: true,
   maxWidth: 3,
   propPaths: ({query: {preview}}) => ({
+    pageData: {
+      path: '/wp/v2/pages?slug=home',
+      makeSingle: true
+    },
     postsData: {
       authorize: !!preview,
       path: `/wp/v2/posts?_embed&per_page=50${preview ? '&status[]=pending&status[]=publish' : ''}`

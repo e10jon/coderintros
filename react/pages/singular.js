@@ -3,31 +3,21 @@
 import React from 'react'
 
 import Post from '../components/post'
+import {Error} from '../pages/_error'
 import createPage from '../helpers/create-page'
 import {didFailPasswordAuthorization} from '../helpers/post-data'
 
-const extractPostData = ({postsData, revisionsData}: Object) => Object.assign({},
-  Array.isArray(postsData) ? postsData[0] : postsData,
-  revisionsData ? revisionsData[0] : {}
-)
+export const Singular = ({postData, revisionsData}: Object) => {
+  const postWithRevisionData = Object.assign({}, postData, revisionsData && revisionsData[0])
 
-export const Singular = (props: Object) => {
-  const postData = extractPostData(props)
-
-  if (!Object.keys(postData).length || didFailPasswordAuthorization(postData)) {
-    return (
-      <div>
-        <hr />
-        <h2 className='center my3'>{"We couldn't find that page."}</h2>
-        <hr />
-      </div>
-    )
+  if (!Object.keys(postWithRevisionData).length || didFailPasswordAuthorization(postWithRevisionData)) {
+    return <Error />
   }
 
   return (
     <Post
-      key={`Post${postData.id}`}
-      postData={postData}
+      key={`Post${postWithRevisionData.id}`}
+      postData={postWithRevisionData}
     />
   )
 }
@@ -39,8 +29,9 @@ export default createPage(Singular, {
   fullWidth: true,
   maxWidth: 3,
   propPaths: ({asPath, query: {p, password, page_id, preview, preview_id, type, slug}}) => ({
-    postsData: {
+    postData: {
       authorize: !!preview,
+      makeSingle: true,
       path: (p || page_id) ? `/wp/v2/${type}s/${p || page_id}/?_embed` : `/wp/v2/${type}s?_embed&slug=${slug}&password=${password}`
     },
     revisionsData: preview ? {

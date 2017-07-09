@@ -5,9 +5,9 @@ import React from 'react'
 import createPage from '../helpers/create-page'
 
 export const Error = () => (
-  <div className='center h2'>
+  <div className='center'>
     <hr />
-    {'There was an error.'}
+    <h1 className='my4'>{'There was an error.'}</h1>
     <hr />
   </div>
 )
