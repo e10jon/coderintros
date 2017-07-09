@@ -92,10 +92,9 @@ module.exports = app.prepare().then(() => {
     await next()
   })
 
-  // set default cache-control
-  // but not for /_next/ paths, because HMR
+  // set default cache-control for most paths
   server.use(async (ctx, next) => {
-    if (!/\/_next\//.test(ctx.path)) {
+    if (!/(?:\/_next\/)|(?:\/static\/)/.test(ctx.path)) {
       ctx.set('Cache-Control', 'public, max-age=5, s-maxage=31536000')
     }
     await next()
