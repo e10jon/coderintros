@@ -10,8 +10,16 @@ import {didFailPasswordAuthorization} from '../helpers/post-data'
 export const Singular = ({postData, revisionsData}: Object) => {
   const postWithRevisionData = Object.assign({}, postData, revisionsData && revisionsData[0])
 
-  if (!Object.keys(postWithRevisionData).length || didFailPasswordAuthorization(postWithRevisionData)) {
-    return <Error />
+  let errorMessage
+
+  if (!Object.keys(postWithRevisionData).length) {
+    errorMessage = 'We couldn\'t find that page.'
+  } else if (didFailPasswordAuthorization(postWithRevisionData)) {
+    errorMessage = 'This page requires a password.'
+  }
+
+  if (errorMessage) {
+    return <Error message={errorMessage} />
   }
 
   return (

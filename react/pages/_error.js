@@ -1,16 +1,30 @@
 // @flow
 
-import React from 'react'
+import React, {PureComponent} from 'react'
 
 import createPage from '../helpers/create-page'
 
-export const Error = () => (
-  <div className='center'>
-    <hr />
-    <h1 className='my4'>{'There was an error.'}</h1>
-    <hr />
-  </div>
-)
+export class Error extends PureComponent {
+  static defaultProps = {
+    message: 'There was an error.'
+  }
+
+  static displayName = 'Error'
+
+  props: {
+    message?: string
+  }
+
+  render () {
+    return (
+      <div className='center'>
+        <hr />
+        <h1 className='my4'>{this.props.message}</h1>
+        <hr />
+      </div>
+    )
+  }
+}
 
 export default createPage(Error, {
   maxWidth: 3
