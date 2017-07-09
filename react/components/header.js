@@ -7,7 +7,11 @@ import getScrollTop from 'dom-helpers/query/scrollTop'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import raf from 'raf'
-import {IoIosEmailOutline, IoSocialFacebookOutline} from 'react-icons/lib/io'
+import {
+  IoIosEmailOutline as EmailIcon,
+  IoSocialFacebookOutline as FacebookIcon,
+  IoShare as ShareIcon
+} from 'react-icons/lib/io'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 
 @observer
@@ -93,16 +97,26 @@ class Header extends Component {
                 {'col-12': this.context.headerStore.progress === 1}])}
             />
 
-            <div className='absolute top-0 right-0 bottom-0 left-0 flex items-center'>
-              <img
-                alt={`${this.context.siteData.name} logo`}
-                className='fit block mx1 sm-mx2 md-mx3 header-scroll-logo'
-                src={this.context.siteData.images['apple-icon-180x180']}
-              />
+            <div className='absolute top-0 right-0 bottom-0 left-0 flex items-center justify-between max-width-4 mx-auto'>
+              <div className='row-12 flex-auto flex items-center'>
+                <img
+                  alt={`${this.context.siteData.name} logo`}
+                  className='fit block mx1 header-scroll-logo'
+                  src={this.context.siteData.images['apple-icon-180x180']}
+                />
 
-              {this.context.headerStore.scrollTitle && (
-                <div className='white h3 nowrap'>{this.context.headerStore.scrollTitle}</div>
-              )}
+                {this.context.headerStore.scrollTitle && (
+                  <div className='white h3 nowrap'>{this.context.headerStore.scrollTitle}</div>
+                )}
+              </div>
+
+              <a
+                className='icon-wrapper block white h6 ups mx1 p1 hide'
+                href='javascript:void(0)'
+              >
+                <ShareIcon />
+                <span>{'Share'}</span>
+              </a>
             </div>
           </div>
         )}
@@ -118,7 +132,7 @@ class Header extends Component {
                 href='javascript:void(0)'
                 onClick={this.context.emailModalStore.handleOpen}
               >
-                <IoIosEmailOutline className='header-icon' />
+                <EmailIcon className='header-icon' />
               </a>
             </div>
 
@@ -144,7 +158,7 @@ class Header extends Component {
                   href='javascript:void(0)'
                   onClick={this.context.likeModalStore.handleOpen}
                 >
-                  <IoSocialFacebookOutline className='header-icon' />
+                  <FacebookIcon className='header-icon' />
                 </a>
               )}
             </div>

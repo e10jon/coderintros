@@ -34,6 +34,13 @@ ul { margin: 0; padding: 0; }
 .serif { font-family: 'Lora', serif; }
 .ups { text-transform: uppercase; }
 
+/* specific classes */
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  > *:first-child { margin-right: 0.25rem; }
+}
+
 /* specific size classes */
 @mixin spacing { margin-left: 1.25rem; margin-right: 1.25rem; }
 .page-x-spacing { @include spacing; }
