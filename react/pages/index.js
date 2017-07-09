@@ -53,7 +53,7 @@ export const Home = ({pageData, postsData}: Object, {siteData}: Object) => {
           {siteData.description}
         </div>
 
-        {postsData.filter(didPassPasswordAuthorization).map(postData => (
+        {postsData.length ? postsData.filter(didPassPasswordAuthorization).map(postData => (
           <Link
             as={postData.link}
             href={getUrlObj(postData)}
@@ -91,7 +91,9 @@ export const Home = ({pageData, postsData}: Object, {siteData}: Object) => {
               </div>
             </a>
           </Link>
-        ))}
+        )) : (
+          <div className='center my3 h2'>{'No articles published yet.'}</div>
+        )}
 
         <hr />
       </div>
