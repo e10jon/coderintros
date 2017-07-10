@@ -80,8 +80,8 @@ $table_prefix  = 'wp_';
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-define( 'WP_DEBUG',     !!$_ENV['WP_DEBUG'] );
-define( 'SAVEQUERIES',  !!$_ENV['WP_DEBUG'] );
+define( 'WP_DEBUG',     $_ENV['WP_DEBUG'] == 'true' );
+define( 'SAVEQUERIES',  $_ENV['WP_DEBUG'] == 'true' );
 
 /* That's all, stop editing! Happy blogging. */
 
