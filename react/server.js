@@ -10,6 +10,9 @@ mobxReact.useStaticRendering(true)
 const app = next({dev: process.env.NODE_ENV !== 'production'})
 const handle = app.getRequestHandler()
 
+// make sure this matches wordpress's permalink setting
+const postPath = '/interviews'
+
 if (process.env.SENTRY_DSN_NODE) {
   Raven.config(process.env.SENTRY_DSN_NODE).install()
 }
@@ -32,7 +35,7 @@ module.exports = app.prepare().then(() => {
     ctx.respond = false
   })
 
-  router.get('/profiles', async ctx => {
+  router.get(postPath, async ctx => {
     await app.render(ctx.req, ctx.res, '/archive', ctx.query)
     ctx.respond = false
   })
@@ -44,7 +47,7 @@ module.exports = app.prepare().then(() => {
   })
 
   // regular post urls
-  router.get('/profiles/:slug', async ctx => {
+  router.get(`${postPath}/:slug`, async ctx => {
     ctx.query.type = 'post'
     ctx.query.slug = ctx.params.slug
     await app.render(ctx.req, ctx.res, '/singular', ctx.query)
