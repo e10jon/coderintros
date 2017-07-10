@@ -94,7 +94,9 @@ module.exports = app.prepare().then(() => {
 
   // set default cache-control for most paths
   server.use(async (ctx, next) => {
-    if (!/(?:\/_next\/)|(?:\/static\/)/.test(ctx.path)) {
+    if (/\/static\//.test(ctx.path)) {
+      ctx.set('Cache-Control', 'public, max-age=31536000')
+    } else if (!/\/_next\//.test(ctx.path)) {
       ctx.set('Cache-Control', 'public, max-age=5, s-maxage=31536000')
     }
     await next()
