@@ -13,6 +13,10 @@ export const hasAURL = (postData: Object) => (
   postData.personal_url || postData.twitter_url
 )
 
+export const makeAllLinksExternal = (content?: string) => content
+  ? content.replace(/<a /gi, '<a target="_blank" rel="noopener noreferrer" ')
+  : content
+
 export const getUrlObj = (postData: Object) => ({
   pathname: '/singular',
   query: {

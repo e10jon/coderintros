@@ -12,7 +12,7 @@ import {CSSTransitionGroup} from 'react-transition-group'
 import stripTags from 'striptags'
 
 import insertUnits from '../helpers/in-content-units'
-import {hasAURL, getUrlObj, getFeaturedImageProps} from '../helpers/post-data'
+import {hasAURL, getUrlObj, getFeaturedImageProps, makeAllLinksExternal} from '../helpers/post-data'
 import ContentEditable from './content-editable'
 import LearnMore from './learn-more'
 import Related from './related'
@@ -120,6 +120,8 @@ class Post extends PureComponent {
         return featuredImg
       }
     }
+
+    const content = makeAllLinksExternal(postData.content.rendered)
 
     return (
       <div>
@@ -274,8 +276,8 @@ class Post extends PureComponent {
                   <div
                     dangerouslySetInnerHTML={{
                       __html: !postData._formatting.no_incontent_units
-                        ? insertUnits(postData.content.rendered, {context: this.context})
-                        : postData.content.rendered
+                        ? insertUnits(content, {context: this.context})
+                        : content
                     }}
                   />
                 )}
