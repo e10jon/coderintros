@@ -98,6 +98,8 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
     }
 
     componentDidMount () {
+      this.defineGlobalModalFunctions()
+
       if ((typeof autoOpenFacebookModal === 'function' ? autoOpenFacebookModal(this.props) : autoOpenFacebookModal) &&
       this.props.siteData.facebook_modal_delay) {
         setTimeout(() => {
@@ -110,6 +112,12 @@ export default function (Child: Object, {propPaths = () => ({}), fullWidth = fal
           }
         }, this.props.siteData.facebook_modal_delay)
       }
+    }
+
+    // these functions are for opening modals from wordpress content
+    defineGlobalModalFunctions = () => {
+      window.openLikeModal = this.likeModalStore.open
+      window.openEmailModal = this.emailModalStore.open
     }
 
     emailModalStore: Object
