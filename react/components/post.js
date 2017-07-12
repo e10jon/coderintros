@@ -294,6 +294,10 @@ class Post extends PureComponent {
                 />
               )}
 
+              {postData.type !== 'page' && !this.context.postStore && (
+                <div className='my3 gray'>{`The views and opinions of ${postData.name} are theirs alone and do not necessarily reflect the views and opinions of their employer, employees, collaborators, or anyone else.`}</div>
+              )}
+
               {this.context.postStore &&
                 <SubmissionStatus
                   className='mt4 bg-darken-0 p3'
