@@ -24,6 +24,7 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'react/jsx-indent': ['warn', 2],
     'react/jsx-indent-props': ['warn', 2],
+    'react/prefer-stateless-function': 'off',
     'no-return-assign': 'off'
   }
 }

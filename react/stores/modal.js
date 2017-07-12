@@ -2,8 +2,6 @@
 
 import {action, computed, observable} from 'mobx'
 
-const {max} = Math
-
 export default class ModalStore {
   @observable isOpen = false
   @observable activeSlide = 0
@@ -53,10 +51,5 @@ export default class ModalStore {
 
   @computed get showPrevButton (): boolean {
     return this.activeSlide > 0
-  }
-
-  slideClassName = (index: number) => {
-    this.numSlides = max(index + 1, this.numSlides || 0)
-    return this.activeSlide === index ? '' : 'hide'
   }
 }

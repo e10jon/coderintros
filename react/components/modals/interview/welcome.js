@@ -1,27 +1,48 @@
 // @flow
 
-import React from 'react'
+import React, {PureComponent} from 'react'
 import {observer, PropTypes as MobxReactPropTypes} from 'mobx-react'
 import {
-  // IoIosArrowBack as LeftArrow,
+  IoIosArrowBack as LeftArrow,
   IoIosArrowForward as RightArrow
 } from 'react-icons/lib/io'
 
 import createModal from '../../../helpers/create-modal'
+import ModalStore from '../../../stores/modal'
+import WelcomeStep from './welcome-step'
 
-const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Object}) => {
-  const handleButtonClick = () => {
-    postStore.generateInitialResponses()
-    store.close()
+@observer
+class Welcome extends PureComponent {
+  static childContextTypes = {
+    store: MobxReactPropTypes.observableObject
   }
 
-  const handleKeyDown = (e: Object) => {
+  static contextTypes = {
+    postStore: MobxReactPropTypes.observableObject
+  }
+
+  static displayName = 'Welcome'
+
+  getChildContext = () => ({
+    store: this.props.store
+  })
+
+  componentWillMount () {
+    this.props.store.numSlides = 5
+  }
+
+  handleButtonClick = () => {
+    this.context.postStore.generateInitialResponses()
+    this.props.store.close()
+  }
+
+  handleKeyDown = (e: Object) => {
     if (e.keyCode === 13) {
-      store.handleNextSlideClick()
+      this.props.store.handleNextSlideClick()
     }
   }
 
-  const handleVideoClick = (e: Object) => {
+  handleVideoClick = (e: Object) => {
     if (e.target.paused) {
       e.target.play()
     } else {
@@ -29,134 +50,123 @@ const Welcome = observer(({store}: {store: Object}, {postStore}: {postStore: Obj
     }
   }
 
-  const slideTitle = (text: string | Object) => <div className='h2 bold line-height-3 mb2'>{text}</div>
+  props: {
+    store: ModalStore
+  }
 
-  return (
-    <div className='pt3 px3 pb2 bg-darken-0'>
-      <div className={store.slideClassName(0)}>
-        {slideTitle('Welcome to your interview!')}
+  render () {
+    return (
+      <div className='pt3 px3 pb2 bg-darken-0'>
+        <WelcomeStep
+          step={0}
+          title=''
+        >
+          <video
+            autoPlay
+            className='block fit my2 border border-gray'
+            controls
+            onClick={this.handleVideoClick}
+            playsInline
+            src='//cf.coderintros.com/interview-tutorial-1.mp4'
+          />
+        </WelcomeStep>
 
-        <video
-          autoPlay
-          className='block fit my2 border border-gray'
-          controls
-          loop
-          onClick={handleVideoClick}
-          playsInline
-          src='//cf.coderintros.com/interview-tutorial-1.mp4'
-        />
-      </div>
-
-      <div className={store.slideClassName(1)}>
-        {slideTitle("What's your full name?")}
-
-        <div>
+        <WelcomeStep
+          step={1}
+          title="What's your full name?"
+        >
           <input
             className='input h3'
             id='welcome-name-input'
-            onChange={postStore.handleNameChange}
-            onKeyDown={handleKeyDown}
+            onChange={this.context.postStore.handleNameChange}
+            onKeyDown={this.handleKeyDown}
             placeholder='Pat Riley'
             type='text'
-            value={postStore.post.name}
+            value={this.context.postStore.post.name}
           />
-        </div>
-      </div>
+        </WelcomeStep>
 
-      <div className={store.slideClassName(2)}>
-        {slideTitle(
-          <div>
-            <span>{'What\'s your email address? '}</span>
-            <span className='h3'>{'(will not be published)'}</span>
-          </div>
-        )}
-
-        <div>
+        <WelcomeStep
+          step={2}
+          title={<div><span>{'What\'s your email address? '}</span><span className='h3'>{'(will not be published)'}</span></div>}
+        >
           <input
             className='input h3'
             id='welcome-email-input'
-            onChange={postStore.handleEmailChange}
-            onKeyDown={handleKeyDown}
+            onChange={this.context.postStore.handleEmailChange}
+            onKeyDown={this.handleKeyDown}
             placeholder='you@domain.com'
             type='email'
-            value={postStore.post.email}
+            value={this.context.postStore.post.email}
           />
-        </div>
-      </div>
+        </WelcomeStep>
 
-      <div className={store.slideClassName(3)}>
-        {slideTitle('How about your current area of residence?')}
-
-        <div>
+        <WelcomeStep
+          step={3}
+          title='How about your current area of residence?'
+        >
           <input
             className='input h3'
             id='welcome-current-location-input'
-            onChange={postStore.handleCurrentLocationChange}
-            onKeyDown={handleKeyDown}
+            onChange={this.context.postStore.handleCurrentLocationChange}
+            onKeyDown={this.handleKeyDown}
             placeholder='Coderville, CA'
             type='text'
-            value={postStore.post.current_location}
+            value={this.context.postStore.post.current_location}
           />
+        </WelcomeStep>
+
+        <WelcomeStep
+          step={4}
+          title=''
+        >
+          <video
+            autoPlay
+            className='block fit my2 border border-gray'
+            controls
+            onClick={this.handleVideoClick}
+            playsInline
+            src='//cf.coderintros.com/interview-tutorial-2.mp4'
+          />
+        </WelcomeStep>
+
+        <div className='flex justify-between'>
+          {this.props.store.showPrevButton ? (
+            <button
+              className='btn btn-primary muted pl1'
+              onClick={this.props.store.handlePrevSlideClick}
+              type='submit'
+            >
+              <LeftArrow />
+              <span className='align-middle'>{'Prev'}</span>
+            </button>
+          ) : <div />}
+
+          {this.props.store.showNextButton ? (
+            <button
+              className='btn btn-primary pr1'
+              id='welcome-next-button'
+              onClick={this.props.store.handleNextSlideClick}
+              type='submit'
+            >
+              <span className='align-middle'>{'Next'}</span>
+              <RightArrow />
+            </button>
+          ) : (
+            <button
+              className='btn btn-primary'
+              id='welcome-submit-button'
+              onClick={this.handleButtonClick}
+              type='submit'
+            >
+              {'Continue'}
+            </button>
+          )}
         </div>
       </div>
-
-      <div className={store.slideClassName(4)}>
-        {slideTitle('Now it\'s time for the good questions...')}
-
-        <video
-          autoPlay
-          className='block fit my2 border border-gray'
-          controls
-          loop
-          onClick={handleVideoClick}
-          playsInline
-          src='//cf.coderintros.com/interview-tutorial-2.mp4'
-        />
-      </div>
-
-      <div className='flex justify-end'>
-        {/*
-        {store.showPrevButton ? (
-          <button
-            className='btn btn-primary pl1'
-            onClick={store.handlePrevSlideClick}
-            type='submit'
-          >
-            <LeftArrow />
-            <span className='align-middle'>{'Prev'}</span>
-          </button>
-        ) : <div />} */}
-
-        {store.showNextButton ? (
-          <button
-            className='btn btn-primary pr1'
-            id='welcome-next-button'
-            onClick={store.handleNextSlideClick}
-            type='submit'
-          >
-            <span className='align-middle'>{'Next'}</span>
-            <RightArrow />
-          </button>
-        ) : (
-          <button
-            className='btn btn-primary'
-            id='welcome-submit-button'
-            onClick={handleButtonClick}
-            type='submit'
-          >
-            {'Continue'}
-          </button>
-        )}
-      </div>
-    </div>
-  )
-})
-
-Welcome.contextTypes = {
-  postStore: MobxReactPropTypes.observableObject
+    )
+  }
 }
-
-Welcome.displayName = 'Welcome'
 
 export default createModal(Welcome, {
   hideCloseButton: true,
