@@ -156,6 +156,7 @@ add_action( 'rest_api_init', function () {
     if ( $request['more_like'] ) {
       $args['more_like'] = $request['more_like'];
       $args['ep_integrate'] = true;
+      $args['has_password'] = false;
     }
     return $args;
   }, 10, 2 );
