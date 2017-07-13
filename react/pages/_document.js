@@ -27,8 +27,10 @@ class Document extends NextDocument {
             name='viewport'
           />
 
-          <script src='https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js' />
-          <script dangerouslySetInnerHTML={{__html: 'WebFont.load({google: {families: ["Lora:400,700", "Overpass:400,800"]}})'}} />
+          <link
+            href='https://fonts.googleapis.com/css?family=Lora:400,700|Overpass:400,800'
+            rel='stylesheet'
+          />
 
           {favicons(siteData.images)}
 
