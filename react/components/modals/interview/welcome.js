@@ -63,7 +63,7 @@ class Welcome extends PureComponent {
         >
           <video
             autoPlay
-            className='block fit my2 border border-gray'
+            className='block fit my2 border border-gray col-12'
             controls
             onClick={this.handleVideoClick}
             playsInline
@@ -76,6 +76,7 @@ class Welcome extends PureComponent {
           title="What's your full name?"
         >
           <input
+            autoFocus
             className='input h3'
             id='welcome-name-input'
             onChange={this.context.postStore.handleNameChange}
@@ -91,6 +92,7 @@ class Welcome extends PureComponent {
           title={<div><span>{'What\'s your email address? '}</span><span className='h3'>{'(will not be published)'}</span></div>}
         >
           <input
+            autoFocus
             className='input h3'
             id='welcome-email-input'
             onChange={this.context.postStore.handleEmailChange}
@@ -106,6 +108,7 @@ class Welcome extends PureComponent {
           title='How about your current area of residence?'
         >
           <input
+            autoFocus
             className='input h3'
             id='welcome-current-location-input'
             onChange={this.context.postStore.handleCurrentLocationChange}
@@ -122,7 +125,7 @@ class Welcome extends PureComponent {
         >
           <video
             autoPlay
-            className='block fit my2 border border-gray'
+            className='block fit my2 border border-gray col-12'
             controls
             onClick={this.handleVideoClick}
             playsInline
