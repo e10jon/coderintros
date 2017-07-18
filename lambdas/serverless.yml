@@ -1,0 +1,13 @@
+service: coderintros
+
+provider:
+  memorySize: 128
+  name: aws
+  profile: serverless
+  runtime: nodejs6.10
+  region: us-west-2
+  stage: prod
+
+functions:
+  hackerNewsSubmit:
+    handler: handler.hackerNewsSubmit
