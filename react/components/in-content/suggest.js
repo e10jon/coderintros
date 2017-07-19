@@ -17,7 +17,7 @@ const Suggest = () => (
       data-ga-on='click'
       style={{
         height: '280px',
-        maxWidth: '560px',
+        maxWidth: '600px',
         textDecoration: 'none'
       }}
     >
