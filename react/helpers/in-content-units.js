@@ -8,12 +8,12 @@ import Newsletter from '../components/in-content/newsletter'
 import Suggest from '../components/in-content/suggest'
 
 const createUnits = (context?: Object) => [
-  <Suggest key='Suggest' />,
   <Newsletter
     formAction={context && context.siteData && context.siteData.mailchimp_newsletter_url}
     frequencyGroup={context && context.siteData && context.siteData.mailchimp_frequency_group}
     key='Newsletter'
-  />
+  />,
+  <Suggest key='Suggest' />
 ]
 
 // after how many chars should we insert a unit?
