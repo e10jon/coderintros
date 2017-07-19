@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b48a142d00ab223e7bc22d4a57b53019",
+    "content-hash": "7d832968c32717cc0361c9e9024ee166",
     "packages": [
         {
             "name": "composer/installers",
@@ -165,23 +165,23 @@
         },
         {
             "name": "google/apiclient",
-            "version": "v2.1.3",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "43996f09df274158fd04fce98e8a82effe5f3717"
+                "reference": "f3fadd538315d62ebd1191d89ac791468c617260"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/43996f09df274158fd04fce98e8a82effe5f3717",
-                "reference": "43996f09df274158fd04fce98e8a82effe5f3717",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/f3fadd538315d62ebd1191d89ac791468c617260",
+                "reference": "f3fadd538315d62ebd1191d89ac791468c617260",
                 "shasum": ""
             },
             "require": {
-                "firebase/php-jwt": "~2.0|~3.0|~4.0",
-                "google/apiclient-services": "^0.11",
-                "google/auth": "^0.11",
-                "guzzlehttp/guzzle": "~5.2|~6.0",
+                "firebase/php-jwt": "~2.0|~3.0|~4.0|~5.0",
+                "google/apiclient-services": "~0.13",
+                "google/auth": "^1.0",
+                "guzzlehttp/guzzle": "~5.3.1|~6.0",
                 "guzzlehttp/psr7": "^1.2",
                 "monolog/monolog": "^1.17",
                 "php": ">=5.4",
@@ -220,20 +220,20 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-03-22T18:32:04+00:00"
+            "time": "2017-07-10T15:34:54+00:00"
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.11",
+            "version": "v0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "48c554aee06f2fd5700d7bdfa4fa6b82d184eb52"
+                "reference": "9eaaa1062fa2a7cd2d16d3b5ab39efc0bc02a37e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/48c554aee06f2fd5700d7bdfa4fa6b82d184eb52",
-                "reference": "48c554aee06f2fd5700d7bdfa4fa6b82d184eb52",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/9eaaa1062fa2a7cd2d16d3b5ab39efc0bc02a37e",
+                "reference": "9eaaa1062fa2a7cd2d16d3b5ab39efc0bc02a37e",
                 "shasum": ""
             },
             "require": {
@@ -257,25 +257,25 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-03-13T17:40:44+00:00"
+            "time": "2017-07-13T19:18:11+00:00"
         },
         {
             "name": "google/auth",
-            "version": "v0.11.1",
+            "version": "v1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-auth-library-php.git",
-                "reference": "a240674b08a09949fd5597f7590b3ed83663a12d"
+                "reference": "db77bd2de0bcc40bf50ebe851e9eed332aeaa4df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-auth-library-php/zipball/a240674b08a09949fd5597f7590b3ed83663a12d",
-                "reference": "a240674b08a09949fd5597f7590b3ed83663a12d",
+                "url": "https://api.github.com/repos/google/google-auth-library-php/zipball/db77bd2de0bcc40bf50ebe851e9eed332aeaa4df",
+                "reference": "db77bd2de0bcc40bf50ebe851e9eed332aeaa4df",
                 "shasum": ""
             },
             "require": {
                 "firebase/php-jwt": "~2.0|~3.0|~4.0",
-                "guzzlehttp/guzzle": "~5.3|~6.0",
+                "guzzlehttp/guzzle": "~5.3.1|~6.0",
                 "guzzlehttp/psr7": "~1.2",
                 "php": ">=5.4",
                 "psr/cache": "^1.0",
@@ -305,7 +305,7 @@
                 "google",
                 "oauth2"
             ],
-            "time": "2016-11-02T14:59:14+00:00"
+            "time": "2017-06-13T18:00:07+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -879,16 +879,16 @@
         },
         {
             "name": "wpackagist-plugin/elasticpress",
-            "version": "2.3",
+            "version": "2.3.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elasticpress/",
-                "reference": "tags/2.3"
+                "reference": "tags/2.3.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elasticpress.2.3.zip",
-                "reference": "tags/2.3",
+                "url": "https://downloads.wordpress.org/plugin/elasticpress.2.3.2.zip",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -899,7 +899,7 @@
         },
         {
             "name": "wpackagist-plugin/fakerpress",
-            "version": "0.4.7",
+            "version": "0.4.8",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/fakerpress/",
@@ -907,8 +907,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/fakerpress.zip?timestamp=1475424579",
-                "reference": "trunk",
+                "url": "https://downloads.wordpress.org/plugin/fakerpress.zip?timestamp=1500400907",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -959,16 +959,16 @@
         },
         {
             "name": "wpackagist-plugin/mailgun",
-            "version": "1.5.8.3",
+            "version": "1.5.8.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/mailgun/",
-                "reference": "tags/1.5.8.3"
+                "reference": "tags/1.5.8.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/mailgun.1.5.8.3.zip",
-                "reference": "tags/1.5.8.3",
+                "url": "https://downloads.wordpress.org/plugin/mailgun.1.5.8.4.zip",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -1039,16 +1039,16 @@
         },
         {
             "name": "wpackagist-plugin/user-role-editor",
-            "version": "4.35",
+            "version": "4.35.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/user-role-editor/",
-                "reference": "tags/4.35"
+                "reference": "tags/4.35.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/user-role-editor.4.35.zip",
-                "reference": "tags/4.35",
+                "url": "https://downloads.wordpress.org/plugin/user-role-editor.4.35.2.zip",
+                "reference": null,
                 "shasum": null
             },
             "require": {
