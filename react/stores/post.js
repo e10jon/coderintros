@@ -22,7 +22,7 @@ const Authorization = `Bearer ${AUTOMATED_JWT_TOKEN}`
 
 const storeKey = 'NewInterview'
 
-export const minResponsesRequired = 10
+export const minResponsesRequired = 15
 
 // helper function to extract an edited value from
 // form elements or contenteditable elements
