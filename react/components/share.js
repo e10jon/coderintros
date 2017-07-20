@@ -74,6 +74,22 @@ const Share = ({description, position, title, url, hackerNewsUrl, redditUrl}: Ob
         </div>
       )}
 
+      {redditUrl && (
+        <div className='inline-block'>
+          <a
+            className={className}
+            href={redditUrl}
+            onClick={handleRedditClick}
+            rel='noopener noreferrer'
+            style={{backgroundColor: '#FF5700'}}
+            target='_blank'
+          >
+            <IoSocialReddit className={iconClassName} />
+            <span className='xs-hide'>{'Vote'}</span>
+          </a>
+        </div>
+      )}
+
       <div className='inline-block'>
         <a
           className={className}
@@ -84,7 +100,6 @@ const Share = ({description, position, title, url, hackerNewsUrl, redditUrl}: Ob
           target='_blank'
         >
           <IoSocialTwitter className={iconClassName} />
-          <span className='xs-hide'>{'Tweet'}</span>
         </a>
       </div>
 
@@ -100,21 +115,6 @@ const Share = ({description, position, title, url, hackerNewsUrl, redditUrl}: Ob
           <IoSocialLinkedin className={iconClassName} />
         </a>
       </div>
-
-      {redditUrl && (
-        <div className='inline-block'>
-          <a
-            className={className}
-            href={redditUrl}
-            onClick={handleRedditClick}
-            rel='noopener noreferrer'
-            style={{backgroundColor: '#FF5700'}}
-            target='_blank'
-          >
-            <IoSocialReddit className={iconClassName} />
-          </a>
-        </div>
-      )}
 
       <div className='inline-block'>
         <a
