@@ -21,9 +21,16 @@ const Suggest = () => (
         textDecoration: 'none'
       }}
     >
-      <div className='col-12 sm-col-7 px3 self-center right-align'>
+      <div
+        className='xs-hide sm-col-5 self-stretch bg-cover bg-top bg-no-repeat bg-center'
+        style={{
+          backgroundImage: 'url(/static/img/in-content/suggest-a-coder-unknown-face.jpg)'
+        }}
+      />
+
+      <div className='col-12 sm-col-7 px3 self-center'>
         <div
-          className='h2 mb2 line-height-3 bold mr0 ml-auto'
+          className='h2 mb2 line-height-3 bold'
           style={{maxWidth: '270px'}}
         >
           {'Do you know someone who would be great for Coder Intros?'}
@@ -35,13 +42,6 @@ const Suggest = () => (
           </span>
         </div>
       </div>
-
-      <div
-        className='xs-hide sm-col-5 self-stretch bg-cover bg-top bg-no-repeat bg-center'
-        style={{
-          backgroundImage: 'url(/static/img/in-content/suggest-a-coder-unknown-face.jpg)'
-        }}
-      />
     </a>
   </Link>
 )

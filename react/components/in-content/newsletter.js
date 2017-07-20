@@ -11,7 +11,14 @@ const Newsletter = ({formAction, frequencyGroup}: {formAction: ?string, frequenc
         maxWidth: '600px'
       }}
     >
-      <div className='col-12 sm-col-7 px3 self-center right-align'>
+      <div
+        className='xs-hide sm-col-4 self-stretch bg-cover bg-top bg-no-repeat bg-center'
+        style={{
+          backgroundImage: 'url(/static/img/in-content/mailbox.jpg)'
+        }}
+      />
+
+      <div className='col-12 sm-col-8 px3 self-center'>
         <div className='h2 mb2 line-height-3 bold'>
           {'Get intros in your inbox'}
         </div>
@@ -47,13 +54,6 @@ const Newsletter = ({formAction, frequencyGroup}: {formAction: ?string, frequenc
           </button>
         </form>
       </div>
-
-      <div
-        className='xs-hide sm-col-5 self-stretch bg-cover bg-top bg-no-repeat bg-left'
-        style={{
-          backgroundImage: 'url(/static/img/in-content/gmail-inbox.png)'
-        }}
-      />
     </div>
   )
 }

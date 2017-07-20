@@ -13,7 +13,7 @@ const createUnits = (context?: Object) => [
     frequencyGroup={context && context.siteData && context.siteData.mailchimp_frequency_group}
     key='Newsletter'
   />,
-  <Suggest key='Suggest' />
+  <Suggest key='suggest' />
 ]
 
 // after how many chars should we insert a unit?
